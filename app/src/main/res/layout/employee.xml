@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="50dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_group_placeholder"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/app_name" />
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/text"
+                android:text="@string/no_data_field" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/course"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/roboto"-->
+<!--                android:textColor="@color/text"-->
+<!--                tools:text="1 курс"-->
+<!--                android:text="@string/no_data_field" />-->
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/departments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="ФКСИС ПОИТ"
+                android:text="@string/no_data_field" />
+
+            <TextView
+                android:id="@+id/education_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:gravity="end"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@string/test_group_type" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

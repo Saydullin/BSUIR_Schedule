@@ -1,0 +1,77 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.BSUIRSchedule" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.BSUIRSchedule.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.ImageButton">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/font_regular_size</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView.Title" parent="Theme.BSUIRSchedule.TextView">
+        <item name="android:textSize">@dimen/font_medium_size</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView.Thin" parent="Theme.BSUIRSchedule.TextView">
+        <item name="android:textSize">@dimen/font_thin_size</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView.Thin.Hint" parent="Theme.BSUIRSchedule.TextView.Thin">
+        <item name="android:textColor">@color/text_dark_hint</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView.Hint" parent="Theme.BSUIRSchedule.TextView">
+        <item name="android:textColor">@color/text_dark_hint</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView.Medium" parent="Theme.BSUIRSchedule.TextView">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.TextView.Medium.Title" parent="Theme.BSUIRSchedule.TextView.Medium">
+        <item name="android:textSize">@dimen/font_medium_size</item>
+    </style>
+
+</resources>
+
+

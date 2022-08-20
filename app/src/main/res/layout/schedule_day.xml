@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="20dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/schedule_day_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/subject_holder"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/schedule_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/on_primary"
+            android:text="@string/test_schedule_day" />
+
+        <TextView
+            android:id="@+id/schedule_week_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/on_primary"
+            android:text="@string/test_schedule_date" />
+
+        <TextView
+            android:id="@+id/schedule_lessons_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/on_primary"
+            android:layout_weight="1"
+            android:text="@string/test_schedule_lessons_amount" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/schedule_no_lessons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:text="@string/schedules_no_lessons" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/schedule_subjects_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp" />
+
+</LinearLayout>
+
+

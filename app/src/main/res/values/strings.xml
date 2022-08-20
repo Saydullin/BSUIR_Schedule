@@ -1,0 +1,166 @@
+<resources>
+    <string name="app_name">BSUIR Schedule</string>
+    <string name="course">курс</string>
+    <string name="week">неделя</string>
+    <string name="exam">Экзамен</string>
+    <string name="consultation">Консультация</string>
+    <string name="lecture">Лекция</string>
+    <string name="practise">Практика</string>
+    <string name="laboratory">Лабораторная</string>
+    <string name="info_dialog_title">Внимание</string>
+    <string name="update">Обновить</string>
+    <string name="delete">Удалить</string>
+    <string name="last_update">Было обновлено %s</string>
+
+    <!--  Content Descriptions  -->
+    <string name="cd_schedule_list" translatable="false">Schedule list</string>
+    <string name="cd_no_content" translatable="false">no content</string>
+    <string name="cd_subject_type" translatable="false">subject type</string>
+    <string name="cd_exams" translatable="false">exams</string>
+    <string name="cd_schedule_subgroup" translatable="false">Schedule Subgroup</string>
+    <string name="cd_last_update" translatable="false">last update</string>
+    <string name="cd_filter" translatable="false">filter asc or desc</string>
+    <string name="cd_filter_search" translatable="false">search input</string>
+    <string name="cd_logo_icon" translatable="false">logo icon</string>
+    <string name="cd_error_icon" translatable="false">error icon</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="test_schedule_title" translatable="false">Степанова Татьяна Сергеевна</string>
+    <string name="test_schedule_subtitle" translatable="false">к.ф.-м.н. доцент</string>
+    <string name="test_schedule_date" translatable="false">Понедельник</string>
+    <string name="test_schedule_lessons_amount" translatable="false">4 пары</string>
+    <string name="test_schedule_day" translatable="false">Сегодня</string>
+    <string name="test_subject_title" translatable="false">Физика</string>
+    <string name="test_subject_subtitle" translatable="false">151005</string>
+    <string name="test_group_spDep" translatable="false">ФИТУ ИИ</string>
+    <string name="test_group_course" translatable="false">1 курс</string>
+    <string name="test_group_type" translatable="false">дневная</string>
+    <string name="test_group_update" translatable="false">20 августа</string>
+    <string name="test_subject_employee_name" translatable="false">Преподаватель</string>
+    <string name="test_subject_break_time" translatable="false">14 минут</string>
+    <string name="test_subject_time" translatable="false">09:00 — 10:20</string>
+    <string name="test_subject_note" translatable="false">Примечание, только до 21 августа</string>
+    <string name="test_header_title" translatable="false">1 неделя</string>
+    <string name="controls_settings">Настройки расписание</string>
+    <string name="schedules_list_title">Мои расписания</string>
+    <string name="no_teacher_title">Преподаватель не указан</string>
+    <string name="no_group_title">Группа не указана</string>
+    <string name="schedules_all_list_title">Все расписания</string>
+    <string name="schedules_no_lessons">Нет занятий</string>
+    <string name="tab_item_group">Группы</string>
+    <string name="tab_item_employee">Преподаватели</string>
+    <string name="no_data_field">Не указано</string>
+    <string name="subject_break_time_or">или</string>
+    <string name="search_placeholder">Поиск</string>
+    <string name="loading_dots">загружается ...</string>
+    <string name="popup_update">Обновить</string>
+    <string name="popup_more">Дополнительно</string>
+    <string name="popup_delete">Удалить</string>
+    <string name="all_subgroups">Для всей группы</string>
+    <string name="subgroup">Для %d подгруппы</string>
+    <string name="subject_time">с %s до %s</string>
+    <string name="subject_weeks">на %s нед.</string>
+    <string name="subject_note">Примечание: %s</string>
+    <string name="exams">Экзамены</string>
+
+    <!--  Errors  -->
+    <string name="data_error">Ошибка обработки данных</string>
+    <string name="data_error_caption">Попробуйте обновить данные</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="server_error_caption">Попробуйте позже</string>
+    <string name="connection_error">Ошибка соединения</string>
+    <string name="connection_error_caption">Проверьте подключение к интернету</string>
+    <string name="update_error">Данные не найдены</string>
+    <string name="update_error_caption">Загрузите данные заново или подключитесь к интернету, чтобы данные загрузились автоматически</string>
+    <string name="database_not_found_error">Данные не найдены</string>
+    <string name="database_not_found_error_caption">Попробуйте загрузить их заново.</string>
+    <string name="database_error">Ошибка базы данных</string>
+    <string name="database_error_caption">Попробуйте очистить данные приложения в настройках</string>
+    <string name="system_error">Системная ошибка</string>
+    <string name="system_error_caption">Переустановите приложение</string>
+    <string name="no_error">Нет ошибки</string>
+    <string name="no_error_caption">Операция выполнена успешно</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="unknown_error_caption">Что ж ...</string>
+    <string name="success_dialog_title">Успешно</string>
+    <string name="success_dialog_caption">Операция выполнена успешно</string>
+
+    <string name="load">Загрузка</string>
+    <string name="load_caption">Пожалуйста, подождите</string>
+
+    <string name="load_schedule">Загрузка расписания</string>
+    <string name="load_schedule_caption">Пожалуйста, подождите</string>
+
+    <!--  Shared Preferences  -->
+    <string name="preference_file_name" translatable="false">my_app</string>
+    <string name="preference_is_first_time" translatable="false">is_first_time</string>
+    <string name="active_schedule_id" translatable="false">active_schedule_id</string>
+    <string name="no_content">Нет контента</string>
+
+    <plurals name="plural_groups">
+        <item quantity="zero">найдено %d групп</item>
+        <item quantity="one">найдена %d группа</item>
+        <item quantity="two">найдены %d группы</item>
+        <item quantity="few">найдены %d группы</item>
+        <item quantity="many">найдено %d групп</item>
+        <item quantity="other">найдены %d группы</item>
+    </plurals>
+
+    <plurals name="plural_schedules">
+        <item quantity="zero">найдено %d расписаний</item>
+        <item quantity="one">найдено %d расписание</item>
+        <item quantity="two">найдено %d расписания</item>
+        <item quantity="few">найдено %d расписания</item>
+        <item quantity="many">найдено %d расписаний</item>
+        <item quantity="other">найдено %d расписания</item>
+    </plurals>
+
+    <plurals name="plural_employees">
+        <item quantity="zero">найдено %d преподавателей</item>
+        <item quantity="one">найден %d преподаватель</item>
+        <item quantity="two">найдены %d преподавателя</item>
+        <item quantity="few">найдено %d преподавателя</item>
+        <item quantity="many">найдено %d преподавателей</item>
+        <item quantity="other">найдены %d преподавателя</item>
+    </plurals>
+
+    <plurals name="plural_exams">
+        <item quantity="zero">%d экзаменов</item>
+        <item quantity="one">%d экзамен</item>
+        <item quantity="two">%d экзамена</item>
+        <item quantity="few">%d экзаменов</item>
+        <item quantity="many">%d экзаменов</item>
+        <item quantity="other">%d экзамена</item>
+    </plurals>
+
+    <plurals name="plural_lessons">
+        <item quantity="zero">%d пар</item>
+        <item quantity="one">%d пара</item>
+        <item quantity="two">%d пары</item>
+        <item quantity="few">%d пары</item>
+        <item quantity="many">%d пар</item>
+        <item quantity="other">%d пары</item>
+    </plurals>
+
+    <plurals name="plural_hours">
+        <item quantity="zero">%d часов</item>
+        <item quantity="one">%d час</item>
+        <item quantity="two">%d часа</item>
+        <item quantity="few">%d часа</item>
+        <item quantity="many">%d часов</item>
+        <item quantity="other">%d часа</item>
+    </plurals>
+
+    <plurals name="plural_minutes">
+        <item quantity="zero">%d минут</item>
+        <item quantity="one">%d минута</item>
+        <item quantity="two">%d минуты</item>
+        <item quantity="few">%d минут</item>
+        <item quantity="many">%d минут</item>
+        <item quantity="other">%d минут</item>
+    </plurals>
+
+</resources>
+
+

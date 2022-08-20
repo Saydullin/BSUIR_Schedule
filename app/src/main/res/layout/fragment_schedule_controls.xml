@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/primary"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="20dp"
+    tools:context=".presentation.fragments.ScheduleControlsFragment">
+
+    <ImageButton
+        style="@style/Theme.BSUIRSchedule.ImageButton"
+        android:id="@+id/search_button"
+        android:contentDescription="@string/cd_schedule_subgroup"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_filter" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <ImageButton
+        style="@style/Theme.BSUIRSchedule.ImageButton"
+        android:id="@+id/subgroup_button"
+        android:contentDescription="@string/cd_schedule_subgroup"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_tune" />
+
+</LinearLayout>
+
+

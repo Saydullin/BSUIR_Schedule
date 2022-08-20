@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_marginVertical="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/search_button"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:src="@drawable/ic_search"
+            android:contentDescription="@string/cd_filter_search" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="15dp"
+            android:inputType="text"
+            android:autofillHints="name"
+            android:hint="@string/search_placeholder"
+            android:textColor="@color/text"
+            android:textColorHighlight="@color/text_hint"
+            android:textSize="@dimen/font_medium_size"
+            android:backgroundTint="@color/text_hint"
+            android:textCursorDrawable="@drawable/edit_text_cursor"
+            android:labelFor="@+id/search_button" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/filter_sort"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:src="@drawable/ic_filter"
+            android:contentDescription="@string/cd_filter" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/filter_amount"
+            style="@style/Theme.BSUIRSchedule.TextView.Hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="найдено 428 групп" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

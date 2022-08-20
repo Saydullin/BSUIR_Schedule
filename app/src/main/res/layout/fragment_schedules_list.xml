@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".presentation.fragments.SchedulesListFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="15dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/cancel_button"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_schedule_list" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/schedules_list_title"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/text_primary"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/add_schedule_button"
+            android:src="@drawable/ic_add"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_schedule_list" />
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/saved_items_recycler_fragment"
+        android:name="com.example.bsuirschedule.presentation.fragments.ScheduleSavedItemsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_schedule_saved_items" />
+
+</LinearLayout>
+
+

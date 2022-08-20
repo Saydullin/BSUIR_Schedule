@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BSUIR Schedule</string>
+    <string name="course">course</string>
+    <string name="week">week</string>
+    <string name="lecture">Lecture</string>
+    <string name="practise">Practise</string>
+    <string name="laboratory">Laboratory</string>
+    <string name="info_dialog_title">Warning</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="last_update">Was updated at %s</string>
+    <string name="controls_settings">Schedule settings</string>
+    <string name="schedules_list_title">My schedules</string>
+    <string name="no_teacher_title">Teacher not listed</string>
+    <string name="no_group_title">Group not listed</string>
+    <string name="schedules_all_list_title">All schedules</string>
+    <string name="schedules_no_lessons">No lessons</string>
+    <string name="tab_item_group">Groups</string>
+    <string name="tab_item_employee">Teachers</string>
+    <string name="no_data_field">Not listed</string>
+    <string name="subject_break_time_or">or</string>
+    <string name="search_placeholder">Search</string>
+    <string name="loading_dots">loading ...</string>
+    <string name="popup_update">Update</string>
+    <string name="popup_more">More</string>
+    <string name="popup_delete">Delete</string>
+    <string name="all_subgroups">For all group</string>
+    <string name="subgroup">For %d subgroup</string>
+    <string name="subject_time">from %s to %s</string>
+    <string name="subject_weeks">on %s weeks</string>
+    <string name="subject_note">Note: %s</string>
+    <string name="data_error">Data processing error</string>
+    <string name="data_error_caption">Try to update data</string>
+    <string name="server_error">Server error</string>
+    <string name="server_error_caption">Try later</string>
+    <string name="connection_error">Connection error</string>
+    <string name="connection_error_caption">Check your internet connection</string>
+    <string name="update_error">Data not found</string>
+    <string name="update_error_caption">Load data or connect to internet to automaticcally load data</string>
+    <string name="database_not_found_error">Data not found</string>
+    <string name="database_not_found_error_caption">Try to load data again/</string>
+    <string name="database_error">Database error</string>
+    <string name="database_error_caption">Try to clear app data in settings or reinstall app</string>
+    <string name="system_error">System error</string>
+    <string name="system_error_caption">Reinstall your app</string>
+    <string name="no_error">No error</string>
+    <string name="no_error_caption">Operation completed successfully</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_error_caption">Well ...</string>
+    <string name="success_dialog_title">Success</string>
+    <string name="no_content">No content</string>
+    <string name="success_dialog_caption">Operation completed successfully</string>
+    <string name="load">Loading</string>
+    <string name="load_caption">Please, wait</string>
+    <string name="load_schedule">Schedule loading</string>
+    <string name="load_schedule_caption">Please, wait</string>
+
+    <plurals name="plural_groups">
+        <item quantity="zero">found %d groups</item>
+        <item quantity="one">found %d group</item>
+        <item quantity="two">found %d groups</item>
+        <item quantity="few">found %d groups</item>
+        <item quantity="many">found %d groups</item>
+        <item quantity="other">found %d groups</item>
+    </plurals>
+
+    <plurals name="plural_schedules">
+        <item quantity="zero">found %d schedules</item>
+        <item quantity="one">found %d schedule</item>
+        <item quantity="two">found %d schedules</item>
+        <item quantity="few">found %d schedules</item>
+        <item quantity="many">found %d schedules</item>
+        <item quantity="other">found %d schedules</item>
+    </plurals>
+
+    <plurals name="plural_employees">
+        <item quantity="zero">found %d teachers</item>
+        <item quantity="one">found %d teacher</item>
+        <item quantity="two">found %d teachers</item>
+        <item quantity="few">found %d teachers</item>
+        <item quantity="many">found %d teachers</item>
+        <item quantity="other">found %d teachers</item>
+    </plurals>
+
+    <plurals name="plural_lessons">
+        <item quantity="zero">%d lessons</item>
+        <item quantity="one">%d lesson</item>
+        <item quantity="two">%d lessons</item>
+        <item quantity="few">%d lessons</item>
+        <item quantity="many">%d lessons</item>
+        <item quantity="other">%d lessons</item>
+    </plurals>
+
+    <plurals name="plural_hours">
+        <item quantity="zero">%d hours</item>
+        <item quantity="one">%d hour</item>
+        <item quantity="two">%d hours</item>
+        <item quantity="few">%d hours</item>
+        <item quantity="many">%d hours</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+
+    <plurals name="plural_minutes">
+        <item quantity="zero">%d minutes</item>
+        <item quantity="one">%d minute</item>
+        <item quantity="two">%d minutes</item>
+        <item quantity="few">%d minutes</item>
+        <item quantity="many">%d minutes</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <string name="exams">Exams</string>
+
+</resources>

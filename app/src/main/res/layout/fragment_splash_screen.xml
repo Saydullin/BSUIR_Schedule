@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_screen"
+    android:gravity="bottom|center"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.SplashScreenFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
+        android:text="Добро Пожаловать"/>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
+
+</LinearLayout>
+
+

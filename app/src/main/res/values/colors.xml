@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#0984E3</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_holder">#dfe6e9</color>
+    <color name="light_danger">#ff7675</color>
+    <color name="danger">#d63031</color>
+    <color name="text_hint">#dfe6e9</color>
+    <color name="text_dark_hint">#636e72</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text">#2d3436</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="subject_exam">#FF000000</color>
+    <color name="subject_consultation">#0984e3</color>
+    <color name="subject_lecture">#00b894</color>
+    <color name="subject_practise">#fdcb6e</color>
+    <color name="subject_lab">#d63031</color>
+
+</resources>

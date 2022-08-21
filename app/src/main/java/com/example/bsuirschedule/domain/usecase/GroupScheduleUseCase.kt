@@ -8,7 +8,8 @@ import com.example.bsuirschedule.domain.utils.Resource
 class GroupScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
     private val groupItemsRepository: GroupItemsRepository,
-    private val fullScheduleUseCase: FullScheduleUseCase
+    private val fullScheduleUseCase: FullScheduleUseCase,
+    private val examsScheduleUseCase: FullExamsScheduleUseCase
 ) {
 
     suspend fun getGroupScheduleAPI(groupName: String): Resource<GroupSchedule> {
@@ -81,6 +82,10 @@ class GroupScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
+                    if (data.exams?.isNotEmpty() == true) {
+                        val examsSchedule = examsScheduleUseCase.getSchedule(data.exams)
+                        data.examsSchedule = examsSchedule
+                    }
                     Resource.Success(data)
                 }
                 is Resource.Error -> {

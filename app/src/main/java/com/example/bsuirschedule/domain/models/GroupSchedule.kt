@@ -13,7 +13,8 @@ data class GroupSchedule (
     @SerializedName("employeeDto") val employee: EmployeeSubject?,
     val subgroups: List<Int>?,
     val schedules: GroupScheduleWeek,
-    val exams: ArrayList<ScheduleSubject>,
+    val exams: ArrayList<ScheduleSubject>?,
+    var examsSchedule: ArrayList<ScheduleDay>? = ArrayList(),
     val selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
 
@@ -28,6 +29,7 @@ data class GroupSchedule (
             employee = EmployeeSubject.empty,
             subgroups = ArrayList(),
             exams = ArrayList(),
+            examsSchedule = ArrayList(),
             schedules = GroupScheduleWeek.empty
         )
     }
@@ -47,7 +49,7 @@ data class GroupSchedule (
         endExamsDate = endExamsDate ?: "",
         subgroups = subgroups ?: ArrayList(),
         schedules = schedules.toGroupScheduleWeekTable(),
-        exams = exams,
+        exams = exams ?: ArrayList(),
         selectedSubgroup = selectedSubgroup
     )
 
@@ -61,7 +63,8 @@ data class GroupSchedule (
         employee = employee ?: EmployeeSubject.empty,
         isGroup = group?.id == -1,
         subgroups = subgroups ?: listOf(),
-        exams = exams,
+        exams = exams ?: ArrayList(),
+        examsSchedule = examsSchedule ?: ArrayList(),
         schedules = ArrayList(),
     )
 

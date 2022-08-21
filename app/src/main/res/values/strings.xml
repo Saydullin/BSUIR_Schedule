@@ -50,6 +50,8 @@
     <string name="schedules_no_lessons">Нет занятий</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>
+    <string name="tab_item_schedule">Расписание</string>
+    <string name="tab_item_exams">Экзамены</string>
     <string name="no_data_field">Не указано</string>
     <string name="subject_break_time_or">или</string>
     <string name="search_placeholder">Поиск</string>
@@ -129,7 +131,7 @@
         <item quantity="zero">%d экзаменов</item>
         <item quantity="one">%d экзамен</item>
         <item quantity="two">%d экзамена</item>
-        <item quantity="few">%d экзаменов</item>
+        <item quantity="few">%d экзамена</item>
         <item quantity="many">%d экзаменов</item>
         <item quantity="other">%d экзамена</item>
     </plurals>

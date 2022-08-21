@@ -106,16 +106,6 @@
 
             </LinearLayout>
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/schedule_exams_button"-->
-<!--                style="@style/Theme.BSUIRSchedule.ImageButton"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:visibility="gone"-->
-<!--                android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--                android:contentDescription="@string/cd_exams"-->
-<!--                android:src="@drawable/ic_flag" />-->
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -109,6 +109,7 @@ class ScheduleManager {
             isGroup = schedule.group.id != -1,
             subgroups = subgroups,
             exams = schedule.exams,
+            examsSchedule = schedule.examsSchedule,
             schedules = ArrayList()
         )
 

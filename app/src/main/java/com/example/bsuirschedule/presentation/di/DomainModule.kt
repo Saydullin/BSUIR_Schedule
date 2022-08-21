@@ -9,7 +9,8 @@ val domainModule = module {
         GroupScheduleUseCase(
             scheduleRepository = get(),
             groupItemsRepository = get(),
-            fullScheduleUseCase = get()
+            fullScheduleUseCase = get(),
+            examsScheduleUseCase = get()
         )
     }
 

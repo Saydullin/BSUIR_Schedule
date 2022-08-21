@@ -28,7 +28,7 @@ class ActiveScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentActiveScheduleBinding.inflate(inflater)
-        var activeSchedule: SavedSchedule? = null // FIXME Shared Prefs
+        var activeSchedule: SavedSchedule? = null // FIXME
 
         binding.exam.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_to_examsScheduleFragment)
@@ -37,9 +37,6 @@ class ActiveScheduleFragment : Fragment() {
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
             activeSchedule = schedule.toSavedSchedule()
-            if (schedule.exams.isNotEmpty()) {
-                binding.exam.visibility = View.VISIBLE
-            }
 
             if (schedule.isGroup == true) {
                 val group = schedule.group

@@ -59,7 +59,7 @@
     <LinearLayout
         android:id="@+id/main_schedule_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.fragment.app.FragmentContainerView
@@ -71,12 +71,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/schedule_recycler_fragment"
-            tools:layout="@layout/fragment_schedule_recycler"
-            android:name="com.example.bsuirschedule.presentation.fragments.ScheduleRecyclerFragment"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/schedule_items_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/schedule_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+<!--        <androidx.fragment.app.FragmentContainerView-->
+<!--            android:id="@+id/schedule_recycler_fragment"-->
+<!--            tools:layout="@layout/fragment_schedule_recycler"-->
+<!--            android:name="com.example.bsuirschedule.presentation.fragments.ScheduleRecyclerFragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
 
     </LinearLayout>
 

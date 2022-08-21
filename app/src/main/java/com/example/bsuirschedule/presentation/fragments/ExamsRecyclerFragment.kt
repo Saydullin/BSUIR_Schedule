@@ -33,12 +33,14 @@ class ExamsRecyclerFragment : Fragment() {
         val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog, true)
 
         groupScheduleVM.examsScheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
-            adapter.updateSchedule(groupSchedule.schedules)
-            adapter.isGroupSchedule = groupSchedule.isGroup ?: false
-            binding.scheduleDailyRecycler.adapter = adapter
-            binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
-            binding.scheduleDailyRecycler.alpha = 0f
-            binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
+            if (groupSchedule != null) {
+                adapter.updateSchedule(groupSchedule.examsSchedule)
+                adapter.isGroupSchedule = groupSchedule.isGroup ?: false
+                binding.scheduleDailyRecycler.adapter = adapter
+                binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+                binding.scheduleDailyRecycler.alpha = 0f
+                binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
+            }
         }
 
         return binding.root

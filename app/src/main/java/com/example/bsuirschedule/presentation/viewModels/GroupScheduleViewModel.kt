@@ -25,7 +25,7 @@ class GroupScheduleViewModel(
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
     private val schedule = MutableLiveData(Schedule.empty)
-    private val examsSchedule = MutableLiveData(Schedule.empty)
+    private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
     val scheduleStatus = schedule
     val examsScheduleStatus = examsSchedule
@@ -135,16 +135,6 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun getExamsSchedule() {
-        if (schedule.value?.exams?.isEmpty() == true) return
-        val scheduleExams = schedule.value?.exams!!
-
-        val exams = examsScheduleUseCase.getSchedule(scheduleExams)
-        val scheduleInit = Schedule.empty
-        scheduleInit.schedules = exams
-        examsSchedule.value = scheduleInit
-    }
-
     private suspend fun saveGroupSchedule(groupSchedule: GroupSchedule) {
         when (
             val saveResponse = groupScheduleUseCase.saveSchedule(groupSchedule)
@@ -178,7 +168,6 @@ class GroupScheduleViewModel(
     }
 
     fun getScheduleById(scheduleId: Int) {
-        Log.e("sady", "called getScheduleById ")
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 when (
@@ -191,6 +180,11 @@ class GroupScheduleViewModel(
                         ) {
                             is Resource.Success -> {
                                 schedule.postValue(fullSchedule.data)
+                                if (fullSchedule.data?.exams?.isNotEmpty() == true) {
+                                    examsSchedule.postValue(fullSchedule.data)
+                                } else {
+                                    examsSchedule.postValue(null)
+                                }
                             }
                             is Resource.Error -> {
                                 schedule.postValue(Schedule.empty)

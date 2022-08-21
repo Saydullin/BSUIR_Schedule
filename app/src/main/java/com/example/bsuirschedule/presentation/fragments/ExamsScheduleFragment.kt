@@ -21,8 +21,6 @@ class ExamsScheduleFragment : Fragment() {
     ): View {
         val binding = FragmentExamsScheduleBinding.inflate(inflater)
 
-        groupSchedule.getExamsSchedule()
-
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_fromExams_to_mainScheduleFragment)
         }

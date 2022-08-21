@@ -14,6 +14,7 @@ data class Schedule (
     val subgroups: List<Int>,
     val isGroup: Boolean?,
     var exams: ArrayList<ScheduleSubject>,
+    var examsSchedule: ArrayList<ScheduleDay>,
     var schedules: ArrayList<ScheduleDay>,
     val selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
@@ -30,6 +31,7 @@ data class Schedule (
             subgroups = listOf(),
             isGroup = null,
             exams = ArrayList(),
+            examsSchedule = ArrayList(),
             schedules = ArrayList(),
             selectedSubgroup = 0
         )

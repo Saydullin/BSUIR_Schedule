@@ -37,6 +37,8 @@ data class Schedule (
         )
     }
 
+    fun isNotEmpty() = id != -1
+
     fun toSavedSchedule() = SavedSchedule(
         id = id,
         employee = employee.toEmployee(),

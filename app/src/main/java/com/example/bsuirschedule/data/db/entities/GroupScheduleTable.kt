@@ -19,7 +19,7 @@ data class GroupScheduleTable (
     @ColumnInfo val selectedSubgroup: Int,
     @TypeConverters(IntListConverter::class) val subgroups: List<Int>,
     @TypeConverters(ScheduleSubjectsConverter::class) val exams: ArrayList<ScheduleSubject>,
-    @TypeConverters(ScheduleDaysConverter::class) val schedules: GroupScheduleWeekTable
+    @TypeConverters(ScheduleDaysConverter::class) val schedules: GroupScheduleWeekTable?
 ) {
 
     fun toGroupSchedule() = GroupSchedule(
@@ -31,7 +31,7 @@ data class GroupScheduleTable (
         group = group.toGroup(),
         employee = employee.toEmployeeSubject(),
         subgroups = subgroups,
-        schedules = schedules.toGroupScheduleWeek(),
+        schedules = schedules?.toGroupScheduleWeek(),
         exams = exams,
         selectedSubgroup = selectedSubgroup
     )

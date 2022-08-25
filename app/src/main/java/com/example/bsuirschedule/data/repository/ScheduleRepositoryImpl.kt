@@ -1,6 +1,7 @@
 package com.example.bsuirschedule.data.repository
 
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.example.bsuirschedule.api.RetrofitBuilder
 import com.example.bsuirschedule.api.services.GetGroupScheduleService
 import com.example.bsuirschedule.data.db.dao.GroupScheduleDao
@@ -19,6 +20,7 @@ class ScheduleRepositoryImpl(
             val result = groupScheduleService.getGroupSchedule(groupName)
             val data = result.body()
             return if (result.isSuccessful && data != null) {
+                Log.e("sady", "Successfully loaded")
                 Resource.Success(data)
             } else {
                 Resource.Error(

@@ -1,5 +1,6 @@
 package com.example.bsuirschedule.domain.usecase
 
+import android.util.Log
 import com.example.bsuirschedule.domain.models.Group
 import com.example.bsuirschedule.domain.models.GroupSchedule
 import com.example.bsuirschedule.domain.models.Schedule

@@ -39,6 +39,17 @@ class GroupScheduleViewModel(
         activeSchedule.value = null
     }
 
+    fun selectSchedule(savedSchedule: SavedSchedule) {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.e("sady", "1 - ${savedSchedule.id == activeSchedule.value?.id}, 2 - ${schedule.value?.isNotEmpty() == true}, id - ${activeSchedule.value?.id}")
+            if (savedSchedule.id == activeSchedule.value?.id &&
+                schedule.value?.isNotEmpty() == true) {
+                return@launch
+            }
+            getScheduleById(savedSchedule.id)
+        }
+    }
+
     fun closeError() {
         error.value = null
     }
@@ -167,7 +178,7 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun getScheduleById(scheduleId: Int) {
+    private fun getScheduleById(scheduleId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 when (
@@ -179,8 +190,10 @@ class GroupScheduleViewModel(
                             val fullSchedule = groupScheduleUseCase.getFullSchedule(data)
                         ) {
                             is Resource.Success -> {
-                                schedule.postValue(fullSchedule.data)
-                                if (fullSchedule.data?.exams?.isNotEmpty() == true) {
+                                val scheduleData = fullSchedule.data
+                                schedule.postValue(scheduleData)
+                                activeSchedule.postValue(scheduleData?.toSavedSchedule())
+                                if (fullSchedule.data?.examsSchedule?.isNotEmpty() == true) {
                                     examsSchedule.postValue(fullSchedule.data)
                                 } else {
                                     examsSchedule.postValue(null)
@@ -200,6 +213,7 @@ class GroupScheduleViewModel(
                     }
                     is Resource.Error -> {
                         schedule.postValue(Schedule.empty)
+                        Log.e("sady", "Error on GroupScheduleViewModel (214) - ${result.message}")
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
                             type = result.errorType,

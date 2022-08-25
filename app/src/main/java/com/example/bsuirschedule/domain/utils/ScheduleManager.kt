@@ -15,12 +15,12 @@ class ScheduleManager {
         val schedule = groupSchedule.toSchedule()
 
         val scheduleDays = listOf(
-            groupSchedule.schedules.monday,
-            groupSchedule.schedules.tuesday,
-            groupSchedule.schedules.wednesday,
-            groupSchedule.schedules.thursday,
-            groupSchedule.schedules.friday,
-            groupSchedule.schedules.saturday,
+            groupSchedule.schedules?.monday ?: ArrayList(),
+            groupSchedule.schedules?.tuesday ?: ArrayList(),
+            groupSchedule.schedules?.wednesday ?: ArrayList(),
+            groupSchedule.schedules?.thursday ?: ArrayList(),
+            groupSchedule.schedules?.friday ?: ArrayList(),
+            groupSchedule.schedules?.saturday ?: ArrayList(),
         )
 
         scheduleDays.forEachIndexed { index, scheduleDay ->
@@ -29,8 +29,8 @@ class ScheduleManager {
                     date = calendarDate.getIncDate(index),
                     weekDayName = calendarDate.getWeekDayName(),
                     weekDayNumber = index + 1,
-                    schedule = scheduleDay ?: ArrayList(),
-                    lessonsAmount = scheduleDay?.size ?: 0
+                    schedule = scheduleDay,
+                    lessonsAmount = scheduleDay.size
                 )
             )
         }
@@ -40,16 +40,16 @@ class ScheduleManager {
 
     fun mergeGroupsSubjects(groupSchedule: GroupSchedule, groupItems: ArrayList<Group>) {
         val days = listOf(
-            groupSchedule.schedules.monday,
-            groupSchedule.schedules.tuesday,
-            groupSchedule.schedules.wednesday,
-            groupSchedule.schedules.thursday,
-            groupSchedule.schedules.friday,
-            groupSchedule.schedules.saturday
+            groupSchedule.schedules?.monday ?: ArrayList(),
+            groupSchedule.schedules?.tuesday ?: ArrayList(),
+            groupSchedule.schedules?.wednesday ?: ArrayList(),
+            groupSchedule.schedules?.thursday ?: ArrayList(),
+            groupSchedule.schedules?.friday ?: ArrayList(),
+            groupSchedule.schedules?.saturday ?: ArrayList()
         )
 
         days.map { day ->
-            day?.map { subject ->
+            day.map { subject ->
                 val groups = ArrayList<Group>()
                 subject.subjectGroups?.map { subjectGroup ->
                     val groupItem = groupItems.find { it.name == subjectGroup.name }
@@ -90,6 +90,9 @@ class ScheduleManager {
     }
 
     fun getFullScheduleModel(schedule: Schedule): Schedule {
+        if (schedule.schedules.isEmpty()) {
+            return Schedule.empty
+        }
         val currentWeek = 3
         var i = 0
         var weekAmount = currentWeek

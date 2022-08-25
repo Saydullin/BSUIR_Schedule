@@ -88,10 +88,10 @@ class EmployeeScheduleUseCase(
         }
     }
 
-    suspend fun getScheduleById(groupId: Int): Resource<GroupSchedule> {
+    suspend fun getScheduleById(employeeId: Int): Resource<GroupSchedule> {
         return try {
             when (
-                val result = scheduleRepository.getScheduleById(groupId)
+                val result = scheduleRepository.getScheduleById(employeeId)
             ) {
                 is Resource.Success -> {
                     val data = result.data!!

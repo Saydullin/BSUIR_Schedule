@@ -1,6 +1,7 @@
 package com.example.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,14 +49,7 @@ class ScheduleSavedItemsFragment : Fragment() {
         dialog.isCancelable = false
 
         val getGroupScheduleLambda = { savedSchedule: SavedSchedule ->
-            if (savedScheduleVM.activeScheduleStatus.value?.id != savedSchedule.id) {
-                if (savedSchedule.isGroup) {
-                    groupScheduleVM.getScheduleById(savedSchedule.group.id)
-                } else {
-                    groupScheduleVM.getScheduleById(savedSchedule.employee.id)
-                }
-                savedScheduleVM.setActiveSchedule(savedSchedule)
-            }
+            groupScheduleVM.selectSchedule(savedSchedule)
             Navigation.findNavController(binding.root).navigate(R.id.action_to_main_schedules)
         }
 

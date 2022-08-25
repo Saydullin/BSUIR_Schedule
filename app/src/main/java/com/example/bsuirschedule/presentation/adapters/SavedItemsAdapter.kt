@@ -1,6 +1,7 @@
 package com.example.bsuirschedule.presentation.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +47,6 @@ class SavedItemsAdapter(
                 binding.nestedGroup.educationType.text = employee.getShortDepartmentsAbbr()
                 binding.nestedGroup.departments.text = employee.getDegreeAndRank()
             }
-//            if (schedule.lastUpdate != "") {
-//                binding.lastUpdate.visibility = View.VISIBLE
-//                binding.lastUpdate.text = schedule.lastUpdate
-//            }
 
             binding.root.setOnClickListener {
                 saveScheduleLambda(schedule)

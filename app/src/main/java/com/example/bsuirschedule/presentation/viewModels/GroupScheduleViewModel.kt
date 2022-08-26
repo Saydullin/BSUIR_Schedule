@@ -186,11 +186,13 @@ class GroupScheduleViewModel(
                 ) {
                     is Resource.Success -> {
                         val data = result.data!!
+                        Log.e("sady", "data got, employee - ${data.employee} || ${data.group}")
                         when (
                             val fullSchedule = groupScheduleUseCase.getFullSchedule(data)
                         ) {
                             is Resource.Success -> {
                                 val scheduleData = fullSchedule.data
+                                Log.e("sady", "then data, isGroup - ${scheduleData?.isGroup}, employee - ${scheduleData?.employee} || ${scheduleData?.group}")
                                 schedule.postValue(scheduleData)
                                 activeSchedule.postValue(scheduleData?.toSavedSchedule())
                                 if (fullSchedule.data?.examsSchedule?.isNotEmpty() == true) {
@@ -213,7 +215,6 @@ class GroupScheduleViewModel(
                     }
                     is Resource.Error -> {
                         schedule.postValue(Schedule.empty)
-                        Log.e("sady", "Error on GroupScheduleViewModel (214) - ${result.message}")
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
                             type = result.errorType,

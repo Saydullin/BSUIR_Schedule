@@ -38,7 +38,7 @@ class ActiveScheduleFragment : Fragment() {
             if (schedule == null) return@observe
             activeSchedule = schedule.toSavedSchedule()
 
-            if (schedule.isGroup == true) {
+            if (schedule.isGroup()) {
                 val group = schedule.group
                 val courseText = getString(R.string.course)
                 Glide.with(binding.scheduleImage)

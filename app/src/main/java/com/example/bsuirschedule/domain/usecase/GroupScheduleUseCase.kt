@@ -84,8 +84,7 @@ class GroupScheduleUseCase(
                 is Resource.Success -> {
                     val data = result.data!!
                     if (data.exams?.isNotEmpty() == true) {
-                        val exams = data.exams.toMutableList() as ArrayList // TODO make here
-                        val examsSchedule = examsScheduleUseCase.getSchedule(exams)
+                        val examsSchedule = examsScheduleUseCase.getSchedule(data.exams)
                         data.examsSchedule = examsSchedule
                     }
                     Resource.Success(data)

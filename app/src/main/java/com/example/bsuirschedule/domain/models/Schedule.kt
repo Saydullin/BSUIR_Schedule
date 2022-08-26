@@ -37,13 +37,15 @@ data class Schedule (
         )
     }
 
+    fun isGroup() = group.id != -1
+
     fun isNotEmpty() = id != -1
 
     fun toSavedSchedule() = SavedSchedule(
         id = id,
         employee = employee.toEmployee(),
         group = group,
-        isGroup = isGroup ?: false,
+        isGroup = isGroup(),
         lastUpdateTime = Date().time,
         isExistExams = exams.isNotEmpty()
     )

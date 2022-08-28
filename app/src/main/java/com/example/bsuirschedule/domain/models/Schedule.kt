@@ -39,6 +39,12 @@ data class Schedule (
 
     fun isGroup() = group.id != -1
 
+    fun isNotExamsExist(): Boolean {
+        return startExamsDate.isEmpty() ||
+                endExamsDate.isEmpty() ||
+                exams.isEmpty()
+    }
+
     fun isNotEmpty() = id != -1
 
     fun toSavedSchedule() = SavedSchedule(

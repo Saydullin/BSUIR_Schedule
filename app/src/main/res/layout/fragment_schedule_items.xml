@@ -33,12 +33,9 @@
             android:textSize="16sp"
             android:layout_weight="1" />
 
-        <ImageButton
-            style="@style/Theme.BSUIRSchedule.ImageButton"
-            android:id="@+id/update_schedule_button"
-            android:src="@drawable/ic_more"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_schedule_list" />
+        <Space
+            android:layout_width="35dp"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

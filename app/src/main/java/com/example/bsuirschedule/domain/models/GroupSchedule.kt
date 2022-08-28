@@ -34,6 +34,12 @@ data class GroupSchedule (
         )
     }
 
+    fun isNotExistExams(): Boolean {
+        return startExamsDate.isNullOrEmpty() ||
+                endExamsDate.isNullOrEmpty() ||
+                exams?.isEmpty() == true
+    }
+
     fun isNotSuitable(): Boolean {
         return startDate.isNullOrEmpty() ||
                 endDate.isNullOrEmpty()

@@ -1,8 +1,13 @@
 package com.example.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.example.bsuirschedule.domain.models.*
 
 class ScheduleManager {
+
+    companion object {
+        const val LIMIT_DAYS = 60
+    }
 
     // Model schedules as list (instead of monday, tuesday, ...)
     fun getScheduleModel(groupSchedule: GroupSchedule): Schedule {
@@ -36,6 +41,34 @@ class ScheduleManager {
         }
 
         return schedule
+    }
+
+    fun getSubjectDays(subjects: ArrayList<ScheduleSubject>, startDate: String, endDate: String): ArrayList<ScheduleDay> {
+        val scheduleDays = ArrayList<ScheduleDay>()
+        val calendarDate = CalendarDate(startDate = startDate)
+        var currentDate = calendarDate.getFullDate(0)
+        var counter = 0
+
+        while(currentDate != endDate && counter < LIMIT_DAYS) {
+            val scheduleInDay = ArrayList<ScheduleSubject>()
+            currentDate = calendarDate.getFullDate(counter)
+            subjects.map { subject ->
+                if (subject.dateLesson == currentDate) {
+                    scheduleInDay.add(subject)
+                }
+            }
+            val scheduleDay = ScheduleDay(
+                date = calendarDate.getDate(),
+                weekDayName = calendarDate.getWeekDayName(),
+                weekDayNumber = calendarDate.getWeekDayNumber(),
+                lessonsAmount = scheduleInDay.size,
+                schedule = scheduleInDay
+            )
+            scheduleDays.add(scheduleDay)
+            counter++
+        }
+
+        return getSubjectsBreakTime(scheduleDays)
     }
 
     fun mergeGroupsSubjects(groupSchedule: GroupSchedule, groupItems: ArrayList<Group>) {

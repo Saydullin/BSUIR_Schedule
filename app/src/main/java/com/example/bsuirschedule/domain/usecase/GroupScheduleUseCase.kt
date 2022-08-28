@@ -1,6 +1,5 @@
 package com.example.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.example.bsuirschedule.domain.models.*
 import com.example.bsuirschedule.domain.repository.GroupItemsRepository
 import com.example.bsuirschedule.domain.repository.ScheduleRepository
@@ -83,8 +82,8 @@ class GroupScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
-                    if (data.exams?.isNotEmpty() == true) {
-                        val examsSchedule = examsScheduleUseCase.getSchedule(data.exams)
+                    if (!data.isNotExistExams()) {
+                        val examsSchedule = examsScheduleUseCase.getSchedule(data.exams!!, data.startExamsDate!!, data.endExamsDate!!)
                         data.examsSchedule = examsSchedule
                     }
                     Resource.Success(data)

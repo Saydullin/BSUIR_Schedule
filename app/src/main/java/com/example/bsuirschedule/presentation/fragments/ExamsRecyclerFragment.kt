@@ -35,11 +35,13 @@ class ExamsRecyclerFragment : Fragment() {
         groupScheduleVM.examsScheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
             if (groupSchedule != null) {
                 adapter.updateSchedule(groupSchedule.examsSchedule)
-                adapter.isGroupSchedule = groupSchedule.isGroup ?: false
+                adapter.isGroupSchedule = groupSchedule.isGroup()
                 binding.scheduleDailyRecycler.adapter = adapter
                 binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
                 binding.scheduleDailyRecycler.alpha = 0f
                 binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
+            } else {
+                adapter.updateSchedule(ArrayList())
             }
         }
 

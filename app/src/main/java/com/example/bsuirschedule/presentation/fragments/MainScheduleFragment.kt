@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.bsuirschedule.R
 import com.example.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.example.bsuirschedule.databinding.TabViewsBinding
 import com.example.bsuirschedule.presentation.adapters.ScheduleExamsAdapter
 import com.example.bsuirschedule.presentation.dialogs.StateDialog
+import com.example.bsuirschedule.presentation.popupMenu.MainPopupMenu
+import com.example.bsuirschedule.presentation.popupMenu.SavedSchedulePopupMenu
 import com.example.bsuirschedule.presentation.viewModels.CurrentWeekViewModel
 import com.example.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -61,6 +64,24 @@ class MainScheduleFragment : Fragment() {
                 binding.hiddenPlaceholder.visibility = View.GONE
                 binding.mainScheduleContent.visibility = View.VISIBLE
             }
+        }
+
+        val settingsClick = {
+            Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
+        }
+
+        val aboutClick = {
+            Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.scheduleMoreButton.setOnClickListener {
+            val popupMenu = MainPopupMenu(
+                context = context!!,
+                onSettingsClick = settingsClick,
+                onAboutClick = aboutClick
+            ).initPopupMenu(binding.scheduleMoreButton)
+
+            popupMenu.show()
         }
 
         binding.scheduleListButton.setOnClickListener {

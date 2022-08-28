@@ -56,6 +56,8 @@
     <string name="subject_break_time_or">или</string>
     <string name="search_placeholder">Поиск</string>
     <string name="loading_dots">загружается ...</string>
+    <string name="popup_settings">Настройки</string>
+    <string name="popup_about">О приложении</string>
     <string name="popup_update">Обновить</string>
     <string name="popup_more">Дополнительно</string>
     <string name="popup_delete">Удалить</string>

@@ -81,13 +81,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-<!--        <androidx.fragment.app.FragmentContainerView-->
-<!--            android:id="@+id/schedule_recycler_fragment"-->
-<!--            tools:layout="@layout/fragment_schedule_recycler"-->
-<!--            android:name="com.example.bsuirschedule.presentation.fragments.ScheduleRecyclerFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-
     </LinearLayout>
 
 </LinearLayout>

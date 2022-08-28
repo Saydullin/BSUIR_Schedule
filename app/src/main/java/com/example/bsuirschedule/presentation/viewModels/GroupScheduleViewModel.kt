@@ -156,6 +156,7 @@ class GroupScheduleViewModel(
                 ) {
                     is Resource.Success -> {
                         schedule.postValue(fullSchedule.data)
+                        activeSchedule.postValue(fullSchedule.data?.toSavedSchedule())
                     }
                     is Resource.Error -> {
                         schedule.postValue(fullSchedule.data)
@@ -186,17 +187,15 @@ class GroupScheduleViewModel(
                 ) {
                     is Resource.Success -> {
                         val data = result.data!!
-                        Log.e("sady", "data got, employee - ${data.employee} || ${data.group}")
                         when (
                             val fullSchedule = groupScheduleUseCase.getFullSchedule(data)
                         ) {
                             is Resource.Success -> {
                                 val scheduleData = fullSchedule.data
-                                Log.e("sady", "then data, isGroup - ${scheduleData?.isGroup}, employee - ${scheduleData?.employee} || ${scheduleData?.group}")
                                 schedule.postValue(scheduleData)
                                 activeSchedule.postValue(scheduleData?.toSavedSchedule())
-                                if (fullSchedule.data?.examsSchedule?.isNotEmpty() == true) {
-                                    examsSchedule.postValue(fullSchedule.data)
+                                if (scheduleData?.examsSchedule?.isNotEmpty() == true) {
+                                    examsSchedule.postValue(scheduleData)
                                 } else {
                                     examsSchedule.postValue(null)
                                 }

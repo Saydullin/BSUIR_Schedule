@@ -13,6 +13,20 @@ class CalendarDate(startDate: String = "00.00.0000", endDate: String = "00.00.00
         calendar.time = inputDate as Date
     }
 
+    fun getFullDate(amount: Int): String {
+        calendar.time = inputDate as Date
+        calendar.add(Calendar.DATE, amount)
+        val output = SimpleDateFormat("dd.MM.yyyy")
+
+        return output.format(calendar.time)
+    }
+
+    fun getDate(): String {
+        val output = SimpleDateFormat("d MMMM")
+
+        return output.format(calendar.time)
+    }
+
     fun getIncDate(amount: Int): String {
         calendar.time = inputDate as Date
         calendar.add(Calendar.DATE, amount)

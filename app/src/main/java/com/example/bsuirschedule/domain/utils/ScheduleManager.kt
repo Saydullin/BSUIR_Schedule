@@ -49,7 +49,7 @@ class ScheduleManager {
         var currentDate = calendarDate.getFullDate(0)
         var counter = 0
 
-        while(currentDate != endDate && counter < LIMIT_DAYS) {
+        while(currentDate != endDate && counter < LIMIT_DAYS || counter == 0) {
             val scheduleInDay = ArrayList<ScheduleSubject>()
             currentDate = calendarDate.getFullDate(counter)
             subjects.map { subject ->

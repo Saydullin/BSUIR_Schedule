@@ -1,6 +1,7 @@
 package com.example.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -58,12 +59,19 @@ class ScheduleRecyclerFragment : Fragment() {
         val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog)
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
-            adapter.updateSchedule(groupSchedule.schedules)
-            adapter.isGroupSchedule = groupSchedule.isGroup ?: false
-            binding.scheduleDailyRecycler.adapter = adapter
-            binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
-            binding.scheduleDailyRecycler.alpha = 0f
-            binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
+            if (groupSchedule.schedules.size > 0) {
+                binding.placeholder.visibility = View.GONE
+                binding.scheduleDailyRecycler.visibility = View.VISIBLE
+                adapter.updateSchedule(groupSchedule.schedules)
+                adapter.isGroupSchedule = groupSchedule.isGroup ?: false
+                binding.scheduleDailyRecycler.adapter = adapter
+                binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+                binding.scheduleDailyRecycler.alpha = 0f
+                binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
+            } else {
+                binding.placeholder.visibility = View.VISIBLE
+                binding.scheduleDailyRecycler.visibility = View.GONE
+            }
         }
 
         return binding.root

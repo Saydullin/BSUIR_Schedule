@@ -4,22 +4,22 @@ import com.example.bsuirschedule.data.db.entities.GroupScheduleSubjectTable
 import com.google.gson.annotations.SerializedName
 
 data class ScheduleSubject (
-    val subject: String,
-    val subjectFullName: String,
-    var lessonTypeAbbrev: String,
+    val subject: String?,
+    val subjectFullName: String?,
+    var lessonTypeAbbrev: String?,
     val employees: ArrayList<EmployeeSubject>?,
     var groups: ArrayList<Group>?,
     @SerializedName("studentGroups") val subjectGroups: ArrayList<GroupSubject>?,
-    val startLessonTime: String,
-    val endLessonTime: String,
-    val numSubgroup: Int,
+    val startLessonTime: String?,
+    val endLessonTime: String?,
+    val numSubgroup: Int?,
     val note: String?,
     var breakTime: SubjectBreakTime?,
-    val weekNumber: ArrayList<Int>,
+    val weekNumber: ArrayList<Int>?,
     val dateLesson: String?,
     val startLessonDate: String?,
     val endLessonDate: String?,
-    @SerializedName("auditories") val audience: ArrayList<String>
+    @SerializedName("auditories") val audience: ArrayList<String>?
 ) {
 
     companion object {
@@ -48,25 +48,25 @@ data class ScheduleSubject (
         const val LABORATORY = "ЛР"
     }
 
-    fun getAudienceInLine() = audience.joinToString(", ")
+    fun getAudienceInLine() = audience?.joinToString(", ") ?: ""
 
     fun toGroupScheduleSubjectTable() = GroupScheduleSubjectTable(
-        subject = subject,
-        subjectFullName = subjectFullName,
-        lessonTypeAbbrev = lessonTypeAbbrev,
+        subject = subject ?: "",
+        subjectFullName = subjectFullName ?: "",
+        lessonTypeAbbrev = lessonTypeAbbrev ?: "",
         employees = employees?.map { it.toEmployeeTable() } ?: ArrayList(),
         groups = groups?.map { it.toGroupTable() } ?: ArrayList(),
         groupSubjects = subjectGroups?.map { it.toGroupSubjectTable() } ?: ArrayList(),
-        startLessonTime = startLessonTime,
-        endLessonTime = endLessonTime,
-        numSubgroup = numSubgroup,
+        startLessonTime = startLessonTime ?: "",
+        endLessonTime = endLessonTime ?: "",
+        numSubgroup = numSubgroup ?: 0,
         note = note ?: "",
         breakMinutes = breakTime ?: SubjectBreakTime.empty,
-        weekNumber = weekNumber,
+        weekNumber = weekNumber ?: ArrayList(),
         dateLesson = dateLesson ?: "",
         startLessonDate = startLessonDate ?: "",
         endLessonDate = endLessonDate ?: "",
-        audience = audience,
+        audience = audience ?: ArrayList(),
     )
 
 }

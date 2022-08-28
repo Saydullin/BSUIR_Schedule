@@ -27,7 +27,7 @@ class SubjectDialog(private val subject: ScheduleSubject): DialogFragment() {
         val timeText = resources.getString(R.string.subject_time, subject.startLessonTime, subject.endLessonTime)
         binding.subjectTime.text = timeText
 
-        val weekText = resources.getString(R.string.subject_weeks, subject.weekNumber.joinToString(", "))
+        val weekText = resources.getString(R.string.subject_weeks, subject.weekNumber?.joinToString(", ") ?: "")
         binding.subjectWeeks.text = weekText
 
         when (subject.lessonTypeAbbrev) {

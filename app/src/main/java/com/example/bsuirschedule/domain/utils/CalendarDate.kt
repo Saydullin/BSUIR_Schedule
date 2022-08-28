@@ -45,7 +45,14 @@ class CalendarDate(startDate: String = "00.00.0000", endDate: String = "00.00.00
         return calendar.get(Calendar.DAY_OF_WEEK) - 1
     }
 
-    fun getSubjectBreakTime(fromPattern: String, reducerPattern: String): SubjectBreakTime {
+    fun getSubjectBreakTime(fromPattern: String?, reducerPattern: String?): SubjectBreakTime {
+        if (fromPattern.isNullOrEmpty() || reducerPattern.isNullOrEmpty()) {
+            return SubjectBreakTime(
+                hours = 0,
+                minutes = 0,
+                isExist = true
+            )
+        }
         val from = SimpleDateFormat("HH:mm").parse(fromPattern)
         val reducer = SimpleDateFormat("HH:mm").parse(reducerPattern)
         val difference = (from?.time ?: 0) - (reducer?.time ?: 0)

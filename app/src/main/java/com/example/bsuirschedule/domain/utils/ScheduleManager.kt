@@ -1,6 +1,5 @@
 package com.example.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.example.bsuirschedule.domain.models.*
 
 class ScheduleManager {
@@ -13,7 +12,7 @@ class ScheduleManager {
     fun getScheduleModel(groupSchedule: GroupSchedule): Schedule {
 
         if (groupSchedule.isNotSuitable()) {
-            return Schedule.empty
+            return groupSchedule.toSchedule()
         }
 
         val calendarDate = CalendarDate(startDate = groupSchedule.startDate!!)
@@ -57,6 +56,7 @@ class ScheduleManager {
                     scheduleInDay.add(subject)
                 }
             }
+            scheduleInDay.sortBy { it.startLessonTime }
             val scheduleDay = ScheduleDay(
                 date = calendarDate.getDate(),
                 weekDayName = calendarDate.getWeekDayName(),
@@ -115,7 +115,7 @@ class ScheduleManager {
 
         schedule.forEach { day ->
             day.schedule.forEach { subject ->
-                amount.add(subject.numSubgroup)
+                amount.add(subject.numSubgroup ?: 0)
             }
         }
 
@@ -161,7 +161,7 @@ class ScheduleManager {
                     val filteredDays = schedule.schedules.filter {scheduleDay -> scheduleDay.weekDayNumber == dayNumber }
                     for (filteredDay in filteredDays) {
                         // Get subjects in that day, which in that week
-                        val filteredSchedule = filteredDay.schedule.filter { subject -> weekNumber in subject.weekNumber }
+                        val filteredSchedule = filteredDay.schedule.filter { subject -> weekNumber in (subject.weekNumber ?: ArrayList()) }
                         scheduleFull.schedules.add(
                             ScheduleDay(
                                 date = calendarDate.getIncDate(i),
@@ -221,7 +221,7 @@ class ScheduleManager {
         var weeksAmount = 0
         for (scheduleDay in scheduleDays) {
             for (subject in scheduleDay.schedule) {
-                val max = subject.weekNumber.maxOrNull() ?: 0
+                val max = subject.weekNumber?.maxOrNull() ?: 0
                 if (max > weeksAmount) {
                     weeksAmount = max
                 }

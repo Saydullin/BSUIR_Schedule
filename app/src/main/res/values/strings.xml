@@ -101,6 +101,7 @@
     <string name="preference_is_first_time" translatable="false">is_first_time</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="no_content">Нет контента</string>
+    <string name="no_schedule_placeholder">Нет расписаний</string>
 
     <plurals name="plural_groups">
         <item quantity="zero">найдено %d групп</item>

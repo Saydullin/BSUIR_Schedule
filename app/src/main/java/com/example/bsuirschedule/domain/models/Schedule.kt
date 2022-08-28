@@ -45,7 +45,9 @@ data class Schedule (
                 exams.isEmpty()
     }
 
-    fun isNotEmpty() = id != -1
+    fun isNotEmpty(): Boolean {
+        return id != -1
+    }
 
     fun toSavedSchedule() = SavedSchedule(
         id = id,

@@ -146,6 +146,7 @@ class ScheduleManager {
             subgroups = subgroups,
             exams = schedule.exams,
             examsSchedule = schedule.examsSchedule,
+            lastUpdateTime = schedule.lastUpdateTime,
             schedules = ArrayList()
         )
 

@@ -2,6 +2,8 @@ package com.example.bsuirschedule.domain.models
 
 import com.example.bsuirschedule.data.db.entities.GroupScheduleTable
 import com.google.gson.annotations.SerializedName
+import java.util.*
+import kotlin.collections.ArrayList
 
 data class GroupSchedule (
     var id: Int,
@@ -15,6 +17,7 @@ data class GroupSchedule (
     val schedules: GroupScheduleWeek? = GroupScheduleWeek.empty,
     val exams: ArrayList<ScheduleSubject>? = ArrayList(),
     var examsSchedule: ArrayList<ScheduleDay>? = ArrayList(),
+    var lastUpdateTime: Long? = Date().time,
     val selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
 
@@ -30,6 +33,7 @@ data class GroupSchedule (
             subgroups = ArrayList(),
             exams = ArrayList(),
             examsSchedule = ArrayList(),
+            lastUpdateTime = Date().time,
             schedules = GroupScheduleWeek.empty
         )
     }
@@ -56,6 +60,7 @@ data class GroupSchedule (
         subgroups = subgroups ?: ArrayList(),
         schedules = schedules?.toGroupScheduleWeekTable(),
         exams = exams ?: ArrayList(),
+        lastUpdateTime = lastUpdateTime ?: Date().time,
         selectedSubgroup = selectedSubgroup
     )
 
@@ -71,6 +76,7 @@ data class GroupSchedule (
         subgroups = subgroups ?: listOf(),
         exams = exams ?: ArrayList(),
         examsSchedule = examsSchedule ?: ArrayList(),
+        lastUpdateTime = lastUpdateTime ?: Date().time,
         schedules = ArrayList(),
     )
 

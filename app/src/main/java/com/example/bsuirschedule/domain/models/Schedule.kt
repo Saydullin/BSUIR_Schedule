@@ -16,6 +16,7 @@ data class Schedule (
     var exams: ArrayList<ScheduleSubject>,
     var examsSchedule: ArrayList<ScheduleDay>,
     var schedules: ArrayList<ScheduleDay>,
+    val lastUpdateTime: Long,
     val selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
 
@@ -33,6 +34,7 @@ data class Schedule (
             exams = ArrayList(),
             examsSchedule = ArrayList(),
             schedules = ArrayList(),
+            lastUpdateTime = 0,
             selectedSubgroup = 0
         )
     }
@@ -54,7 +56,7 @@ data class Schedule (
         employee = employee.toEmployee(),
         group = group,
         isGroup = isGroup(),
-        lastUpdateTime = Date().time,
+        lastUpdateTime = lastUpdateTime,
         isExistExams = exams.isNotEmpty()
     )
 

@@ -1,6 +1,7 @@
 package com.example.bsuirschedule.domain.usecase
 
 import com.example.bsuirschedule.domain.models.*
+import com.example.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.example.bsuirschedule.domain.repository.GroupItemsRepository
 import com.example.bsuirschedule.domain.repository.ScheduleRepository
 import com.example.bsuirschedule.domain.utils.Resource
@@ -8,6 +9,7 @@ import com.example.bsuirschedule.domain.utils.Resource
 class GroupScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
     private val groupItemsRepository: GroupItemsRepository,
+    private val employeeItemsRepository: EmployeeItemsRepository,
     private val fullScheduleUseCase: FullScheduleUseCase,
     private val examsScheduleUseCase: FullExamsScheduleUseCase
 ) {
@@ -28,6 +30,13 @@ class GroupScheduleUseCase(
                             message = isMergedFacultyAndSpeciality.message
                         )
                     }
+                    val isMergedEmployees = mergeEmployeeItems(data)
+                    if (isMergedEmployees is Resource.Error) {
+                        return Resource.Error(
+                            errorType = isMergedEmployees.errorType,
+                            message = isMergedEmployees.message
+                        )
+                    }
                     Resource.Success(data)
                 }
                 is Resource.Error -> {
@@ -42,6 +51,37 @@ class GroupScheduleUseCase(
                 errorType = Resource.DATA_ERROR,
                 message = e.message
             )
+        }
+    }
+
+    private suspend fun mergeEmployeeItems(groupSchedule: GroupSchedule): Resource<GroupSchedule> {
+        return when (
+            val result = employeeItemsRepository.getEmployeeItems()
+        ) {
+            is Resource.Success -> {
+                val data = result.data!!
+                groupSchedule.schedules?.getList()?.map { day ->
+                    day.map { subject ->
+                        val employeeList = ArrayList<EmployeeSubject>()
+                        subject.employees?.forEach { employeeItem ->
+                            val employee = data.find { it.id == employeeItem.id }
+                            if (employee != null) {
+                                employeeList.add(employee.toEmployeeSubject())
+                            } else {
+                                employeeList.add(employeeItem)
+                            }
+                        }
+                        subject.employees = employeeList
+                    }
+                }
+                Resource.Success(groupSchedule)
+            }
+            is Resource.Error -> {
+                Resource.Error(
+                    errorType = result.errorType,
+                    message = result.message
+                )
+            }
         }
     }
 

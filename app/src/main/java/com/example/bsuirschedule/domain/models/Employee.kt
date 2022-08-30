@@ -40,6 +40,23 @@ data class Employee (
         )
     }
 
+    fun toEmployeeSubject() = EmployeeSubject(
+        id = id,
+        firstName = firstName,
+        lastName = lastName,
+        middleName = middleName,
+        degree = degreeFull,
+        degreeAbbrev = degreeAbbrev,
+        rank = rank,
+        photoLink = photoLink,
+        calendarId = calendarId,
+        email = "",
+        department = departmentsAbbrList,
+        departmentsList = departments,
+        urlId = urlId,
+        jobPosition = ""
+    )
+
     fun getFullName() = "$lastName $firstName $middleName"
 
     fun getFullDepartments(separator: String): String {

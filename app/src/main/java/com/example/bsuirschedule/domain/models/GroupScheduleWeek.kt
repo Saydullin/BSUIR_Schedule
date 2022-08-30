@@ -24,6 +24,17 @@ data class GroupScheduleWeek (
         )
     }
 
+    fun getList(): List<ArrayList<ScheduleSubject>> {
+        return listOf(
+            monday ?: ArrayList(),
+            tuesday ?: ArrayList(),
+            wednesday ?: ArrayList(),
+            thursday ?: ArrayList(),
+            friday ?: ArrayList(),
+            saturday ?: ArrayList(),
+        )
+    }
+
     fun toGroupScheduleWeekTable() = GroupScheduleWeekTable(
         monday = monday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,
         tuesday = tuesday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,

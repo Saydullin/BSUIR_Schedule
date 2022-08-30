@@ -7,7 +7,7 @@ data class ScheduleSubject (
     val subject: String?,
     val subjectFullName: String?,
     var lessonTypeAbbrev: String?,
-    val employees: ArrayList<EmployeeSubject>?,
+    var employees: ArrayList<EmployeeSubject>?,
     var groups: ArrayList<Group>?,
     @SerializedName("studentGroups") val subjectGroups: ArrayList<GroupSubject>?,
     val startLessonTime: String?,

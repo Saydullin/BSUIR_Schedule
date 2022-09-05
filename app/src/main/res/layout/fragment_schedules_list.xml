@@ -45,7 +45,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/saved_items_recycler_fragment"
-        android:name="com.example.bsuirschedule.presentation.fragments.ScheduleSavedItemsFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleSavedItemsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_schedule_saved_items" />

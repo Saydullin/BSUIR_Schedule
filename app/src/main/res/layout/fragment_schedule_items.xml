@@ -42,7 +42,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/all_group_items_fragment"
         tools:layout="@layout/fragment_schedule_item_tabs"
-        android:name="com.example.bsuirschedule.presentation.fragments.ScheduleItemTabs"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleItemTabs"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

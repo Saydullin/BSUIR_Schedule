@@ -3,6 +3,8 @@
     <string name="course">курс</string>
     <string name="week">неделя</string>
     <string name="exam">Экзамен</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="today">Сегодня</string>
     <string name="consultation">Консультация</string>
     <string name="lecture">Лекция</string>
     <string name="practise">Практика</string>
@@ -47,11 +49,15 @@
     <string name="no_teacher_title">Преподаватель не указан</string>
     <string name="no_group_title">Группа не указана</string>
     <string name="schedules_all_list_title">Все расписания</string>
+    <string name="schedules_settings_title">Настройки</string>
     <string name="schedules_no_lessons">Нет занятий</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>
-    <string name="tab_item_schedule">Расписание</string>
+    <string name="tab_item_schedule">Занятия</string>
     <string name="tab_item_exams">Экзамены</string>
+    <string name="tab_item_subgroup">Подгруппы</string>
+    <string name="tab_item_settings">Настройки</string>
+    <string name="tab_item_schedule_control">Управление</string>
     <string name="no_data_field">Не указано</string>
     <string name="subject_break_time_or">или</string>
     <string name="search_placeholder">Поиск</string>
@@ -101,7 +107,16 @@
     <string name="preference_is_first_time" translatable="false">is_first_time</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="no_content">Нет контента</string>
-    <string name="no_schedule_placeholder">Нет расписаний</string>
+    <string name="no_schedule_placeholder">Нет расписания</string>
+    <string name="no_exams_placeholder">Нет экзаменов</string>
+    <string name="settings_lang_title">Язык приложения</string>
+    <string name="settings_theme_title">Цветовая тема</string>
+    <string name="settings_feedback_title">Обратная связь</string>
+    <string name="settings_font_title">Размер шрифта</string>
+    <string name="settings_auto_update">Автоматическое обновление</string>
+    <string name="settings_show_empty_day">Показывать пустые дни</string>
+    <string name="settings_show_past_days">Показывать прошедшие дни</string>
+    <string name="settings_schedule_title">Расписания</string>
 
     <plurals name="plural_groups">
         <item quantity="zero">найдено %d групп</item>

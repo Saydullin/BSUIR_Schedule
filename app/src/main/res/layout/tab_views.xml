@@ -67,9 +67,10 @@
     <LinearLayout
         android:id="@+id/schedule"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center_vertical">
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/schedule_image"
@@ -79,17 +80,13 @@
             android:contentDescription="@string/cd_schedule_list" />
 
         <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="3dp" />
 
         <TextView
-            android:id="@+id/schedule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColor="@color/text"
+            style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
             android:text="@string/tab_item_schedule" />
 
     </LinearLayout>
@@ -97,9 +94,10 @@
     <LinearLayout
         android:id="@+id/exams"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center_vertical">
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/exam_image"
@@ -109,19 +107,71 @@
             android:contentDescription="@string/cd_schedule_list" />
 
         <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="3dp" />
 
         <TextView
-            android:id="@+id/exam_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColor="@color/text"
+            style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
             android:text="@string/tab_item_exams" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/subgroup"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/subgroup_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_subgroup"
+            android:contentDescription="@string/cd_schedule_list" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+            android:text="@string/tab_item_subgroup" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/schedule_control"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/schedule_control_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_settings"
+            android:contentDescription="@string/cd_schedule_list" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+            android:text="@string/tab_item_settings" />
+
+    </LinearLayout>
+
 </LinearLayout>
+
+

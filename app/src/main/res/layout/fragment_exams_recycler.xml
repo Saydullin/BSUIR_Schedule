@@ -6,6 +6,19 @@
     android:orientation="vertical"
     tools:context=".presentation.fragments.ScheduleRecyclerFragment">
 
+    <LinearLayout
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <include
+            android:id="@+id/no_schedule_placeholder"
+            layout="@layout/no_exams_placeholder" />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/schedule_daily_recycler"
         android:layout_width="match_parent"
@@ -13,3 +26,5 @@
         tools:listitem="@layout/schedule_day" />
 
 </FrameLayout>
+
+

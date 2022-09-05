@@ -26,6 +26,7 @@
                 style="@style/Theme.BSUIRSchedule.TextView.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
                 android:ellipsize="end"
                 android:layout_weight="1"
                 android:text="Физика" />

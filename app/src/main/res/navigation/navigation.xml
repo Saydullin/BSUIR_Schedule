@@ -6,7 +6,7 @@
     app:startDestination="@id/splashScreenFragment">
     <fragment
         android:id="@+id/mainScheduleFragment"
-        android:name="com.example.bsuirschedule.presentation.fragments.MainScheduleFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.MainScheduleFragment"
         android:label="fragment_main_schedule"
         tools:layout="@layout/fragment_main_schedule" >
         <action
@@ -21,10 +21,15 @@
             app:destination="@id/examsScheduleFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/rev_exit" />
+        <action
+            android:id="@+id/action_mainScheduleFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/rev_exit" />
     </fragment>
     <fragment
         android:id="@+id/schedulesListFragment"
-        android:name="com.example.bsuirschedule.presentation.fragments.SchedulesListFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.SchedulesListFragment"
         android:label="fragment_schedules_list"
         tools:layout="@layout/fragment_schedules_list" >
         <action
@@ -44,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/scheduleItemsFragment"
-        android:name="com.example.bsuirschedule.presentation.fragments.ScheduleItemsFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleItemsFragment"
         android:label="fragment_schedule_items"
         tools:layout="@layout/fragment_schedule_items" >
         <action
@@ -59,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.example.bsuirschedule.presentation.fragments.SplashScreenFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -72,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/examsScheduleFragment"
-        android:name="com.example.bsuirschedule.presentation.fragments.ExamsScheduleFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ExamsScheduleFragment"
         android:label="fragment_exams_schedule"
         tools:layout="@layout/fragment_exams_schedule" >
         <action
@@ -83,6 +88,15 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/mainScheduleFragment"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainScheduleFragment"
+            app:destination="@id/mainScheduleFragment" />
     </fragment>
 </navigation>
 

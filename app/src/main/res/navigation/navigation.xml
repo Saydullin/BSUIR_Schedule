@@ -74,6 +74,9 @@
             app:exitAnim="@android:anim/fade_out"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/examsScheduleFragment"
@@ -97,6 +100,14 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainScheduleFragment"
             app:destination="@id/mainScheduleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.WelcomeFragment"
+        android:label="WelcomeFragment" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_scheduleItemsFragment"
+            app:destination="@id/scheduleItemsFragment" />
     </fragment>
 </navigation>
 

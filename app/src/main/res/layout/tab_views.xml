@@ -103,7 +103,7 @@
             android:id="@+id/exam_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_calendar_today"
+            android:src="@drawable/ic_flag"
             android:contentDescription="@string/cd_schedule_list" />
 
         <Space
@@ -119,7 +119,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/subgroup"
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:orientation="vertical"
@@ -130,7 +130,7 @@
             android:id="@+id/subgroup_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_subgroup"
+            android:src="@drawable/ic_calendar"
             android:contentDescription="@string/cd_schedule_list" />
 
         <Space
@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
-            android:text="@string/tab_item_subgroup" />
+            android:text="@string/tab_item_calendar" />
 
     </LinearLayout>
 

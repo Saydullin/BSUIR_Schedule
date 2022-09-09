@@ -56,7 +56,12 @@ class ActiveScheduleFragment : Fragment() {
                     .into(binding.scheduleImage)
                 binding.activeScheduleTitle.text = employee.getFullName()
                 binding.scheduleSubtitleLeft.text = employee.getRankAndDegree()
-                binding.scheduleSubtitleRight.text = employee.getShortDepartmentsAbbr()
+                if (!employee.departmentsList.isNullOrEmpty()) {
+                    binding.scheduleSubtitleRight.text = employee.departmentsList!![0].abbrev + if (employee.departmentsList!!.size > 1) {
+                        val moreText = getString(R.string.more)
+                        ", $moreText ${employee.departmentsList!!.size - 1}"
+                    } else ""
+                }
             }
         }
 

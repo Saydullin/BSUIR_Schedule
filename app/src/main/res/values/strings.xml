@@ -13,6 +13,7 @@
     <string name="update">Обновить</string>
     <string name="delete">Удалить</string>
     <string name="last_update">Было обновлено %s</string>
+    <string name="more">ещё</string>
 
     <!--  Content Descriptions  -->
     <string name="cd_schedule_list" translatable="false">Schedule list</string>
@@ -55,7 +56,7 @@
     <string name="tab_item_employee">Преподаватели</string>
     <string name="tab_item_schedule">Занятия</string>
     <string name="tab_item_exams">Экзамены</string>
-    <string name="tab_item_subgroup">Подгруппы</string>
+    <string name="tab_item_calendar">Календарь</string>
     <string name="tab_item_settings">Настройки</string>
     <string name="tab_item_schedule_control">Управление</string>
     <string name="no_data_field">Не указано</string>
@@ -102,11 +103,28 @@
     <string name="load_schedule">Загрузка расписания</string>
     <string name="load_schedule_caption">Пожалуйста, подождите</string>
 
+    <!--  Welcome page  -->
+    <string name="welcome_title_1">BSUIR Schedule</string>
+    <string name="welcome_caption_1">Расписания\nпреподавателей и групп\nуниверситета БГУИР</string>
+    <string name="welcome_title_2">Удобный поиск</string>
+    <string name="welcome_caption_2">Благодаря поиску, можно найти абсолютно любую группу или преподавателя, зная лишь кафедру, специальность, курс или факультет.</string>
+    <string name="welcome_title_3">Информативность</string>
+    <string name="welcome_caption_3">Расшифровка всех аббревиатур.\n\nИнформация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
+    <string name="welcome_title_4">Функциональность</string>
+    <string name="welcome_caption_4">Индивидуальные настройки для каждого расписания.\n\nАвтоматическое обновление расписаний.</string>
+    <string name="welcome_title_5">Локализация</string>
+    <string name="welcome_caption_5">Поддержка 3 языков.\n\nРусский, английский и белорусский</string>
+    <string name="welcome_title_6">Это не всё!</string>
+    <string name="welcome_caption_6">Дальше на опыте ...</string>
+
     <!--  Shared Preferences  -->
     <string name="preference_file_name" translatable="false">my_app</string>
     <string name="preference_is_first_time" translatable="false">is_first_time</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="no_content">Нет контента</string>
+    <string name="no_saved_schedule">Сохраненных расписаний нет</string>
+    <string name="no_schedule_choose">Расписание не выбрано</string>
+    <string name="no_subgroups_placeholder">Нет подгрупп</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>
@@ -117,6 +135,7 @@
     <string name="settings_show_empty_day">Показывать пустые дни</string>
     <string name="settings_show_past_days">Показывать прошедшие дни</string>
     <string name="settings_schedule_title">Расписания</string>
+    <string name="settings_schedule_subgroup_title">Подгруппа</string>
 
     <plurals name="plural_groups">
         <item quantity="zero">найдено %d групп</item>

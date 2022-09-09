@@ -106,7 +106,10 @@ class ScheduleSubjectsAdapter(
 
         private fun setSubjectEmployee(employees: ArrayList<EmployeeSubject>) {
             if (employees.isNotEmpty()) {
-                binding.subjectEmployeeName.text = employees[0].getName() + if (employees.size > 1) ", +${employees.size-1}" else ""
+                binding.subjectEmployeeName.text = employees[0].getName() + if (employees.size > 1) {
+                    val moreText = context.getString(R.string.more)
+                    ", $moreText ${employees.size - 1}"
+                } else ""
                 Glide.with(context)
                     .load(employees[0].photoLink)
                     .placeholder(R.drawable.ic_person_placeholder)
@@ -128,7 +131,10 @@ class ScheduleSubjectsAdapter(
                 .load(R.drawable.ic_group_placeholder)
                 .into(binding.scheduleImage)
             if (subjectGroupList.isNotEmpty()) {
-                binding.subjectEmployeeName.text = subjectGroupList[0].name + if (subjectGroupList.size > 1) ", +${subjectGroupList.size-1}" else ""
+                binding.subjectEmployeeName.text = subjectGroupList[0].name + if (subjectGroupList.size > 1) {
+                    val moreText = context.getString(R.string.more)
+                    ", $moreText ${subjectGroupList.size - 1}"
+                } else ""
             } else {
                 binding.subjectEmployeeName.text = context.getString(R.string.no_group_title)
             }

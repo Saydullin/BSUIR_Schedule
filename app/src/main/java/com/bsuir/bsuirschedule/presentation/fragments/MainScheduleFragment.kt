@@ -1,11 +1,11 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
@@ -18,6 +18,7 @@ import com.bsuir.bsuirschedule.presentation.viewModels.CurrentWeekViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.navigation.koinNavGraphViewModel
+
 
 class MainScheduleFragment : Fragment() {
 
@@ -36,12 +37,19 @@ class MainScheduleFragment : Fragment() {
         binding.scheduleViewPager.adapter = ScheduleExamsAdapter(activity!!)
         binding.scheduleItemsTabLayout.visibility = View.VISIBLE
 
-        groupScheduleVM.groupLoadingStatus.observe(viewLifecycleOwner) {
+        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->
                 when (position) {
                     ScheduleTabs.SCHEDULE -> tab.customView = tabViews.schedule
-                    ScheduleTabs.EXAMS -> tab.customView = tabViews.exams
-                    ScheduleTabs.SUBGROUP -> tab.customView = tabViews.subgroup
+                    ScheduleTabs.EXAMS -> {
+                        if (schedule.examsSchedule.isEmpty()) {
+                            tabViews.examImage.setBackgroundResource(R.drawable.ic_flag_hint)
+                        } else {
+                            tabViews.examImage.setBackgroundResource(R.drawable.ic_flag)
+                        }
+                        tab.customView = tabViews.exams
+                    }
+                    ScheduleTabs.SUBGROUP -> tab.customView = tabViews.calendar
                     ScheduleTabs.CONTROL -> tab.customView = tabViews.scheduleControl
                     else -> tab.customView = tabViews.schedule
                 }

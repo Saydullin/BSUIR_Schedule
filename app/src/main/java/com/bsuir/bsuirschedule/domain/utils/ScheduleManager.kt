@@ -208,13 +208,12 @@ class ScheduleManager {
         return scheduleDays
     }
 
-    fun getFullScheduleModel(schedule: Schedule, fromCurrentDay: Boolean = true): Schedule {
+    fun getFullScheduleModel(schedule: Schedule, weekNumber: Int, fromCurrentDay: Boolean = true): Schedule {
         if (schedule.schedules.isEmpty()) {
             return Schedule.empty
         }
-        val currentWeek = 2 // FIXME
         var i = 0
-        var weekAmount = currentWeek
+        var week = weekNumber - 1
         val calendarDate = if (fromCurrentDay) {
             CalendarDate(startDate = CalendarDate.TODAY_DATE)
         } else {
@@ -242,17 +241,17 @@ class ScheduleManager {
 
         for (y in 1..3) {
             // weeks loop
-            for (weekNumber in 1..maxWeeks) {
-                weekAmount++
-                if (weekAmount >= maxWeeks) {
-                    weekAmount = 1
+            for (weekIndex in 1..maxWeeks + week) {
+                week++
+                if (week >= maxWeeks) {
+                    week = 1
                 }
                 for (dayNumber in beginOnDay..schedule.schedules.size) {
                     // Get ${week[dayNumber]} schedule days
                     val filteredDays = schedule.schedules.filter {scheduleDay -> scheduleDay.weekDayNumber == dayNumber }
                     for (filteredDay in filteredDays) {
                         // Get subjects in that day, which in that week
-                        val filteredSchedule = filteredDay.schedule.filter { subject -> weekNumber in (subject.weekNumber ?: ArrayList()) }
+                        val filteredSchedule = filteredDay.schedule.filter { subject -> week in (subject.weekNumber ?: ArrayList()) }
                         calendarDate.getIncDate(i)
                         scheduleFull.schedules.add(
                             ScheduleDay(

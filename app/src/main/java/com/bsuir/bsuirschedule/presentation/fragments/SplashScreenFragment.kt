@@ -51,7 +51,7 @@ class SplashScreenFragment : Fragment() {
             if (isAllDone) {
                 groupItemsVM.updateGroupItems()
                 employeeItemsVM.updateEmployeeItems()
-                findNavController().navigate(R.id.action_to_mainScheduleFragment)
+                findNavController().navigate(R.id.action_splashScreenFragment_to_welcomeFragment)
             }
         }
 

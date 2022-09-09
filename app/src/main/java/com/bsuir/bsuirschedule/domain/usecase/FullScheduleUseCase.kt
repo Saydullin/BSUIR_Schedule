@@ -19,7 +19,7 @@ class FullScheduleUseCase {
             // Get schedule days as list, instead "monday, tuesday, wednesday" ...
             val schedule = sm.getScheduleModel(groupSchedule)
             // Get schedule for all weeks
-            val fullSchedule = sm.getFullScheduleModel(schedule)
+            val fullSchedule = sm.getFullScheduleModel(schedule, currentWeek)
 //            schedule.schedules = sm.getFullSchedule(schedule, 2)
             // Get break time for each subject (except the first subjects for each day)
             fullSchedule.schedules = sm.getSubjectsBreakTime(fullSchedule.schedules)

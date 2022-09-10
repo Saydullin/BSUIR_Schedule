@@ -104,18 +104,18 @@
     <string name="load_schedule_caption">Пожалуйста, подождите</string>
 
     <!--  Welcome page  -->
-    <string name="welcome_title_bsuir_schedule">BSUIR Schedule</string>
-    <string name="welcome_caption_bsuir_schedule">Расписания\nпреподавателей и групп\nуниверситета БГУИР</string>
+    <string name="welcome_title_bsuir_schedule" translatable="false">BSUIR Schedule</string>
+    <string name="welcome_caption_bsuir_schedule">Расписания студентов и преподавателей университета БГУИР</string>
     <string name="welcome_title_search">Удобный поиск</string>
     <string name="welcome_caption_search">Поиск расписаний по кафедре, специальности, курсу, факультету и другим характеристикам.</string>
     <string name="welcome_title_info">Информативность</string>
-    <string name="welcome_caption_info">Расшифровка всех аббревиатур.\n\nИнформация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
+    <string name="welcome_caption_info">Расшифровка всех аббревиатур.  Информация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
     <string name="welcome_title_functionality">Функциональность</string>
     <string name="welcome_caption_functionality">Индивидуальные настройки для каждого расписания.\n\nАвтоматическое обновление расписаний.</string>
     <string name="welcome_title_localization">Локализация</string>
-    <string name="welcome_caption_localization">Поддержка 3 языков.\n\nРусский, английский и белорусский</string>
-    <string name="welcome_title_etc">Это не всё!</string>
-    <string name="welcome_caption_etc">Дальше на опыте ...</string>
+    <string name="welcome_caption_localization">Поддержка 3 языков.  Русский, английский и белорусский</string>
+    <string name="welcome_title_etc">Что еще?</string>
+    <string name="welcome_caption_etc">Начните, чтобы узнать другие возможности приложения</string>
 
     <!--  Shared Preferences  -->
     <string name="preference_file_name" translatable="false">my_app</string>
@@ -124,7 +124,6 @@
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>
-    <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>
@@ -199,6 +198,7 @@
         <item quantity="many">%d минут</item>
         <item quantity="other">%d минут</item>
     </plurals>
+    <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
 
 </resources>
 

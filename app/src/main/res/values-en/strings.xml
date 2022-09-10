@@ -129,5 +129,24 @@
     <string name="exam">Exam</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="today">Today</string>
+    <string name="more">also</string>
+    <string name="tab_item_calendar">Calendar</string>
+    <string name="tab_item_settings">Settings</string>
+    <string name="welcome_caption_bsuir_schedule">Schedules of students and teachers of the BSUIR University</string>
+    <string name="welcome_title_search">Convenient search</string>
+    <string name="welcome_caption_search">Search for schedules by department, specialty, course, faculty and other characteristics.</string>
+    <string name="welcome_title_info">Informative</string>
+    <string name="welcome_caption_info">Explanation of all abbreviations. Information about which classroom the group or teacher is currently in.</string>
+    <string name="welcome_title_functionality">Functionality</string>
+    <string name="welcome_caption_functionality">Individual settings for each schedule.  Automatic updating of schedules.</string>
+    <string name="welcome_title_localization">Localization</string>
+    <string name="welcome_caption_localization">Support 3 languages. Russian, English and Belarusian</string>
+    <string name="welcome_title_etc">What else?</string>
+    <string name="welcome_caption_etc">Get started to discover other app features</string>
+    <string name="no_saved_schedule">No saved schedules</string>
+    <string name="no_schedule_choose">No selected schedule</string>
+    <string name="no_calendar_placeholder">Will be available in the next update</string>
+    <string name="no_exams_placeholder">No exams</string>
+    <string name="settings_schedule_subgroup_title">Subgroup</string>
 
 </resources>

@@ -35,9 +35,7 @@
                 android:layout_height="wrap_content"
                 android:labelFor="@+id/label_for_checkbox3"
                 android:text="@string/settings_show_past_days"
-                android:padding="10dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
+                style="@style/Theme.BSUIRSchedule.Checkbox"
                 android:checked="false" />
 
         </LinearLayout>

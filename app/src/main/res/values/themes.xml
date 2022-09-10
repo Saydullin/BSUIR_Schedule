@@ -13,9 +13,17 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/text</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.BSUIRSchedule.Checkbox">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.Button">

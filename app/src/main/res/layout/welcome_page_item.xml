@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:padding="20dp">
 
             <TextView
@@ -34,7 +35,18 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="70dp" />
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_info"
+                android:contentDescription="@string/app_name" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/caption"
@@ -59,8 +71,8 @@
         android:id="@+id/get_started_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:padding="10dp"
+        android:visibility="gone"
         android:layout_margin="20dp"
         android:text="Начать"
         style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"

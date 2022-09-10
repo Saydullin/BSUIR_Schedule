@@ -24,6 +24,7 @@ class WelcomeAdapter(
         fun bind(item: WelcomeText, position: Int) {
             binding.title.text = item.title
             binding.caption.text = item.caption
+            binding.icon.setImageDrawable(item.image)
 
             if (position == welcomeTextList.size-1) {
                 binding.getStartedButton.alpha = 0f

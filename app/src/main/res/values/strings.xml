@@ -107,7 +107,7 @@
     <string name="welcome_title_bsuir_schedule">BSUIR Schedule</string>
     <string name="welcome_caption_bsuir_schedule">Расписания\nпреподавателей и групп\nуниверситета БГУИР</string>
     <string name="welcome_title_search">Удобный поиск</string>
-    <string name="welcome_caption_search">Благодаря поиску, можно найти абсолютно любую группу или преподавателя, зная лишь кафедру, специальность, курс или факультет.</string>
+    <string name="welcome_caption_search">Поиск расписаний по кафедре, специальности, курсу, факультету и другим характеристикам.</string>
     <string name="welcome_title_info">Информативность</string>
     <string name="welcome_caption_info">Расшифровка всех аббревиатур.\n\nИнформация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
     <string name="welcome_title_functionality">Функциональность</string>
@@ -124,7 +124,7 @@
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>
-    <string name="no_subgroups_placeholder">Нет подгрупп</string>
+    <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.viewpager2.widget.ViewPager2
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentWelcomeBinding
 import com.bsuir.bsuirschedule.domain.models.WelcomeText
@@ -21,6 +22,7 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentWelcomeBinding.inflate(inflater)
+        var prevPosition = 0
 
         val welcomeTextList = ArrayList<WelcomeText>()
         welcomeTextList.add(
@@ -66,20 +68,36 @@ class WelcomeFragment : Fragment() {
             )
         )
 
-        val onGetStartedClick = {
-            Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_scheduleItemsFragment)
+        binding.getStartedButton.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_mainScheduleFragment)
             Toast.makeText(context, "Загрузите любое расписание", Toast.LENGTH_SHORT).show()
         }
 
-        binding.viewPager.adapter = WelcomeAdapter(context!!, welcomeTextList, onGetStartedClick)
+        binding.viewPager.adapter = WelcomeAdapter(context!!, welcomeTextList)
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, _ ->
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.view.background = resources.getDrawable(R.drawable.dot, null)
         }.attach()
 
-        binding.viewPager.setOnClickListener {
-            Toast.makeText(context, "Fling", Toast.LENGTH_SHORT).show()
-        }
+        binding.viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val tab = binding.tabLayout.getTabAt(position)
+                val prevTab = binding.tabLayout.getTabAt(prevPosition)
+                if (prevTab != null) {
+                    prevTab.view.background = resources.getDrawable(R.drawable.dot, null)
+                }
+                if (tab != null) {
+                    tab.view.background = resources.getDrawable(R.drawable.dot_selected, null)
+                }
+                prevPosition = position
+                if (position == welcomeTextList.size-1) {
+                    binding.getStartedButton.visibility = View.VISIBLE
+                    binding.getStartedButton.alpha = 0f
+                    binding.getStartedButton.animate().setStartDelay(300).alpha(1f)
+                }
+            }
+        })
 
         return binding.root
     }

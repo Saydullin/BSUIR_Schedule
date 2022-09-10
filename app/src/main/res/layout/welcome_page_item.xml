@@ -4,15 +4,16 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/primary">
+    android:gravity="center"
+    android:background="@color/on_primary">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/on_primary"
+        android:backgroundTint="@color/text_hint"
+        app:cardElevation="0dp"
         app:cardCornerRadius="10dp"
         android:orientation="vertical">
 
@@ -22,20 +23,6 @@
             android:orientation="vertical"
             android:gravity="center"
             android:padding="20dp">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
-                android:textSize="@dimen/font_black_size"
-                android:letterSpacing=".02"
-                android:gravity="center"
-                tools:text="Hello World" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
 
             <ImageView
                 android:id="@+id/icon"
@@ -49,35 +36,33 @@
                 android:layout_height="20dp" />
 
             <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
+                android:textSize="@dimen/font_bold_size"
+                android:letterSpacing=".02"
+                android:gravity="center"
+                tools:text="Hello World" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <TextView
                 android:id="@+id/caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Theme.BSUIRSchedule.TextView"
                 android:textSize="@dimen/font_medium_size"
                 android:lineHeight="22dp"
-                android:letterSpacing=".02"
+                android:letterSpacing=".01"
                 android:gravity="center"
                 tools:text="Hello World" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="100dp" />
-
-    <Button
-        android:id="@+id/get_started_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:visibility="gone"
-        android:layout_margin="20dp"
-        android:text="Начать"
-        style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
-        android:textColor="@color/primary"
-        android:backgroundTint="@color/on_primary" />
 
 </LinearLayout>
 

@@ -16,7 +16,7 @@ class ScheduleExamsAdapter(
         return when (position) {
             ScheduleTabs.SCHEDULE -> ScheduleRecyclerFragment()
             ScheduleTabs.EXAMS -> ExamsRecyclerFragment()
-            ScheduleTabs.SUBGROUP -> ScheduleSubgroupFragment()
+            ScheduleTabs.CALENDAR -> ScheduleCalendarFragment()
             ScheduleTabs.CONTROL -> ScheduleControlFragment()
             else -> ScheduleRecyclerFragment()
         }

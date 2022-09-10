@@ -49,7 +49,7 @@ class MainScheduleFragment : Fragment() {
                         }
                         tab.customView = tabViews.exams
                     }
-                    ScheduleTabs.SUBGROUP -> tab.customView = tabViews.calendar
+                    ScheduleTabs.CALENDAR -> tab.customView = tabViews.calendar
                     ScheduleTabs.CONTROL -> tab.customView = tabViews.scheduleControl
                     else -> tab.customView = tabViews.schedule
                 }

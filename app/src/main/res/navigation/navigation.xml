@@ -25,7 +25,9 @@
             android:id="@+id/action_mainScheduleFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/rev_exit" />
+            app:exitAnim="@anim/rev_exit"
+            app:popEnterAnim="@anim/rev_enter"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/schedulesListFragment"
@@ -104,10 +106,10 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainScheduleFragment"
             app:destination="@id/mainScheduleFragment"
-            app:enterAnim="@anim/slide_out_right"
-            app:exitAnim="@anim/enter_anim"
+            app:enterAnim="@anim/exit_anim"
+            app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="true"
-            app:popUpTo="@id/mainScheduleFragment"
+            app:popUpTo="@id/settingsFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

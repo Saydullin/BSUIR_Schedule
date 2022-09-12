@@ -135,6 +135,8 @@
     <string name="settings_show_past_days">Показывать прошедшие дни</string>
     <string name="settings_schedule_title">Расписания</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
+    <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
+    <string name="get_started">Начать</string>
 
     <plurals name="plural_groups">
         <item quantity="zero">найдено %d групп</item>
@@ -198,7 +200,6 @@
         <item quantity="many">%d минут</item>
         <item quantity="other">%d минут</item>
     </plurals>
-    <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
 
 </resources>
 

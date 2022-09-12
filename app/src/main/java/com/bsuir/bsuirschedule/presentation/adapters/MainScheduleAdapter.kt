@@ -79,7 +79,7 @@ class MainScheduleAdapter(
             binding.scheduleWeekDay.text = scheduleDay.weekDayName.replaceFirstChar { it.uppercase() }
             binding.scheduleLessonsAmount.text = lessonsText
             if (scheduleDay.schedule.isEmpty()) {
-                val textColor = getColor(context, R.color.text)
+                val textColor = getColor(context, R.color.text_dark)
                 binding.scheduleSubjectsRecycler.visibility = View.GONE
                 binding.scheduleNoLessons.visibility = View.VISIBLE
                 binding.scheduleDayHeader.setBackgroundResource(R.drawable.subject_empty_holder)

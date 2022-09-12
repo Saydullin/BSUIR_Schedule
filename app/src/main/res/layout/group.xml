@@ -41,7 +41,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:textColor="@color/text"
+                android:textColor="@color/text_dark"
                 android:text="@string/test_subject_subtitle" />
 
             <Space

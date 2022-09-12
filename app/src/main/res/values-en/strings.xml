@@ -148,5 +148,6 @@
     <string name="no_calendar_placeholder">Will be available in the next update</string>
     <string name="no_exams_placeholder">No exams</string>
     <string name="settings_schedule_subgroup_title">Subgroup</string>
+    <string name="get_started">Get Started</string>
 
 </resources>

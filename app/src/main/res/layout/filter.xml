@@ -5,6 +5,7 @@
     android:paddingHorizontal="20dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:background="?attr/colorSecondary"
     android:layout_marginVertical="10dp">
 
     <LinearLayout
@@ -32,7 +33,8 @@
             android:inputType="text"
             android:autofillHints="name"
             android:hint="@string/search_placeholder"
-            android:textColor="@color/text"
+            android:textColorHint="@color/text_dark_hint"
+            android:textColor="@color/text_dark"
             android:textColorHighlight="@color/text_hint"
             android:textSize="@dimen/font_medium_size"
             android:backgroundTint="@color/text_hint"
@@ -64,6 +66,7 @@
         <TextView
             android:id="@+id/filter_amount"
             style="@style/Theme.BSUIRSchedule.TextView.Hint"
+            android:textColor="?attr/colorSecondaryVariant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="найдено 428 групп" />

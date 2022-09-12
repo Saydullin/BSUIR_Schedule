@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/colorSecondary"
     tools:context=".presentation.fragments.ScheduleRecyclerFragment">
 
     <LinearLayout
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSecondary"
         android:visibility="gone"
         android:gravity="center">
 

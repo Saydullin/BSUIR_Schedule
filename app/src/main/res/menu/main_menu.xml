@@ -3,7 +3,7 @@
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
-        android:iconTint="@color/text"
+        android:iconTint="@color/text_dark"
         android:title="@string/popup_settings" />
     <item
         android:id="@+id/about"

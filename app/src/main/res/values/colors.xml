@@ -16,8 +16,10 @@
     <color name="text_hint">#dfe6e9</color>
     <color name="text_dark_hint">#636e72</color>
     <color name="text_primary">#FFFFFF</color>
-    <color name="text">#2d3436</color>
+    <color name="text_dark">#2d3436</color>
+    <color name="text_light">#dfe6e9</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="dark">#2d3436</color>
 
     <color name="subject_exam">#FF000000</color>
     <color name="subject_consultation">#0984e3</color>

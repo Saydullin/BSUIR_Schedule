@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/on_primary"
+    android:background="?attr/colorSecondary"
     android:paddingBottom="50dp"
     android:orientation="vertical">
 
@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
+        android:textColor="?attr/colorOnSecondary"
         android:text="@string/no_exams_placeholder" />
 
 </LinearLayout>

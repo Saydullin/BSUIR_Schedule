@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="2dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/text_dark_hint"
+        android:textColor="?attr/colorSecondaryVariant"
         android:text="@string/test_subject_break_time" />
 
         <LinearLayout
@@ -34,13 +34,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     style="@style/Theme.BSUIRSchedule.TextView.Title"
-                    android:text="12:25" />
+                    android:textColor="?attr/colorOnSecondary"
+                    tools:text="12:25" />
 
                 <TextView
                     android:id="@+id/subject_end_lesson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView"
+                    android:textColor="?attr/colorOnSecondary"
                     android:gravity="end"
                     android:text="13:45" />
 
@@ -83,7 +85,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:maxLines="2"
                             android:text="@string/test_subject_title"
-                            android:textColor="@color/text" />
+                            android:textColor="@color/text_dark" />
 
                         <Space
                             android:layout_width="0dp"
@@ -123,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto"
-                            android:textColor="@color/text"
+                            android:textColor="@color/text_dark"
                             android:text="@string/test_subject_time" />
 
                     </LinearLayout>

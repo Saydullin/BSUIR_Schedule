@@ -29,7 +29,7 @@
             android:fontFamily="@font/roboto_medium"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textColor="@color/text"
+            android:textColor="?attr/colorOnSecondary"
             android:text="@string/tab_item_group" />
 
     </LinearLayout>
@@ -59,7 +59,7 @@
             android:fontFamily="@font/roboto_medium"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textColor="@color/text"
+            android:textColor="?attr/colorOnSecondary"
             android:text="@string/tab_item_employee" />
 
     </LinearLayout>
@@ -87,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+            android:textColor="?attr/colorSecondaryVariant"
             android:text="@string/tab_item_schedule" />
 
     </LinearLayout>
@@ -114,6 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+            android:textColor="?attr/colorSecondaryVariant"
             android:text="@string/tab_item_exams" />
 
     </LinearLayout>
@@ -141,6 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+            android:textColor="?attr/colorSecondaryVariant"
             android:text="@string/tab_item_calendar" />
 
     </LinearLayout>
@@ -168,6 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+            android:textColor="?attr/colorSecondaryVariant"
             android:text="@string/tab_item_settings" />
 
     </LinearLayout>

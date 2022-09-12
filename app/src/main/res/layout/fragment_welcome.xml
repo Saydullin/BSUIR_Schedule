@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/on_primary">
@@ -18,6 +17,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/on_primary"
         app:tabBackground="@drawable/dot"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
@@ -31,7 +31,7 @@
         android:paddingHorizontal="10dp"
         android:visibility="invisible"
         android:layout_margin="20dp"
-        android:text="Начать"
+        android:text="@string/get_started"
         style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
         android:textColor="@color/on_primary"
         android:backgroundTint="@color/primary"/>

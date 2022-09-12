@@ -3,19 +3,26 @@
     <style name="Theme.BSUIRSchedule" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
         <!-- Secondary brand color. -->
-        <item name="colorAccent">@color/primary</item>
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorAccent">@color/primary_holder</item>
+        <item name="colorSecondary">@color/dark</item>
+        <item name="colorOnSecondary">@color/text_light</item>
+        <item name="colorSecondaryVariant">@color/text_hint</item>
         <item name="android:windowBackground">@color/primary</item>
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:itemBackground">@color/dark</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:textColor">@color/text_light</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/dark</item>
     </style>
 
 </resources>

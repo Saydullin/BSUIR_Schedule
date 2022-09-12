@@ -69,6 +69,7 @@
                 android:labelFor="@+id/label_for_checkbox3"
                 android:text="@string/settings_show_past_days"
                 style="@style/Theme.BSUIRSchedule.Checkbox"
+                android:textColorHint="@color/text_dark"
                 android:checked="false" />
 
         </LinearLayout>

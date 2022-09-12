@@ -24,10 +24,30 @@ class CurrentWeekViewModel(
         error.value = null
     }
 
+    fun checkIsWeekActual() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (
+                val result = getCurrentWeekUseCase.isCurrentWeekPassed()
+            ) {
+                is Resource.Success -> {
+                    getCurrentWeekAPI()
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType,
+                        message = result.message
+                    ))
+                }
+            }
+        }
+    }
+
     fun getCurrentWeekAPI() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = getCurrentWeekUseCase.getCurrentWeekAPI()
-            when(result) {
+            when(
+                val result = getCurrentWeekUseCase.getCurrentWeekAPI()
+            ) {
                 is Resource.Success -> {
                     val data = result.data!!
                     saveCurrentWeek(data)
@@ -48,8 +68,9 @@ class CurrentWeekViewModel(
     private fun saveCurrentWeek(currentWeek: CurrentWeek) {
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
-            val result = getCurrentWeekUseCase.saveCurrentWeek(currentWeek)
-            when(result) {
+            when(
+                val result = getCurrentWeekUseCase.saveCurrentWeek(currentWeek)
+            ) {
                 is Resource.Success -> {
                     loading.postValue(false)
                 }
@@ -67,11 +88,11 @@ class CurrentWeekViewModel(
 
     fun getCurrentWeek() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = getCurrentWeekUseCase.getCurrentWeek()
-            when(result) {
+            when(
+                val result = getCurrentWeekUseCase.getCurrentWeek()
+            ) {
                 is Resource.Success -> {
-                    val data = result.data!!
-                    currentWeek.postValue(data.week)
+                    currentWeek.postValue(result.data!!)
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(

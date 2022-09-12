@@ -119,7 +119,7 @@ class GroupScheduleUseCase(
                 errorType = currentWeek.errorType
             )
         }
-        return fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!.week)
+        return fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!)
     }
 
     suspend fun getScheduleById(groupId: Int): Resource<GroupSchedule> {

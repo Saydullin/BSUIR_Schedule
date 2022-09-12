@@ -36,6 +36,7 @@ class SplashScreenFragment : Fragment() {
             currentWeekVM.getCurrentWeekAPI()
         } else {
             groupScheduleVM.initActiveSchedule()
+            currentWeekVM.checkIsWeekActual()
             findNavController().navigate(R.id.action_to_mainScheduleFragment)
         }
 

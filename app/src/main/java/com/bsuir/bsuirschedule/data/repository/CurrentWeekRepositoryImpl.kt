@@ -10,6 +10,10 @@ import java.util.*
 
 class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : CurrentWeekRepository {
 
+    companion object {
+        const val MAX_WEEKS = 4
+    }
+
     override suspend fun getCurrentWeekAPI(): Resource<CurrentWeek> {
         val currentWeekService = RetrofitBuilder.getInstance().create(GetCurrentWeekService::class.java)
 
@@ -47,6 +51,10 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
                 message = e.message
             )
         }
+    }
+
+    override suspend fun isCurrentWeekPassed(): Resource<Boolean> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun saveCurrentWeek(currentWeek: CurrentWeek): Resource<Unit> {

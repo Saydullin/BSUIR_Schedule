@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -28,10 +27,6 @@ class ActiveScheduleFragment : Fragment() {
     ): View {
         val binding = FragmentActiveScheduleBinding.inflate(inflater)
         var activeSchedule: SavedSchedule? = null // FIXME
-
-        binding.exam.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_to_examsScheduleFragment)
-        }
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe

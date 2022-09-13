@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:backgroundTint="@color/on_primary"
+    android:backgroundTint="?attr/primaryOnColor"
     app:cardCornerRadius="10dp">
 
     <LinearLayout

@@ -6,7 +6,7 @@
         android:right="0dp"
         android:bottom="0dp">
         <shape>
-            <solid android:color="@color/primary"/>
+            <solid android:color="?attr/primaryColor"/>
         </shape>
     </item>
     <item

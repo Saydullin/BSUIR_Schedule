@@ -131,10 +131,14 @@
     <string name="settings_feedback_title">Обратная связь</string>
     <string name="settings_font_title">Размер шрифта</string>
     <string name="settings_auto_update">Автоматическое обновление</string>
+    <string name="settings_alarm_on">Включить будильник</string>
     <string name="settings_show_empty_day">Показывать пустые дни</string>
     <string name="settings_show_past_days">Показывать прошедшие дни</string>
     <string name="settings_schedule_title">Расписания</string>
+    <string name="settings_alarm_title">Будильник</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
+    <string name="settings_all_subgroups">Все подгруппы</string>
+    <string name="settings_item_subgroup">%d подгруппа</string>
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
 

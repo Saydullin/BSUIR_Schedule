@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="2dp"
         android:gravity="center_horizontal"
-        android:textColor="?attr/colorSecondaryVariant"
+        android:textColor="?attr/textHintColor"
         android:text="@string/test_subject_break_time" />
 
         <LinearLayout
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     style="@style/Theme.BSUIRSchedule.TextView.Title"
-                    android:textColor="?attr/colorOnSecondary"
+                    android:textColor="?attr/textColor"
                     tools:text="12:25" />
 
                 <TextView
@@ -42,9 +42,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView"
-                    android:textColor="?attr/colorOnSecondary"
+                    android:textColor="?attr/textColor"
                     android:gravity="end"
-                    android:text="13:45" />
+                    tools:text="13:45" />
 
             </LinearLayout>
 
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp"
-                android:backgroundTint="@color/primary_holder"
+                android:backgroundTint="?attr/secondaryColor"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout

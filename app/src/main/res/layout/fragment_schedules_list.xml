@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="?attr/primaryOnColor"
     tools:context=".presentation.fragments.SchedulesListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
+        android:background="?attr/primaryColor"
         android:paddingVertical="12dp"
         android:paddingHorizontal="15dp"
         android:layout_gravity="center_vertical"

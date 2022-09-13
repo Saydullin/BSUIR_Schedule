@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/on_primary">
+    android:background="?attr/primaryOnColor">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -17,7 +17,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/on_primary"
+        android:background="?attr/primaryOnColor"
         app:tabBackground="@drawable/dot"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
@@ -33,8 +33,8 @@
         android:layout_margin="20dp"
         android:text="@string/get_started"
         style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
-        android:textColor="@color/on_primary"
-        android:backgroundTint="@color/primary"/>
+        android:textColor="?attr/primaryTextColor"
+        android:backgroundTint="?attr/primaryColor" />
 
 </LinearLayout>
 

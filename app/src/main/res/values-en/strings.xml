@@ -27,7 +27,7 @@
     <string name="popup_delete">Delete</string>
     <string name="all_subgroups">For all group</string>
     <string name="subgroup">For %d subgroup</string>
-    <string name="subject_time">from %s to %s</string>
+    <string name="subject_time" formatted="false">from %s to %s</string>
     <string name="subject_weeks">on %s weeks</string>
     <string name="subject_note">Note: %s</string>
     <string name="data_error">Data processing error</string>
@@ -55,6 +55,10 @@
     <string name="load_caption">Please, wait</string>
     <string name="load_schedule">Schedule loading</string>
     <string name="load_schedule_caption">Please, wait</string>
+
+    <string-array name="subgroups">
+        <item>All subgroups</item>
+    </string-array>
 
     <plurals name="plural_groups">
         <item quantity="zero">found %d groups</item>

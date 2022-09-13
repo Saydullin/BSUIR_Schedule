@@ -13,7 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorAccent"
+        android:backgroundTint="?attr/secondaryColor"
         app:cardElevation="0dp"
         app:cardCornerRadius="10dp">
 
@@ -110,22 +110,5 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:id="@+id/exam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <include
-            android:id="@+id/exam_notification"
-            layout="@layout/exam_notification" />
-
-    </LinearLayout>
 
 </LinearLayout>

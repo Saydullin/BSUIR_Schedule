@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/on_primary"
+        android:textColor="?attr/primaryTextColor"
         style="@style/Theme.BSUIRSchedule.TextView.Hint"
         android:text="Добро Пожаловать"/>
 

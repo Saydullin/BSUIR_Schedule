@@ -5,8 +5,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/primary</item>
-        <!-- Secondary brand color. -->
-        <item name="colorAccent">@color/primary_holder</item>
+        <item name="colorAccent">@color/primary</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/text_dark_hint</item>
@@ -21,7 +20,15 @@
         <item name="android:textColor">@color/text_dark</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+        <!-- Custom theme colors. -->
+        <item name="primaryColor">@color/primary</item>
+        <item name="primaryOnColor">@color/white</item>
+        <item name="primaryTextColor">@color/white</item>
+        <item name="secondaryColor">@color/primary_holder</item>
+        <item name="secondaryTextColor">@color/dark</item>
+        <item name="textColor">@color/dark</item>
+        <item name="textHintColor">@color/text_dark_hint</item>
     </style>
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
@@ -29,7 +36,7 @@
     </style>
 
     <style name="Theme.BSUIRSchedule.Checkbox">
-        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColor">?attr/textColor</item>
         <item name="android:padding">10dp</item>
         <item name="android:minWidth">0dp</item>
         <item name="android:minHeight">0dp</item>
@@ -61,7 +68,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColor">?attr/textColor</item>
         <item name="android:textSize">@dimen/font_regular_size</item>
     </style>
 
@@ -74,11 +81,11 @@
     </style>
 
     <style name="Theme.BSUIRSchedule.TextView.Thin.Hint" parent="Theme.BSUIRSchedule.TextView.Thin">
-        <item name="android:textColor">@color/text_dark_hint</item>
+        <item name="android:textColor">?attr/textHintColor</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.TextView.Hint" parent="Theme.BSUIRSchedule.TextView">
-        <item name="android:textColor">@color/text_dark_hint</item>
+        <item name="android:textColor">?attr/textHintColor</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.TextView.Medium" parent="Theme.BSUIRSchedule.TextView">

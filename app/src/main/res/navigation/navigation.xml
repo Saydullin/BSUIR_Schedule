@@ -17,11 +17,6 @@
             app:popEnterAnim="@anim/enter_anim"
             app:popExitAnim="@anim/slide_out_left" />
         <action
-            android:id="@+id/action_to_examsScheduleFragment"
-            app:destination="@id/examsScheduleFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/rev_exit" />
-        <action
             android:id="@+id/action_mainScheduleFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -85,20 +80,6 @@
             app:destination="@id/welcomeFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out" />
-    </fragment>
-    <fragment
-        android:id="@+id/examsScheduleFragment"
-        android:name="com.bsuir.bsuirschedule.presentation.fragments.ExamsScheduleFragment"
-        android:label="fragment_exams_schedule"
-        tools:layout="@layout/fragment_exams_schedule" >
-        <action
-            android:id="@+id/action_fromExams_to_mainScheduleFragment"
-            app:destination="@id/mainScheduleFragment"
-            app:enterAnim="@anim/slide_out_right"
-            app:exitAnim="@anim/rev_exit"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/mainScheduleFragment"
-            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="primary_color">@color/primary</attr>
+    <attr name="primaryColor">@color/primary</attr>
+    <attr name="primaryOnColor">@color/white</attr>
+    <attr name="primaryTextColor">@color/white</attr>
+    <attr name="secondaryColor">@color/primary_holder</attr>
+    <attr name="secondaryTextColor">@color/text</attr>
+    <attr name="textColor">@color/text</attr>
+    <attr name="textHintColor">@color/text_dark_hint</attr>
 </resources>
 
 

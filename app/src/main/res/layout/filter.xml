@@ -5,7 +5,7 @@
     android:paddingHorizontal="20dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="?attr/colorSecondary"
+    android:background="?attr/primaryOnColor"
     android:layout_marginVertical="10dp">
 
     <LinearLayout
@@ -33,11 +33,11 @@
             android:inputType="text"
             android:autofillHints="name"
             android:hint="@string/search_placeholder"
-            android:textColorHint="@color/text_dark_hint"
-            android:textColor="@color/text_dark"
-            android:textColorHighlight="@color/text_hint"
+            android:textColorHint="?attr/textHintColor"
+            android:textColor="?attr/textColor"
+            android:textColorHighlight="?attr/textHintColor"
             android:textSize="@dimen/font_medium_size"
-            android:backgroundTint="@color/text_hint"
+            android:backgroundTint="?attr/textHintColor"
             android:textCursorDrawable="@drawable/edit_text_cursor"
             android:labelFor="@+id/search_button" />
 

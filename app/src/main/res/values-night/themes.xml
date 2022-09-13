@@ -4,12 +4,16 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary</item>
         <!-- Secondary brand color. -->
         <item name="colorAccent">@color/primary_holder</item>
+        <item name="colorAccent">@color/primary</item>
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSecondary">@color/text_light</item>
+        <item name="colorOnSecondary">@color/primary</item>
         <item name="colorSecondaryVariant">@color/text_hint</item>
+        <item name="colorSecondaryVariant">@color/primary</item>
         <item name="android:windowBackground">@color/primary</item>
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
@@ -19,6 +23,15 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- Custom theme colors. -->
+        <item name="primaryColor">@color/primary</item>
+        <item name="primaryOnColor">@color/dark</item>
+        <item name="secondaryColor">@color/primaryOnColorDarkTheme</item>
+        <item name="secondaryTextColor">@color/textColorDarkTheme</item>
+        <item name="primaryTextColor">@color/white</item>
+        <item name="textColor">@color/textColorDarkTheme</item>
+        <item name="textHintColor">@color/textHintColorDarkTheme</item>
     </style>
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">

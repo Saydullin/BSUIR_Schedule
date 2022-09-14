@@ -142,9 +142,9 @@
     <string name="welcome_title_info">Informative</string>
     <string name="welcome_caption_info">Explanation of all abbreviations. Information about which classroom the group or teacher is currently in.</string>
     <string name="welcome_title_functionality">Functionality</string>
-    <string name="welcome_caption_functionality">Individual settings for each schedule.  Automatic updating of schedules.</string>
+    <string name="welcome_caption_functionality">Individual settings for each schedule.\n\nAutomatic updating of schedules.</string>
     <string name="welcome_title_localization">Localization</string>
-    <string name="welcome_caption_localization">Support 3 languages. Russian, English and Belarusian</string>
+    <string name="welcome_caption_localization">Support 3 languages.\nRussian, English and Belarusian</string>
     <string name="welcome_title_etc">What else?</string>
     <string name="welcome_caption_etc">Get started to discover other app features</string>
     <string name="no_saved_schedule">No saved schedules</string>
@@ -153,5 +153,9 @@
     <string name="no_exams_placeholder">No exams</string>
     <string name="settings_schedule_subgroup_title">Subgroup</string>
     <string name="get_started">Get Started</string>
+    <string name="settings_alarm_on">Turn on</string>
+    <string name="settings_alarm_title">Alarm</string>
+    <string name="settings_all_subgroups">All subgroups</string>
+    <string name="settings_item_subgroup">%d subgroup</string>
 
 </resources>

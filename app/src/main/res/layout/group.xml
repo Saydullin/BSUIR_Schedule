@@ -37,11 +37,10 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_medium"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:textColor="@color/text_dark"
                 android:text="@string/test_subject_subtitle" />
 
             <Space

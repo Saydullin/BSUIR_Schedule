@@ -11,9 +11,9 @@
         android:id="@+id/subject_break_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
         android:paddingVertical="2dp"
         android:gravity="center_horizontal"
-        android:textColor="?attr/textHintColor"
         android:text="@string/test_subject_break_time" />
 
         <LinearLayout
@@ -80,12 +80,11 @@
                             android:id="@+id/subject_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/Theme.BSUIRSchedule.TextView.Medium"
                             android:layout_marginEnd="10dp"
                             android:ellipsize="end"
-                            android:fontFamily="@font/roboto_medium"
                             android:maxLines="2"
-                            android:text="@string/test_subject_title"
-                            android:textColor="@color/text_dark" />
+                            android:text="@string/test_subject_title" />
 
                         <Space
                             android:layout_width="0dp"
@@ -124,8 +123,7 @@
                             android:id="@+id/subject_audience"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:textColor="@color/text_dark"
+                            style="@style/Theme.BSUIRSchedule.TextView"
                             android:text="@string/test_subject_time" />
 
                     </LinearLayout>
@@ -228,8 +226,7 @@
                             android:id="@+id/subject_note"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:textColor="@color/text_dark_hint"
+                            style="@style/Theme.BSUIRSchedule.TextView.Hint"
                             android:text="@string/test_subject_note" />
 
                     </LinearLayout>

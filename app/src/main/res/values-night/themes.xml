@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary</item>
         <!-- Secondary brand color. -->
-        <item name="colorAccent">@color/primary_holder</item>
+        <item name="colorAccent">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSecondary">@color/text_light</item>
@@ -30,7 +30,7 @@
         <item name="secondaryColor">@color/primaryOnColorDarkTheme</item>
         <item name="secondaryTextColor">@color/textColorDarkTheme</item>
         <item name="primaryTextColor">@color/white</item>
-        <item name="textColor">@color/textColorDarkTheme</item>
+        <item name="textColor">@color/white</item>
         <item name="textHintColor">@color/textHintColorDarkTheme</item>
     </style>
 

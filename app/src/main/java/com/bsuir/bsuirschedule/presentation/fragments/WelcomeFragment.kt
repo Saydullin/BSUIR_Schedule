@@ -50,7 +50,7 @@ class WelcomeFragment : Fragment() {
             WelcomeText(
                 title = getString(R.string.welcome_title_functionality),
                 caption = getString(R.string.welcome_caption_functionality),
-                image = resources.getDrawable(R.drawable.ic_settings_primary, null)
+                image = resources.getDrawable(R.drawable.ic_settings_primary, context?.theme)
             )
         )
         welcomeTextList.add(

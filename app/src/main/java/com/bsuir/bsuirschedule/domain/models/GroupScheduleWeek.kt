@@ -11,6 +11,7 @@ data class GroupScheduleWeek (
     @SerializedName("Четверг") var thursday: ArrayList<ScheduleSubject>? = ArrayList(),
     @SerializedName("Пятница") var friday: ArrayList<ScheduleSubject>? = ArrayList(),
     @SerializedName("Суббота") var saturday: ArrayList<ScheduleSubject>? = ArrayList(),
+    @SerializedName("Воскресенье") var sunday: ArrayList<ScheduleSubject>? = ArrayList(),
 ) {
 
     companion object {
@@ -32,6 +33,7 @@ data class GroupScheduleWeek (
             thursday ?: ArrayList(),
             friday ?: ArrayList(),
             saturday ?: ArrayList(),
+            sunday ?: ArrayList()
         )
     }
 

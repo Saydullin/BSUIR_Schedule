@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,9 @@ class ActiveScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentActiveScheduleBinding.inflate(inflater)
-        var activeSchedule: SavedSchedule? = null // FIXME
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
-            activeSchedule = schedule.toSavedSchedule()
 
             if (schedule.isGroup()) {
                 val group = schedule.group
@@ -38,6 +37,7 @@ class ActiveScheduleFragment : Fragment() {
                 Glide.with(binding.scheduleImage)
                     .load(R.drawable.ic_group_placeholder)
                     .into(binding.scheduleImage)
+                binding.scheduleCourse.visibility = View.VISIBLE
                 binding.scheduleCourse.text = "${group.course} $courseText"
                 binding.activeScheduleTitle.text = group.name
                 binding.scheduleSubtitleLeft.text = group.getFacultyAndSpecialityAbbr()
@@ -51,12 +51,19 @@ class ActiveScheduleFragment : Fragment() {
                     .into(binding.scheduleImage)
                 binding.activeScheduleTitle.text = employee.getFullName()
                 binding.scheduleSubtitleLeft.text = employee.getRankAndDegree()
+                binding.scheduleCourse.visibility = View.GONE
                 if (!employee.departmentsList.isNullOrEmpty()) {
                     binding.scheduleSubtitleRight.text = employee.departmentsList!![0].abbrev + if (employee.departmentsList!!.size > 1) {
                         val moreText = getString(R.string.more)
                         ", $moreText ${employee.departmentsList!!.size - 1}"
                     } else ""
                 }
+            }
+
+            if (schedule.selectedSubgroup == 0) {
+                binding.subgroup.text = resources.getString(R.string.all_subgroups_short)
+            } else {
+                binding.subgroup.text = schedule.selectedSubgroup.toString()
             }
         }
 
@@ -76,9 +83,9 @@ class ActiveScheduleFragment : Fragment() {
         }
 
         binding.root.setOnClickListener {
-            if (activeSchedule == null) return@setOnClickListener
+            val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
             val savedScheduleDialog = SavedScheduleDialog(
-                savedSchedule = activeSchedule!!,
+                savedSchedule = activeSchedule.toSavedSchedule(),
                 delete = deleteSchedule,
                 update = updateSchedule)
             savedScheduleDialog.isCancelable = true

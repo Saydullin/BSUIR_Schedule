@@ -1,8 +1,10 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.absoluteValue
 
 class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int = 1) {
 
@@ -20,6 +22,8 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         calendar.time = inputDate as Date
     }
 
+    fun getCalendar() = calendar
+
     fun getFullDate(amount: Int): String {
         calendar.time = inputDate as Date
         calendar.add(Calendar.DATE, amount)
@@ -28,15 +32,25 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return output.format(calendar.time)
     }
 
-    fun isMatchDate(startDate: String, endDate: String): Boolean {
-        val output = SimpleDateFormat("dd.MM.yyyy")
-        val startDateFormat = output.parse(startDate)
-        val endDateFormat = output.parse(endDate)
-        return (startDateFormat?.before(calendar.time) ?: false) && (endDateFormat?.after(calendar.time) ?: false)
-    }
-
     fun getWeekNumber(): Int {
-        return weekNumber
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val nowDate = Calendar.getInstance()
+        val calendarDate = Calendar.getInstance()
+        calendarDate.time = calendar.time
+        nowDate.set(Calendar.DAY_OF_WEEK, 1) // now date
+        calendarDate.set(Calendar.DAY_OF_WEEK, 1) // increment date
+        var counter = weekNumber
+        val amount = if (nowDate.time.time > calendarDate.time.time) -7 else 7
+
+        while (dateFormat.format(nowDate.time) != dateFormat.format(calendarDate.time) && counter < 20) {
+            nowDate.add(Calendar.DATE, amount)
+            counter++
+        }
+
+        counter %= 4
+        counter = if (counter == 0) 4 else counter
+
+        return counter
     }
 
     fun getDate(): String {

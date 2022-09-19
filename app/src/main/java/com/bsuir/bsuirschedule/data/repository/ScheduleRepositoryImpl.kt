@@ -20,7 +20,6 @@ class ScheduleRepositoryImpl(
             val result = groupScheduleService.getGroupSchedule(groupName)
             val data = result.body()
             return if (result.isSuccessful && data != null) {
-                Log.e("sady", "Successfully loaded")
                 Resource.Success(data)
             } else {
                 Resource.Error(

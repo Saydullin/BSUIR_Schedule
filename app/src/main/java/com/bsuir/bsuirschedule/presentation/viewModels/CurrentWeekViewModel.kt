@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,7 +31,9 @@ class CurrentWeekViewModel(
                 val result = getCurrentWeekUseCase.isCurrentWeekPassed()
             ) {
                 is Resource.Success -> {
-                    getCurrentWeekAPI()
+                    if (result.data == true) {
+                        getCurrentWeekAPI()
+                    }
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(
@@ -88,7 +91,7 @@ class CurrentWeekViewModel(
 
     fun getCurrentWeek() {
         viewModelScope.launch(Dispatchers.IO) {
-            when(
+            when (
                 val result = getCurrentWeekUseCase.getCurrentWeek()
             ) {
                 is Resource.Success -> {

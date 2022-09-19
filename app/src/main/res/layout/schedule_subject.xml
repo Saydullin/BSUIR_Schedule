@@ -139,8 +139,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
+                            android:shape="ring"
                             app:cardElevation="0dp"
-                            app:cardCornerRadius="50dp">
+                            app:cardCornerRadius="25dp">
 
                             <ImageView
                                 android:id="@+id/schedule_image"

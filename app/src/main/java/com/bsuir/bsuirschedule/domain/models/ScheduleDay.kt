@@ -1,11 +1,11 @@
 package com.bsuir.bsuirschedule.domain.models
 
 data class ScheduleDay (
-    var id: Int = -1,
-    var date: String = "",
-    var weekDayName: String = "",
-    var weekDayNumber: Int = 0,
-    var lessonsAmount: Int = 0,
+    val id: Int = -1,
+    val date: String,
+    val weekDayName: String,
+    val weekDayNumber: Int,
+    val weekNumber: Int,
     var schedule: ArrayList<ScheduleSubject> = ArrayList()
 ) {
 
@@ -15,7 +15,7 @@ data class ScheduleDay (
             date = "",
             weekDayName = "",
             weekDayNumber = 0,
-            lessonsAmount = 0,
+            weekNumber = 0,
             schedule = ArrayList()
         )
     }

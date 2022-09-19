@@ -16,7 +16,7 @@ data class Schedule (
     var examsSchedule: ArrayList<ScheduleDay>,
     var schedules: ArrayList<ScheduleDay>,
     val lastUpdateTime: Long,
-    val selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
+    var selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
 
     companion object {

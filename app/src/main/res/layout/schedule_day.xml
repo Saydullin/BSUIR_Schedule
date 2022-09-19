@@ -4,12 +4,34 @@
     android:layout_height="wrap_content"
     android:paddingTop="20dp"
     android:paddingHorizontal="20dp"
+    android:background="?attr/primaryOnColor"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/week_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/subject_empty_holder">
+
+        <TextView
+            android:id="@+id/week_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium.Thin"
+            android:text="1 неделя" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/schedule_day_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@drawable/subject_holder"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
@@ -21,29 +43,36 @@
             android:id="@+id/schedule_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium"
             android:layout_weight="1"
-            android:fontFamily="@font/roboto_medium"
             android:textColor="@color/on_primary"
             android:text="@string/test_schedule_day" />
 
-        <TextView
-            android:id="@+id/schedule_week_day"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="5dp"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/on_primary"
-            android:text="@string/test_schedule_date" />
+            android:layout_gravity="top">
+
+            <TextView
+                android:id="@+id/schedule_week_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:textColor="?attr/primaryOnColor"
+                android:text="@string/test_schedule_date" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/schedule_lessons_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium"
             android:gravity="end"
-            android:fontFamily="@font/roboto_medium"
             android:textColor="@color/on_primary"
             android:layout_weight="1"
             android:text="@string/test_schedule_lessons_amount" />

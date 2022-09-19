@@ -157,5 +157,8 @@
     <string name="settings_alarm_title">Alarm</string>
     <string name="settings_all_subgroups">All subgroups</string>
     <string name="settings_item_subgroup">%d subgroup</string>
+    <string name="all_subgroups_short">all</string>
+    <string name="subgroup_selected">%d subgroup selected</string>
+    <string name="schedule_week_number">% week</string>
 
 </resources>

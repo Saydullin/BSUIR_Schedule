@@ -13,12 +13,12 @@ data class GroupSchedule (
     val endExamsDate: String?,
     @SerializedName("studentGroupDto") val group: Group?,
     @SerializedName("employeeDto") val employee: EmployeeSubject?,
-    val subgroups: List<Int>?,
+    var subgroups: List<Int>?,
     val schedules: GroupScheduleWeek? = GroupScheduleWeek.empty,
     val exams: ArrayList<ScheduleSubject>? = ArrayList(),
     var examsSchedule: ArrayList<ScheduleDay>? = ArrayList(),
     var lastUpdateTime: Long? = Date().time,
-    val selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
+    var selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
 
     companion object {
@@ -77,6 +77,7 @@ data class GroupSchedule (
         exams = exams ?: ArrayList(),
         examsSchedule = examsSchedule ?: ArrayList(),
         lastUpdateTime = lastUpdateTime ?: Date().time,
+        selectedSubgroup = selectedSubgroup,
         schedules = ArrayList(),
     )
 

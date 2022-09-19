@@ -38,6 +38,9 @@ class GroupScheduleUseCase(
                             message = isMergedEmployees.message
                         )
                     }
+                    if (data.schedules != null) {
+                        data.subgroups = getSubgroupsList(data.schedules.getList())
+                    }
                     Resource.Success(data)
                 }
                 is Resource.Error -> {
@@ -53,6 +56,18 @@ class GroupScheduleUseCase(
                 message = e.message
             )
         }
+    }
+
+    private fun getSubgroupsList(schedule: List<ArrayList<ScheduleSubject>>): List<Int> {
+        val amount = ArrayList<Int>()
+
+        schedule.forEach { day ->
+            day.forEach { subject ->
+                amount.add(subject.numSubgroup ?: 0)
+            }
+        }
+
+        return amount.toSet().toList()
     }
 
     private suspend fun mergeEmployeeItems(groupSchedule: GroupSchedule): Resource<GroupSchedule> {
@@ -148,6 +163,39 @@ class GroupScheduleUseCase(
                 errorType = Resource.DATA_ERROR,
                 message = e.message
             )
+        }
+    }
+
+    suspend fun changeSubgroup(schedule: Schedule): Resource<Unit> {
+        return when (
+            val result = scheduleRepository.getScheduleById(schedule.id)
+        ) {
+            is Resource.Success -> {
+                val groupSchedule = result.data
+                    ?: return Resource.Error(
+                        errorType = Resource.DATABASE_ERROR
+                    )
+                groupSchedule.selectedSubgroup = schedule.selectedSubgroup
+                when (
+                    val resultSave = scheduleRepository.saveSchedule(groupSchedule)
+                ) {
+                    is Resource.Success -> {
+                        Resource.Success(null)
+                    }
+                    is Resource.Error -> {
+                        Resource.Error(
+                            errorType = resultSave.errorType,
+                            message = resultSave.message
+                        )
+                    }
+                }
+            }
+            is Resource.Error -> {
+                return Resource.Error(
+                    errorType = result.errorType,
+                    message = result.message
+                )
+            }
         }
     }
 

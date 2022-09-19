@@ -117,6 +117,24 @@ class GroupScheduleViewModel(
         }
     }
 
+    fun changeSubgroup(schedule: Schedule) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (
+                val result = groupScheduleUseCase.changeSubgroup(schedule)
+            ) {
+                is Resource.Success -> {
+                    getScheduleById(schedule.id)
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType
+                    ))
+                }
+            }
+        }
+    }
+
     private suspend fun saveGroupSchedule(groupSchedule: GroupSchedule) {
         when (
             val saveResponse = groupScheduleUseCase.saveSchedule(groupSchedule)
@@ -158,6 +176,19 @@ class GroupScheduleViewModel(
         }
     }
 
+    private fun saveScheduleToLiveData(scheduleData: Schedule?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            schedule.postValue(scheduleData)
+            activeSchedule.postValue(scheduleData?.toSavedSchedule())
+            if (scheduleData?.isNotExamsExist() == false) {
+                examsSchedule.postValue(scheduleData)
+            } else {
+                examsSchedule.postValue(null)
+            }
+            sharedPrefsUseCase.setActiveScheduleId(scheduleData?.id ?: -1)
+        }
+    }
+
     private fun getScheduleById(scheduleId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -171,14 +202,7 @@ class GroupScheduleViewModel(
                         ) {
                             is Resource.Success -> {
                                 val scheduleData = fullSchedule.data
-                                schedule.postValue(scheduleData)
-                                activeSchedule.postValue(scheduleData?.toSavedSchedule())
-                                if (scheduleData?.isNotExamsExist() == false) {
-                                    examsSchedule.postValue(scheduleData)
-                                } else {
-                                    examsSchedule.postValue(null)
-                                }
-                                sharedPrefsUseCase.setActiveScheduleId(fullSchedule.data?.id ?: -1)
+                                saveScheduleToLiveData(scheduleData)
                             }
                             is Resource.Error -> {
                                 schedule.postValue(Schedule.empty)

@@ -102,8 +102,6 @@ class MainScheduleFragment : Fragment() {
             }
         }
 
-
-
         return binding.root
     }
 

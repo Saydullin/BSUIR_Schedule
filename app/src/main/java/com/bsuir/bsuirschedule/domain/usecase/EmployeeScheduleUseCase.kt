@@ -3,6 +3,7 @@ package com.bsuir.bsuirschedule.domain.usecase
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
@@ -46,6 +47,9 @@ class EmployeeScheduleUseCase(
                         }
                     }
                     data.id = data.employee?.id ?: -1
+                    if (data.schedules != null) {
+                        data.subgroups = getSubgroupsList(data.schedules.getList())
+                    }
                     return Resource.Success(data)
                 }
                 is Resource.Error -> {
@@ -62,6 +66,18 @@ class EmployeeScheduleUseCase(
                 message = e.message
             )
         }
+    }
+
+    private fun getSubgroupsList(schedule: List<ArrayList<ScheduleSubject>>): List<Int> {
+        val amount = ArrayList<Int>()
+
+        schedule.forEach { day ->
+            day.forEach { subject ->
+                amount.add(subject.numSubgroup ?: 0)
+            }
+        }
+
+        return amount.toSet().toList()
     }
 
     private suspend fun mergeDepartments(groupSchedule: GroupSchedule): Resource<GroupSchedule> {

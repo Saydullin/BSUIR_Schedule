@@ -12,7 +12,7 @@ data class ScheduleSubject (
     @SerializedName("studentGroups") val subjectGroups: ArrayList<GroupSubject>?,
     val startLessonTime: String?,
     val endLessonTime: String?,
-    val numSubgroup: Int?,
+    val numSubgroup: Int? = 0,
     val note: String?,
     var breakTime: SubjectBreakTime?,
     val weekNumber: ArrayList<Int>?,
@@ -43,6 +43,7 @@ data class ScheduleSubject (
             "",
             ArrayList()
         )
+
         const val CONSULTATION = "УЗк"
         const val EXAM = "УЛк"
         const val LECTURE = "ЛК"

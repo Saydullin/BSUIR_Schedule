@@ -69,10 +69,13 @@
     <string name="popup_more">Дополнительно</string>
     <string name="popup_delete">Удалить</string>
     <string name="all_subgroups">Для всей группы</string>
+    <string name="all_subgroups_short">*</string>
     <string name="subgroup">Для %d подгруппы</string>
+    <string name="subgroup_selected">%d подгруппа выбрана</string>
     <string name="subject_time">с %s до %s</string>
     <string name="subject_weeks">на %s нед.</string>
     <string name="subject_note">Примечание: %s</string>
+    <string name="schedule_week_number">%d неделя</string>
     <string name="exams">Экзамены</string>
 
     <!--  Errors  -->

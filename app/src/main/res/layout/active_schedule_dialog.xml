@@ -21,8 +21,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:shape="ring"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="50dp">
+                app:cardCornerRadius="35dp">
 
                 <ImageView
                     android:id="@+id/image"
@@ -132,7 +133,7 @@
                 android:id="@+id/last_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Thin.Hint"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
                 tools:text="20 августа, 12:35" />
 
         </LinearLayout>

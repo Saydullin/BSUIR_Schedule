@@ -54,14 +54,14 @@ class MainScheduleAdapter(
             val lessonsText = if (isExams) {
                 context.resources.getQuantityString(
                     R.plurals.plural_exams,
-                    scheduleDay.lessonsAmount,
-                    scheduleDay.lessonsAmount
+                    scheduleDay.schedule.size,
+                    scheduleDay.schedule.size
                 )
             } else {
                 context.resources.getQuantityString(
                     R.plurals.plural_lessons,
-                    scheduleDay.lessonsAmount,
-                    scheduleDay.lessonsAmount
+                    scheduleDay.schedule.size,
+                    scheduleDay.schedule.size
                 )
             }
 
@@ -75,6 +75,10 @@ class MainScheduleAdapter(
                 else -> {
                     binding.scheduleDate.text = scheduleDay.date
                 }
+            }
+            if (scheduleDay.weekDayNumber == 1) {
+                binding.weekLayout.visibility = View.VISIBLE
+                binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }
             binding.scheduleWeekDay.text = scheduleDay.weekDayName.replaceFirstChar { it.uppercase() }
             binding.scheduleLessonsAmount.text = lessonsText
@@ -97,7 +101,6 @@ class MainScheduleAdapter(
                 binding.scheduleSubjectsRecycler.setRecycledViewPool(viewPool)
                 binding.scheduleWeekDay.text = scheduleDay.weekDayName.replaceFirstChar { it.uppercase() }
             }
-
         }
 
     }

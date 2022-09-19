@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.CurrentWeek
 import com.bsuir.bsuirschedule.domain.repository.CurrentWeekRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -42,7 +43,9 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
         return try {
             when (initWeek) {
                 is Resource.Success -> {
-                    Resource.Success(weekManager.getCurrentWeek(initWeek.data!!))
+                    val gotWeek = weekManager.getCurrentWeek(initWeek.data!!)
+                    Log.e("sady", "got week $gotWeek")
+                    Resource.Success(gotWeek)
                 }
                 is Resource.Error -> {
                     Resource.Error(

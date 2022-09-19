@@ -129,7 +129,7 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/subgroup_image"
+            android:id="@+id/calendar_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_calendar_today"

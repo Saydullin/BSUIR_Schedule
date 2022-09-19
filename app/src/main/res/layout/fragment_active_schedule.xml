@@ -71,18 +71,22 @@
                         android:layout_marginStart="10dp"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_subgroup_hint"
-                            android:contentDescription="@string/cd_schedule_subgroup" />
-
                         <TextView
                             android:id="@+id/subgroup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
                             tools:text="2" />
+
+                        <Space
+                            android:layout_width="2dp"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_subgroup_hint"
+                            android:contentDescription="@string/cd_schedule_subgroup" />
 
                     </LinearLayout>
 

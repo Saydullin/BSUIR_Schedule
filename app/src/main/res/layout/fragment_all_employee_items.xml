@@ -13,18 +13,39 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/nested_filter"
-                layout="@layout/filter" />
+            <LinearLayout
+                android:id="@+id/placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:gravity="center">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/schedule_items_recycler"
+                <include
+                    android:id="@+id/no_items_placeholder"
+                    layout="@layout/no_items_placeholder" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/nested_filter"
+                    layout="@layout/filter" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/schedule_items_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

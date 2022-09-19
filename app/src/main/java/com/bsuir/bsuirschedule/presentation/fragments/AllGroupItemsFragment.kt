@@ -81,12 +81,19 @@ class AllGroupItemsFragment : Fragment() {
         }
 
         groupItemsVM.allGroupItemsStatus.observe(viewLifecycleOwner) { groupItems ->
-            val pluralSchedules = resources.getQuantityString(R.plurals.plural_groups, groupItems.size, groupItems.size)
-            binding.nestedFilter.filterAmount.text = pluralSchedules
-            binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-            binding.scheduleItemsRecycler.adapter = GroupItemsAdapter(context!!, groupItems, saveGroupLambda)
-            binding.scheduleItemsRecycler.alpha = 0f
-            binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
+            if (groupItems.isEmpty()) {
+                binding.placeholder.visibility = View.VISIBLE
+                binding.content.visibility = View.GONE
+            } else {
+                binding.placeholder.visibility = View.GONE
+                binding.content.visibility = View.VISIBLE
+                val pluralSchedules = resources.getQuantityString(R.plurals.plural_groups, groupItems.size, groupItems.size)
+                binding.nestedFilter.filterAmount.text = pluralSchedules
+                binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
+                binding.scheduleItemsRecycler.adapter = GroupItemsAdapter(context!!, groupItems, saveGroupLambda)
+                binding.scheduleItemsRecycler.alpha = 0f
+                binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
+            }
         }
 
         return binding.root

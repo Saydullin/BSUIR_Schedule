@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_no_schedule"
+        android:src="@drawable/ic_format_list_numbered"
         android:contentDescription="@string/cd_no_content" />
 
     <Space

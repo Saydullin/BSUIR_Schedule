@@ -128,6 +128,7 @@
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
+    <string name="no_items_placeholder">Расписания не загрузились (\n\nПотяните вниз, чтобы обновить</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>
     <string name="settings_theme_title">Цветовая тема</string>

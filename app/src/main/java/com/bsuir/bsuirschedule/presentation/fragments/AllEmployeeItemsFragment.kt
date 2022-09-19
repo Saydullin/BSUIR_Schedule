@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -65,7 +64,6 @@ class AllEmployeeItemsFragment : Fragment() {
 
         employeeItemsVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
-                Log.e("sady", "employee items error: ${errorStatus.message}")
                 val stateDialog = StateDialog(errorStatus)
                 stateDialog.isCancelable = true
                 stateDialog.show(parentFragmentManager, "ErrorDialog")
@@ -75,7 +73,6 @@ class AllEmployeeItemsFragment : Fragment() {
 
         groupSchedule.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
-                Log.e("sady", "groupSchedule error: ${errorStatus.message}")
                 val stateDialog = StateDialog(errorStatus)
                 stateDialog.isCancelable = true
                 stateDialog.show(parentFragmentManager, "ErrorDialog")
@@ -83,12 +80,19 @@ class AllEmployeeItemsFragment : Fragment() {
         }
 
         employeeItemsVM.employeeItemsStatus.observe(viewLifecycleOwner) { employeeItems ->
-            val pluralSchedules = resources.getQuantityString(R.plurals.plural_employees, employeeItems.size, employeeItems.size)
-            binding.nestedFilter.filterAmount.text = pluralSchedules
-            binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-            binding.scheduleItemsRecycler.adapter = EmployeeItemsAdapter(context!!, employeeItems, saveEmployeeLambda)
-            binding.scheduleItemsRecycler.alpha = 0f
-            binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
+            if (employeeItems.isEmpty()) {
+                binding.placeholder.visibility = View.VISIBLE
+                binding.content.visibility = View.GONE
+            } else {
+                binding.placeholder.visibility = View.GONE
+                binding.content.visibility = View.VISIBLE
+                val pluralSchedules = resources.getQuantityString(R.plurals.plural_employees, employeeItems.size, employeeItems.size)
+                binding.nestedFilter.filterAmount.text = pluralSchedules
+                binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
+                binding.scheduleItemsRecycler.adapter = EmployeeItemsAdapter(context!!, employeeItems, saveEmployeeLambda)
+                binding.scheduleItemsRecycler.alpha = 0f
+                binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
+            }
         }
 
         return binding.root

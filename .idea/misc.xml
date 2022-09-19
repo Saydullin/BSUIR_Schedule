@@ -22,6 +22,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_filter.xml" value="0.1405" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_flag.xml" value="0.1865" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_flag_red.xml" value="0.1295" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_format_list_numbered.xml" value="0.1285" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_group_placeholder_hint.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_info.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_info_icon.xml" value="0.1295" />
@@ -108,6 +109,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/loading_modal.xml" value="0.176" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_calendar_placeholder.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_exams_placeholder.xml" value="0.25" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_items_placeholder.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_schedule_placeholder.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_subgroups_placeholder.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/placeholder.xml" value="0.25" />

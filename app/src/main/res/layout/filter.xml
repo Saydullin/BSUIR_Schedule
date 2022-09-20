@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingHorizontal="20dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
@@ -66,10 +67,10 @@
         <TextView
             android:id="@+id/filter_amount"
             style="@style/Theme.BSUIRSchedule.TextView.Hint"
-            android:textColor="?attr/colorSecondaryVariant"
+            android:textColor="?attr/textHintColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="найдено 428 групп" />
+            tools:text="найдено 428 групп" />
 
     </LinearLayout>
 

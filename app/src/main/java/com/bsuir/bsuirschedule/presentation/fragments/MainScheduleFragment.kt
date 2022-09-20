@@ -41,14 +41,7 @@ class MainScheduleFragment : Fragment() {
             TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->
                 when (position) {
                     ScheduleTabs.SCHEDULE -> tab.customView = tabViews.schedule
-                    ScheduleTabs.EXAMS -> {
-                        if (schedule.examsSchedule.isEmpty()) {
-                            tabViews.examImage.setBackgroundResource(R.drawable.ic_flag_hint)
-                        } else {
-                            tabViews.examImage.setBackgroundResource(R.drawable.ic_flag)
-                        }
-                        tab.customView = tabViews.exams
-                    }
+                    ScheduleTabs.EXAMS -> tab.customView = tabViews.exams
                     ScheduleTabs.CALENDAR -> tab.customView = tabViews.calendar
                     ScheduleTabs.CONTROL -> tab.customView = tabViews.scheduleControl
                     else -> tab.customView = tabViews.schedule

@@ -177,7 +177,8 @@ class ScheduleManager {
                     i++
                 }
                 for (filteredDay in filteredDays) {
-                    val filteredSubjects = filteredDay.schedule.filter { subject -> week in (subject.weekNumber ?: ArrayList()) }
+                    val weekNum = calendarDate.getWeekNumber()
+                    val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
                     calendarDate.getIncDate(i)
                     scheduleFull.schedules.add(
                         ScheduleDay(

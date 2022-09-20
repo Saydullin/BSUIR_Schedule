@@ -150,7 +150,6 @@
             <Button
                 android:id="@+id/delete_button"
                 style="@style/Theme.BSUIRSchedule.Button"
-                android:drawableLeft="@drawable/ic_delete"
                 android:backgroundTint="@color/danger"
                 android:text="@string/delete" />
 
@@ -162,7 +161,6 @@
             <Button
                 android:id="@+id/update_button"
                 style="@style/Theme.BSUIRSchedule.Button"
-                android:drawableLeft="@drawable/ic_update_white"
                 android:backgroundTint="?attr/primaryColor"
                 android:text="@string/update" />
 

@@ -20,6 +20,10 @@ class StateDialog(private val stateStatus: StateStatus): DialogFragment() {
         val binding = StateDialogBinding.inflate(inflater)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
 
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
+
         when(stateStatus.state) {
             StateStatus.SUCCESS_STATE -> {
                 binding.icon.setImageResource(R.drawable.ic_success_icon)

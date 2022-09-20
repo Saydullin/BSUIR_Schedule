@@ -81,7 +81,7 @@ class AllGroupItemsFragment : Fragment() {
         }
 
         groupItemsVM.allGroupItemsStatus.observe(viewLifecycleOwner) { groupItems ->
-            if (groupItems.isEmpty()) {
+            if (groupItems == null) {
                 binding.placeholder.visibility = View.VISIBLE
                 binding.content.visibility = View.GONE
             } else {

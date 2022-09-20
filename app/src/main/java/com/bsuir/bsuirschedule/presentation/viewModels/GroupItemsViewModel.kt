@@ -17,7 +17,7 @@ class GroupItemsViewModel(
     private val allGroupItemsLoading = MutableLiveData(false)
     private val isUpdating = MutableLiveData(false)
     private val error = MutableLiveData<StateStatus>(null)
-    private val allGroupItems = MutableLiveData<ArrayList<Group>>()
+    private val allGroupItems = MutableLiveData<ArrayList<Group>>(null)
     val isUpdatingStatus = isUpdating
     val errorStatus = error
     val allGroupItemsStatus = allGroupItems

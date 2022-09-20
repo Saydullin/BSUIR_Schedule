@@ -14,11 +14,10 @@ class EmployeeItemsViewModel(
     private val getEmployeeItemsUseCase: GetEmployeeItemsUseCase,
 ): ViewModel() {
 
-    private val employeeItems = MutableLiveData<ArrayList<Employee>>()
+    private val employeeItems = MutableLiveData<ArrayList<Employee>>(null)
     private val error = MutableLiveData<StateStatus>(null)
     private val loading = MutableLiveData(false)
     private val isUpdating = MutableLiveData(false)
-    val loadingStatus = loading
     val isUpdatingStatus = isUpdating
     val errorStatus = error
     val employeeItemsStatus = employeeItems

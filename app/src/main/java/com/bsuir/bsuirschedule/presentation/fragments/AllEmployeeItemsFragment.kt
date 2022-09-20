@@ -80,7 +80,7 @@ class AllEmployeeItemsFragment : Fragment() {
         }
 
         employeeItemsVM.employeeItemsStatus.observe(viewLifecycleOwner) { employeeItems ->
-            if (employeeItems.isEmpty()) {
+            if (employeeItems == null) {
                 binding.placeholder.visibility = View.VISIBLE
                 binding.content.visibility = View.GONE
             } else {

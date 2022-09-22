@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.FirstScheduleAddFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="15dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/cancel_button"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/cd_schedule_list" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/schedules_first_add_all_list_title"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="?attr/primaryTextColor"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/done_button"
+            android:src="@drawable/ic_done"
+            android:contentDescription="@string/cd_schedule_list" />
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/all_group_items_fragment"
+        tools:layout="@layout/fragment_schedule_item_tabs"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleItemTabs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+
+

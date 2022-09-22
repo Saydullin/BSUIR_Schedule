@@ -10,8 +10,8 @@ android {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 21
         targetSdk 32
-        versionCode 7
-        versionName "1.0.1-7"
+        versionCode 8
+        versionName "1.0.1-8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug

@@ -19,7 +19,6 @@ val appModule = module {
             groupScheduleUseCase = get(),
             employeeScheduleUseCase = get(),
             sharedPrefsUseCase = get(),
-            examsScheduleUseCase = get()
         )
     }
 

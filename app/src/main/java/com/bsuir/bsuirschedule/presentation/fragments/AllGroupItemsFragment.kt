@@ -6,21 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
 import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.presentation.adapters.GroupItemsAdapter
+import com.bsuir.bsuirschedule.presentation.adapters.ScheduleSubjectsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class AllGroupItemsFragment : Fragment() {
 
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
@@ -85,12 +89,13 @@ class AllGroupItemsFragment : Fragment() {
                 binding.placeholder.visibility = View.VISIBLE
                 binding.content.visibility = View.GONE
             } else {
+                val pluralSchedules = resources.getQuantityString(R.plurals.plural_groups, groupItems.size, groupItems.size)
+                val savedItems = savedItemsVM.savedSchedulesStatus.value ?: ArrayList()
                 binding.placeholder.visibility = View.GONE
                 binding.content.visibility = View.VISIBLE
-                val pluralSchedules = resources.getQuantityString(R.plurals.plural_groups, groupItems.size, groupItems.size)
                 binding.nestedFilter.filterAmount.text = pluralSchedules
                 binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-                binding.scheduleItemsRecycler.adapter = GroupItemsAdapter(context!!, groupItems, saveGroupLambda)
+                binding.scheduleItemsRecycler.adapter = GroupItemsAdapter(context!!, groupItems, savedItems, saveGroupLambda)
                 binding.scheduleItemsRecycler.alpha = 0f
                 binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }

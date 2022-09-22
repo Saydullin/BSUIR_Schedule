@@ -25,7 +25,7 @@
     <string name="popup_update">Update</string>
     <string name="popup_more">More</string>
     <string name="popup_delete">Delete</string>
-    <string name="all_subgroups">For all group</string>
+    <string name="all_subgroups">For all supgroup</string>
     <string name="subgroup">For %d subgroup</string>
     <string name="subject_time" formatted="false">from %s to %s</string>
     <string name="subject_weeks">on %s weeks</string>

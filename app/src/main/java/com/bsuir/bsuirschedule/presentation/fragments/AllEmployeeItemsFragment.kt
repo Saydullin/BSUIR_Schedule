@@ -16,11 +16,13 @@ import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class AllEmployeeItemsFragment : Fragment() {
 
     private val groupSchedule: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
@@ -87,9 +89,10 @@ class AllEmployeeItemsFragment : Fragment() {
                 binding.placeholder.visibility = View.GONE
                 binding.content.visibility = View.VISIBLE
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_employees, employeeItems.size, employeeItems.size)
+                val savedSchedules = savedItemsVM.savedSchedulesStatus.value ?: ArrayList()
                 binding.nestedFilter.filterAmount.text = pluralSchedules
                 binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-                binding.scheduleItemsRecycler.adapter = EmployeeItemsAdapter(context!!, employeeItems, saveEmployeeLambda)
+                binding.scheduleItemsRecycler.adapter = EmployeeItemsAdapter(context!!, employeeItems, savedSchedules, saveEmployeeLambda)
                 binding.scheduleItemsRecycler.alpha = 0f
                 binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }

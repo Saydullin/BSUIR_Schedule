@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.usecase.EmployeeScheduleUseCase
-import com.bsuir.bsuirschedule.domain.usecase.FullExamsScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GroupScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -15,7 +14,6 @@ import kotlinx.coroutines.launch
 class GroupScheduleViewModel(
     private val groupScheduleUseCase: GroupScheduleUseCase,
     private val employeeScheduleUseCase: EmployeeScheduleUseCase,
-    private val examsScheduleUseCase: FullExamsScheduleUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
 ) : ViewModel() {
 

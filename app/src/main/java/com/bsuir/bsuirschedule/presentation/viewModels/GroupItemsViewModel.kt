@@ -30,11 +30,13 @@ class GroupItemsViewModel(
     fun updateGroupItems() {
         isUpdating.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            val newGroupItems = getGroupItemsUseCase.getGroupItemsAPI()
-            when(newGroupItems) {
+            when (
+                val newGroupItems = getGroupItemsUseCase.getGroupItemsAPI()
+            ) {
                 is Resource.Success -> {
-                    val isSaved = getGroupItemsUseCase.saveGroupItems(newGroupItems.data!!)
-                    when(isSaved) {
+                    when (
+                        getGroupItemsUseCase.saveGroupItems(newGroupItems.data!!)
+                    ) {
                         is Resource.Success -> {
                             getAllGroupItems()
                         }
@@ -85,8 +87,9 @@ class GroupItemsViewModel(
     fun getAllGroupItems() {
         viewModelScope.launch(Dispatchers.IO) {
             allGroupItemsLoading.postValue(true)
-            val result = getGroupItemsUseCase.getAllGroupItems()
-            when(result) {
+            when (
+                val result = getGroupItemsUseCase.getAllGroupItems()
+            ) {
                 is Resource.Success -> {
                     allGroupItems.postValue(result.data)
                 }

@@ -1,5 +1,7 @@
-# BSUIR_Schedule
+# BSUIR Schedule
 <h3>Android App</h3>
+
+<span>Schedule of students and teachers of BSUIR University</span>
 
 <h5>Features:</h5>
 <ul>

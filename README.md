@@ -16,9 +16,11 @@
     <li>Show passed days</li>
     <li>Show empty days (have no lesssons)</li>
   </ul>
-  <li>Alarm (#)</li>
+  <li>Full information about teachers and student groups (faculty, speciality, department, course, education type and etc) (#)</li>
+  <li>Alarm for first lesson (or custom) (#)</li>
   <li>Create your own schedule (#)</li>
   <li>Export/Import schedule in excel file (#)</li>
+  <li>Location of students and teachers at a given time (#)</li>
   <li>App settings:</li>
   <ul>
     <li>Language (Russian, English, Belorussian)</li>

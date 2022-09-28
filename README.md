@@ -3,10 +3,12 @@
 
 <span>Schedule of students and teachers of BSUIR University</span>
 
+Available on <a href="https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule">Play Market</a>
+
 <h5>Features:</h5>
 <ul>
-  <li>Employee Schedule</li>
-  <li>Student Schedule</li>
+  <li>Teachers Schedule</li>
+  <li>Students Schedule</li>
   <li>Exams Schedule</li>
   <hr />
   <li>Settings for each schedule:</li>

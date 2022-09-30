@@ -44,7 +44,6 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
             when (initWeek) {
                 is Resource.Success -> {
                     val gotWeek = weekManager.getCurrentWeek(initWeek.data!!)
-                    Log.e("sady", "got week $gotWeek")
                     Resource.Success(gotWeek)
                 }
                 is Resource.Error -> {
@@ -63,6 +62,7 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
     }
 
     suspend fun saveCurrentWeek(currentWeek: CurrentWeek): Resource<Unit> {
+        Log.e("sady", "saveCurrentWeek = ${currentWeek.week}")
         return currentWeekRepository.saveCurrentWeek(currentWeek)
     }
 

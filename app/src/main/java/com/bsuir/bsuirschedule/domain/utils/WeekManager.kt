@@ -33,13 +33,13 @@ class WeekManager {
         val inputFormat = SimpleDateFormat("dd.MM.yyyy")
         val initDate = Calendar.getInstance()
         val currDate = Calendar.getInstance()
-        initDate.time.time = initWeek.time
-        initDate.set(Calendar.DAY_OF_WEEK, 1)
-        currDate.set(Calendar.DAY_OF_WEEK, 1)
-        val initFormatDate = inputFormat.format(initDate.time)
+        initDate.timeInMillis = initWeek.time
+        initDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        currDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        val currDateFormat = inputFormat.format(currDate.time)
         var weekAmount = 0
 
-        while (initFormatDate != inputFormat.format(currDate.time) && weekAmount < WEEK_LIMIT) {
+        while (inputFormat.format(initDate.time) != currDateFormat && weekAmount < WEEK_LIMIT) {
             weekAmount++
             initDate.add(Calendar.DATE, WEEK_DAYS)
         }

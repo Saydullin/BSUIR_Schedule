@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
@@ -81,7 +80,7 @@ class MainScheduleAdapter(
                 binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }
             binding.weekNumberDigit.text = scheduleDay.weekNumberString()
-            binding.scheduleWeekDay.text = scheduleDay.weekNumberUpperFirstLetter()
+            binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()
             binding.scheduleLessonsAmount.text = lessonsText
             if (scheduleDay.schedule.isEmpty()) {
                 binding.scheduleSubjectsRecycler.visibility = View.GONE
@@ -95,7 +94,7 @@ class MainScheduleAdapter(
                 binding.scheduleSubjectsRecycler.adapter = adapter
                 binding.scheduleSubjectsRecycler.layoutManager = LinearLayoutManager(context)
                 binding.scheduleSubjectsRecycler.setRecycledViewPool(viewPool)
-                binding.scheduleWeekDay.text = scheduleDay.weekDayName.replaceFirstChar { it.uppercase() }
+                binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()
             }
         }
 

@@ -159,7 +159,7 @@
     <string name="settings_item_subgroup">%d subgroup</string>
     <string name="all_subgroups_short">all</string>
     <string name="subgroup_selected">%d subgroup selected</string>
-    <string name="schedule_week_number">% week</string>
+    <string name="schedule_week_number">%d week</string>
     <string name="no_items_placeholder">Schedules not loaded (\nDrag down to refresh</string>
     <string name="okay">Okay</string>
 

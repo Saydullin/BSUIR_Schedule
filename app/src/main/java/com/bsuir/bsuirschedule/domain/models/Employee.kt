@@ -67,9 +67,9 @@ data class Employee (
         if (departmentsAbbrList.isNullOrEmpty()) return ""
 
         return if (departmentsAbbrList.size == 1) {
-            departmentsAbbrList[0]
+            departmentsAbbrList[0].replaceFirstChar { it.lowercase() }
         } else {
-            departmentsAbbrList[0] + ", +" + (departmentsAbbrList.size - 1)
+            departmentsAbbrList[0].replaceFirstChar { it.lowercase() } + ", +" + (departmentsAbbrList.size - 1)
         }
     }
 

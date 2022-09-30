@@ -105,8 +105,23 @@
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_welcomeFragment_to_scheduleItemsFragment"
-            app:destination="@id/scheduleItemsFragment" />
+            android:id="@+id/action_welcomeFragment_to_firstScheduleAddFragment"
+            app:destination="@id/firstScheduleAddFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstScheduleAddFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.FirstScheduleAddFragment"
+        android:label="fragment_first_schedule_add"
+        tools:layout="@layout/fragment_first_schedule_add" >
+        <action
+            android:id="@+id/action_firstScheduleAddFragment_to_mainScheduleFragment"
+            app:destination="@id/mainScheduleFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>
 

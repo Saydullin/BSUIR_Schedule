@@ -116,7 +116,7 @@ class GroupScheduleUseCase(
                 val groupMatch = data.find { it.id == groupSchedule.group.id }
                 groupSchedule.group.speciality = groupMatch?.speciality
                 groupSchedule.group.faculty = groupMatch?.faculty
-                Resource.Success(GroupSchedule.empty)
+                Resource.Success(groupSchedule)
             }
             is Resource.Error -> {
                 Resource.Error(
@@ -145,7 +145,7 @@ class GroupScheduleUseCase(
                 is Resource.Success -> {
                     val data = result.data!!
                     if (!data.isNotExistExams()) {
-                        val examsSchedule = examsScheduleUseCase.getSchedule(data.exams!!, data.startExamsDate!!, data.endExamsDate!!)
+                        val examsSchedule = examsScheduleUseCase.getSchedule(data)
                         data.examsSchedule = examsSchedule
                     }
                     Resource.Success(data)

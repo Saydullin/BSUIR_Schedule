@@ -20,6 +20,10 @@ data class ScheduleDay (
         )
     }
 
+    fun weekNumberString() = weekNumber.toString()
+
+    fun weekNumberUpperFirstLetter() = weekDayName.replaceFirstChar { it.uppercase() }
+
 }
 
 

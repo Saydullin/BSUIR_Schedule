@@ -70,7 +70,7 @@ class WelcomeFragment : Fragment() {
         )
 
         binding.getStartedButton.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_mainScheduleFragment)
+            Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_firstScheduleAddFragment)
             Toast.makeText(context, "Загрузите любое расписание", Toast.LENGTH_SHORT).show()
         }
 

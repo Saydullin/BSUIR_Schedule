@@ -80,16 +80,12 @@ class MainScheduleAdapter(
                 binding.weekLayout.visibility = View.VISIBLE
                 binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }
-            binding.scheduleWeekDay.text = scheduleDay.weekDayName.replaceFirstChar { it.uppercase() }
+            binding.weekNumberDigit.text = scheduleDay.weekNumberString()
+            binding.scheduleWeekDay.text = scheduleDay.weekNumberUpperFirstLetter()
             binding.scheduleLessonsAmount.text = lessonsText
             if (scheduleDay.schedule.isEmpty()) {
-                val textColor = getColor(context, R.color.text_dark)
                 binding.scheduleSubjectsRecycler.visibility = View.GONE
                 binding.scheduleNoLessons.visibility = View.VISIBLE
-                binding.scheduleDayHeader.setBackgroundResource(R.drawable.subject_empty_holder)
-                binding.scheduleDate.setTextColor(textColor)
-                binding.scheduleWeekDay.setTextColor(textColor)
-                binding.scheduleLessonsAmount.setTextColor(textColor)
             } else {
                 if (isExams) {
                     binding.scheduleDayHeader.setBackgroundResource(R.drawable.subject_exams_holder)

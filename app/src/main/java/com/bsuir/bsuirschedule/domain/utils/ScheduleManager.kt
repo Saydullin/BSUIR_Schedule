@@ -1,8 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleManager {
@@ -106,21 +104,6 @@ class ScheduleManager {
         }
 
         return scheduleList
-    }
-
-    fun mergeGroupSubjects(schedule: Schedule, groupItems: ArrayList<Group>): Schedule {
-        schedule.schedules.map { scheduleDay ->
-            scheduleDay.schedule.map { scheduleSubject ->
-                scheduleSubject.subjectGroups?.map { groupSubject ->
-                    val groupItem = groupItems.find { it.name == groupSubject.name }
-                    if (groupItem != null) {
-                        scheduleSubject.groups?.add(groupItem)
-                    }
-                }
-            }
-        }
-
-        return schedule
     }
 
     fun getFullScheduleModel(schedule: Schedule, weekNumber: Int, fromCurrentDay: Boolean = true): Schedule {

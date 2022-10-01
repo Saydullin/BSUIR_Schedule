@@ -63,7 +63,7 @@
                 android:layout_marginHorizontal="5dp"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center"
-                android:textColor="?attr/primaryOnColor"
+                android:textColor="@color/white"
                 android:text="@string/test_schedule_date" />
 
             <TextView

@@ -35,7 +35,7 @@
         <ImageButton
             style="@style/Theme.BSUIRSchedule.ImageButton"
             android:id="@+id/done_button"
-            android:alpha=".6"
+            android:alpha="0"
             android:src="@drawable/ic_done"
             android:contentDescription="@string/cd_schedule_list" />
 

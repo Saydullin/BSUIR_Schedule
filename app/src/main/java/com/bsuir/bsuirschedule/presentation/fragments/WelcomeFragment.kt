@@ -71,7 +71,7 @@ class WelcomeFragment : Fragment() {
 
         binding.getStartedButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_firstScheduleAddFragment)
-            Toast.makeText(context, "Загрузите любое расписание", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.welcome_load_schedule), Toast.LENGTH_SHORT).show()
         }
 
         binding.viewPager.adapter = WelcomeAdapter(context!!, welcomeTextList)
@@ -92,9 +92,8 @@ class WelcomeFragment : Fragment() {
                     tab.view.background = resources.getDrawable(R.drawable.dot_selected, null)
                 }
                 prevPosition = position
-                if (position == welcomeTextList.size-1) {
+                if (position == welcomeTextList.size - 1) {
                     binding.getStartedButton.visibility = View.VISIBLE
-                    binding.getStartedButton.alpha = 0f
                     binding.getStartedButton.animate().setStartDelay(300).alpha(1f)
                 }
             }

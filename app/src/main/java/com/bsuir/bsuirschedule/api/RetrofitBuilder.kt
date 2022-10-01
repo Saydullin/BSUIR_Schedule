@@ -17,6 +17,7 @@ object RetrofitBuilder {
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("User-Agent", "BSUIRScheduleApp")
+                    .addHeader("Keep-Alive", "50")
                     .addHeader("Connection", "keep-alive")
                     .addHeader("Content-Language", "ru-RU")
                     .build()

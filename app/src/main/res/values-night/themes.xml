@@ -27,6 +27,8 @@
         <!-- Custom theme colors. -->
         <item name="primaryColor">@color/primary</item>
         <item name="primaryOnColor">@color/dark</item>
+        <item name="primaryOnHintColor">@color/white_hint</item>
+        <item name="dialogBg">@color/dark_dialog</item>
         <item name="secondaryColor">@color/primaryOnColorDarkTheme</item>
         <item name="secondaryTextColor">@color/textColorDarkTheme</item>
         <item name="primaryTextColor">@color/white</item>

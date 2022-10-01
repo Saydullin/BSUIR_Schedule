@@ -4,58 +4,64 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:backgroundTint="?attr/primaryOnColor"
+    android:backgroundTint="?attr/dialogBg"
     app:cardCornerRadius="10dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_success_icon"
-            android:contentDescription="@string/cd_error_icon" />
+        <ImageButton
+            android:id="@+id/schedule_list_button"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:contentDescription="@string/cd_schedule_list"
+            android:src="@drawable/ic_close_dark"
+            android:layout_margin="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/Theme.BSUIRSchedule.TextView.Medium"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_medium_size"
-            android:text="Success" />
+            android:gravity="center"
+            android:padding="20dp"
+            android:orientation="vertical">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_success_icon"
+                android:contentDescription="@string/cd_error_icon" />
 
-        <TextView
-            android:id="@+id/caption"
-            style="@style/Theme.BSUIRSchedule.TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Everything is okay" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/title"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_medium_size"
+                android:text="Success" />
 
-        <Button
-            android:id="@+id/cancel_button"
-            style="@style/Theme.BSUIRSchedule.Button"
-            android:backgroundTint="?attr/primaryColor"
-            android:text="@string/okay" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/caption"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Everything is okay" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
 

@@ -140,7 +140,7 @@
     <string name="welcome_title_search">Convenient search</string>
     <string name="welcome_caption_search">Search for schedules by department, specialty, course, faculty and other characteristics.</string>
     <string name="welcome_title_info">Informative</string>
-    <string name="welcome_caption_info">Explanation of all abbreviations. Information about which classroom the group or teacher is currently in.</string>
+    <string name="welcome_caption_info">Explanation of all abbreviations.\nInformation about which classroom the group or teacher is currently in.</string>
     <string name="welcome_title_functionality">Functionality</string>
     <string name="welcome_caption_functionality">Individual settings for each schedule.\nAutomatic updating of schedules.</string>
     <string name="welcome_title_localization">Localization</string>
@@ -164,5 +164,8 @@
     <string name="okay">Okay</string>
     <string name="schedules_first_add_all_list_title">Select schedule</string>
     <string name="selected_subgroup">Selected %d subgroup</string>
+    <string name="selected_all_subgroups">Selected all subgroups</string>
+    <string name="schedule_date_period">Schedule from %s to %s</string>
+    <string name="welcome_load_schedule">Select any schedule</string>
 
 </resources>

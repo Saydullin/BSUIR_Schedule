@@ -85,7 +85,9 @@ data class EmployeeSubject(
     )
 
     fun getFullDepartments(separator: String): String {
-        return departmentsList?.joinToString(separator) { dep -> "${dep.abbrev} - ${dep.name.lowercase()}" } ?: ""
+        return departmentsList?.joinToString(separator) { dep ->
+            "${dep.abbrev.replaceFirstChar { it.lowercase() }} - ${dep.name.lowercase()}"
+        } ?: ""
     }
 
     fun getShortDepartments(separator: String): String {

@@ -21,6 +21,7 @@ class FirstScheduleAddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentFirstScheduleAddBinding.inflate(inflater)
+        binding.doneButton.isEnabled = false
 
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_firstScheduleAddFragment_to_mainScheduleFragment)
@@ -32,7 +33,8 @@ class FirstScheduleAddFragment : Fragment() {
 
         groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null) return@observe
-            binding.doneButton.alpha = 1f
+            binding.doneButton.isEnabled = true
+            binding.doneButton.animate().alpha(1f)
         }
 
         return binding.root

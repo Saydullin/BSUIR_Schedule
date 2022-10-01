@@ -31,6 +31,7 @@
         android:paddingHorizontal="10dp"
         android:visibility="invisible"
         android:layout_margin="20dp"
+        android:alpha="0"
         android:text="@string/get_started"
         style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
         android:textColor="?attr/primaryTextColor"

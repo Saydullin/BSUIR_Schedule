@@ -31,6 +31,18 @@ data class Group (
         )
     }
 
+    fun getFacultyAndSpecialityFull(): String {
+        var facultyDescription = ""
+        if (faculty != null) {
+            facultyDescription = "${faculty?.abbrev ?: ""} - ${faculty?.name?.lowercase() ?: ""}"
+        }
+        if (speciality != null) {
+            facultyDescription += "\n\n${speciality?.abbrev ?: ""} - ${speciality?.name?.lowercase() ?: ""}"
+        }
+
+        return facultyDescription
+    }
+
     fun getFacultyAndSpecialityAbbr() = "${faculty?.abbrev ?: ""} ${speciality?.abbrev ?: ""}".trim()
 
     fun toSavedSchedule(isExams: Boolean) = SavedSchedule(

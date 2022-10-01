@@ -1,8 +1,6 @@
 package com.bsuir.bsuirschedule.domain.models
 
 import com.bsuir.bsuirschedule.data.db.entities.SavedScheduleTable
-import java.text.SimpleDateFormat
-import java.util.*
 
 data class SavedSchedule (
     val id: Int,
@@ -12,14 +10,6 @@ data class SavedSchedule (
     var lastUpdateTime: Long,
     var isExistExams: Boolean
 ) {
-
-    fun getLastUpdateText(): String {
-        val date = Date()
-        val dateFormat = SimpleDateFormat("d MMMM, H:mm")
-
-        date.time = lastUpdateTime
-        return dateFormat.format(date)
-    }
 
     fun toSavedScheduleTable() = SavedScheduleTable(
         id = id,

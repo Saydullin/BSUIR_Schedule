@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentFirstScheduleAddBinding
+import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class FirstScheduleAddFragment : Fragment() {
 
-    private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,10 +30,9 @@ class FirstScheduleAddFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_firstScheduleAddFragment_to_mainScheduleFragment)
         }
 
-        savedItemsVM.savedSchedulesStatus.observe(viewLifecycleOwner) { schedules ->
-            if (!schedules.isNullOrEmpty()) {
-                binding.doneButton.alpha = 1f
-            }
+        groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
+            if (savedSchedule == null) return@observe
+            binding.doneButton.alpha = 1f
         }
 
         return binding.root

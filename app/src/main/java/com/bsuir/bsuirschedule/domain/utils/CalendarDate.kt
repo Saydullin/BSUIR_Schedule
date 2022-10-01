@@ -4,7 +4,6 @@ import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.absoluteValue
 
 class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int = 1) {
 
@@ -22,7 +21,9 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         calendar.time = inputDate as Date
     }
 
-    fun getCalendar() = calendar
+    fun isEqualDate(endDate: String): Boolean {
+        return endDate == inputFormat.format(calendar.time)
+    }
 
     fun getFullDate(amount: Int): String {
         calendar.time = inputDate as Date

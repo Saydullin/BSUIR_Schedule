@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,10 +52,7 @@ class ActiveScheduleFragment : Fragment() {
                 binding.scheduleSubtitleLeft.text = employee.getRankAndDegree()
                 binding.scheduleCourse.visibility = View.GONE
                 if (!employee.departmentsList.isNullOrEmpty()) {
-                    binding.scheduleSubtitleRight.text = employee.departmentsList!![0].abbrev + if (employee.departmentsList!!.size > 1) {
-                        val moreText = getString(R.string.more)
-                        ", $moreText ${employee.departmentsList!!.size - 1}"
-                    } else ""
+                    binding.scheduleSubtitleRight.text = employee.getShortDepartments(getString(R.string.more))
                 }
             }
 
@@ -85,7 +81,7 @@ class ActiveScheduleFragment : Fragment() {
         binding.root.setOnClickListener {
             val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
             val savedScheduleDialog = SavedScheduleDialog(
-                savedSchedule = activeSchedule.toSavedSchedule(),
+                schedule = activeSchedule,
                 delete = deleteSchedule,
                 update = updateSchedule)
             savedScheduleDialog.isCancelable = true

@@ -59,10 +59,6 @@ data class Employee (
 
     fun getFullName() = "$lastName $firstName $middleName"
 
-    fun getFullDepartments(separator: String): String {
-        return departments.joinToString(separator) { dep -> "${dep.abbrev} - ${dep.name}" }
-    }
-
     fun getShortDepartmentsAbbr(): String {
         if (departmentsAbbrList.isNullOrEmpty()) return ""
 

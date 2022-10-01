@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.models
 
+import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.db.entities.EmployeeTable
 import java.util.*
 import kotlin.collections.ArrayList
@@ -83,14 +84,15 @@ data class EmployeeSubject(
         isSaved = true
     )
 
-    fun getShortDepartmentsAbbr(): String {
-        if (departmentsList.isNullOrEmpty()) return ""
+    fun getFullDepartments(separator: String): String {
+        return departmentsList?.joinToString(separator) { dep -> "${dep.abbrev} - ${dep.name.lowercase()}" } ?: ""
+    }
 
-        return if (departmentsList!!.size == 1) {
-            departmentsList!![0].abbrev
-        } else {
-            departmentsList!![0].abbrev + ", +" + (departmentsList!!.size - 1)
-        }
+    fun getShortDepartments(separator: String): String {
+        return departmentsList!![0].abbrev.replaceFirstChar { it.lowercase() } +
+                if (departmentsList!!.size > 1) {
+            ", $separator ${departmentsList!!.size - 1}"
+        } else ""
     }
 
     fun getRankAndDegree() = "${degreeAbbrev ?: ""} ${rank ?: ""}".trim()

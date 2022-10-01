@@ -9,9 +9,10 @@ import com.bumptech.glide.Glide
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ActiveScheduleDialogBinding
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.Schedule
 
 class SavedScheduleDialog(
-    private val savedSchedule: SavedSchedule,
+    private val schedule: Schedule,
     private val update: (savedSchedule: SavedSchedule) -> Unit,
     private val delete: (savedSchedule: SavedSchedule) -> Unit
 ): DialogFragment() {
@@ -23,11 +24,18 @@ class SavedScheduleDialog(
     ): View {
         val binding = ActiveScheduleDialogBinding.inflate(inflater)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
-        val lastUpdateText = resources.getString(R.string.last_update, savedSchedule.getLastUpdateText())
+        val lastUpdateText = resources.getString(R.string.last_update, schedule.getLastUpdateText())
         val courseText = resources.getString(R.string.course)
 
-        if (savedSchedule.isGroup) {
-            val group = savedSchedule.group
+        binding.scheduleStartDate.text = schedule.getDateText(schedule.startDate)
+        binding.scheduleEndDate.text = schedule.getDateText(schedule.endDate)
+        binding.scheduleSubgroup.text = if (schedule.selectedSubgroup == 0) {
+            resources.getString(R.string.selected_all_subgroups)
+        } else {
+            resources.getString(R.string.selected_subgroup, schedule.selectedSubgroup)
+        }
+        if (schedule.isGroup()) {
+            val group = schedule.group
             Glide.with(binding.image)
                 .load(R.drawable.ic_group_placeholder)
                 .into(binding.image)
@@ -48,24 +56,24 @@ class SavedScheduleDialog(
 
             binding.lastUpdate.text = lastUpdateText
         } else {
-            val employee = savedSchedule.employee
+            val employee = schedule.employee
             Glide.with(binding.image)
                 .load(employee.photoLink)
                 .into(binding.image)
             binding.scheduleTitle.text = employee.getFullName()
-            binding.scheduleDegree.text = employee.degreeFull
+            binding.scheduleDegree.text = employee.degree
             binding.scheduleRank.text = employee.rank
             binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
             binding.lastUpdate.text = lastUpdateText
         }
 
         binding.deleteButton.setOnClickListener {
-            delete(savedSchedule)
+            delete(schedule.toSavedSchedule())
             dismiss()
         }
 
         binding.updateButton.setOnClickListener {
-            update(savedSchedule)
+            update(schedule.toSavedSchedule())
             dismiss()
         }
 

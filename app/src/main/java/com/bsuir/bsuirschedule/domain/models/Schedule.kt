@@ -1,5 +1,7 @@
 package com.bsuir.bsuirschedule.domain.models
 
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 data class Schedule (
@@ -36,6 +38,23 @@ data class Schedule (
             lastUpdateTime = 0,
             selectedSubgroup = 0
         )
+    }
+
+    fun getLastUpdateText(): String {
+        val date = Date()
+        val dateFormat = SimpleDateFormat("d MMMM, H:mm")
+
+        date.time = lastUpdateTime
+        return dateFormat.format(date)
+    }
+
+    fun getDateText(date: String): String {
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy").parse(date)
+        if (dateFormat != null) {
+            return SimpleDateFormat("d MMMM").format(Date(dateFormat.time))
+        }
+
+        return "???"
     }
 
     fun isGroup() = group.id != -1

@@ -14,6 +14,8 @@
     <string name="okay">Понятно</string>
     <string name="delete">Удалить</string>
     <string name="last_update">Было обновлено %s</string>
+    <string name="selected_subgroup">Выбрана %d подгруппа</string>
+    <string name="selected_all_subgroups">Выбраны все подгруппы</string>
     <string name="more">ещё</string>
 
     <!--  Content Descriptions  -->
@@ -116,7 +118,7 @@
     <string name="welcome_title_info">Информативность</string>
     <string name="welcome_caption_info">Расшифровка всех аббревиатур.  Информация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
     <string name="welcome_title_functionality">Функциональность</string>
-    <string name="welcome_caption_functionality">Индивидуальные настройки для каждого расписания.\n\nАвтоматическое обновление расписаний.</string>
+    <string name="welcome_caption_functionality">Индивидуальные настройки для каждого расписания.\nАвтоматическое обновление расписаний.</string>
     <string name="welcome_title_localization">Локализация</string>
     <string name="welcome_caption_localization">Поддержка 3 языков.  Русский, английский и белорусский</string>
     <string name="welcome_title_etc">Что еще?</string>

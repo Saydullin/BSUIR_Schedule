@@ -60,4 +60,14 @@ class GroupItemsAdapter(
 
     }
 
+    fun updateItem(group: Group) {
+        data.forEachIndexed { index, item ->
+            if (item.id == group.id) {
+                data.set(index, item)
+                notifyItemChanged(index)
+                return@forEachIndexed
+            }
+        }
+    }
+
 }

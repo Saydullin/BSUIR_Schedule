@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllEmployeeItemsBinding
@@ -79,6 +80,11 @@ class AllEmployeeItemsFragment : Fragment() {
                 stateDialog.isCancelable = true
                 stateDialog.show(parentFragmentManager, "ErrorDialog")
             }
+        }
+
+        groupSchedule.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
+            if (savedSchedule == null) return@observe
+            savedItemsVM.saveSchedule(savedSchedule)
         }
 
         employeeItemsVM.employeeItemsStatus.observe(viewLifecycleOwner) { employeeItems ->

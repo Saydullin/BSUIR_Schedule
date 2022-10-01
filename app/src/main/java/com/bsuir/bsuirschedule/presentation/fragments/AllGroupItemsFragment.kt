@@ -5,14 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
 import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.presentation.adapters.GroupItemsAdapter
-import com.bsuir.bsuirschedule.presentation.adapters.ScheduleSubjectsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
@@ -35,6 +34,11 @@ class AllGroupItemsFragment : Fragment() {
         val filterCallback = { s: String, isAsc: Boolean ->
             groupItemsVM.filterByKeyword(s, isAsc)
         }
+
+        val saveGroupLambda = { group: Group ->
+            groupScheduleVM.getGroupScheduleAPI(group)
+        }
+
         val filterManager = FilterManager(binding.nestedFilter, filterCallback)
         filterManager.init()
 
@@ -51,8 +55,9 @@ class AllGroupItemsFragment : Fragment() {
         val dialog = LoadingDialog(loadingStatus)
         dialog.isCancelable = false
 
-        val saveGroupLambda = { group: Group ->
-            groupScheduleVM.getGroupScheduleAPI(group)
+        groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
+            if (savedSchedule == null) return@observe
+            savedItemsVM.saveSchedule(savedSchedule)
         }
 
         groupScheduleVM.groupLoadingStatus.observe(viewLifecycleOwner) { loading ->

@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,7 @@ class GroupScheduleViewModel(
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
+    private val scheduleLoaded = MutableLiveData<SavedSchedule>(null)
     private val groupLoading = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
@@ -28,6 +30,7 @@ class GroupScheduleViewModel(
     val examsScheduleStatus = examsSchedule
     val activeScheduleStatus = activeSchedule
     val errorStatus = error
+    val scheduleLoadedStatus = scheduleLoaded
     val loadingStatus = loading
     val groupLoadingStatus = groupLoading
     val employeeLoadingStatus = employeeLoading
@@ -65,6 +68,8 @@ class GroupScheduleViewModel(
                 is Resource.Success -> {
                     val groupSchedule = groupScheduleResponse.data!!
                     saveGroupSchedule(groupSchedule)
+                    Log.e("sady", "loaded ${group.toSavedSchedule(!groupSchedule.isNotExistExams())}")
+                    scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isNotExistExams()))
                     error.postValue(StateStatus(
                         state = StateStatus.SUCCESS_STATE,
                         type = 0,
@@ -94,6 +99,8 @@ class GroupScheduleViewModel(
                 is Resource.Success -> {
                     val data = groupSchedule.data!!
                     saveGroupSchedule(data)
+                    Log.e("sady", "loaded ${employee.toSavedSchedule(!data.isNotExistExams())}")
+                    scheduleLoaded.postValue(employee.toSavedSchedule(!data.isNotExistExams()))
                     error.postValue(StateStatus(
                         state = StateStatus.SUCCESS_STATE,
                         type = 0,

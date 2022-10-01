@@ -142,7 +142,7 @@
     <string name="welcome_title_info">Informative</string>
     <string name="welcome_caption_info">Explanation of all abbreviations. Information about which classroom the group or teacher is currently in.</string>
     <string name="welcome_title_functionality">Functionality</string>
-    <string name="welcome_caption_functionality">Individual settings for each schedule.\n\nAutomatic updating of schedules.</string>
+    <string name="welcome_caption_functionality">Individual settings for each schedule.\nAutomatic updating of schedules.</string>
     <string name="welcome_title_localization">Localization</string>
     <string name="welcome_caption_localization">Support 3 languages.\nRussian, English and Belarusian</string>
     <string name="welcome_title_etc">What else?</string>
@@ -162,5 +162,7 @@
     <string name="schedule_week_number">%d week</string>
     <string name="no_items_placeholder">Schedules not loaded (\nDrag down to refresh</string>
     <string name="okay">Okay</string>
+    <string name="schedules_first_add_all_list_title">Select schedule</string>
+    <string name="selected_subgroup">Selected %d subgroup</string>
 
 </resources>

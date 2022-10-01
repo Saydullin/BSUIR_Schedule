@@ -5,16 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleItemsBinding
+import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
-// Full list of group items
 class ScheduleItemsFragment : Fragment() {
 
     private val savedScheduleVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
@@ -35,10 +36,20 @@ class ScheduleItemsFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_to_saved_schedules)
         }
 
-        groupSchedule.activeScheduleStatus.observe(viewLifecycleOwner) { schedule ->
-            if (schedule != null) {
-                savedScheduleVM.saveSchedule(schedule)
+        groupSchedule.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
+            if (errorStatus != null) {
+                val stateDialog = StateDialog(errorStatus)
+                stateDialog.isCancelable = true
+                stateDialog.show(parentFragmentManager, "ErrorDialog")
+                groupSchedule.closeError()
             }
+        }
+
+
+
+        groupSchedule.activeScheduleStatus.observe(viewLifecycleOwner) { schedule ->
+            if (schedule == null) return@observe
+            savedScheduleVM.saveSchedule(schedule)
         }
 
         return binding.root

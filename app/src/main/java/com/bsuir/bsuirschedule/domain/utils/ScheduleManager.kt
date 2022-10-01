@@ -173,7 +173,7 @@ class ScheduleManager {
                     scheduleFull.schedules.add(
                         ScheduleDay(
                             date = calendarDate.getDateStatus(),
-                            weekDayName = calendarDate.getWeekDayName() + " ${calendarDate.getWeekNumber()}",
+                            weekDayName = calendarDate.getWeekDayName(),
                             weekDayNumber = calendarDate.getWeekDayNumber(),
                             weekNumber = calendarDate.getWeekNumber(),
                             schedule = filteredSubjects as ArrayList<ScheduleSubject>,

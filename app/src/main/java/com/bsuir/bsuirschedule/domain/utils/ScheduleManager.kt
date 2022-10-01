@@ -167,13 +167,13 @@ class ScheduleManager {
                     i++
                 }
                 for (filteredDay in filteredDays) {
+                    calendarDate.getIncDate(i)
                     val weekNum = calendarDate.getWeekNumber()
                     val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
-                    calendarDate.getIncDate(i)
                     scheduleFull.schedules.add(
                         ScheduleDay(
                             date = calendarDate.getDateStatus(),
-                            weekDayName = calendarDate.getWeekDayName(),
+                            weekDayName = calendarDate.getWeekDayName() + " ${calendarDate.getWeekNumber()}",
                             weekDayNumber = calendarDate.getWeekDayNumber(),
                             weekNumber = calendarDate.getWeekNumber(),
                             schedule = filteredSubjects as ArrayList<ScheduleSubject>,
@@ -183,43 +183,6 @@ class ScheduleManager {
             }
             beginOnDay = 1
         }
-
-//        for (weekIndex in 1..maxWeeks + week) {
-//            week++
-//            if (week >= maxWeeks) {
-//                week = 1
-//            }
-//            for (dayNumber in beginOnDay..7) {
-//                val filteredDays = schedule.schedules.filter { scheduleDay -> scheduleDay.weekDayNumber == dayNumber }
-//                if (filteredDays.isEmpty()) {
-//                    calendarDate.getIncDate(i)
-//                    scheduleFull.schedules.add(
-//                        ScheduleDay(
-//                            date = calendarDate.getDateStatus(),
-//                            weekDayName = calendarDate.getWeekDayName(),
-//                            weekDayNumber = calendarDate.getWeekDayNumber(),
-//                            weekNumber = calendarDate.getWeekNumber(),
-//                            schedule = ArrayList(),
-//                        ))
-//                    i++
-//                }
-//                for (filteredDay in filteredDays) {
-//                    val weekNum = calendarDate.getWeekNumber()
-//                    val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
-//                    calendarDate.getIncDate(i)
-//                    scheduleFull.schedules.add(
-//                        ScheduleDay(
-//                            date = calendarDate.getDateStatus(),
-//                            weekDayName = calendarDate.getWeekDayName(),
-//                            weekDayNumber = calendarDate.getWeekDayNumber(),
-//                            weekNumber = calendarDate.getWeekNumber(),
-//                            schedule = filteredSubjects as ArrayList<ScheduleSubject>,
-//                        ))
-//                    i++
-//                }
-//            }
-//            beginOnDay = 1
-//        }
 
         return scheduleFull
     }

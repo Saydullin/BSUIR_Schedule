@@ -34,29 +34,27 @@ class SavedScheduleDialog(
             resources.getString(R.string.selected_subgroup, schedule.selectedSubgroup)
         }
 
-        if (!schedule.isExamsNotExist()) {
-            val examsDatePeriod = resources.getString(
+        val examsDatePeriod = if (!schedule.isExamsNotExist()) {
+            resources.getString(
                 R.string.exams_date_period,
                 schedule.getDateText(schedule.startExamsDate),
                 schedule.getDateText(schedule.endExamsDate)
             )
-            binding.examsDateContainer.visibility = View.VISIBLE
-            binding.examsDate.text = examsDatePeriod
         } else {
-            binding.examsDateContainer.visibility = View.GONE
+            resources.getString(R.string.exams_empty_date_period)
         }
+        binding.examsDate.text = examsDatePeriod
 
-        if (!schedule.isScheduleNotExist()) {
-            val scheduleDatePeriod = resources.getString(
+        val scheduleDatePeriod = if (!schedule.isScheduleNotExist()) {
+            resources.getString(
                 R.string.schedule_date_period,
                 schedule.getDateText(schedule.startDate),
                 schedule.getDateText(schedule.endDate)
             )
-            binding.scheduleDateContainer.visibility = View.VISIBLE
-            binding.scheduleDate.text = scheduleDatePeriod
         } else {
-            binding.scheduleDateContainer.visibility = View.GONE
+            resources.getString(R.string.schedule_empty_date_period)
         }
+        binding.scheduleDate.text = scheduleDatePeriod
 
         if (schedule.isGroup()) {
             val group = schedule.group

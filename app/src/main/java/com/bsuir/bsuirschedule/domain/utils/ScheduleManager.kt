@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import kotlin.collections.ArrayList
 
@@ -106,6 +107,64 @@ class ScheduleManager {
         return scheduleList
     }
 
+    fun getFullSchedule(schedule: Schedule, week: Int, fromCurrentDay: Boolean = true): ArrayList<ScheduleDay> {
+        if (schedule.schedules.isEmpty()) {
+            return ArrayList()
+        }
+        val scheduleList = ArrayList<ScheduleDay>()
+        val calendarDate = if (fromCurrentDay) {
+            CalendarDate(startDate = CalendarDate.TODAY_DATE, week)
+        } else {
+            CalendarDate(startDate = schedule.startDate, week)
+        }
+        var i = 0
+        var dayNumber = 1
+        var weekNumber = week
+
+        while (!calendarDate.isEqualDate(schedule.endDate) && i < LIMIT_DAYS) {
+            val filteredDaysByDay = schedule.schedules.filter { scheduleDay ->
+                scheduleDay.weekDayNumber == dayNumber
+            }
+            filteredDaysByDay.map { scheduleDay ->
+                scheduleDay.schedule = scheduleDay.schedule.filter { (it.weekNumber ?: ArrayList()).contains(weekNumber)
+                } as ArrayList<ScheduleSubject>
+            }
+
+            calendarDate.getIncDate(i)
+            if (filteredDaysByDay.isEmpty()) {
+                scheduleList.add(
+                    ScheduleDay(
+                        date = calendarDate.getDateStatus(),
+                        weekDayName = calendarDate.getWeekDayName(),
+                        weekDayNumber = calendarDate.getWeekDayNumber(),
+                        weekNumber = calendarDate.getWeekNumber(),
+                        schedule = ArrayList(),
+                    ))
+            }
+            filteredDaysByDay.map { day ->
+                scheduleList.add(
+                    ScheduleDay(
+                        date = calendarDate.getDateStatus(),
+                        weekDayName = calendarDate.getWeekDayName(),
+                        weekDayNumber = calendarDate.getWeekDayNumber(),
+                        weekNumber = calendarDate.getWeekNumber(),
+                        schedule = day.schedule,
+                    ))
+            }
+
+            dayNumber++
+            if (dayNumber == 8) {
+                dayNumber = 1
+            }
+            if (calendarDate.isSunday()) {
+                weekNumber++
+            }
+            i++
+        }
+
+        return scheduleList
+    }
+
     fun getFullScheduleModel(schedule: Schedule, weekNumber: Int, fromCurrentDay: Boolean = true): Schedule {
         if (schedule.schedules.isEmpty()) {
             return Schedule.empty
@@ -142,7 +201,7 @@ class ScheduleManager {
             schedules = ArrayList()
         )
 
-        while(!isDone) {
+        while (!isDone) {
             daysCounter++
             week++
             if (week >= maxWeeks) {

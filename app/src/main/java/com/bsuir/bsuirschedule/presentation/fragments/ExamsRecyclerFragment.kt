@@ -31,19 +31,18 @@ class ExamsRecyclerFragment : Fragment() {
         }
 
         val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog, true)
+        binding.scheduleDailyRecycler.adapter = adapter
+        binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
 
         groupScheduleVM.examsScheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
             if (groupSchedule != null) {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
-                adapter.updateSchedule(groupSchedule.examsSchedule)
-                adapter.isGroupSchedule = groupSchedule.isGroup()
-                binding.scheduleDailyRecycler.adapter = adapter
-                binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+                adapter.updateSchedule(groupSchedule.examsSchedule, groupSchedule.isGroup())
                 binding.scheduleDailyRecycler.alpha = 0f
                 binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {
-                adapter.updateSchedule(ArrayList())
+                adapter.updateSchedule(ArrayList(), false)
                 binding.placeholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
             }

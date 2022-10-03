@@ -87,6 +87,10 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return output.format(calendar.time)
     }
 
+    fun isSunday(): Boolean {
+        return calendar.get(Calendar.DAY_OF_WEEK) == calendar.get(Calendar.SUNDAY)
+    }
+
     fun getWeekDayNumber(): Int {
         return calendar.get(Calendar.DAY_OF_WEEK) - 1
     }

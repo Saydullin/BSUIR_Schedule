@@ -30,6 +30,15 @@ class ScheduleRecyclerFragment : Fragment() {
         val dialog = LoadingDialog(loadingStatus)
         dialog.isCancelable = false
 
+        val showSubjectDialog = { subject: ScheduleSubject ->
+            val subjectDialog = SubjectDialog(subject)
+            subjectDialog.isCancelable = true
+            subjectDialog.show(parentFragmentManager, "subjectDialog")
+        }
+        val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog)
+        binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+        binding.scheduleDailyRecycler.adapter = adapter
+
         groupScheduleVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
                 val stateDialog = StateDialog(errorStatus)
@@ -49,25 +58,15 @@ class ScheduleRecyclerFragment : Fragment() {
             }
         }
 
-        val showSubjectDialog = { subject: ScheduleSubject ->
-            val subjectDialog = SubjectDialog(subject)
-            subjectDialog.isCancelable = true
-            subjectDialog.show(parentFragmentManager, "subjectDialog")
-        }
-
-        val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog)
-
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
             if (groupSchedule.schedules.size > 0) {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
-                adapter.updateSchedule(groupSchedule.schedules)
-                adapter.isGroupSchedule = groupSchedule.isGroup ?: false
-                binding.scheduleDailyRecycler.adapter = adapter
-                binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+                adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup())
                 binding.scheduleDailyRecycler.alpha = 0f
                 binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {
+                adapter.updateSchedule(ArrayList(), false)
                 binding.placeholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
             }

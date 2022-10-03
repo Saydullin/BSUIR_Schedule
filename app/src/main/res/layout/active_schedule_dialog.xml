@@ -40,12 +40,13 @@ s
             android:id="@+id/schedule_date_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_calendar_today" />
+                android:src="@drawable/ic_schedule" />
 
             <Space
                 android:layout_width="10dp"
@@ -60,10 +61,6 @@ s
                 android:text="00.00.0000" />
 
         </LinearLayout>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="15dp" />
 
         <LinearLayout
             android:id="@+id/exams_date_container"

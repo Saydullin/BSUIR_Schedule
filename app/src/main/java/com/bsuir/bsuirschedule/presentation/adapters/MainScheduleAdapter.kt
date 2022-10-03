@@ -15,13 +15,15 @@ import com.bsuir.bsuirschedule.domain.utils.CalendarDate
 class MainScheduleAdapter(
     private val context: Context,
     private var data: ArrayList<ScheduleDay>,
-    var isGroupSchedule: Boolean,
+    private var isGroupSchedule: Boolean,
     private val showSubjectDialog: (subject: ScheduleSubject) -> Unit,
     private val isExams: Boolean = false
 ): RecyclerView.Adapter<MainScheduleAdapter.ViewHolder>() {
 
-    fun updateSchedule(newData: ArrayList<ScheduleDay>) {
-        data = newData
+    fun updateSchedule(newData: ArrayList<ScheduleDay>, isGroup: Boolean) {
+        isGroupSchedule = isGroup
+        data.clear()
+        data.addAll(newData)
         notifyDataSetChanged()
     }
 
@@ -97,9 +99,7 @@ class MainScheduleAdapter(
                 binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()
             }
         }
-
     }
-
 }
 
 

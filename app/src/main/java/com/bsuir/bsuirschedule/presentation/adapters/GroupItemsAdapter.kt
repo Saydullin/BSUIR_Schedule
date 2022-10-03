@@ -17,6 +17,14 @@ class GroupItemsAdapter(
     private val saveGroupLambda: (group: Group) -> Unit
 ): RecyclerView.Adapter<GroupItemsAdapter.ViewHolder>() {
 
+    fun setList(newList: ArrayList<Group>, newSavedData: ArrayList<SavedSchedule>) {
+        data.clear()
+        savedData.clear()
+        data.addAll(newList)
+        savedData.addAll(newSavedData)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = GroupItemBinding.inflate(LayoutInflater.from(context), parent, false)
 
@@ -58,16 +66,6 @@ class GroupItemsAdapter(
             }
         }
 
-    }
-
-    fun updateItem(group: Group) {
-        data.forEachIndexed { index, item ->
-            if (item.id == group.id) {
-                data.set(index, item)
-                notifyItemChanged(index)
-                return@forEachIndexed
-            }
-        }
     }
 
 }

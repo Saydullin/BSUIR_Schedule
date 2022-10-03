@@ -16,14 +16,15 @@ class MainScheduleAdapter(
     private val context: Context,
     private var data: ArrayList<ScheduleDay>,
     private var isGroupSchedule: Boolean,
-    private val showSubjectDialog: (subject: ScheduleSubject) -> Unit,
+    private var showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
     private val isExams: Boolean = false
 ): RecyclerView.Adapter<MainScheduleAdapter.ViewHolder>() {
 
-    fun updateSchedule(newData: ArrayList<ScheduleDay>, isGroup: Boolean) {
+    fun updateSchedule(newData: ArrayList<ScheduleDay>, isGroup: Boolean, subjectDialog: ((subject: ScheduleSubject) -> Unit)?) {
         isGroupSchedule = isGroup
         data.clear()
         data.addAll(newData)
+        showSubjectDialog = subjectDialog
         notifyDataSetChanged()
     }
 
@@ -46,7 +47,7 @@ class MainScheduleAdapter(
 
     class ViewHolder(
         private val isGroupSchedule: Boolean,
-        private val showSubjectDialog: (subject: ScheduleSubject) -> Unit,
+        private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
         private val binding: ScheduleDayBinding,
         private val isExams: Boolean
     ): RecyclerView.ViewHolder(binding.root) {

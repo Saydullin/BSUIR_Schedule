@@ -53,6 +53,9 @@ class AllEmployeeItemsFragment : Fragment() {
         val saveEmployeeLambda = { employee: Employee ->
             groupSchedule.getEmployeeScheduleAPI(employee)
         }
+        val adapter = EmployeeItemsAdapter(context!!, ArrayList(), ArrayList(), saveEmployeeLambda)
+        binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
+        binding.scheduleItemsRecycler.adapter = adapter
 
         groupSchedule.employeeLoadingStatus.observe(viewLifecycleOwner) { loading ->
             if (loading == null) return@observe
@@ -96,9 +99,8 @@ class AllEmployeeItemsFragment : Fragment() {
                 binding.content.visibility = View.VISIBLE
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_employees, employeeItems.size, employeeItems.size)
                 val savedSchedules = savedItemsVM.savedSchedulesStatus.value ?: ArrayList()
+                adapter.setList(employeeItems, savedSchedules)
                 binding.nestedFilter.filterAmount.text = pluralSchedules
-                binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-                binding.scheduleItemsRecycler.adapter = EmployeeItemsAdapter(context!!, employeeItems, savedSchedules, saveEmployeeLambda)
                 binding.scheduleItemsRecycler.alpha = 0f
                 binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }
@@ -108,3 +110,5 @@ class AllEmployeeItemsFragment : Fragment() {
     }
 
 }
+
+

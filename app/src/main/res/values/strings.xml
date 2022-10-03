@@ -148,6 +148,7 @@
     <string name="settings_show_empty_day">Показывать пустые дни</string>
     <string name="settings_show_past_days">Показывать прошедшие дни</string>
     <string name="settings_schedule_title">Расписания</string>
+    <string name="settings_exams_title">Экзамены</string>
     <string name="settings_alarm_title">Будильник</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
     <string name="settings_all_subgroups">Все подгруппы</string>

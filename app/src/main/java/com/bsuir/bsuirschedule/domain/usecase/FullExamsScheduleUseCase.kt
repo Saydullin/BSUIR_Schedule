@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
@@ -11,8 +10,8 @@ class FullExamsScheduleUseCase {
     fun getSchedule(groupSchedule: GroupSchedule): ArrayList<ScheduleDay> {
         val sm = ScheduleManager()
         val exams = groupSchedule.exams ?: ArrayList()
-        val startDate = groupSchedule.startDate
-        val endDate = groupSchedule.endDate
+        val startDate = groupSchedule.startExamsDate
+        val endDate = groupSchedule.endExamsDate
 
         if (exams.isEmpty() || startDate.isNullOrEmpty() || endDate.isNullOrEmpty()) {
             return ArrayList()

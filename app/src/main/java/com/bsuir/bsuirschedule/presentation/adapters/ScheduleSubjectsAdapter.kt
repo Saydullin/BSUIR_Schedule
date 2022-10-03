@@ -20,7 +20,7 @@ class ScheduleSubjectsAdapter(
     private val context: Context,
     private val data: ArrayList<ScheduleSubject>,
     private val isGroupSubject: Boolean,
-    private val showSubjectDialog: (subject: ScheduleSubject) -> Unit
+    private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?
 ): RecyclerView.Adapter<ScheduleSubjectsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +40,7 @@ class ScheduleSubjectsAdapter(
     class ViewHolder(
         private val context: Context,
         private val isGroup: Boolean,
-        private val showSubjectDialog: (subject: ScheduleSubject) -> Unit,
+        private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
         private val binding: ScheduleSubjectBinding,
     ): RecyclerView.ViewHolder(binding.root) {
 
@@ -99,7 +99,7 @@ class ScheduleSubjectsAdapter(
             }
 
             binding.root.setOnClickListener {
-                showSubjectDialog(subject)
+                showSubjectDialog?.let { it(subject) }
             }
 
         }

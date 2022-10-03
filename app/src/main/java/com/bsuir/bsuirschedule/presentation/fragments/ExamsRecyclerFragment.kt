@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,18 +32,18 @@ class ExamsRecyclerFragment : Fragment() {
         }
 
         val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog, true)
-        binding.scheduleDailyRecycler.adapter = adapter
         binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+        binding.scheduleDailyRecycler.adapter = adapter
 
         groupScheduleVM.examsScheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
             if (groupSchedule != null) {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
-                adapter.updateSchedule(groupSchedule.examsSchedule, groupSchedule.isGroup())
+                adapter.updateSchedule(groupSchedule.examsSchedule, groupSchedule.isGroup(), showSubjectDialog)
                 binding.scheduleDailyRecycler.alpha = 0f
                 binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {
-                adapter.updateSchedule(ArrayList(), false)
+                adapter.updateSchedule(ArrayList(), false, null)
                 binding.placeholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
             }

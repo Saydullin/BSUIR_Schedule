@@ -14,9 +14,17 @@ import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 class EmployeeItemsAdapter(
     val context: Context,
     val data: ArrayList<Employee>,
-    val savedData: ArrayList<SavedSchedule>,
+    private val savedData: ArrayList<SavedSchedule>,
     private val saveEmployeeLambda: (employee: Employee) -> Unit
 ): RecyclerView.Adapter<EmployeeItemsAdapter.ViewHolder>() {
+
+    fun setList(newData: ArrayList<Employee>, newSavedData: ArrayList<SavedSchedule>) {
+        data.clear()
+        data.addAll(newData)
+        savedData.clear()
+        savedData.addAll(newSavedData)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = EmployeeItemBinding.inflate(LayoutInflater.from(context), parent, false)
@@ -30,6 +38,10 @@ class EmployeeItemsAdapter(
 
         holder.bind(context, employeeItem, isAdded != null)
     }
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
+    override fun getItemViewType(position: Int) = position
 
     override fun getItemCount() = data.size
 

@@ -38,6 +38,9 @@ class AllGroupItemsFragment : Fragment() {
         val saveGroupLambda = { group: Group ->
             groupScheduleVM.getGroupScheduleAPI(group)
         }
+        val adapter = GroupItemsAdapter(context!!, ArrayList(), ArrayList(), saveGroupLambda)
+        binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
+        binding.scheduleItemsRecycler.adapter = adapter
 
         val filterManager = FilterManager(binding.nestedFilter, filterCallback)
         filterManager.init()
@@ -95,12 +98,11 @@ class AllGroupItemsFragment : Fragment() {
                 binding.content.visibility = View.GONE
             } else {
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_groups, groupItems.size, groupItems.size)
-                val savedItems = savedItemsVM.savedSchedulesStatus.value ?: ArrayList()
+                val savedItems = savedItemsVM.savedSchedulesStatus.value ?: ArrayList() // FIXME
                 binding.placeholder.visibility = View.GONE
                 binding.content.visibility = View.VISIBLE
                 binding.nestedFilter.filterAmount.text = pluralSchedules
-                binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-                binding.scheduleItemsRecycler.adapter = GroupItemsAdapter(context!!, groupItems, savedItems, saveGroupLambda)
+                adapter.setList(groupItems, savedItems)
                 binding.scheduleItemsRecycler.alpha = 0f
                 binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }

@@ -26,19 +26,36 @@ class SavedScheduleDialog(
         val binding = ActiveScheduleDialogBinding.inflate(inflater)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         val lastUpdateText = resources.getString(R.string.last_update, schedule.getLastUpdateText())
-        val scheduleDatePeriod = resources.getString(
-            R.string.schedule_date_period,
-            schedule.getDateText(schedule.startDate),
-            schedule.getDateText(schedule.endDate)
-        )
         val courseText = resources.getString(R.string.course)
         val moreText = resources.getString(R.string.more)
-
-        binding.scheduleDate.text = scheduleDatePeriod
         binding.scheduleSubgroup.text = if (schedule.selectedSubgroup == 0) {
             resources.getString(R.string.selected_all_subgroups)
         } else {
             resources.getString(R.string.selected_subgroup, schedule.selectedSubgroup)
+        }
+
+        if (!schedule.isExamsNotExist()) {
+            val examsDatePeriod = resources.getString(
+                R.string.exams_date_period,
+                schedule.getDateText(schedule.startExamsDate),
+                schedule.getDateText(schedule.endExamsDate)
+            )
+            binding.examsDateContainer.visibility = View.VISIBLE
+            binding.examsDate.text = examsDatePeriod
+        } else {
+            binding.examsDateContainer.visibility = View.GONE
+        }
+
+        if (!schedule.isScheduleNotExist()) {
+            val scheduleDatePeriod = resources.getString(
+                R.string.schedule_date_period,
+                schedule.getDateText(schedule.startDate),
+                schedule.getDateText(schedule.endDate)
+            )
+            binding.scheduleDateContainer.visibility = View.VISIBLE
+            binding.scheduleDate.text = scheduleDatePeriod
+        } else {
+            binding.scheduleDateContainer.visibility = View.GONE
         }
 
         if (schedule.isGroup()) {

@@ -17,6 +17,7 @@
     <string name="selected_subgroup">Выбрана %d подгруппа</string>
     <string name="selected_all_subgroups">Выбраны все подгруппы</string>
     <string name="schedule_date_period">Расписание с %s по %s</string>
+    <string name="exams_date_period">Экзамены с %s по %s</string>
     <string name="more">ещё</string>
 
     <!--  Content Descriptions  -->

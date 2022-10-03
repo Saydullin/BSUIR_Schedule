@@ -123,8 +123,8 @@
                             android:id="@+id/subject_audience"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/Theme.BSUIRSchedule.TextView"
-                            android:text="@string/test_subject_time" />
+                            style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                            android:text="214-4" />
 
                     </LinearLayout>
 

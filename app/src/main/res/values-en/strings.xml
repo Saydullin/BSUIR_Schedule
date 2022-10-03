@@ -167,5 +167,6 @@
     <string name="selected_all_subgroups">Selected all subgroups</string>
     <string name="schedule_date_period">Schedule from %s to %s</string>
     <string name="welcome_load_schedule">Select any schedule</string>
+    <string name="exams_date_period">Exams from %s to %s</string>
 
 </resources>

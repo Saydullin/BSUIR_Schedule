@@ -185,7 +185,7 @@ class GroupScheduleViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             schedule.postValue(scheduleData)
             activeSchedule.postValue(scheduleData?.toSavedSchedule())
-            if (scheduleData?.isNotExamsExist() == false) {
+            if (scheduleData?.isExamsNotExist() == false) {
                 examsSchedule.postValue(scheduleData)
             } else {
                 examsSchedule.postValue(null)

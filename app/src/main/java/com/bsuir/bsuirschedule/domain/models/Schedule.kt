@@ -49,6 +49,7 @@ data class Schedule (
     }
 
     fun getDateText(date: String): String {
+        if (date.isNullOrEmpty()) return "???"
         val dateFormat = SimpleDateFormat("dd.MM.yyyy").parse(date)
         if (dateFormat != null) {
             return SimpleDateFormat("d MMMM").format(Date(dateFormat.time))
@@ -59,10 +60,16 @@ data class Schedule (
 
     fun isGroup() = group.id != -1
 
-    fun isNotExamsExist(): Boolean {
+    fun isExamsNotExist(): Boolean {
         return startExamsDate.isEmpty() ||
                 endExamsDate.isEmpty() ||
                 exams.isEmpty()
+    }
+
+    fun isScheduleNotExist(): Boolean {
+        return startDate.isEmpty() ||
+                endDate.isEmpty() ||
+                schedules.isEmpty()
     }
 
     fun isNotEmpty(): Boolean {

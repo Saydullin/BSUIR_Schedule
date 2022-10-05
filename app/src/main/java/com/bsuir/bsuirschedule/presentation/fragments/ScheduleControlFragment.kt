@@ -25,6 +25,7 @@ class ScheduleControlFragment : Fragment() {
         val subgroupBinding = binding.scheduleSubgroupSettings
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+            if (schedule == null) return@observe
             val subgroups = ArrayList<String>()
             val allSubgroupsText = resources.getString(R.string.settings_all_subgroups)
             schedule.subgroups.forEach { subgroup ->

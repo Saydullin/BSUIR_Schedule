@@ -25,6 +25,21 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/schedule_day" />
 
+    <LinearLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="50dp"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </FrameLayout>
 
 

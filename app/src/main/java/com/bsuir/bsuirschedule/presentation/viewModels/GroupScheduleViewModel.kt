@@ -19,11 +19,12 @@ class GroupScheduleViewModel(
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
+    private val dataLoading = MutableLiveData(false)
     private val scheduleLoaded = MutableLiveData<SavedSchedule>(null)
     private val groupLoading = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
-    private val schedule = MutableLiveData(Schedule.empty)
+    private val schedule = MutableLiveData<Schedule>(null)
     private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
     val scheduleStatus = schedule
@@ -32,6 +33,7 @@ class GroupScheduleViewModel(
     val errorStatus = error
     val scheduleLoadedStatus = scheduleLoaded
     val loadingStatus = loading
+    val dataLoadingStatus = dataLoading
     val groupLoadingStatus = groupLoading
     val employeeLoadingStatus = employeeLoading
 
@@ -196,6 +198,7 @@ class GroupScheduleViewModel(
 
     private fun getScheduleById(scheduleId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            dataLoading.postValue(true)
             try {
                 when (
                     val result = groupScheduleUseCase.getScheduleById(scheduleId)
@@ -238,6 +241,7 @@ class GroupScheduleViewModel(
                     message = e.message
                 ))
             }
+            dataLoading.postValue(false)
         }
     }
 

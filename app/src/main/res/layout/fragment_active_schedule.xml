@@ -35,7 +35,7 @@
                     android:id="@+id/schedule_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@color/primary"
+                    android:src="@drawable/ic_no_teacher_placeholder"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/app_name" />
 
@@ -62,7 +62,7 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:layout_marginEnd="10dp"
-                        android:text="@string/test_schedule_title" />
+                        tools:text="@string/test_schedule_title" />
 
                     <LinearLayout
                         android:id="@+id/subgroup_info"
@@ -86,7 +86,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                            tools:text="2" />
+                            android:text="*" />
 
                     </LinearLayout>
 
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                        android:text="@string/test_schedule_subtitle" />
+                        tools:text="@string/test_schedule_subtitle" />
 
                     <Space
                         android:layout_width="0dp"
@@ -126,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                        android:text="заочная" />
+                        tools:text="заочная" />
 
                 </LinearLayout>
 

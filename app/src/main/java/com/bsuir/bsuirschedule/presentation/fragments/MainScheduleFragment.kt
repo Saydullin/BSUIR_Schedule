@@ -38,6 +38,15 @@ class MainScheduleFragment : Fragment() {
         binding.scheduleItemsTabLayout.visibility = View.VISIBLE
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+            if (schedule == null) return@observe
+            if (schedule.id == -1) {
+                binding.hiddenPlaceholder.visibility = View.VISIBLE
+                binding.mainScheduleContent.visibility = View.GONE
+            } else {
+                binding.hiddenPlaceholder.visibility = View.GONE
+                binding.mainScheduleContent.visibility = View.VISIBLE
+            }
+
             TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->
                 when (position) {
                     ScheduleTabs.SCHEDULE -> tab.customView = tabViews.schedule
@@ -52,16 +61,6 @@ class MainScheduleFragment : Fragment() {
         currentWeekVM.getCurrentWeek()
         currentWeekVM.currentWeekStatus.observe(viewLifecycleOwner) { currentWeek ->
             binding.titleWeekNumber.text = "$currentWeek $weekText"
-        }
-
-        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
-            if (schedule.id == -1) {
-                binding.hiddenPlaceholder.visibility = View.VISIBLE
-                binding.mainScheduleContent.visibility = View.GONE
-            } else {
-                binding.hiddenPlaceholder.visibility = View.GONE
-                binding.mainScheduleContent.visibility = View.VISIBLE
-            }
         }
 
         val settingsClick = {

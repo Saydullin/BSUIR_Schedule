@@ -19,6 +19,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_calendar_today.xml" value="0.1295" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_close.xml" value="0.1795" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_close_dark.xml" value="0.1285" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_dark_mode.xml" value="0.1285" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_delete.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_done.xml" value="0.1285" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_done_all.xml" value="0.1285" />
@@ -27,6 +28,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_flag.xml" value="0.1865" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_flag_red.xml" value="0.1295" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_format_list_numbered.xml" value="0.1285" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_format_size.xml" value="0.1285" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_group_placeholder_hint.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_info.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_info_icon.xml" value="0.1295" />
@@ -43,6 +45,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_paper_clip.xml" value="0.1245" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_person.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_person_placeholder.xml" value="0.137" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_question_answer.xml" value="0.1285" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_schedule.xml" value="0.1245" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_search.xml" value="0.137" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_search_primary.xml" value="0.1295" />
@@ -128,12 +131,12 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_alarm.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_exams.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_feedback.xml" value="0.25" />
-        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_font.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_font.xml" value="0.264" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_lang.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_schedule.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_schedule.xml.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_schedule_subgroup.xml" value="0.25" />
-        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_subgroup.xml" value="0.1" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_subgroup.xml" value="0.264" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_theme.xml" value="0.264" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/state_dialog.xml" value="0.264" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/state_dilaog.xml" value="0.24895833333333334" />

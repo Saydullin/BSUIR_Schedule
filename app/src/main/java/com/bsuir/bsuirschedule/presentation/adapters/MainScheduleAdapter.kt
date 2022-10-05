@@ -92,11 +92,9 @@ class MainScheduleAdapter(
                 if (isExams) {
                     binding.scheduleDayHeader.setBackgroundResource(R.drawable.subject_exams_holder)
                 }
-                val viewPool = RecyclerView.RecycledViewPool()
                 val adapter = ScheduleSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog)
                 binding.scheduleSubjectsRecycler.adapter = adapter
                 binding.scheduleSubjectsRecycler.layoutManager = LinearLayoutManager(context)
-                binding.scheduleSubjectsRecycler.setRecycledViewPool(viewPool)
                 binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()
             }
         }

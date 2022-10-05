@@ -51,6 +51,8 @@ data class ScheduleSubject (
         const val LABORATORY = "ЛР"
     }
 
+    fun getNumSubgroupStr() = (numSubgroup ?: 0).toString()
+
     fun getAudienceInLine() = audience?.joinToString(", ") ?: ""
 
     fun toGroupScheduleSubjectTable() = GroupScheduleSubjectTable(

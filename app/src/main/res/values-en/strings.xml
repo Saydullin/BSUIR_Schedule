@@ -154,7 +154,7 @@
     <string name="settings_schedule_subgroup_title">Subgroup</string>
     <string name="get_started">Get Started</string>
     <string name="settings_alarm_on">Turn on</string>
-    <string name="settings_alarm_title">Alarm</string>
+    <string name="settings_alarm_title">Alarm (beta)</string>
     <string name="settings_all_subgroups">All subgroups</string>
     <string name="settings_item_subgroup">%d subgroup</string>
     <string name="all_subgroups_short">all</string>
@@ -168,5 +168,20 @@
     <string name="schedule_date_period">Schedule from %s to %s</string>
     <string name="welcome_load_schedule">Select any schedule</string>
     <string name="exams_date_period">Exams from %s to %s</string>
+    <string name="schedule_empty_date_period">No lessons schedule</string>
+    <string name="exams_empty_date_period">No exams schedule</string>
+    <string name="settings_lang_caption">Choose a localization for this app</string>
+    <string name="settings_theme_caption">Choose a dark or light theme</string>
+    <string name="settings_font_caption">Size can be reduced or enlarged</string>
+    <string name="settings_schedule_caption">You can change schedule settings</string>
+    <string name="settings_exams_title">Exams</string>
+    <string name="settings_exams_caption">Exams settings</string>
+    <string name="settings_alarm_caption">Alarm clock a few hours before the first lesson</string>
+    <string name="settings_schedule_subgroup_caption">Filter lessons by subgroups</string>
+    <string name="settings_russian_lang">Russian</string>
+    <string name="settings_light_theme">Light</string>
+    <string name="settings_thin_font_size">Thin</string>
+    <string name="settings_medium_font_size">Normal</string>
+    <string name="settings_big_font_size">Bold</string>
 
 </resources>

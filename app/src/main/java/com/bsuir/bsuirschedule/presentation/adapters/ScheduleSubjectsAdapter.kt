@@ -47,7 +47,7 @@ class ScheduleSubjectsAdapter(
         fun bind(subject: ScheduleSubject) {
             if (subject.numSubgroup != 0) {
                 binding.subgroupInfo.visibility = View.VISIBLE
-                binding.subjectSubgroup.text = subject.numSubgroup.toString()
+                binding.subjectSubgroup.text = subject.getNumSubgroupStr()
             }
             binding.subjectStartLesson.text = subject.startLessonTime
             binding.subjectEndLesson.text = subject.endLessonTime

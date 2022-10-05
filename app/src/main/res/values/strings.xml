@@ -154,7 +154,7 @@
     <string name="settings_schedule_caption">Вы можете изменить настройки расписаний</string>
     <string name="settings_exams_title">Экзамены</string>
     <string name="settings_exams_caption">Настройки экзаменов</string>
-    <string name="settings_alarm_title">Будильник</string>
+    <string name="settings_alarm_title">Будильник (бета)</string>
     <string name="settings_alarm_caption">Будильник за несколько часов до первой пары</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
     <string name="settings_schedule_subgroup_caption">Отфильтруйте занятия по подгруппам</string>

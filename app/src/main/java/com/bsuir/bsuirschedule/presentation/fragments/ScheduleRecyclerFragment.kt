@@ -36,7 +36,6 @@ class ScheduleRecyclerFragment : Fragment() {
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
         val adapter = MainScheduleAdapter(context!!, ArrayList(), false, null)
-        adapter.setHasStableIds(true)
         binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleDailyRecycler.adapter = adapter
 

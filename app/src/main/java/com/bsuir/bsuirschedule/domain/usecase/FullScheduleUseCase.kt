@@ -1,12 +1,10 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.ScheduleManager
-import kotlin.system.measureTimeMillis
 
 class FullScheduleUseCase {
 
@@ -22,12 +20,7 @@ class FullScheduleUseCase {
             val schedule = sm.getScheduleModel(groupSchedule)
             // Get schedule for all weeks
             val fullSchedule = sm.getFullScheduleModel(schedule, currentWeek)
-//            val fullSchedule = sm.getFullSchedule(schedule, currentWeek)
 //            schedule.schedules = sm.getFullSchedule(schedule, currentWeek)
-            val timed = measureTimeMillis {
-                sm.getFullSchedule(schedule, currentWeek)
-            }
-            Log.e("sady", "Schedule modeling got time $timed")
             // Get schedule for selected subgroup
             fullSchedule.schedules = sm.filterBySubgroup(fullSchedule.schedules, fullSchedule.selectedSubgroup)
             // Get break time for each subject (except the first subjects for each day)

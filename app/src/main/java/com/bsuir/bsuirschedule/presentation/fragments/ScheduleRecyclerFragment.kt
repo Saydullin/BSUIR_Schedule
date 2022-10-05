@@ -36,7 +36,7 @@ class ScheduleRecyclerFragment : Fragment() {
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
         val adapter = MainScheduleAdapter(context!!, ArrayList(), false, null)
-        adapter.setHasStableIds(true)
+//        adapter.setHasStableIds(true)
         binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleDailyRecycler.adapter = adapter
 
@@ -65,8 +65,8 @@ class ScheduleRecyclerFragment : Fragment() {
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog)
                 binding.scheduleDailyRecycler.adapter = adapter
-                binding.scheduleDailyRecycler.alpha = 0f
-                binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
+//                binding.scheduleDailyRecycler.alpha = 0f
+//                binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {
                 adapter.updateSchedule(ArrayList(), false, null)
                 binding.placeholder.visibility = View.VISIBLE

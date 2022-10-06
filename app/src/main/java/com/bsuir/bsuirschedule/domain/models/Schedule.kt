@@ -16,6 +16,7 @@ data class Schedule (
     val isGroup: Boolean?,
     var exams: ArrayList<ScheduleSubject>,
     var examsSchedule: ArrayList<ScheduleDay>,
+    var subjectNow: ScheduleSubject?,
     var schedules: ArrayList<ScheduleDay>,
     val lastUpdateTime: Long,
     var selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
@@ -34,6 +35,7 @@ data class Schedule (
             isGroup = null,
             exams = ArrayList(),
             examsSchedule = ArrayList(),
+            subjectNow = null,
             schedules = ArrayList(),
             lastUpdateTime = 0,
             selectedSubgroup = 0

@@ -196,6 +196,7 @@ class ScheduleManager {
             subgroups = schedule.subgroups,
             exams = schedule.exams,
             examsSchedule = schedule.examsSchedule,
+            subjectNow = null,
             lastUpdateTime = schedule.lastUpdateTime,
             selectedSubgroup = schedule.selectedSubgroup,
             schedules = ArrayList()
@@ -208,6 +209,7 @@ class ScheduleManager {
                 week = 1
             }
             for (dayNumber in beginOnDay..7) {
+
                 if (calendarDate.isEqualDate(schedule.endDate) || daysCounter >= LIMIT_DAYS) {
                     isDone = true
                     break
@@ -229,6 +231,14 @@ class ScheduleManager {
                     calendarDate.getIncDate(i)
                     val weekNum = calendarDate.getWeekNumber()
                     val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
+                    if (scheduleFull.subjectNow == null) {
+                        filteredSubjects.map { subject ->
+                            if (calendarDate.isCurrentSubject(subject.startLessonTime ?: "", subject.endLessonTime ?: "")) {
+                                scheduleFull.subjectNow = subject
+                                return@map
+                            }
+                        }
+                    }
                     scheduleFull.schedules.add(
                         ScheduleDay(
                             date = calendarDate.getDateStatus(),

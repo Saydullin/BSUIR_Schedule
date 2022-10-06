@@ -81,6 +81,18 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return output.format(calendar.time)
     }
 
+    fun isCurrentSubject(startTime: String, endTime: String): Boolean {
+        val currCalendar = Calendar.getInstance()
+        val inputFormat = SimpleDateFormat("dd.MM.yyyy")
+        val timeFormat = SimpleDateFormat("dd.MM.yyyy kk:mm")
+        val startFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $startTime")
+        val endFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $endTime")
+
+        if (startFormat == null || endFormat == null) return false
+
+        return startFormat.time < currCalendar.time.time && endFormat.time > currCalendar.time.time
+    }
+
     fun getWeekDayName(): String {
         val output = SimpleDateFormat("EEEE")
 

@@ -14,6 +14,9 @@
     <string name="okay">Понятно</string>
     <string name="delete">Удалить</string>
     <string name="last_update">Было обновлено %s</string>
+    <string name="subject_now">Сейчас %s</string>
+    <string name="no_subject_now">Сейчас нет занятий</string>
+    <string name="audience_now">в %s</string>
     <string name="selected_subgroup">Выбрана %d подгруппа</string>
     <string name="selected_all_subgroups">Выбраны все подгруппы</string>
     <string name="schedule_empty_date_period">Расписание занятий нет</string>
@@ -58,7 +61,7 @@
     <string name="no_group_title">Группа не указана</string>
     <string name="schedules_all_list_title">Все расписания</string>
     <string name="schedules_first_add_all_list_title">Выберите расписания</string>
-    <string name="schedules_settings_title">Настройки</string>
+    <string name="schedules_settings_title">Настройки (в процессе разр.)</string>
     <string name="schedules_no_lessons">Нет занятий</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>

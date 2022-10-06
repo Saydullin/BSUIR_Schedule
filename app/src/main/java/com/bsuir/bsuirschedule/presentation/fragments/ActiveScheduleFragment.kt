@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -29,6 +30,11 @@ class ActiveScheduleFragment : Fragment() {
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
+
+            if (schedule.subjectNow != null) {
+                binding.currentSubject.visibility = View.VISIBLE
+                binding.currentSubject.text = "Сейчас ${schedule.subjectNow?.subject} в ${schedule.subjectNow?.audience?.get(0)}"
+            }
 
             if (schedule.isGroup()) {
                 val group = schedule.group

@@ -76,6 +76,7 @@ data class GroupSchedule (
         subgroups = subgroups ?: listOf(),
         exams = exams ?: ArrayList(),
         examsSchedule = examsSchedule ?: ArrayList(),
+        subjectNow = null,
         lastUpdateTime = lastUpdateTime ?: Date().time,
         selectedSubgroup = selectedSubgroup,
         schedules = ArrayList(),

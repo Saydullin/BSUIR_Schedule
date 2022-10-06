@@ -115,7 +115,7 @@
     </plurals>
     <string name="exams">Exams</string>
     <string name="consultation">Consultation</string>
-    <string name="schedules_settings_title">Settings</string>
+    <string name="schedules_settings_title">Settings (on dev process)</string>
     <string name="tab_item_schedule">Schedule</string>
     <string name="tab_item_exams">Exams</string>
     <string name="tab_item_schedule_control">Control</string>

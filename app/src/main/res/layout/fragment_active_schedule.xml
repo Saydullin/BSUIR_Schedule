@@ -44,7 +44,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -60,9 +60,9 @@
                             style="@style/Theme.BSUIRSchedule.TextView.Medium"
                             android:layout_weight="1"
                             android:ellipsize="end"
-                            android:maxLines="2"
+                            android:maxLines="1"
                             android:layout_marginEnd="10dp"
-                            tools:text="@string/test_schedule_title" />
+                            tools:text="@tools:sample/lorem/random" />
 
                         <LinearLayout
                             android:id="@+id/subgroup_info"
@@ -99,18 +99,15 @@
 
                     </LinearLayout>
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="10dp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
+                        android:gravity="center_horizontal"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/schedule_subtitle_left"
+                            android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
@@ -118,11 +115,12 @@
 
                         <Space
                             android:layout_width="0dp"
-                            android:layout_height="10dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
                         <TextView
                             android:id="@+id/schedule_subtitle_right"
+                            android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
@@ -135,14 +133,6 @@
             </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/currentSubject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"
-        style="@style/Theme.BSUIRSchedule.TextView.Hint"/>
 
 </LinearLayout>
 

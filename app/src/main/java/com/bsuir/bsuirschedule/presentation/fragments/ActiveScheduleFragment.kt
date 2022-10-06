@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -31,22 +30,26 @@ class ActiveScheduleFragment : Fragment() {
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
 
-            if (schedule.subjectNow != null) {
-                binding.currentSubject.visibility = View.VISIBLE
-                binding.currentSubject.text = "Сейчас ${schedule.subjectNow?.subject} в ${schedule.subjectNow?.audience?.get(0)}"
-            }
-
             if (schedule.isGroup()) {
                 val group = schedule.group
                 val courseText = getString(R.string.course)
                 Glide.with(binding.scheduleImage)
                     .load(R.drawable.ic_group_placeholder)
                     .into(binding.scheduleImage)
-                binding.scheduleCourse.visibility = View.VISIBLE
+                binding.scheduleSubtitleLeft.visibility = View.VISIBLE
                 binding.scheduleCourse.text = "${group.course} $courseText"
                 binding.activeScheduleTitle.text = group.name
                 binding.scheduleSubtitleLeft.text = group.getFacultyAndSpecialityAbbr()
                 binding.scheduleSubtitleRight.text = group.speciality?.educationForm?.name ?: ""
+                if (schedule.subjectNow != null) {
+                    val subjectNowText = resources.getString(R.string.subject_now_group_short, schedule.subjectNow?.subject ?: "")
+                    binding.scheduleSubtitleLeft.text = subjectNowText
+                    if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
+                        val audience = schedule.subjectNow?.getAudienceInLine()
+                        val audienceNowText = resources.getString(R.string.audience_now, audience)
+                        binding.scheduleSubtitleLeft.text = "$subjectNowText $audienceNowText"
+                    }
+                }
             } else {
                 val employee = schedule.employee
                 binding.scheduleCourse.text = ""
@@ -59,6 +62,15 @@ class ActiveScheduleFragment : Fragment() {
                 binding.scheduleCourse.visibility = View.GONE
                 if (!employee.departmentsList.isNullOrEmpty()) {
                     binding.scheduleSubtitleRight.text = employee.getShortDepartments(getString(R.string.more))
+                }
+                if (schedule.subjectNow != null) {
+                    val subjectNowText = resources.getString(R.string.subject_now_employee_short, schedule.subjectNow?.subject ?: "")
+                    binding.scheduleSubtitleLeft.text = subjectNowText
+                    if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
+                        val audience = schedule.subjectNow?.getAudienceInLine()
+                        val audienceNowText = resources.getString(R.string.audience_now, audience)
+                        binding.scheduleSubtitleLeft.text = "$subjectNowText $audienceNowText"
+                    }
                 }
             }
 

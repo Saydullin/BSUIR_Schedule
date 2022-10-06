@@ -26,17 +26,6 @@ class SavedScheduleDialog(
         val binding = ActiveScheduleDialogBinding.inflate(inflater)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         val lastUpdateText = resources.getString(R.string.last_update, schedule.getLastUpdateText())
-        if (schedule.subjectNow != null) {
-            val subjectNowText = resources.getString(R.string.subject_now, schedule.subjectNow?.subject ?: "")
-            binding.scheduleLocationNow.text = subjectNowText
-            if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
-                val audienceNowText = resources.getString(R.string.audience_now, schedule.subjectNow?.getAudienceInLine())
-                binding.scheduleLocationNow.text = "$subjectNowText $audienceNowText"
-            }
-        } else {
-            val subjectNowText = resources.getString(R.string.no_subject_now)
-            binding.scheduleLocationNow.text = subjectNowText
-        }
         val courseText = resources.getString(R.string.course)
         val moreText = resources.getString(R.string.more)
         binding.scheduleSubgroup.text = if (schedule.selectedSubgroup == 0) {
@@ -79,6 +68,17 @@ class SavedScheduleDialog(
             binding.schedule.course.text = "${group.course} $courseText"
             binding.scheduleSubtitles.text = group.getFacultyAndSpecialityFull()
             binding.lastUpdate.text = lastUpdateText
+            if (schedule.subjectNow != null) {
+                val subjectNowText = resources.getString(R.string.subject_now_group, schedule.subjectNow?.subject ?: "")
+                binding.scheduleLocationNow.text = subjectNowText
+                if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
+                    val audienceNowText = resources.getString(R.string.audience_now, schedule.subjectNow?.getAudienceInLine())
+                    binding.scheduleLocationNow.text = "$subjectNowText $audienceNowText"
+                }
+            } else {
+                val subjectNowText = resources.getString(R.string.no_subject_now)
+                binding.scheduleLocationNow.text = subjectNowText
+            }
         } else {
             val employee = schedule.employee
             Glide.with(binding.schedule.image)
@@ -90,6 +90,17 @@ class SavedScheduleDialog(
             binding.schedule.course.visibility = View.GONE
             binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
             binding.lastUpdate.text = lastUpdateText
+            if (schedule.subjectNow != null) {
+                val subjectNowText = resources.getString(R.string.subject_now_employee, schedule.subjectNow?.subject ?: "")
+                binding.scheduleLocationNow.text = subjectNowText
+                if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
+                    val audienceNowText = resources.getString(R.string.audience_now, schedule.subjectNow?.getAudienceInLine())
+                    binding.scheduleLocationNow.text = "$subjectNowText $audienceNowText"
+                }
+            } else {
+                val subjectNowText = resources.getString(R.string.no_subject_now)
+                binding.scheduleLocationNow.text = subjectNowText
+            }
         }
 
         binding.deleteButton.setOnClickListener {

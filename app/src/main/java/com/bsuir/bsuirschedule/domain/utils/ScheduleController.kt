@@ -32,6 +32,26 @@ class ScheduleController {
         return scheduleDay
     }
 
+    fun getCurrentSubject(schedule: Schedule): ScheduleSubject? {
+        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        var scheduleSubject: ScheduleSubject? = null
+        var isStop = false
+        if (schedule.subjectNow == null) {
+            schedule.schedules.map { day ->
+                if (isStop) return@map
+                day.schedule.map { subject ->
+                    if (calendarDate.isCurrentSubject(subject.startLessonTime ?: "", subject.endLessonTime ?: "")) {
+                        scheduleSubject = subject
+                        isStop = true
+                        return@map
+                    }
+                }
+            }
+        }
+
+        return scheduleSubject
+    }
+
     fun fillDatesInSchedule(schedule: Schedule, currentWeekNumber: Int) {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE, currentWeekNumber)
 

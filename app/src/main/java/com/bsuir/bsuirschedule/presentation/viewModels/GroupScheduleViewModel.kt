@@ -70,7 +70,6 @@ class GroupScheduleViewModel(
                 is Resource.Success -> {
                     val groupSchedule = groupScheduleResponse.data!!
                     saveGroupSchedule(groupSchedule)
-                    Log.e("sady", "loaded ${group.toSavedSchedule(!groupSchedule.isNotExistExams())}")
                     scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isNotExistExams()))
                     error.postValue(StateStatus(
                         state = StateStatus.SUCCESS_STATE,
@@ -101,7 +100,6 @@ class GroupScheduleViewModel(
                 is Resource.Success -> {
                     val data = groupSchedule.data!!
                     saveGroupSchedule(data)
-                    Log.e("sady", "loaded ${employee.toSavedSchedule(!data.isNotExistExams())}")
                     scheduleLoaded.postValue(employee.toSavedSchedule(!data.isNotExistExams()))
                     error.postValue(StateStatus(
                         state = StateStatus.SUCCESS_STATE,
@@ -142,35 +140,44 @@ class GroupScheduleViewModel(
         }
     }
 
-    private suspend fun saveGroupSchedule(groupSchedule: GroupSchedule) {
+    private suspend fun saveGroupSchedule(groupSchedule: Schedule) {
         when (
             val saveResponse = groupScheduleUseCase.saveSchedule(groupSchedule)
         ) {
             is Resource.Success -> {
-                when (
-                    val fullSchedule = groupScheduleUseCase.getFullSchedule(groupSchedule)
-                ) {
-                    is Resource.Success -> {
-                        val scheduleData = fullSchedule.data
-                        if (scheduleData?.id == -1) {
-                            error.postValue(StateStatus(
-                                state = StateStatus.ERROR_STATE,
-                                type = Resource.DATA_ERROR
-                            ))
-                            schedule.postValue(Schedule.empty)
-                        } else {
-                            getScheduleById(scheduleData?.id ?: -1)
-                        }
-                    }
-                    is Resource.Error -> {
-                        schedule.postValue(Schedule.empty)
-                        error.postValue(StateStatus(
-                            state = StateStatus.ERROR_STATE,
-                            type = fullSchedule.errorType,
-                            message = fullSchedule.message
-                        ))
-                    }
+                if (groupSchedule.id == -1) {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = Resource.DATA_ERROR
+                    ))
+                    schedule.postValue(Schedule.empty)
+                } else {
+                    getScheduleById(groupSchedule.id)
                 }
+//                when (
+//                    val fullSchedule = groupScheduleUseCase.getFullSchedule(schedule)
+//                ) {
+//                    is Resource.Success -> {
+//                        val scheduleData = fullSchedule.data
+//                        if (scheduleData?.id == -1) {
+//                            error.postValue(StateStatus(
+//                                state = StateStatus.ERROR_STATE,
+//                                type = Resource.DATA_ERROR
+//                            ))
+//                            schedule.postValue(Schedule.empty)
+//                        } else {
+//                            getScheduleById(scheduleData?.id ?: -1)
+//                        }
+//                    }
+//                    is Resource.Error -> {
+//                        schedule.postValue(Schedule.empty)
+//                        error.postValue(StateStatus(
+//                            state = StateStatus.ERROR_STATE,
+//                            type = fullSchedule.errorType,
+//                            message = fullSchedule.message
+//                        ))
+//                    }
+//                }
             }
             is Resource.Error -> {
                 schedule.postValue(Schedule.empty)
@@ -205,24 +212,7 @@ class GroupScheduleViewModel(
                 ) {
                     is Resource.Success -> {
                         val data = result.data!!
-                        when (
-                            val fullSchedule = groupScheduleUseCase.getFullSchedule(data)
-                        ) {
-                            is Resource.Success -> {
-                                val scheduleData = fullSchedule.data
-                                saveScheduleToLiveData(scheduleData)
-                            }
-                            is Resource.Error -> {
-                                schedule.postValue(Schedule.empty)
-                                error.postValue(
-                                    StateStatus(
-                                        state = StateStatus.ERROR_STATE,
-                                        type = fullSchedule.errorType,
-                                        message = fullSchedule.message
-                                    )
-                                )
-                            }
-                        }
+                        saveScheduleToLiveData(data)
                     }
                     is Resource.Error -> {
                         schedule.postValue(Schedule.empty)

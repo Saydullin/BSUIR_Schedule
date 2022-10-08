@@ -1,13 +1,11 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import com.bsuir.bsuirschedule.domain.models.GroupSchedule
-import com.bsuir.bsuirschedule.domain.models.SavedSchedule
-import com.bsuir.bsuirschedule.domain.models.Schedule
-import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.ScheduleController
 
 class EmployeeScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
@@ -17,7 +15,7 @@ class EmployeeScheduleUseCase(
     private val currentWeekUseCase: GetCurrentWeekUseCase
 ) {
 
-    suspend fun getScheduleAPI(urlId: String): Resource<GroupSchedule> {
+    suspend fun getScheduleAPI(urlId: String): Resource<Schedule> {
 
         return try {
             when (
@@ -30,14 +28,27 @@ class EmployeeScheduleUseCase(
                     ) {
                         is Resource.Success -> {
                             // Add group models to employee's student groups
-                            fullScheduleUseCase.mergeGroupsSubjects(data, groupItems.data!!)
-                            val isMergedDepartments = mergeDepartments(data)
+                            val currentWeek = currentWeekUseCase.getCurrentWeek()
+                            if (currentWeek is Resource.Error) {
+                                return Resource.Error(
+                                    errorType = currentWeek.errorType,
+                                    message = currentWeek.message
+                                )
+                            }
+                            val schedule = getNormalSchedule(data, currentWeek.data!!)
+                            fullScheduleUseCase.mergeGroupsSubjects(schedule, groupItems.data!!)
+                            val isMergedDepartments = mergeDepartments(schedule)
                             if (isMergedDepartments is Resource.Error) {
                                 return Resource.Error(
                                     errorType = isMergedDepartments.errorType,
                                     message = isMergedDepartments.message
                                 )
                             }
+                            schedule.id = schedule.employee.id
+                            if (schedule.schedules.isNotEmpty()) {
+                                schedule.subgroups = getSubgroupsList(schedule.schedules)
+                            }
+                            return Resource.Success(schedule)
                         }
                         is Resource.Error -> {
                             return Resource.Error(
@@ -46,11 +57,6 @@ class EmployeeScheduleUseCase(
                             )
                         }
                     }
-                    data.id = data.employee?.id ?: -1
-                    if (data.schedules != null) {
-                        data.subgroups = getSubgroupsList(data.schedules.getList())
-                    }
-                    return Resource.Success(data)
                 }
                 is Resource.Error -> {
                     return Resource.Error(
@@ -68,11 +74,17 @@ class EmployeeScheduleUseCase(
         }
     }
 
-    private fun getSubgroupsList(schedule: List<ArrayList<ScheduleSubject>>): List<Int> {
+    private fun getNormalSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
+        val scheduleController = ScheduleController()
+
+        return scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
+    }
+
+    private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
         val amount = ArrayList<Int>()
 
         schedule.forEach { day ->
-            day.forEach { subject ->
+            day.schedule.forEach { subject ->
                 amount.add(subject.numSubgroup ?: 0)
             }
         }
@@ -80,21 +92,21 @@ class EmployeeScheduleUseCase(
         return amount.toSet().toList()
     }
 
-    private suspend fun mergeDepartments(groupSchedule: GroupSchedule): Resource<GroupSchedule> {
+    private suspend fun mergeDepartments(schedule: Schedule): Resource<Schedule> {
         return when (
             val result = employeeItemsRepository.getEmployeeItems()
         ) {
             is Resource.Success -> {
                 val data = result.data!!
-                if (groupSchedule.employee == null) {
+                if (schedule.employee.id == -1) {
                     return Resource.Error(
                         errorType = Resource.DATA_ERROR,
                         message = "Employee field is null, cannot add departments list"
                     )
                 }
-                val employeeMatch = data.find { it.id == groupSchedule.employee.id }
-                groupSchedule.employee.departmentsList = employeeMatch?.departments
-                Resource.Success(GroupSchedule.empty)
+                val employeeMatch = data.find { it.id == schedule.employee.id }
+                schedule.employee.departmentsList = employeeMatch?.departments
+                Resource.Success(null)
             }
             is Resource.Error -> {
                 Resource.Error(
@@ -105,7 +117,7 @@ class EmployeeScheduleUseCase(
         }
     }
 
-    suspend fun getScheduleById(employeeId: Int): Resource<GroupSchedule> {
+    suspend fun getScheduleById(employeeId: Int): Resource<Schedule> {
         return try {
             when (
                 val result = scheduleRepository.getScheduleById(employeeId)
@@ -139,7 +151,7 @@ class EmployeeScheduleUseCase(
         return fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!)
     }
 
-    suspend fun saveSchedule(schedule: GroupSchedule): Resource<Unit> {
+    suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
         return scheduleRepository.saveSchedule(schedule)
     }
 

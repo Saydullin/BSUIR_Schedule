@@ -1,17 +1,16 @@
 package com.bsuir.bsuirschedule.data.repository
 
 import android.database.sqlite.SQLiteException
-import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
-import com.bsuir.bsuirschedule.data.db.dao.GroupScheduleDao
+import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao2
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
+import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
-import kotlin.system.measureTimeMillis
 
 class ScheduleRepositoryImpl(
-    override val groupScheduleDao: GroupScheduleDao,
+    override val scheduleDao: ScheduleDao2,
 ) : ScheduleRepository {
 
     override suspend fun getScheduleAPI(groupName: String): Resource<GroupSchedule> {
@@ -60,13 +59,13 @@ class ScheduleRepositoryImpl(
         }
     }
 
-    override suspend fun getScheduleById(groupId: Int): Resource<GroupSchedule> {
+    override suspend fun getScheduleById(id: Int): Resource<Schedule> {
         return try {
-            val data = groupScheduleDao.getGroupScheduleById(groupId)
+            val data = scheduleDao.getGroupScheduleById(id)
                 ?: return Resource.Error(
                     errorType = Resource.DATABASE_NOT_FOUND_ERROR
                 )
-            Resource.Success(data.toGroupSchedule())
+            Resource.Success(data.toSchedule())
         } catch (e: SQLiteException) {
             Resource.Error(
                 errorType = Resource.DATABASE_ERROR,
@@ -80,9 +79,9 @@ class ScheduleRepositoryImpl(
         }
     }
 
-    override suspend fun saveSchedule(schedule: GroupSchedule): Resource<Unit> {
+    override suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
         return try {
-            groupScheduleDao.saveSchedule(schedule.toGroupScheduleTable())
+            scheduleDao.saveSchedule(schedule.toScheduleTable())
             Resource.Success(null)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -95,7 +94,7 @@ class ScheduleRepositoryImpl(
 
     override suspend fun deleteGroupSchedule(groupName: String): Resource<Unit> {
         return try {
-            groupScheduleDao.deleteGroupSchedule(groupName)
+            scheduleDao.deleteGroupSchedule(groupName)
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
@@ -107,7 +106,7 @@ class ScheduleRepositoryImpl(
 
     override suspend fun deleteEmployeeSchedule(employeeUrlId: String): Resource<Unit> {
         return try {
-            groupScheduleDao.deleteEmployeeSchedule(employeeUrlId)
+            scheduleDao.deleteEmployeeSchedule(employeeUrlId)
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(

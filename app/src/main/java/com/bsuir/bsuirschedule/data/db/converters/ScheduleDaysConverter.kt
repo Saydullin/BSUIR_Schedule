@@ -10,12 +10,12 @@ import com.google.gson.reflect.TypeToken
 class ScheduleDaysConverter {
 
     @TypeConverter
-    fun FromScheduleToString(scheduleDays: GroupScheduleWeekTable?): String? {
+    fun fromScheduleToString(scheduleDays: GroupScheduleWeekTable?): String? {
         return Gson().toJson(scheduleDays)
     }
 
     @TypeConverter
-    fun FromStringToSchedule(scheduleDaysJSON: String?): GroupScheduleWeekTable? {
+    fun fromStringToSchedule(scheduleDaysJSON: String?): GroupScheduleWeekTable? {
         val listType = object: TypeToken<GroupScheduleWeekTable>(){}.type
         return Gson().fromJson(scheduleDaysJSON, listType)
     }

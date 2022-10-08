@@ -16,10 +16,11 @@ val dataModule = module {
             application,
             AppDatabase::class.java,
             "AppDB"
-        ).addTypeConverter(ScheduleDaysConverter())
+        )
             .addTypeConverter(DepartmentConverter())
             .addTypeConverter(IntListConverter())
             .addTypeConverter(StrListConverter())
+            .addTypeConverter(ScheduleDayListConverter())
             .addTypeConverter(ScheduleSubjectsConverter())
             .build()
     }
@@ -32,7 +33,7 @@ val dataModule = module {
 
     fun departmentDao(db: AppDatabase) = db.departmentDao()
 
-    fun groupScheduleDao(db: AppDatabase) = db.groupScheduleDao()
+    fun scheduleDao(db: AppDatabase) = db.scheduleDao()
 
     fun employeeDao(db: AppDatabase) = db.employeeDao()
 
@@ -48,7 +49,7 @@ val dataModule = module {
 
     single { departmentDao(get()) }
 
-    single { groupScheduleDao(get()) }
+    single { scheduleDao(get()) }
 
     single { employeeDao(get()) }
 

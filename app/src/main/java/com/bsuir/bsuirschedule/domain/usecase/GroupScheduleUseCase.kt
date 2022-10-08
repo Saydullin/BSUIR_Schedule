@@ -1,24 +1,21 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.ScheduleController
-import kotlin.system.measureTimeMillis
 
 class GroupScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
     private val groupItemsRepository: GroupItemsRepository,
     private val employeeItemsRepository: EmployeeItemsRepository,
     private val fullScheduleUseCase: FullScheduleUseCase,
-    private val examsScheduleUseCase: FullExamsScheduleUseCase,
     private val currentWeekUseCase: GetCurrentWeekUseCase
 ) {
 
-    suspend fun getGroupScheduleAPI(groupName: String): Resource<GroupSchedule> {
+    suspend fun getGroupScheduleAPI(groupName: String): Resource<Schedule> {
 
         return try {
             when (
@@ -27,28 +24,32 @@ class GroupScheduleUseCase(
                 is Resource.Success -> {
                     val data = apiSchedule.data!!
                     data.id = data.group?.id ?: -1
-                    val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(data)
-                    val timeInMillis = measureTimeMillis {
-                        getNormalSchedule(data)
+                    val currentWeek = currentWeekUseCase.getCurrentWeek()
+                    if (currentWeek is Resource.Error) {
+                        return Resource.Error(
+                            errorType = currentWeek.errorType,
+                            message = currentWeek.message
+                        )
                     }
-                    Log.e("sady", "normal schedule takes $timeInMillis ms")
+                    val schedule = getNormalSchedule(data, currentWeek.data!!)
+                    val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(schedule)
                     if (isMergedFacultyAndSpeciality is Resource.Error) {
                         return Resource.Error(
                             errorType = isMergedFacultyAndSpeciality.errorType,
                             message = isMergedFacultyAndSpeciality.message
                         )
                     }
-                    val isMergedEmployees = mergeEmployeeItems(data)
+                    val isMergedEmployees = mergeEmployeeItems(schedule)
                     if (isMergedEmployees is Resource.Error) {
                         return Resource.Error(
                             errorType = isMergedEmployees.errorType,
                             message = isMergedEmployees.message
                         )
                     }
-                    if (data.schedules != null) {
-                        data.subgroups = getSubgroupsList(data.schedules.getList())
+                    if (schedule.schedules.isNotEmpty()) {
+                        schedule.subgroups = getSubgroupsList(schedule.schedules)
                     }
-                    Resource.Success(data)
+                    Resource.Success(schedule)
                 }
                 is Resource.Error -> {
                     Resource.Error(
@@ -65,17 +66,17 @@ class GroupScheduleUseCase(
         }
     }
 
-    private fun getNormalSchedule(groupSchedule: GroupSchedule): Schedule {
+    private fun getNormalSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
         val scheduleController = ScheduleController()
 
-        return scheduleController.getNormalSchedule(groupSchedule)
+        return scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
     }
 
-    private fun getSubgroupsList(schedule: List<ArrayList<ScheduleSubject>>): List<Int> {
+    private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
         val amount = ArrayList<Int>()
 
         schedule.forEach { day ->
-            day.forEach { subject ->
+            day.schedule.forEach { subject ->
                 amount.add(subject.numSubgroup ?: 0)
             }
         }
@@ -83,14 +84,14 @@ class GroupScheduleUseCase(
         return amount.toSet().toList()
     }
 
-    private suspend fun mergeEmployeeItems(groupSchedule: GroupSchedule): Resource<GroupSchedule> {
+    private suspend fun mergeEmployeeItems(schedule: Schedule): Resource<Schedule> {
         return when (
             val result = employeeItemsRepository.getEmployeeItems()
         ) {
             is Resource.Success -> {
                 val data = result.data!!
-                groupSchedule.schedules?.getList()?.map { day ->
-                    day.map { subject ->
+                schedule.schedules.map { day ->
+                    day.schedule.map { subject ->
                         val employeeList = ArrayList<EmployeeSubject>()
                         subject.employees?.forEach { employeeItem ->
                             val employee = data.find { it.id == employeeItem.id }
@@ -103,7 +104,7 @@ class GroupScheduleUseCase(
                         subject.employees = employeeList
                     }
                 }
-                Resource.Success(groupSchedule)
+                Resource.Success(schedule)
             }
             is Resource.Error -> {
                 Resource.Error(
@@ -114,22 +115,22 @@ class GroupScheduleUseCase(
         }
     }
 
-    private suspend fun mergeSpecialitiesAndFaculties(groupSchedule: GroupSchedule): Resource<GroupSchedule> {
+    private suspend fun mergeSpecialitiesAndFaculties(schedule: Schedule): Resource<Schedule> {
         return when (
             val result = groupItemsRepository.getAllGroupItems()
         ) {
             is Resource.Success -> {
                 val data = result.data!!
-                if (groupSchedule.group == null) {
+                if (schedule.group.id == -1) {
                     return Resource.Error(
                         errorType = Resource.DATA_ERROR,
                         message = "Group field is null, cannot add specialities and faculties list"
                     )
                 }
-                val groupMatch = data.find { it.id == groupSchedule.group.id }
-                groupSchedule.group.speciality = groupMatch?.speciality
-                groupSchedule.group.faculty = groupMatch?.faculty
-                Resource.Success(groupSchedule)
+                val groupMatch = data.find { it.id == schedule.group.id }
+                schedule.group.speciality = groupMatch?.speciality
+                schedule.group.faculty = groupMatch?.faculty
+                Resource.Success(schedule)
             }
             is Resource.Error -> {
                 Resource.Error(
@@ -140,32 +141,24 @@ class GroupScheduleUseCase(
         }
     }
 
-    suspend fun getFullSchedule(groupSchedule: GroupSchedule): Resource<Schedule> {
-        val currentWeek = currentWeekUseCase.getCurrentWeek()
-        if (currentWeek is Resource.Error) {
-            return Resource.Error(
-                errorType = currentWeek.errorType
-            )
-        }
-        val timeInMillis = measureTimeMillis {
-            fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!)
-        }
-        Log.e("sady", "Schedule takes $timeInMillis ms")
-        return fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!)
-    }
-
-    suspend fun getScheduleById(groupId: Int): Resource<GroupSchedule> {
+    suspend fun getScheduleById(groupId: Int): Resource<Schedule> {
         return try {
             when (
                 val result = scheduleRepository.getScheduleById(groupId)
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
-                    if (!data.isNotExistExams()) {
-                        val examsSchedule = examsScheduleUseCase.getSchedule(data)
-                        data.examsSchedule = examsSchedule
+                    val scheduleController = ScheduleController()
+                    val currentWeek = currentWeekUseCase.getCurrentWeek()
+                    if (currentWeek is Resource.Error) {
+                        return Resource.Error(
+                            errorType = currentWeek.errorType,
+                            message = currentWeek.message
+                        )
                     }
-                    Resource.Success(data)
+                    val currentWeekNumber = currentWeek.data!!
+                    val schedule = scheduleController.getRegularSchedule(data, currentWeekNumber)
+                    Resource.Success(schedule)
                 }
                 is Resource.Error -> {
                     Resource.Error(
@@ -216,7 +209,7 @@ class GroupScheduleUseCase(
         }
     }
 
-    suspend fun saveSchedule(schedule: GroupSchedule): Resource<Unit> {
+    suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
         return scheduleRepository.saveSchedule(schedule)
     }
 

@@ -30,7 +30,7 @@ class ScheduleManager {
                 ScheduleDay(
                     date = calendarDate.getIncDate(counter),
                     dateUnixTime = calendarDate.getDateUnixTime(),
-                    weekDayName = calendarDate.getWeekDayName(),
+                    weekDayTitle = calendarDate.getWeekDayTitle(),
                     weekDayNumber = counter,
                     weekNumber = calendarDate.getWeekNumber(),
                     schedule = scheduleDay,
@@ -59,7 +59,7 @@ class ScheduleManager {
             val scheduleDay = ScheduleDay(
                 date = calendarDate.getDate(),
                 dateUnixTime = calendarDate.getDateUnixTime(),
-                weekDayName = calendarDate.getWeekDayName(),
+                weekDayTitle = calendarDate.getWeekDayTitle(),
                 weekDayNumber = calendarDate.getWeekDayNumber(),
                 weekNumber = calendarDate.getWeekNumber(),
                 schedule = scheduleInDay
@@ -71,18 +71,9 @@ class ScheduleManager {
         return getSubjectsBreakTime(scheduleDays)
     }
 
-    fun mergeGroupsSubjects(groupSchedule: GroupSchedule, groupItems: ArrayList<Group>) {
-        val days = listOf(
-            groupSchedule.schedules?.monday ?: ArrayList(),
-            groupSchedule.schedules?.tuesday ?: ArrayList(),
-            groupSchedule.schedules?.wednesday ?: ArrayList(),
-            groupSchedule.schedules?.thursday ?: ArrayList(),
-            groupSchedule.schedules?.friday ?: ArrayList(),
-            groupSchedule.schedules?.saturday ?: ArrayList()
-        )
-
-        days.map { day ->
-            day.map { subject ->
+    fun mergeGroupsSubjects(schedule: Schedule, groupItems: ArrayList<Group>) {
+        schedule.schedules.map { day ->
+            day.schedule.map { subject ->
                 val groups = ArrayList<Group>()
                 subject.subjectGroups?.map { subjectGroup ->
                     val groupItem = groupItems.find { it.name == subjectGroup.name }
@@ -137,7 +128,7 @@ class ScheduleManager {
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
                         dateUnixTime = calendarDate.getDateUnixTime(),
-                        weekDayName = calendarDate.getWeekDayName(),
+                        weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = calendarDate.getWeekDayNumber(),
                         weekNumber = calendarDate.getWeekNumber(),
                         schedule = ArrayList(),
@@ -148,7 +139,7 @@ class ScheduleManager {
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
                         dateUnixTime = calendarDate.getDateUnixTime(),
-                        weekDayName = calendarDate.getWeekDayName(),
+                        weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = calendarDate.getWeekDayNumber(),
                         weekNumber = calendarDate.getWeekNumber(),
                         schedule = day.schedule,
@@ -240,7 +231,7 @@ class ScheduleManager {
                         ScheduleDay(
                             date = calendarDate.getDateStatus(),
                             dateUnixTime = calendarDate.getDateUnixTime(),
-                            weekDayName = calendarDate.getWeekDayName(),
+                            weekDayTitle = calendarDate.getWeekDayTitle(),
                             weekDayNumber = calendarDate.getWeekDayNumber(),
                             weekNumber = calendarDate.getWeekNumber(),
                             schedule = ArrayList(),
@@ -254,7 +245,7 @@ class ScheduleManager {
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
                         dateUnixTime = calendarDate.getDateUnixTime(),
-                        weekDayName = calendarDate.getWeekDayName(),
+                        weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = calendarDate.getWeekDayNumber(),
                         weekNumber = calendarDate.getWeekNumber(),
                         schedule = filteredSubjects as ArrayList<ScheduleSubject>,

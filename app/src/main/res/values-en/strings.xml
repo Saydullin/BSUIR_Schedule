@@ -39,7 +39,7 @@
     <string name="update_error">Data not found</string>
     <string name="update_error_caption">Load data or connect to internet to automaticcally load data</string>
     <string name="database_not_found_error">Data not found</string>
-    <string name="database_not_found_error_caption">Try to load data again/</string>
+    <string name="database_not_found_error_caption">Try to load data again</string>
     <string name="database_error">Database error</string>
     <string name="database_error_caption">Try to clear app data in settings or reinstall app</string>
     <string name="system_error">System error</string>

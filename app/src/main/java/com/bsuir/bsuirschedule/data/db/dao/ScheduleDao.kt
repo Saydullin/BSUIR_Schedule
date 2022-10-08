@@ -4,10 +4,10 @@ import androidx.room.*
 import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
 
 @Dao
-interface GroupScheduleDao {
+interface ScheduleDao {
 
-    @Query("SELECT * FROM ScheduleTable WHERE id = :groupId LIMIT 1")
-    fun getGroupScheduleById(groupId: Int): ScheduleTable?
+    @Query("SELECT * FROM ScheduleTable WHERE id = :id LIMIT 1")
+    fun getGroupScheduleById(id: Int): ScheduleTable?
 
     @Query("SELECT * FROM ScheduleTable")
     fun getGroupSchedules(): List<ScheduleTable>

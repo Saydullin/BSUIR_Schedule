@@ -18,12 +18,12 @@ data class GroupScheduleWeekTable (
 ) {
 
     fun toGroupScheduleWeek() = GroupScheduleWeek(
-        monday.map { it.toGroupScheduleSubject() } as ArrayList<ScheduleSubject>,
-        tuesday.map { it.toGroupScheduleSubject() } as ArrayList<ScheduleSubject>,
-        wednesday.map { it.toGroupScheduleSubject() } as ArrayList<ScheduleSubject>,
-        thursday.map { it.toGroupScheduleSubject() } as ArrayList<ScheduleSubject>,
-        friday.map { it.toGroupScheduleSubject() } as ArrayList<ScheduleSubject>,
-        saturday.map { it.toGroupScheduleSubject() } as ArrayList<ScheduleSubject>
+        monday.map { it.toScheduleSubject() } as ArrayList<ScheduleSubject>,
+        tuesday.map { it.toScheduleSubject() } as ArrayList<ScheduleSubject>,
+        wednesday.map { it.toScheduleSubject() } as ArrayList<ScheduleSubject>,
+        thursday.map { it.toScheduleSubject() } as ArrayList<ScheduleSubject>,
+        friday.map { it.toScheduleSubject() } as ArrayList<ScheduleSubject>,
+        saturday.map { it.toScheduleSubject() } as ArrayList<ScheduleSubject>
     )
 
 }

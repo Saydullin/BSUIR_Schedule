@@ -28,7 +28,7 @@ data class GroupScheduleSubjectTable(
     @ColumnInfo val endLessonDate: String
 ) {
 
-    fun toGroupScheduleSubject() = ScheduleSubject(
+    fun toScheduleSubject() = ScheduleSubject(
         subject = subject,
         subjectFullName = subjectFullName,
         lessonTypeAbbrev = lessonTypeAbbrev,

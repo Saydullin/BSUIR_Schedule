@@ -103,7 +103,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return startFormat.time < currCalendar.time.time && endFormat.time > currCalendar.time.time
     }
 
-    fun getWeekDayName(): String {
+    fun getWeekDayTitle(): String {
         val output = SimpleDateFormat("EEEE")
 
         return output.format(calendar.time)

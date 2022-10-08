@@ -12,7 +12,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         GroupTable::class,
         EmployeeTable::class,
         ActiveGroupTable::class,
-        GroupScheduleTable::class,
+        ScheduleTable::class,
         SavedScheduleTable::class,
         FacultyTable::class,
         SpecialityTable::class,

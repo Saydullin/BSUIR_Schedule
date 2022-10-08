@@ -1,10 +1,13 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.ScheduleController
+import kotlin.system.measureTimeMillis
 
 class GroupScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
@@ -25,6 +28,10 @@ class GroupScheduleUseCase(
                     val data = apiSchedule.data!!
                     data.id = data.group?.id ?: -1
                     val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(data)
+                    val timeInMillis = measureTimeMillis {
+                        getNormalSchedule(data)
+                    }
+                    Log.e("sady", "normal schedule takes $timeInMillis ms")
                     if (isMergedFacultyAndSpeciality is Resource.Error) {
                         return Resource.Error(
                             errorType = isMergedFacultyAndSpeciality.errorType,
@@ -56,6 +63,12 @@ class GroupScheduleUseCase(
                 message = e.message
             )
         }
+    }
+
+    private fun getNormalSchedule(groupSchedule: GroupSchedule): Schedule {
+        val scheduleController = ScheduleController()
+
+        return scheduleController.getNormalSchedule(groupSchedule)
     }
 
     private fun getSubgroupsList(schedule: List<ArrayList<ScheduleSubject>>): List<Int> {
@@ -134,6 +147,10 @@ class GroupScheduleUseCase(
                 errorType = currentWeek.errorType
             )
         }
+        val timeInMillis = measureTimeMillis {
+            fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!)
+        }
+        Log.e("sady", "Schedule takes $timeInMillis ms")
         return fullScheduleUseCase.getSchedule(groupSchedule, currentWeek.data!!)
     }
 

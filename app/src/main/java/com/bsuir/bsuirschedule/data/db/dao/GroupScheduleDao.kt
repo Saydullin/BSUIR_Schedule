@@ -1,24 +1,24 @@
 package com.bsuir.bsuirschedule.data.db.dao
 
 import androidx.room.*
-import com.bsuir.bsuirschedule.data.db.entities.GroupScheduleTable
+import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
 
 @Dao
 interface GroupScheduleDao {
 
-    @Query("SELECT * FROM GroupScheduleTable WHERE id = :groupId LIMIT 1")
-    fun getGroupScheduleById(groupId: Int): GroupScheduleTable?
+    @Query("SELECT * FROM ScheduleTable WHERE id = :groupId LIMIT 1")
+    fun getGroupScheduleById(groupId: Int): ScheduleTable?
 
-    @Query("SELECT * FROM GroupScheduleTable")
-    fun getGroupSchedules(): List<GroupScheduleTable>
+    @Query("SELECT * FROM ScheduleTable")
+    fun getGroupSchedules(): List<ScheduleTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveSchedule(schedule: GroupScheduleTable)
+    fun saveSchedule(schedule: ScheduleTable)
 
-    @Query("DELETE FROM GroupScheduleTable WHERE group_name = :groupName")
+    @Query("DELETE FROM ScheduleTable WHERE group_name = :groupName")
     fun deleteGroupSchedule(groupName: String)
 
-    @Query("DELETE FROM GroupScheduleTable WHERE employee_urlId = :employeeUrlId")
+    @Query("DELETE FROM ScheduleTable WHERE employee_urlId = :employeeUrlId")
     fun deleteEmployeeSchedule(employeeUrlId: String)
 
 }

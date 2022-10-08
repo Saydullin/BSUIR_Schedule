@@ -8,6 +8,7 @@ import com.bsuir.bsuirschedule.data.db.dao.GroupScheduleDao
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import kotlin.system.measureTimeMillis
 
 class ScheduleRepositoryImpl(
     override val groupScheduleDao: GroupScheduleDao,

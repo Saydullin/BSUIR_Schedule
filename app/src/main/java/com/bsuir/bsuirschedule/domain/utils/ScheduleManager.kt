@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import kotlin.collections.ArrayList
 
@@ -30,6 +29,7 @@ class ScheduleManager {
             schedule.schedules.add(
                 ScheduleDay(
                     date = calendarDate.getIncDate(counter),
+                    dateUnixTime = calendarDate.getDateUnixTime(),
                     weekDayName = calendarDate.getWeekDayName(),
                     weekDayNumber = counter,
                     weekNumber = calendarDate.getWeekNumber(),
@@ -58,6 +58,7 @@ class ScheduleManager {
             scheduleInDay.sortBy { it.startLessonTime }
             val scheduleDay = ScheduleDay(
                 date = calendarDate.getDate(),
+                dateUnixTime = calendarDate.getDateUnixTime(),
                 weekDayName = calendarDate.getWeekDayName(),
                 weekDayNumber = calendarDate.getWeekDayNumber(),
                 weekNumber = calendarDate.getWeekNumber(),
@@ -135,6 +136,7 @@ class ScheduleManager {
                 scheduleList.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
+                        dateUnixTime = calendarDate.getDateUnixTime(),
                         weekDayName = calendarDate.getWeekDayName(),
                         weekDayNumber = calendarDate.getWeekDayNumber(),
                         weekNumber = calendarDate.getWeekNumber(),
@@ -145,6 +147,7 @@ class ScheduleManager {
                 scheduleList.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
+                        dateUnixTime = calendarDate.getDateUnixTime(),
                         weekDayName = calendarDate.getWeekDayName(),
                         weekDayNumber = calendarDate.getWeekDayNumber(),
                         weekNumber = calendarDate.getWeekNumber(),
@@ -163,6 +166,23 @@ class ScheduleManager {
         }
 
         return scheduleList
+    }
+
+    fun setCurrentSubject(schedule: Schedule) {
+        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        var isStop = false
+        if (schedule.subjectNow == null) {
+            schedule.schedules.map { day ->
+                if (isStop) return@map
+                day.schedule.map { subject ->
+                    if (calendarDate.isCurrentSubject(subject.startLessonTime ?: "", subject.endLessonTime ?: "")) {
+                        schedule.subjectNow = subject
+                        isStop = true
+                        return@map
+                    }
+                }
+            }
+        }
     }
 
     fun getFullScheduleModel(schedule: Schedule, weekNumber: Int, fromCurrentDay: Boolean = true): Schedule {
@@ -209,7 +229,6 @@ class ScheduleManager {
                 week = 1
             }
             for (dayNumber in beginOnDay..7) {
-
                 if (calendarDate.isEqualDate(schedule.endDate) || daysCounter >= LIMIT_DAYS) {
                     isDone = true
                     break
@@ -220,6 +239,7 @@ class ScheduleManager {
                     scheduleFull.schedules.add(
                         ScheduleDay(
                             date = calendarDate.getDateStatus(),
+                            dateUnixTime = calendarDate.getDateUnixTime(),
                             weekDayName = calendarDate.getWeekDayName(),
                             weekDayNumber = calendarDate.getWeekDayNumber(),
                             weekNumber = calendarDate.getWeekNumber(),
@@ -227,28 +247,34 @@ class ScheduleManager {
                         ))
                     i++
                 }
-                for (filteredDay in filteredDays) {
-                    calendarDate.getIncDate(i)
-                    val weekNum = calendarDate.getWeekNumber()
-                    val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
-                    if (scheduleFull.subjectNow == null) {
-                        filteredSubjects.map { subject ->
-                            if (calendarDate.isCurrentSubject(subject.startLessonTime ?: "", subject.endLessonTime ?: "")) {
-                                scheduleFull.subjectNow = subject
-                                return@map
-                            }
-                        }
-                    }
-                    scheduleFull.schedules.add(
-                        ScheduleDay(
-                            date = calendarDate.getDateStatus(),
-                            weekDayName = calendarDate.getWeekDayName(),
-                            weekDayNumber = calendarDate.getWeekDayNumber(),
-                            weekNumber = calendarDate.getWeekNumber(),
-                            schedule = filteredSubjects as ArrayList<ScheduleSubject>,
-                        ))
-                    i++
-                }
+                calendarDate.getIncDate(i)
+                val weekNum = calendarDate.getWeekNumber()
+                val filteredSubjects = filteredDays[0].schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
+                scheduleFull.schedules.add(
+                    ScheduleDay(
+                        date = calendarDate.getDateStatus(),
+                        dateUnixTime = calendarDate.getDateUnixTime(),
+                        weekDayName = calendarDate.getWeekDayName(),
+                        weekDayNumber = calendarDate.getWeekDayNumber(),
+                        weekNumber = calendarDate.getWeekNumber(),
+                        schedule = filteredSubjects as ArrayList<ScheduleSubject>,
+                    ))
+                i++
+//                for (filteredDay in filteredDays) {
+//                    calendarDate.getIncDate(i)
+//                    val weekNum = calendarDate.getWeekNumber()
+//                    val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
+//                    scheduleFull.schedules.add(
+//                        ScheduleDay(
+//                            date = calendarDate.getDateStatus(),
+//                            dateUnixTime = calendarDate.getDateUnixTime(),
+//                            weekDayName = calendarDate.getWeekDayName(),
+//                            weekDayNumber = calendarDate.getWeekDayNumber(),
+//                            weekNumber = calendarDate.getWeekNumber(),
+//                            schedule = filteredSubjects as ArrayList<ScheduleSubject>,
+//                        ))
+//                    i++
+//                }
             }
             beginOnDay = 1
         }

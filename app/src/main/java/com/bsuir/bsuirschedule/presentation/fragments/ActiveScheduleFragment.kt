@@ -41,15 +41,6 @@ class ActiveScheduleFragment : Fragment() {
                 binding.activeScheduleTitle.text = group.name
                 binding.scheduleSubtitleLeft.text = group.getFacultyAndSpecialityAbbr()
                 binding.scheduleSubtitleRight.text = group.speciality?.educationForm?.name ?: ""
-                if (schedule.subjectNow != null) {
-                    val subjectNowText = resources.getString(R.string.subject_now_group_short, schedule.subjectNow?.subject ?: "")
-                    binding.scheduleSubtitleLeft.text = subjectNowText
-                    if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
-                        val audience = schedule.subjectNow?.getAudienceInLine()
-                        val audienceNowText = resources.getString(R.string.audience_now, audience)
-                        binding.scheduleSubtitleLeft.text = "$subjectNowText $audienceNowText"
-                    }
-                }
             } else {
                 val employee = schedule.employee
                 binding.scheduleCourse.text = ""
@@ -63,14 +54,15 @@ class ActiveScheduleFragment : Fragment() {
                 if (!employee.departmentsList.isNullOrEmpty()) {
                     binding.scheduleSubtitleRight.text = employee.getShortDepartments(getString(R.string.more))
                 }
-                if (schedule.subjectNow != null) {
-                    val subjectNowText = resources.getString(R.string.subject_now_employee_short, schedule.subjectNow?.subject ?: "")
-                    binding.scheduleSubtitleLeft.text = subjectNowText
-                    if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
-                        val audience = schedule.subjectNow?.getAudienceInLine()
-                        val audienceNowText = resources.getString(R.string.audience_now, audience)
-                        binding.scheduleSubtitleLeft.text = "$subjectNowText $audienceNowText"
-                    }
+            }
+
+            if (schedule.subjectNow != null) {
+                val subjectNowText = resources.getString(R.string.subject_now, schedule.subjectNow?.subject ?: "")
+                binding.scheduleSubtitleLeft.text = subjectNowText
+                if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
+                    val audience = schedule.subjectNow?.getAudienceInLine()
+                    val audienceNowText = resources.getString(R.string.audience_now, audience)
+                    binding.scheduleSubtitleLeft.text = "$subjectNowText $audienceNowText"
                 }
             }
 

@@ -1,6 +1,6 @@
 package com.bsuir.bsuirschedule.domain.models
 
-import com.bsuir.bsuirschedule.data.db.entities.GroupScheduleTable
+import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
 import com.google.gson.annotations.SerializedName
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,7 +49,7 @@ data class GroupSchedule (
                 endDate.isNullOrEmpty()
     }
 
-    fun toGroupScheduleTable() = GroupScheduleTable(
+    fun toGroupScheduleTable() = ScheduleTable(
         id = id,
         startDate = startDate ?: "",
         endDate = endDate ?: "",

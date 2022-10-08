@@ -8,7 +8,7 @@ import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 
 @Entity
-data class GroupScheduleTable (
+data class ScheduleTable (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo val startDate: String,
     @ColumnInfo val endDate: String,

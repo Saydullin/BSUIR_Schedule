@@ -14,10 +14,7 @@
     <string name="okay">Понятно</string>
     <string name="delete">Удалить</string>
     <string name="last_update">Было обновлено %s</string>
-    <string name="subject_now_employee">Сейчас ведёт %s</string>
-    <string name="subject_now_employee_short">ведёт %s</string>
-    <string name="subject_now_group">Сейчас изучает %s</string>
-    <string name="subject_now_group_short">изучает %s</string>
+    <string name="subject_now">Сейчас %s</string>
     <string name="no_subject_now">Сейчас нет занятий</string>
     <string name="audience_now">в %s</string>
     <string name="selected_subgroup">Выбрана %d подгруппа</string>

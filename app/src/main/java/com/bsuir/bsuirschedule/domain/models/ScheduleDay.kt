@@ -2,10 +2,11 @@ package com.bsuir.bsuirschedule.domain.models
 
 data class ScheduleDay (
     val id: Int = -1,
-    val date: String,
-    val weekDayName: String,
-    val weekDayNumber: Int,
-    val weekNumber: Int,
+    var date: String,
+    var dateUnixTime: Long,
+    var weekDayName: String,
+    var weekDayNumber: Int,
+    var weekNumber: Int,
     var schedule: ArrayList<ScheduleSubject> = ArrayList()
 ) {
 
@@ -13,6 +14,7 @@ data class ScheduleDay (
         val empty = ScheduleDay(
             id = -1,
             date = "",
+            dateUnixTime = 0,
             weekDayName = "",
             weekDayNumber = 0,
             weekNumber = 0,

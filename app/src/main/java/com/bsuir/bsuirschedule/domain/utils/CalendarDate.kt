@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -54,6 +53,11 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return counter
     }
 
+    fun getDateUnixTime(): Long {
+
+        return calendar.timeInMillis
+    }
+
     fun getDate(): String {
         val output = SimpleDateFormat("d MMMM")
 
@@ -70,7 +74,13 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         if (dateFormat.format(calendar.time) == dateFormat.format(calendarNow.time)) {
             return TOMORROW
         }
+
         return getDate()
+    }
+
+    fun incDate(amount: Int) {
+        calendar.time = inputDate as Date
+        calendar.add(Calendar.DATE, amount)
     }
 
     fun getIncDate(amount: Int): String {

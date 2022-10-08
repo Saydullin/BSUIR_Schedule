@@ -185,9 +185,5 @@
     <string name="settings_big_font_size">Bold</string>
     <string name="no_subject_now">There are no lessons at the moment</string>
     <string name="audience_now">in %s</string>
-    <string name="subject_now_employee">Teaching now %s</string>
-    <string name="subject_now_employee_short">teaching in %s</string>
-    <string name="subject_now_group">Studies now %s</string>
-    <string name="subject_now_group_short">studies in %s</string>
-
+    <string name="subject_now">Now in %s</string>
 </resources>

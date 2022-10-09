@@ -1,6 +1,6 @@
 package com.bsuir.bsuirschedule.domain.models
 
-import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable2
+import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -98,7 +98,7 @@ data class Schedule (
         isExistExams = exams.isNotEmpty()
     )
 
-    fun toScheduleTable() = ScheduleTable2(
+    fun toScheduleTable() = ScheduleTable(
         id = id,
         startDate = startDate,
         endDate = endDate,

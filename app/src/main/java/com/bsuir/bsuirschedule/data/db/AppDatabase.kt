@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.data.db
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -14,7 +13,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         EmployeeTable::class,
         ActiveGroupTable::class,
 //        ScheduleTable::class,
-        ScheduleTable2::class,
+        ScheduleTable::class,
         SavedScheduleTable::class,
         FacultyTable::class,
         SpecialityTable::class,
@@ -43,7 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun departmentDao(): DepartmentDao
 
-    abstract fun scheduleDao(): ScheduleDao2
+    abstract fun scheduleDao(): ScheduleDao
 
     abstract fun savedScheduleDao(): SavedScheduleDao
 

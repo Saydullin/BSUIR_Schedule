@@ -3,14 +3,14 @@ package com.bsuir.bsuirschedule.data.repository
 import android.database.sqlite.SQLiteException
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
-import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao2
+import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 class ScheduleRepositoryImpl(
-    override val scheduleDao: ScheduleDao2,
+    override val scheduleDao: ScheduleDao,
 ) : ScheduleRepository {
 
     override suspend fun getScheduleAPI(groupName: String): Resource<GroupSchedule> {

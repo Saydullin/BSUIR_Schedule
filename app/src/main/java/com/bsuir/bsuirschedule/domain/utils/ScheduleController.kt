@@ -46,10 +46,12 @@ class ScheduleController {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
         var scheduleSubject: ScheduleSubject? = null
         var isStop = false
-        schedule.schedules.map { day ->
+        val dayNumber = calendarDate.getWeekDayNumber()
+        val actualDays = schedule.schedules.filter { it.weekDayNumber == dayNumber }
+        actualDays.map { day ->
             if (isStop) return@map
             day.schedule.map { subject ->
-                if (subject.weekNumber?.contains(currentWeek) == true) {
+                if (currentWeek in (subject.weekNumber ?: ArrayList())) {
                     if (calendarDate.isCurrentSubject(subject.startLessonTime ?: "", subject.endLessonTime ?: "")) {
                         scheduleSubject = subject
                         isStop = true

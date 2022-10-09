@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.models
 
-import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
 import com.google.gson.annotations.SerializedName
 import java.util.*
 import kotlin.collections.ArrayList
@@ -48,21 +47,6 @@ data class GroupSchedule (
         return startDate.isNullOrEmpty() ||
                 endDate.isNullOrEmpty()
     }
-
-    fun toGroupScheduleTable() = ScheduleTable(
-        id = id,
-        startDate = startDate ?: "",
-        endDate = endDate ?: "",
-        startExamsDate = startExamsDate ?: "",
-        group = group?.toGroupTable() ?: Group.empty.toGroupTable(),
-        employee = employee?.toEmployeeTable() ?: EmployeeSubject.empty.toEmployeeTable(),
-        endExamsDate = endExamsDate ?: "",
-        subgroups = subgroups ?: ArrayList(),
-        schedules = schedules?.toGroupScheduleWeekTable(),
-        exams = exams ?: ArrayList(),
-        lastUpdateTime = lastUpdateTime ?: Date().time,
-        selectedSubgroup = selectedSubgroup
-    )
 
     fun toSchedule() = Schedule(
         id = id,

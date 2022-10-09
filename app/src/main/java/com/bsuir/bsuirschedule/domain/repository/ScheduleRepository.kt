@@ -1,13 +1,13 @@
 package com.bsuir.bsuirschedule.domain.repository
 
-import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao2
+import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 interface ScheduleRepository {
 
-    val scheduleDao: ScheduleDao2
+    val scheduleDao: ScheduleDao
 
     suspend fun getScheduleAPI(groupName: String): Resource<GroupSchedule>
 

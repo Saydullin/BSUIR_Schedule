@@ -14,6 +14,7 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleTabs
 import com.bsuir.bsuirschedule.presentation.adapters.ScheduleExamsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.MainPopupMenu
+import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.CurrentWeekViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -45,6 +46,11 @@ class MainScheduleFragment : Fragment() {
             } else {
                 binding.hiddenPlaceholder.visibility = View.GONE
                 binding.mainScheduleContent.visibility = View.VISIBLE
+            }
+
+            if (schedule.subjectNow != null) {
+                val subjectManager = SubjectManager(schedule.subjectNow!!, context!!)
+                binding.scheduleStatus.text = subjectManager.getSubjectDate()
             }
 
             TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->

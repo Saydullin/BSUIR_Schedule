@@ -56,16 +56,6 @@ class ActiveScheduleFragment : Fragment() {
                 }
             }
 
-            if (schedule.subjectNow != null) {
-                val subjectNowText = resources.getString(R.string.subject_now, schedule.subjectNow?.subject ?: "")
-                binding.scheduleSubtitleLeft.text = subjectNowText
-                if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
-                    val audience = schedule.subjectNow?.getAudienceInLine()
-                    val audienceNowText = resources.getString(R.string.audience_now, audience)
-                    binding.scheduleSubtitleLeft.text = "$subjectNowText $audienceNowText"
-                }
-            }
-
             if (schedule.selectedSubgroup == 0) {
                 binding.subgroup.text = resources.getString(R.string.all_subgroups_short)
             } else {

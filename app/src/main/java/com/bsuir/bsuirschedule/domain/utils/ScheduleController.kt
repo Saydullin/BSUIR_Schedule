@@ -81,7 +81,7 @@ class ScheduleController {
     }
 
     private fun getMultipliedSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
+        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber) // FIXME
         var daysCounter = 0
         val scheduleDays = ArrayList<ScheduleDay>()
 

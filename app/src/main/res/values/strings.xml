@@ -15,6 +15,11 @@
     <string name="delete">Удалить</string>
     <string name="last_update">Было обновлено %s</string>
     <string name="subject_now">Сейчас %s</string>
+    <string name="subject_status_now">Сейчас %s</string>
+    <string name="subject_status_now_in">Сейчас %s, в %s</string>
+    <string name="subject_status_today">В %s %s</string>
+    <string name="subject_status_tomorrow">Завтра к %s (%s)</string>
+    <string name="subject_status_days_left">Через %d дней %s</string>
     <string name="no_subject_now">Сейчас нет занятий</string>
     <string name="audience_now">в %s</string>
     <string name="selected_subgroup">Выбрана %d подгруппа</string>

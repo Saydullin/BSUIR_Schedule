@@ -22,17 +22,35 @@
             android:src="@drawable/ic_list"
             android:contentDescription="@string/cd_schedule_list" />
 
-        <TextView
-            android:id="@+id/title_week_number"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:orientation="vertical"
             android:gravity="center"
-            android:textSize="16sp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/text_primary"
-            android:text="@string/loading_dots"
-            tools:text="@string/test_header_title" />
+            android:layout_weight="1">
+
+<!--            <TextView-->
+<!--                android:id="@+id/title_week_number"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                style="@style/Theme.BSUIRSchedule.TextView.Medium"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/text_primary"-->
+<!--                android:text="@string/loading_dots"-->
+<!--                tools:text="@string/test_header_title" />-->
+
+            <TextView
+                android:id="@+id/schedule_status"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/text_primary"
+                android:text="Завтра к 09:00 (КПО)" />
+
+        </LinearLayout>
 
         <ImageButton
             style="@style/Theme.BSUIRSchedule.ImageButton"

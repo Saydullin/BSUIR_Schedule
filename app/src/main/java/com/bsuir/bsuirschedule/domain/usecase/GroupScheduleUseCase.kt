@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -46,9 +47,6 @@ class GroupScheduleUseCase(
                             message = isMergedEmployees.message
                         )
                     }
-                    if (schedule.schedules.isNotEmpty()) {
-                        schedule.subgroups = getSubgroupsList(schedule.schedules)
-                    }
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -70,18 +68,6 @@ class GroupScheduleUseCase(
         val scheduleController = ScheduleController()
 
         return scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
-    }
-
-    private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
-        val amount = ArrayList<Int>()
-
-        schedule.forEach { day ->
-            day.schedule.forEach { subject ->
-                amount.add(subject.numSubgroup ?: 0)
-            }
-        }
-
-        return amount.toSet().toList()
     }
 
     private suspend fun mergeEmployeeItems(schedule: Schedule): Resource<Schedule> {
@@ -148,6 +134,7 @@ class GroupScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
+                    Log.e("sady", "getById ${data.schedules[0].date} ${data.schedules[0].schedule[0].startMillis}")
                     val scheduleController = ScheduleController()
                     val currentWeek = currentWeekUseCase.getCurrentWeek()
                     if (currentWeek is Resource.Error) {
@@ -210,6 +197,7 @@ class GroupScheduleUseCase(
     }
 
     suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
+        Log.e("sady", "saveSchedule ${schedule.schedules[0].date} ${schedule.schedules[0].schedule[0].startMillis}")
         return scheduleRepository.saveSchedule(schedule)
     }
 

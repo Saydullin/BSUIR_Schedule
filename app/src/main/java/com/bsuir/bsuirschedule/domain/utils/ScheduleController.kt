@@ -4,6 +4,8 @@ import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleController {
 
@@ -42,30 +44,44 @@ class ScheduleController {
         return scheduleDay
     }
 
-    private fun getCurrentSubject(schedule: Schedule, currentWeek: Int): ScheduleSubject? {
-        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
-        var scheduleSubject: ScheduleSubject? = null
-        var isStop = false
-        val dayNumber = calendarDate.getWeekDayNumber()
-        val actualDays = schedule.schedules.filter { it.weekDayNumber == dayNumber }
-        actualDays.map { day ->
-            if (isStop) return@map
+    private fun getMillisTimeInSubjects(schedule: Schedule): Schedule {
+        val newSchedule = schedule.copy()
+        val calendarDate = CalendarDate(startDate = schedule.startDate)
+        newSchedule.schedules.mapIndexed { index, day ->
+            calendarDate.incDate(index)
             day.schedule.map { subject ->
-                if (currentWeek in (subject.weekNumber ?: ArrayList())) {
-                    if (calendarDate.isCurrentSubject(subject.startLessonTime ?: "", subject.endLessonTime ?: "")) {
-                        scheduleSubject = subject
-                        isStop = true
-                        return@map
-                    }
+                if (!subject.startLessonTime.isNullOrEmpty() && !subject.endLessonTime.isNullOrEmpty()) {
+                    val startMillis = calendarDate.getTimeMillis(subject.startLessonTime)
+                    val endMillis = calendarDate.getTimeMillis(subject.endLessonTime)
+                    subject.startMillis = startMillis
+                    subject.endMillis = endMillis
                 }
             }
         }
 
-        return scheduleSubject
+        return newSchedule
+    }
+
+    private fun getActualSubject(schedule: Schedule): ScheduleSubject? {
+        val dateUnixTime = Date().time
+        val actualDays = schedule.schedules.filter { it.dateUnixTime >= dateUnixTime - 86400000 }
+
+        var actualSubject: ScheduleSubject? = null
+        for (actualDay in actualDays) {
+            actualSubject = actualDay.schedule.find { subject ->
+                (dateUnixTime < subject.startMillis) or
+                        (dateUnixTime > subject.startMillis && dateUnixTime < subject.endMillis)
+            }
+            if (actualSubject != null) {
+                break
+            }
+        }
+
+        return actualSubject
     }
 
     private fun getMultipliedSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE, currentWeekNumber)
+        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
         var daysCounter = 0
         val scheduleDays = ArrayList<ScheduleDay>()
 
@@ -74,7 +90,8 @@ class ScheduleController {
             val weekNumber = calendarDate.getWeekNumber()
             val weekDayNumber = calendarDate.getWeekDayNumber()
             val weekNumberDays = schedule.schedules.filter { it.weekDayNumber == weekDayNumber }
-            if (weekNumberDays.isEmpty()) {
+            val weekNumberDaysCopy = weekNumberDays.map { it.copy() }
+            if (weekNumberDaysCopy.isEmpty()) {
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
@@ -85,10 +102,11 @@ class ScheduleController {
                         schedule = ArrayList()
                     ))
             }
-            weekNumberDays.map { scheduleDay ->
+            weekNumberDaysCopy.map { scheduleDay ->
                 val subjects = scheduleDay.schedule.filter { subject ->
                     weekNumber in (subject.weekNumber ?: ArrayList())
                 } as ArrayList<ScheduleSubject>
+                val subjectsCopy = subjects.map { it.copy() }
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
@@ -96,7 +114,7 @@ class ScheduleController {
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
-                        schedule = subjects
+                        schedule = subjectsCopy as ArrayList<ScheduleSubject>
                     ))
             }
             daysCounter++
@@ -132,21 +150,36 @@ class ScheduleController {
         return subjectsBreakTime
     }
 
-    fun getBasicSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
-        val schedule = getNormalSchedule(groupSchedule)
-        val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
+    private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
+        val amount = ArrayList<Int>()
 
-        return scheduleMultiplied
+        schedule.forEach { day ->
+            day.schedule.forEach { subject ->
+                amount.add(subject.numSubgroup ?: 0)
+            }
+        }
+
+        return amount.toSet().toList().sorted()
     }
 
+    // This schedule will be saved in DB
+    fun getBasicSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
+        val schedule = getNormalSchedule(groupSchedule)
+        schedule.subgroups = getSubgroupsList(schedule.schedules)
+        val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
+
+        return getMillisTimeInSubjects(scheduleMultiplied)
+    }
+
+    // This schedule will be shown on UI
     fun getRegularSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
         fillDatesInSchedule(schedule, currentWeekNumber)
-        getActualSchedule(schedule)
-        schedule.schedules = filterBySubgroup(schedule.schedules, schedule.selectedSubgroup)
-        schedule.schedules = getSubjectsBreakTime(schedule.schedules)
-        schedule.subjectNow = getCurrentSubject(schedule, currentWeekNumber)
+        val filteredSchedule = filterActualSchedule(schedule)
+        filteredSchedule.schedules = filterBySubgroup(filteredSchedule.schedules, filteredSchedule.selectedSubgroup)
+        filteredSchedule.schedules = getSubjectsBreakTime(filteredSchedule.schedules)
+        filteredSchedule.subjectNow = getActualSubject(filteredSchedule)
 
-        return schedule
+        return filteredSchedule
     }
 
     private fun filterBySubgroup(schedule: ArrayList<ScheduleDay>, subgroup: Int): ArrayList<ScheduleDay> {
@@ -175,19 +208,24 @@ class ScheduleController {
         }
     }
 
-    private fun getActualSchedule(schedule: Schedule, fromCurrentDate: Boolean = true): Schedule {
+    private fun filterActualSchedule(schedule: Schedule, fromCurrentDate: Boolean = true): Schedule {
         if (!fromCurrentDate) return schedule
+        val newSchedule = schedule.copy()
 
-        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        val calendarDate = if (fromCurrentDate) {
+            CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        } else {
+            CalendarDate(startDate = newSchedule.startDate)
+        }
 
-        val scheduleDays = schedule.schedules.filterIndexed { index, day ->
+        val scheduleDays = newSchedule.schedules.filterIndexed { index, day ->
             calendarDate.incDate(index)
             day.dateUnixTime >= calendarDate.getDateUnixTime()
         }
 
-        schedule.schedules = scheduleDays as ArrayList<ScheduleDay>
+        newSchedule.schedules = scheduleDays as ArrayList<ScheduleDay>
 
-        return schedule
+        return newSchedule
     }
 
     private fun getDaysFromSubjects(

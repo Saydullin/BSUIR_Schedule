@@ -60,7 +60,7 @@ class MainScheduleFragment : Fragment() {
 
         currentWeekVM.getCurrentWeek()
         currentWeekVM.currentWeekStatus.observe(viewLifecycleOwner) { currentWeek ->
-            binding.titleWeekNumber.text = "$currentWeek $weekText"
+//            binding.titleWeekNumber.text = "$currentWeek $weekText"
         }
 
         val settingsClick = {

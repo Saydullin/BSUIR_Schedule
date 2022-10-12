@@ -6,7 +6,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class Schedule (
-    var id: Int,
+    var id: Int = -1,
     val startDate: String,
     val endDate: String,
     val startExamsDate: String,

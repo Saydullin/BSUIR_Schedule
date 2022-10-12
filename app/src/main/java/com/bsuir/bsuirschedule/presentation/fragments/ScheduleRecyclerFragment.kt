@@ -75,8 +75,6 @@ class ScheduleRecyclerFragment : Fragment() {
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog)
                 binding.scheduleDailyRecycler.adapter = adapter
-                binding.scheduleDailyRecycler.alpha = 0f
-                binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {
                 adapter.updateSchedule(ArrayList(), false, null)
                 binding.placeholder.visibility = View.VISIBLE

@@ -45,9 +45,6 @@ class EmployeeScheduleUseCase(
                                 )
                             }
                             schedule.id = schedule.employee.id
-                            if (schedule.schedules.isNotEmpty()) {
-                                schedule.subgroups = getSubgroupsList(schedule.schedules)
-                            }
                             return Resource.Success(schedule)
                         }
                         is Resource.Error -> {
@@ -78,18 +75,6 @@ class EmployeeScheduleUseCase(
         val scheduleController = ScheduleController()
 
         return scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
-    }
-
-    private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
-        val amount = ArrayList<Int>()
-
-        schedule.forEach { day ->
-            day.schedule.forEach { subject ->
-                amount.add(subject.numSubgroup ?: 0)
-            }
-        }
-
-        return amount.toSet().toList()
     }
 
     private suspend fun mergeDepartments(schedule: Schedule): Resource<Schedule> {

@@ -37,6 +37,23 @@ class GroupScheduleViewModel(
     val groupLoadingStatus = groupLoading
     val employeeLoadingStatus = employeeLoading
 
+    fun updateIfEmpty() {
+        if (schedule.value != null && schedule.value?.id != -1) {
+            getScheduleById(schedule.value?.id!!)
+        } else {
+            val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
+            if (activeScheduleId != -1) {
+                getScheduleById(activeScheduleId)
+            }
+        }
+    }
+
+    fun updateSchedule() {
+        if (schedule.value != null && schedule.value?.id != -1) {
+            getScheduleById(schedule.value?.id!!)
+        }
+    }
+
     fun selectSchedule(savedSchedule: SavedSchedule) {
         viewModelScope.launch(Dispatchers.IO) {
             if (savedSchedule.id == activeSchedule.value?.id &&
@@ -154,30 +171,6 @@ class GroupScheduleViewModel(
                 } else {
                     getScheduleById(groupSchedule.id)
                 }
-//                when (
-//                    val fullSchedule = groupScheduleUseCase.getFullSchedule(schedule)
-//                ) {
-//                    is Resource.Success -> {
-//                        val scheduleData = fullSchedule.data
-//                        if (scheduleData?.id == -1) {
-//                            error.postValue(StateStatus(
-//                                state = StateStatus.ERROR_STATE,
-//                                type = Resource.DATA_ERROR
-//                            ))
-//                            schedule.postValue(Schedule.empty)
-//                        } else {
-//                            getScheduleById(scheduleData?.id ?: -1)
-//                        }
-//                    }
-//                    is Resource.Error -> {
-//                        schedule.postValue(Schedule.empty)
-//                        error.postValue(StateStatus(
-//                            state = StateStatus.ERROR_STATE,
-//                            type = fullSchedule.errorType,
-//                            message = fullSchedule.message
-//                        ))
-//                    }
-//                }
             }
             is Resource.Error -> {
                 schedule.postValue(Schedule.empty)
@@ -190,16 +183,16 @@ class GroupScheduleViewModel(
         }
     }
 
-    private fun saveScheduleToLiveData(scheduleData: Schedule?) {
+    private fun saveScheduleToLiveData(scheduleData: Schedule) {
         viewModelScope.launch(Dispatchers.IO) {
+            activeSchedule.postValue(scheduleData.toSavedSchedule())
             schedule.postValue(scheduleData)
-            activeSchedule.postValue(scheduleData?.toSavedSchedule())
-            if (scheduleData?.isExamsNotExist() == false) {
+            if (!scheduleData.isExamsNotExist()) {
                 examsSchedule.postValue(scheduleData)
             } else {
                 examsSchedule.postValue(null)
             }
-            sharedPrefsUseCase.setActiveScheduleId(scheduleData?.id ?: -1)
+            sharedPrefsUseCase.setActiveScheduleId(scheduleData.id)
         }
     }
 

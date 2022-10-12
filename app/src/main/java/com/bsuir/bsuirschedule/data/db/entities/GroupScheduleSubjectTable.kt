@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.bsuir.bsuirschedule.domain.models.*
+import org.koin.core.time.TimeInMillis
 
 @Entity
 data class GroupScheduleSubjectTable(
@@ -15,6 +16,8 @@ data class GroupScheduleSubjectTable(
     @Embedded val employees: List<EmployeeTable>,
     @Embedded val groups: List<GroupTable>,
     @Embedded val groupSubjects: List<GroupSubjectTable>,
+    @ColumnInfo val startMillis: Long,
+    @ColumnInfo val endMillis: Long,
     @ColumnInfo val startLessonTime: String,
     @ColumnInfo val endLessonTime: String,
     @ColumnInfo val numSubgroup: Int,
@@ -35,6 +38,8 @@ data class GroupScheduleSubjectTable(
         employees = employees.map { it.toEmployeeSubject() } as ArrayList<EmployeeSubject>,
         groups = groups.map { it.toGroup() } as ArrayList<Group>,
         subjectGroups = groupSubjects.map { it.toGroupSubject() } as ArrayList<GroupSubject>,
+        startMillis = startMillis,
+        endMillis = endMillis,
         startLessonTime = startLessonTime,
         endLessonTime = endLessonTime,
         numSubgroup = numSubgroup,

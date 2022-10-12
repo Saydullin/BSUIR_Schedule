@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -12,7 +13,6 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         GroupTable::class,
         EmployeeTable::class,
         ActiveGroupTable::class,
-//        ScheduleTable::class,
         ScheduleTable::class,
         SavedScheduleTable::class,
         FacultyTable::class,
@@ -20,8 +20,11 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         DepartmentTable::class,
         CurrentWeekTable::class
     ],
-    version = 1,
-    exportSchema = true
+    version = 2,
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration (from = 1, to = 2)
+    ]
 )
 @TypeConverters(
     ScheduleDayListConverter::class,

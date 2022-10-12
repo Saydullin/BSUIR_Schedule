@@ -36,7 +36,7 @@ class MainScheduleAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val scheduleDay = data[position]
-        holder.bind(scheduleDay, context)
+        holder.bind(scheduleDay, context, position)
     }
 
     override fun getItemId(position: Int) = position.toLong()
@@ -52,7 +52,7 @@ class MainScheduleAdapter(
         private val isExams: Boolean
     ): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(scheduleDay: ScheduleDay, context: Context) {
+        fun bind(scheduleDay: ScheduleDay, context: Context, position: Int) {
             val lessonsText = if (isExams) {
                 context.resources.getQuantityString(
                     R.plurals.plural_exams,
@@ -78,7 +78,7 @@ class MainScheduleAdapter(
                     binding.scheduleDate.text = scheduleDay.date
                 }
             }
-            if (scheduleDay.weekDayNumber == 1) {
+            if (scheduleDay.weekDayNumber == 1 && position != 0) {
                 binding.weekLayout.visibility = View.VISIBLE
                 binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }

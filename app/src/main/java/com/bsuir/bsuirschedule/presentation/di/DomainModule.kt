@@ -10,7 +10,6 @@ val domainModule = module {
             scheduleRepository = get(),
             groupItemsRepository = get(),
             employeeItemsRepository = get(),
-            fullScheduleUseCase = get(),
             currentWeekUseCase = get()
         )
     }

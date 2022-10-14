@@ -24,9 +24,9 @@ import com.bsuir.bsuirschedule.data.db.entities.*
     ],
     version = 3,
     exportSchema = true,
-//    autoMigrations = [
-//        AutoMigration (from = 1, to = 3)
-//    ]
+    autoMigrations = [
+        AutoMigration (from = 1, to = 3)
+    ]
 )
 @TypeConverters(
     ScheduleDayListConverter::class,

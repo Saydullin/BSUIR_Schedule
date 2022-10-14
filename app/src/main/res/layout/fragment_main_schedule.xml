@@ -47,8 +47,7 @@
                 style="@style/Theme.BSUIRSchedule.TextView.Medium"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/text_primary"
-                android:text="Завтра к 09:00 (КПО)" />
+                android:textColor="@color/text_primary" />
 
         </LinearLayout>
 

@@ -20,18 +20,11 @@ import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
-
 class MainScheduleFragment : Fragment() {
 
     private val currentWeekVM: CurrentWeekViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private lateinit var binding: FragmentMainScheduleBinding
-
-    override fun onResume() {
-        super.onResume()
-
-//        groupScheduleVM.initActiveSchedule()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +32,7 @@ class MainScheduleFragment : Fragment() {
     ): View {
         binding = FragmentMainScheduleBinding.inflate(inflater)
         val tabViews = TabViewsBinding.inflate(inflater)
-        val weekText = getString(R.string.week)
+//        val weekText = getString(R.string.week)
 
         binding.scheduleViewPager.adapter = ScheduleExamsAdapter(activity!!)
         binding.scheduleItemsTabLayout.visibility = View.VISIBLE
@@ -70,10 +63,10 @@ class MainScheduleFragment : Fragment() {
             }.attach()
         }
 
-        currentWeekVM.getCurrentWeek()
-        currentWeekVM.currentWeekStatus.observe(viewLifecycleOwner) { currentWeek ->
+//        currentWeekVM.getCurrentWeek()
+//        currentWeekVM.currentWeekStatus.observe(viewLifecycleOwner) { currentWeek ->
 //            binding.titleWeekNumber.text = "$currentWeek $weekText"
-        }
+//        }
 
         val settingsClick = {
             Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_settingsFragment)

@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
@@ -28,11 +27,14 @@ class ScheduleController {
         val schedule = groupSchedule.toSchedule()
         schedule.schedules = weekDays
 
-        schedule.examsSchedule = getDaysFromSubjects(
-            schedule.exams,
-            schedule.startExamsDate,
-            schedule.endExamsDate
-        )
+        if (!schedule.isExamsNotExist()) {
+            schedule.examsSchedule = getDaysFromSubjects(
+                schedule.exams,
+                schedule.startExamsDate,
+                schedule.endExamsDate
+            )
+            schedule.examsSchedule = getSubjectsBreakTime(schedule.examsSchedule)
+        }
 
         return schedule
     }
@@ -183,6 +185,11 @@ class ScheduleController {
     fun getBasicSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
         val schedule = getNormalSchedule(groupSchedule)
         schedule.subgroups = getSubgroupsList(schedule.schedules)
+
+        if (schedule.isNotExistSchedule()) {
+            return schedule
+        }
+
         val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
         val daysWithDates = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
 
@@ -190,7 +197,7 @@ class ScheduleController {
     }
 
     // This schedule will be shown on UI
-    fun getRegularSchedule(schedule: Schedule, currentWeekNumber: Int, fromCurrentDate: Boolean = true): Schedule {
+    fun getRegularSchedule(schedule: Schedule, fromCurrentDate: Boolean = true): Schedule {
         val filteredSchedule = if (fromCurrentDate) {
             filterActualSchedule(schedule)
         } else {
@@ -238,7 +245,7 @@ class ScheduleController {
         val newSchedule = schedule.copy()
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
 
-        val scheduleDays = newSchedule.schedules.filterIndexed { index, day ->
+        val scheduleDays = newSchedule.schedules.filter { day ->
             day.dateUnixTime >= calendarDate.getDateUnixTime()
         }
 
@@ -259,7 +266,7 @@ class ScheduleController {
 
         while (!calendarDate.isEqualDate(endDate) && daysCounter < DAYS_LIMIT) {
             val subjectsDay = subjects.filter { subject ->
-                subject.dateLesson == calendarDate.getIncDate(daysCounter)
+                subject.dateLesson == calendarDate.getFullDate(daysCounter)
             }
             scheduleDays.add(ScheduleDay(
                 date = calendarDate.getDate(),

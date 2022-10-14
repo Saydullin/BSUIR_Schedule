@@ -94,7 +94,7 @@ class GroupScheduleViewModel(
                     ))
                 }
                 is Resource.Error -> {
-                    schedule.postValue(Schedule.empty)
+//                    schedule.postValue(Schedule.empty)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
                         type = groupScheduleResponse.errorType,
@@ -168,6 +168,7 @@ class GroupScheduleViewModel(
                         type = Resource.DATA_ERROR
                     ))
                     schedule.postValue(Schedule.empty)
+                    Log.e("sady", "2 Error here")
                 } else {
                     getScheduleById(groupSchedule.id)
                 }

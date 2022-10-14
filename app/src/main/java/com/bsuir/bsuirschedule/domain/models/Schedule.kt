@@ -47,12 +47,14 @@ data class Schedule (
 
     fun isNotExistExams(): Boolean {
         return startExamsDate.isEmpty() ||
-                endExamsDate.isEmpty() || exams.isEmpty()
+                endExamsDate.isEmpty() ||
+                exams.isEmpty()
     }
 
-    fun isNotSuitable(): Boolean {
+    fun isNotExistSchedule(): Boolean {
         return startDate.isEmpty() ||
-                endDate.isEmpty()
+                endDate.isEmpty() ||
+                schedules.isEmpty()
     }
 
     fun getLastUpdateText(): String {

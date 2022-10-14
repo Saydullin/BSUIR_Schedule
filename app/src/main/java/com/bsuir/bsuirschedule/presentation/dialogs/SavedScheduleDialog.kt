@@ -11,6 +11,7 @@ import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ActiveScheduleDialogBinding
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 
 class SavedScheduleDialog(
     private val schedule: Schedule,
@@ -82,12 +83,8 @@ class SavedScheduleDialog(
         }
 
         if (schedule.subjectNow != null) {
-            val subjectNowText = resources.getString(R.string.subject_now, schedule.subjectNow?.subject ?: "")
-            binding.scheduleLocationNow.text = subjectNowText
-            if (schedule.subjectNow?.audience?.isNotEmpty() == true) {
-                val audienceNowText = resources.getString(R.string.audience_now, schedule.subjectNow?.getAudienceInLine())
-                binding.scheduleLocationNow.text = "$subjectNowText $audienceNowText"
-            }
+            val subjectManager = SubjectManager(schedule.subjectNow!!, context!!)
+            binding.scheduleLocationNow.text = subjectManager.getSubjectDate()
         } else {
             val subjectNowText = resources.getString(R.string.no_subject_now)
             binding.scheduleLocationNow.text = subjectNowText

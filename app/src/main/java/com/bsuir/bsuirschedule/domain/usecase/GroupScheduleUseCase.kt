@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -12,7 +11,6 @@ class GroupScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
     private val groupItemsRepository: GroupItemsRepository,
     private val employeeItemsRepository: EmployeeItemsRepository,
-    private val fullScheduleUseCase: FullScheduleUseCase,
     private val currentWeekUseCase: GetCurrentWeekUseCase
 ) {
 
@@ -135,17 +133,7 @@ class GroupScheduleUseCase(
                 is Resource.Success -> {
                     val data = result.data!!
                     val scheduleController = ScheduleController()
-                    val currentWeek = currentWeekUseCase.getCurrentWeek()
-                    if (currentWeek is Resource.Error) {
-                        return Resource.Error(
-                            errorType = currentWeek.errorType,
-                            message = currentWeek.message
-                        )
-                    }
-                    val currentWeekNumber = currentWeek.data!!
-                    Log.e("sady", "pre ${data.schedules}")
-                    val schedule = scheduleController.getRegularSchedule(data, currentWeekNumber)
-                    Log.e("sady", "${schedule.schedules}")
+                    val schedule = scheduleController.getRegularSchedule(data)
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -198,7 +186,6 @@ class GroupScheduleUseCase(
     }
 
     suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
-        Log.e("sady", "saveSchedule ${schedule.schedules[0].date} ${schedule.schedules[0].schedule[0].startMillis}")
         return scheduleRepository.saveSchedule(schedule)
     }
 

@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -83,8 +82,6 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         val timeFormat = SimpleDateFormat("dd.MM.yyyy kk:mm")
         val resultFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $timePattern")
             ?: return 0
-
-        Log.e("sady", "resultFormat ${inputFormat.format(calendar.time)}")
 
         return resultFormat.time
     }

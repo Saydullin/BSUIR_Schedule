@@ -210,7 +210,8 @@ class ScheduleManager {
             subjectNow = null,
             lastUpdateTime = schedule.lastUpdateTime,
             selectedSubgroup = schedule.selectedSubgroup,
-            schedules = ArrayList()
+            schedules = ArrayList(),
+            settings = ScheduleSettings.empty
         )
 
         while (!isDone) {

@@ -27,6 +27,12 @@ class MainScheduleFragment : Fragment() {
     private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private lateinit var binding: FragmentMainScheduleBinding
 
+    override fun onResume() {
+        super.onResume()
+
+//        groupScheduleVM.initActiveSchedule()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

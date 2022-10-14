@@ -13,6 +13,8 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         GroupTable::class,
         EmployeeTable::class,
         ActiveGroupTable::class,
+        ScheduleSettingsTable::class,
+        ScheduleAlarmTable::class,
         ScheduleTable::class,
         SavedScheduleTable::class,
         FacultyTable::class,
@@ -20,11 +22,11 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         DepartmentTable::class,
         CurrentWeekTable::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
-    autoMigrations = [
-        AutoMigration (from = 1, to = 2)
-    ]
+//    autoMigrations = [
+//        AutoMigration (from = 1, to = 3)
+//    ]
 )
 @TypeConverters(
     ScheduleDayListConverter::class,
@@ -35,6 +37,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
     StrListConverter::class,
 )
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun groupDao(): GroupDao
 
     abstract fun employeeDao(): EmployeeDao

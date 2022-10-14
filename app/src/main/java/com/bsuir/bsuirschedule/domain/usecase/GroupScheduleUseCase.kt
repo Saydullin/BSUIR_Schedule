@@ -134,7 +134,6 @@ class GroupScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
-                    Log.e("sady", "getById ${data.schedules[0].date} ${data.schedules[0].schedule[0].startMillis}")
                     val scheduleController = ScheduleController()
                     val currentWeek = currentWeekUseCase.getCurrentWeek()
                     if (currentWeek is Resource.Error) {
@@ -144,7 +143,9 @@ class GroupScheduleUseCase(
                         )
                     }
                     val currentWeekNumber = currentWeek.data!!
+                    Log.e("sady", "pre ${data.schedules}")
                     val schedule = scheduleController.getRegularSchedule(data, currentWeekNumber)
+                    Log.e("sady", "${schedule.schedules}")
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {

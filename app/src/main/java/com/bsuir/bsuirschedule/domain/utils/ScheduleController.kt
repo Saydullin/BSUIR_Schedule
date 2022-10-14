@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
@@ -10,7 +11,7 @@ import kotlin.collections.ArrayList
 class ScheduleController {
 
     companion object {
-        const val DAYS_LIMIT = 100
+        const val DAYS_LIMIT = 200
     }
 
     private fun getNormalSchedule(groupSchedule: GroupSchedule): Schedule {
@@ -81,7 +82,7 @@ class ScheduleController {
     }
 
     private fun getMultipliedSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber) // FIXME
+        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
         var daysCounter = 0
         val scheduleDays = ArrayList<ScheduleDay>()
 
@@ -94,7 +95,7 @@ class ScheduleController {
             if (weekNumberDaysCopy.isEmpty()) {
                 scheduleDays.add(
                     ScheduleDay(
-                        date = calendarDate.getDateStatus(),
+                        date = calendarDate.getDateStatus() + ", " + weekDayNumber,
                         dateUnixTime = calendarDate.getDateUnixTime(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
@@ -109,7 +110,7 @@ class ScheduleController {
                 val subjectsCopy = subjects.map { it.copy() }
                 scheduleDays.add(
                     ScheduleDay(
-                        date = calendarDate.getDateStatus(),
+                        date = calendarDate.getDateStatus() + ", " + weekDayNumber,
                         dateUnixTime = calendarDate.getDateUnixTime(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
@@ -162,19 +163,41 @@ class ScheduleController {
         return amount.toSet().toList().sorted()
     }
 
+    private fun setDatesFromBeginSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
+        val newSchedule = schedule.copy()
+        val calendarDate = CalendarDate(startDate = newSchedule.startDate, currentWeekNumber)
+
+        newSchedule.schedules.mapIndexed { index, day ->
+            calendarDate.incDate(index)
+            day.date = calendarDate.getDate()
+            day.dateUnixTime = calendarDate.getDateUnixTime()
+            day.weekDayTitle = calendarDate.getWeekDayTitle()
+            day.weekDayNumber = calendarDate.getWeekDayNumber()
+            day.weekNumber = calendarDate.getWeekNumber()
+        }
+
+        return newSchedule
+    }
+
     // This schedule will be saved in DB
     fun getBasicSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
         val schedule = getNormalSchedule(groupSchedule)
         schedule.subgroups = getSubgroupsList(schedule.schedules)
         val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
+        val daysWithDates = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
 
-        return getMillisTimeInSubjects(scheduleMultiplied)
+        return getMillisTimeInSubjects(daysWithDates)
     }
 
     // This schedule will be shown on UI
-    fun getRegularSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-        fillDatesInSchedule(schedule, currentWeekNumber)
-        val filteredSchedule = filterActualSchedule(schedule)
+    fun getRegularSchedule(schedule: Schedule, currentWeekNumber: Int, fromCurrentDate: Boolean = true): Schedule {
+        val filteredSchedule = if (fromCurrentDate) {
+            filterActualSchedule(schedule)
+        } else {
+            schedule.copy()
+        }
+        setActualDateStatuses(schedule)
+
         filteredSchedule.schedules = filterBySubgroup(filteredSchedule.schedules, filteredSchedule.selectedSubgroup)
         filteredSchedule.schedules = getSubjectsBreakTime(filteredSchedule.schedules)
         filteredSchedule.subjectNow = getActualSubject(filteredSchedule)
@@ -195,31 +218,27 @@ class ScheduleController {
         return scheduleList
     }
 
-    private fun fillDatesInSchedule(schedule: Schedule, currentWeekNumber: Int) {
-        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE, currentWeekNumber)
+    private fun setActualDateStatuses(schedule: Schedule) {
+        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        var isStop = false
 
-        schedule.schedules.mapIndexed { index, day ->
-            calendarDate.incDate(index)
-            day.date = calendarDate.getDateStatus()
-            day.dateUnixTime = calendarDate.getDateUnixTime()
-            day.weekDayTitle = calendarDate.getWeekDayTitle()
-            day.weekDayNumber = calendarDate.getWeekDayNumber()
-            day.weekNumber = calendarDate.getWeekNumber()
+        for (day in schedule.schedules) {
+            if (day.dateUnixTime == calendarDate.getDateUnixTime()) {
+                day.date = calendarDate.getDateStatus()
+                calendarDate.incDate(1)
+                if (isStop) {
+                    break
+                }
+                isStop = true
+            }
         }
     }
 
-    private fun filterActualSchedule(schedule: Schedule, fromCurrentDate: Boolean = true): Schedule {
-        if (!fromCurrentDate) return schedule
+    private fun filterActualSchedule(schedule: Schedule): Schedule {
         val newSchedule = schedule.copy()
-
-        val calendarDate = if (fromCurrentDate) {
-            CalendarDate(startDate = CalendarDate.TODAY_DATE)
-        } else {
-            CalendarDate(startDate = newSchedule.startDate)
-        }
+        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
 
         val scheduleDays = newSchedule.schedules.filterIndexed { index, day ->
-            calendarDate.incDate(index)
             day.dateUnixTime >= calendarDate.getDateUnixTime()
         }
 
@@ -232,14 +251,9 @@ class ScheduleController {
         subjects: ArrayList<ScheduleSubject>,
         startDate: String,
         endDate: String,
-        currentWeek: Int = 1,
-        fromCurrentDate: Boolean = true
+        currentWeek: Int = 1
     ): ArrayList<ScheduleDay> {
-        val calendarDate = if (fromCurrentDate) {
-            CalendarDate(startDate = CalendarDate.TODAY_DATE, weekNumber = currentWeek)
-        } else {
-            CalendarDate(startDate = startDate, weekNumber = currentWeek)
-        }
+        val calendarDate = CalendarDate(startDate = startDate, weekNumber = currentWeek)
         val scheduleDays = ArrayList<ScheduleDay>()
         var daysCounter = 0
 

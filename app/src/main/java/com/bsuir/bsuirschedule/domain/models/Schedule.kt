@@ -20,7 +20,8 @@ data class Schedule (
     var subjectNow: ScheduleSubject?,
     var schedules: ArrayList<ScheduleDay>,
     val lastUpdateTime: Long,
-    var selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
+    var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
+    val settings: ScheduleSettings = ScheduleSettings.empty
 ) {
 
     companion object {
@@ -39,7 +40,8 @@ data class Schedule (
             subjectNow = null,
             schedules = ArrayList(),
             lastUpdateTime = 0,
-            selectedSubgroup = 0
+            selectedSubgroup = 0,
+            settings = ScheduleSettings.empty
         )
     }
 
@@ -112,7 +114,8 @@ data class Schedule (
         examsSchedule = examsSchedule,
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
-        selectedSubgroup = selectedSubgroup // 0 - non selected, show all subgroups
+        selectedSubgroup = selectedSubgroup,
+        settings = settings.toScheduleSettingsTable()
     )
 
 }

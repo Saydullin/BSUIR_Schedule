@@ -21,7 +21,8 @@ data class ScheduleTable (
     @TypeConverters(ScheduleDayListConverter::class) var examsSchedule: ArrayList<ScheduleDay>,
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
     @ColumnInfo val lastUpdateTime: Long,
-    @ColumnInfo var selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
+    @ColumnInfo var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
+    @Embedded(prefix = "settings_") val settings: ScheduleSettingsTable
 ) {
 
     fun toSchedule() = Schedule(
@@ -40,6 +41,7 @@ data class ScheduleTable (
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
         selectedSubgroup = selectedSubgroup, // 0 - non selected, show all subgroups
+        settings = settings.toScheduleSettings()
     )
 
 }

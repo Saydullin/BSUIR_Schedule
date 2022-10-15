@@ -19,7 +19,7 @@
     <string name="subject_status_now_in">Сейчас %s, в %s</string>
     <string name="subject_status_today">В %s %s</string>
     <string name="subject_status_tomorrow">Завтра к %s (%s)</string>
-    <string name="subject_status_days_left">Через %d дней %s</string>
+    <string name="subject_status_days_left">Через %s %s в %s</string>
     <string name="no_subject_now">Сейчас нет занятий</string>
     <string name="audience_now">в %s</string>
     <string name="selected_subgroup">Выбрана %d подгруппа</string>
@@ -29,6 +29,7 @@
     <string name="exams_date_period">Экзамены с %s по %s</string>
     <string name="exams_empty_date_period">Экзаменов нет</string>
     <string name="more">ещё</string>
+    <string name="active_schedule_no_departments">Кафедра отсутствует</string>
 
     <!--  Content Descriptions  -->
     <string name="cd_schedule_list" translatable="false">Schedule list</string>
@@ -219,6 +220,15 @@
         <item quantity="few">%d пары</item>
         <item quantity="many">%d пар</item>
         <item quantity="other">%d пары</item>
+    </plurals>
+
+    <plurals name="plural_days_left">
+        <item quantity="zero">%d дней</item>
+        <item quantity="one">%d день</item>
+        <item quantity="two">%d дня</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дней</item>
     </plurals>
 
     <plurals name="plural_hours">

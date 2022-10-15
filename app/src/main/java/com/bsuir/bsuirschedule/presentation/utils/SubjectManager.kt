@@ -5,7 +5,6 @@ import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.floor
 
 class SubjectManager(
     private val subject: ScheduleSubject,
@@ -57,11 +56,17 @@ class SubjectManager(
     private fun getDaysLeftString(): String {
         val calendarStart = Calendar.getInstance()
         val daysLeft = (subject.startMillis - calendarStart.timeInMillis) / 86400000
+        val daysText = context.resources.getQuantityString(
+            R.plurals.plural_days_left,
+            daysLeft.toInt(),
+            daysLeft.toInt()
+        )
 
         return context.resources.getString(
             R.string.subject_status_days_left,
-            daysLeft.toInt(),
-            subject.subject
+            daysText,
+            subject.subject,
+            subject.startLessonTime
         )
     }
 

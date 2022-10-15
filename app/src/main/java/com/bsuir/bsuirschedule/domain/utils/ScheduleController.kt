@@ -156,6 +156,8 @@ class ScheduleController {
     private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
         val amount = ArrayList<Int>()
 
+        amount.add(0)
+
         schedule.forEach { day ->
             day.schedule.forEach { subject ->
                 amount.add(subject.numSubgroup ?: 0)

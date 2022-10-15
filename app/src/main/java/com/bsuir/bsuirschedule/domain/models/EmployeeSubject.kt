@@ -91,6 +91,7 @@ data class EmployeeSubject(
     }
 
     fun getShortDepartments(separator: String): String {
+        if (departmentsList.isNullOrEmpty()) return ""
         return departmentsList!![0].abbrev.replaceFirstChar { it.lowercase() } +
                 if (departmentsList!!.size > 1) {
             ", $separator ${departmentsList!!.size - 1}"

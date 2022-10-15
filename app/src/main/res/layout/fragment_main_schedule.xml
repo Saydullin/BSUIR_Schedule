@@ -29,25 +29,16 @@
             android:gravity="center"
             android:layout_weight="1">
 
-<!--            <TextView-->
-<!--                android:id="@+id/title_week_number"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                style="@style/Theme.BSUIRSchedule.TextView.Medium"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="@color/text_primary"-->
-<!--                android:text="@string/loading_dots"-->
-<!--                tools:text="@string/test_header_title" />-->
-
             <TextView
-                android:id="@+id/schedule_status"
+                android:id="@+id/title_week_number"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 style="@style/Theme.BSUIRSchedule.TextView.Medium"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/text_primary"
+                android:text="@string/loading_dots"
+                tools:text="@string/test_header_title" />
 
         </LinearLayout>
 

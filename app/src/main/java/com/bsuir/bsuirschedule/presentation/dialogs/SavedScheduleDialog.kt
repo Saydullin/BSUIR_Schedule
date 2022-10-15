@@ -78,7 +78,12 @@ class SavedScheduleDialog(
             binding.schedule.departments.text = employee.getRankAndDegree()
             binding.schedule.educationType.text = employee.getShortDepartments(moreText)
             binding.schedule.course.visibility = View.GONE
-            binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
+            if (employee.departmentsList.isNullOrEmpty()) {
+                val noDepartments = resources.getString(R.string.active_schedule_no_departments)
+                binding.scheduleSubtitles.text = noDepartments
+            } else {
+                binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
+            }
             binding.lastUpdate.text = lastUpdateText
         }
 

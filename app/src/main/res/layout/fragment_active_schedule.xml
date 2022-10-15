@@ -11,6 +11,7 @@
     tools:context=".presentation.fragments.ActiveScheduleFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/active_schedule_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="?attr/secondaryColor"
@@ -131,6 +132,43 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/current_subject_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        android:backgroundTint="?attr/secondaryColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/cd_subject_type"
+                android:src="@drawable/ic_info_icon" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/current_subject_info"
+                style="@style/Theme.BSUIRSchedule.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="At 12:25 ACTiOS in 216-4k" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

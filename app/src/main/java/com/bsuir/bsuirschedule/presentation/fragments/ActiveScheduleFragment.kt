@@ -38,11 +38,11 @@ class ActiveScheduleFragment : Fragment() {
                 Glide.with(binding.scheduleImage)
                     .load(R.drawable.ic_group_placeholder)
                     .into(binding.scheduleImage)
-                binding.scheduleSubtitleLeft.visibility = View.VISIBLE
+//                binding.scheduleSubtitleLeft.visibility = View.VISIBLE
                 binding.scheduleCourse.text = "${group.course} $courseText"
                 binding.activeScheduleTitle.text = group.name
-                binding.scheduleSubtitleLeft.text = group.getFacultyAndSpecialityAbbr()
-                binding.scheduleSubtitleRight.text = group.speciality?.educationForm?.name ?: ""
+//                binding.scheduleSubtitleLeft.text = group.getFacultyAndSpecialityAbbr()
+//                binding.scheduleSubtitleRight.text = group.speciality?.educationForm?.name ?: ""
             } else {
                 val employee = schedule.employee
                 binding.scheduleCourse.text = ""
@@ -51,10 +51,10 @@ class ActiveScheduleFragment : Fragment() {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.scheduleImage)
                 binding.activeScheduleTitle.text = employee.getFullName()
-                binding.scheduleSubtitleLeft.text = employee.getRankAndDegree()
+//                binding.scheduleSubtitleLeft.text = employee.getRankAndDegree()
                 binding.scheduleCourse.visibility = View.GONE
                 if (!employee.departmentsList.isNullOrEmpty()) {
-                    binding.scheduleSubtitleRight.text = employee.getShortDepartments(getString(R.string.more))
+//                    binding.scheduleSubtitleRight.text = employee.getShortDepartments(getString(R.string.more))
                 }
             }
 
@@ -88,7 +88,7 @@ class ActiveScheduleFragment : Fragment() {
             }
         }
 
-        binding.activeScheduleContainer.setOnClickListener {
+        binding.root.setOnClickListener {
             val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
             val savedScheduleDialog = SavedScheduleDialog(
                 schedule = activeSchedule,
@@ -96,10 +96,6 @@ class ActiveScheduleFragment : Fragment() {
                 update = updateSchedule)
             savedScheduleDialog.isCancelable = true
             savedScheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
-        }
-
-        binding.currentSubjectHistory.setOnClickListener {
-            Toast.makeText(context, "Here will be history", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

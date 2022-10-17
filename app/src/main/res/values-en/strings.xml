@@ -25,9 +25,9 @@
     <string name="popup_update">Update</string>
     <string name="popup_more">More</string>
     <string name="popup_delete">Delete</string>
-    <string name="all_subgroups">For all supgroup</string>
+    <string name="all_subgroups">For all subgroups</string>
     <string name="subgroup">For %d subgroup</string>
-    <string name="subject_time" formatted="false">from %s to %s</string>
+    <string name="subject_time">from %s to %s</string>
     <string name="subject_weeks">on %s weeks</string>
     <string name="subject_note">Note: %s</string>
     <string name="data_error">Data processing error</string>
@@ -94,6 +94,15 @@
         <item quantity="few">%d lessons</item>
         <item quantity="many">%d lessons</item>
         <item quantity="other">%d lessons</item>
+    </plurals>
+
+    <plurals name="plural_days_left">
+        <item quantity="zero">%d days</item>
+        <item quantity="one">%d day</item>
+        <item quantity="two">%d days</item>
+        <item quantity="few">%d days</item>
+        <item quantity="many">%d days</item>
+        <item quantity="other">%d days</item>
     </plurals>
 
     <plurals name="plural_hours">
@@ -188,8 +197,8 @@
     <string name="subject_now">Now in %s</string>
     <string name="subject_status_now">Now %s</string>
     <string name="subject_status_now_in">Now %s, in %s</string>
-    <string name="subject_status_today">In %s %s</string>
+    <string name="subject_status_today">At %s %s</string>
     <string name="subject_status_tomorrow">Tomorrow at %s (%s)</string>
-    <string name="subject_status_days_left">After %d days %s</string>
+    <string name="subject_status_days_left">After %s %s at %s</string>
     <string name="active_schedule_no_departments">No department</string>
 </resources>

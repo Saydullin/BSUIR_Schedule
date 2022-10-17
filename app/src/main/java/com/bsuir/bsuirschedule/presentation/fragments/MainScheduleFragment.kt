@@ -47,8 +47,6 @@ class MainScheduleFragment : Fragment() {
                 binding.mainScheduleContent.visibility = View.VISIBLE
             }
 
-            binding.scheduleItemsTabLayout.visibility = View.GONE
-
             TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->
                 when (position) {
                     ScheduleTabs.SCHEDULE -> tab.customView = tabViews.schedule

@@ -167,7 +167,10 @@
     <string name="settings_alarm_caption">Будильник за несколько часов до первой пары</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
     <string name="settings_schedule_subgroup_caption">Отфильтруйте занятия по подгруппам</string>
-    <string name="settings_russian_lang">Русский</string>
+    <string name="settings_lang_chosen">Выбран %s язык</string>
+    <string name="settings_lang_ru">Русский</string>
+    <string name="settings_lang_en" translatable="false">English</string>
+    <string name="settings_lang_be" translatable="false">Беларускі</string>
     <string name="settings_light_theme">Светлая</string>
     <string name="settings_all_subgroups">Все подгруппы</string>
     <string name="settings_thin_font_size">Маленький</string>

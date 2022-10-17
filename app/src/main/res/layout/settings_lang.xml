@@ -63,7 +63,7 @@
                 android:background="@color/text_hint"
                 android:inputType="none"
                 android:padding="10dp"
-                android:text="@string/settings_russian_lang" />
+                android:text="@string/settings_lang_ru" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

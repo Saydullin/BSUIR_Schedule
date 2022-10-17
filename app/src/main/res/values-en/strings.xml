@@ -198,7 +198,7 @@
     <string name="settings_exams_caption">Exams settings</string>
     <string name="settings_alarm_caption">Alarm clock a few hours before the first lesson</string>
     <string name="settings_schedule_subgroup_caption">Filter lessons by subgroups</string>
-    <string name="settings_russian_lang">Russian</string>
+    <string name="settings_lang_ru">Russian</string>
     <string name="settings_light_theme">Light</string>
     <string name="settings_thin_font_size">Thin</string>
     <string name="settings_medium_font_size">Normal</string>
@@ -212,4 +212,5 @@
     <string name="subject_status_tomorrow">Tomorrow at %s (%s)</string>
     <string name="subject_status_days_left">After %s %s at %s</string>
     <string name="active_schedule_no_departments">No department</string>
+    <string name="settings_lang_chosen">Chosen %s language</string>
 </resources>

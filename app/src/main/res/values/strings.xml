@@ -177,6 +177,23 @@
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
 
+    <string-array name="languages">
+        <item>Русский</item>
+        <item>English</item>
+        <item>Беларускі</item>
+    </string-array>
+
+    <string-array name="font_size">
+        <item>Мелкий</item>
+        <item>Средний</item>
+        <item>Огромный</item>
+    </string-array>
+
+    <string-array name="app_theme">
+        <item>Светлая</item>
+        <item>Темная</item>
+    </string-array>
+
     <plurals name="plural_groups">
         <item quantity="zero">найдено %d групп</item>
         <item quantity="one">найдена %d группа</item>

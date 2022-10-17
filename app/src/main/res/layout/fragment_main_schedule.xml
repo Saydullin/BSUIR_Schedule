@@ -84,6 +84,7 @@
             android:id="@+id/schedule_items_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="2dp"
             android:background="?attr/colorSecondary" />
 
         <androidx.viewpager2.widget.ViewPager2

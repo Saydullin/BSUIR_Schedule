@@ -23,11 +23,11 @@ class ScheduleControlFragment : Fragment() {
     ): View {
         val binding = FragmentScheduleControlBinding.inflate(inflater)
         val subgroupBinding = binding.scheduleSubgroupSettings
+        val allSubgroupsText = resources.getString(R.string.settings_all_subgroups)
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
             val subgroups = ArrayList<String>()
-            val allSubgroupsText = resources.getString(R.string.settings_all_subgroups)
             schedule.subgroups.forEach { subgroup ->
                 if (subgroup == 0) {
                     subgroups.add(allSubgroupsText)
@@ -51,7 +51,11 @@ class ScheduleControlFragment : Fragment() {
             if (schedule != null && schedule.selectedSubgroup != schedule.subgroups[i]) {
                 schedule.selectedSubgroup = schedule.subgroups[i]
                 groupScheduleVM.changeSubgroup(schedule)
-                Toast.makeText(context, resources.getString(R.string.subgroup_selected, schedule.subgroups[i]), Toast.LENGTH_SHORT).show()
+                if (schedule.subgroups[i] == 0) {
+                    Toast.makeText(context, allSubgroupsText, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, resources.getString(R.string.subgroup_selected, schedule.subgroups[i]), Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

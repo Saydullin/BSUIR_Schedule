@@ -60,6 +60,17 @@
         <item>All subgroups</item>
     </string-array>
 
+    <string-array name="font_size">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Huge</item>
+    </string-array>
+
+    <string-array name="app_theme">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
     <plurals name="plural_groups">
         <item quantity="zero">found %d groups</item>
         <item quantity="one">found %d group</item>

@@ -17,7 +17,8 @@
     <string name="subject_now">Сейчас %s</string>
     <string name="subject_status_now">Сейчас %s</string>
     <string name="subject_status_now_in">Сейчас %s, в %s</string>
-    <string name="subject_status_today">В %s %s</string>
+    <string name="subject_status_today">%s до %s (%s)</string>
+    <string name="subject_status_today_no_audience">%s до %s</string>
     <string name="subject_status_tomorrow">Завтра к %s (%s)</string>
     <string name="subject_status_days_left">Через %s %s в %s</string>
     <string name="no_subject_now">Сейчас нет занятий</string>
@@ -264,7 +265,7 @@
         <item quantity="zero">%d минут</item>
         <item quantity="one">%d минута</item>
         <item quantity="two">%d минуты</item>
-        <item quantity="few">%d минут</item>
+        <item quantity="few">%d минуты</item>
         <item quantity="many">%d минут</item>
         <item quantity="other">%d минут</item>
     </plurals>

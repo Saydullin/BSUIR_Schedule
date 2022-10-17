@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -14,6 +15,7 @@ import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentActiveScheduleBinding
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import java.util.*
@@ -38,11 +40,8 @@ class ActiveScheduleFragment : Fragment() {
                 Glide.with(binding.scheduleImage)
                     .load(R.drawable.ic_group_placeholder)
                     .into(binding.scheduleImage)
-//                binding.scheduleSubtitleLeft.visibility = View.VISIBLE
                 binding.scheduleCourse.text = "${group.course} $courseText"
                 binding.activeScheduleTitle.text = group.name
-//                binding.scheduleSubtitleLeft.text = group.getFacultyAndSpecialityAbbr()
-//                binding.scheduleSubtitleRight.text = group.speciality?.educationForm?.name ?: ""
             } else {
                 val employee = schedule.employee
                 binding.scheduleCourse.text = ""
@@ -51,20 +50,9 @@ class ActiveScheduleFragment : Fragment() {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.scheduleImage)
                 binding.activeScheduleTitle.text = employee.getFullName()
-//                binding.scheduleSubtitleLeft.text = employee.getRankAndDegree()
-                binding.scheduleCourse.visibility = View.GONE
-                if (!employee.departmentsList.isNullOrEmpty()) {
-//                    binding.scheduleSubtitleRight.text = employee.getShortDepartments(getString(R.string.more))
-                }
             }
 
-            if (schedule.subjectNow != null) {
-                val subjectManager = SubjectManager(schedule.subjectNow!!, context!!)
-                binding.currentSubjectInfo.text = subjectManager.getSubjectDate()
-            } else {
-                val subjectNowText = resources.getString(R.string.no_subject_now)
-                binding.currentSubjectInfo.text = subjectNowText
-            }
+            setCurrentSubject(binding.currentSubjectInfo, schedule.subjectNow)
 
             if (schedule.selectedSubgroup == 0) {
                 binding.subgroup.text = resources.getString(R.string.all_subgroups_short)
@@ -99,6 +87,16 @@ class ActiveScheduleFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun setCurrentSubject(currentSubjectInfo: TextView, subject: ScheduleSubject?) {
+        if (subject != null) {
+            val subjectManager = SubjectManager(subject!!, context!!)
+            currentSubjectInfo.text = subjectManager.getSubjectDate()
+        } else {
+            val subjectNowText = resources.getString(R.string.no_subject_now)
+            currentSubjectInfo.text = subjectNowText
+        }
     }
 
 }

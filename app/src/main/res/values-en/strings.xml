@@ -133,6 +133,7 @@
         <item quantity="many">%d minutes</item>
         <item quantity="other">%d minutes</item>
     </plurals>
+
     <string name="exams">Exams</string>
     <string name="consultation">Consultation</string>
     <string name="schedules_settings_title">Settings (on dev process)</string>
@@ -208,9 +209,10 @@
     <string name="subject_now">Now in %s</string>
     <string name="subject_status_now">Now %s</string>
     <string name="subject_status_now_in">Now %s, in %s</string>
-    <string name="subject_status_today">At %s %s</string>
+    <string name="subject_status_today">%s before %s (%s)</string>
     <string name="subject_status_tomorrow">Tomorrow at %s (%s)</string>
     <string name="subject_status_days_left">After %s %s at %s</string>
     <string name="active_schedule_no_departments">No department</string>
     <string name="settings_lang_chosen">Chosen %s language</string>
+    <string name="subject_status_today_no_audience">%s before %s</string>
 </resources>

@@ -36,12 +36,34 @@ class SubjectManager(
     }
 
     private fun getTodayString(): String {
+        val calendarStart = Calendar.getInstance()
+        val millisLeft = subject.startMillis - calendarStart.timeInMillis
+        val hours = millisLeft / 3_600_000
+        val minutes = millisLeft % 3_600_000 / 60_000
+        val pluralHoursText = context.resources.getQuantityString(R.plurals.plural_hours, hours.toInt(), hours.toInt())
+        val pluralMinutesText = context.resources.getQuantityString(R.plurals.plural_minutes, minutes.toInt(), minutes.toInt())
+        val subjectStatusTodayString = if (subject.getAudienceInLine().isEmpty()) {
+            R.string.subject_status_today_no_audience
+        } else {
+            R.string.subject_status_today
+        }
+
+        if (hours == 0L) {
+            return context.resources.getString(
+                subjectStatusTodayString,
+                pluralMinutesText,
+                subject.subject,
+                subject.getAudienceInLine()
+            )
+        }
 
         return context.resources.getString(
-            R.string.subject_status_today,
-            getSubjectStartTime(),
-            subject.subject
+            subjectStatusTodayString,
+            "$pluralHoursText $pluralMinutesText",
+            subject.subject,
+            subject.getAudienceInLine()
         )
+
     }
 
     private fun getTomorrowString(): String {
@@ -55,7 +77,7 @@ class SubjectManager(
 
     private fun getDaysLeftString(): String {
         val calendarStart = Calendar.getInstance()
-        val daysLeft = (subject.startMillis - calendarStart.timeInMillis) / 86400000
+        val daysLeft = (subject.startMillis - calendarStart.timeInMillis) / 86_400_000
         val daysText = context.resources.getQuantityString(
             R.plurals.plural_days_left,
             daysLeft.toInt(),
@@ -81,10 +103,12 @@ class SubjectManager(
         if (subject.startMillis < currCalendar.timeInMillis && subject.endMillis > currCalendar.timeInMillis) {
             return getNowString()
         }
+
         // Today
         if (timeFormat.format(currCalendar.time) == subjectDay) {
             return getTodayString()
         }
+
         // Tomorrow
         currCalendar.add(Calendar.DATE, 1)
         if (timeFormat.format(currCalendar.time) == subjectDay) {

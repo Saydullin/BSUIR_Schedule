@@ -61,6 +61,7 @@ class AllGroupItemsFragment : Fragment() {
         groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null) return@observe
             savedItemsVM.saveSchedule(savedSchedule)
+            groupScheduleVM.scheduleLoadedToNull()
         }
 
         groupScheduleVM.groupLoadingStatus.observe(viewLifecycleOwner) { loading ->

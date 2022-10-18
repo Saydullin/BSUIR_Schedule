@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -82,6 +83,7 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
     }
 
     suspend fun deleteSchedule(schedule: SavedSchedule): Resource<Unit> {
+        Log.e("sady", "deleting $schedule")
         return savedScheduleRepository.deleteSchedule(schedule)
     }
 

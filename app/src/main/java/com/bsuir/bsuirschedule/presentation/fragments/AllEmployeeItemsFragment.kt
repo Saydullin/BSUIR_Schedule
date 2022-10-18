@@ -88,6 +88,7 @@ class AllEmployeeItemsFragment : Fragment() {
         groupSchedule.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null) return@observe
             savedItemsVM.saveSchedule(savedSchedule)
+            groupSchedule.scheduleLoadedToNull()
         }
 
         employeeItemsVM.employeeItemsStatus.observe(viewLifecycleOwner) { employeeItems ->

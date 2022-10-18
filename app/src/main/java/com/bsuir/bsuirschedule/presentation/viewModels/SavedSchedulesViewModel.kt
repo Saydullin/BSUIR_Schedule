@@ -83,14 +83,26 @@ class SavedSchedulesViewModel(
     }
 
     fun saveSchedule(schedule: SavedSchedule) {
-        loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            getSavedScheduleUseCase.saveSchedule(schedule)
-            activeSchedule.postValue(schedule)
-            if (schedule.isGroup) {
-                sharedPrefsUseCase.setActiveScheduleId(schedule.group.id)
-            } else {
-                sharedPrefsUseCase.setActiveScheduleId(schedule.employee.id)
+            loading.postValue(true)
+            when (
+                val result = getSavedScheduleUseCase.saveSchedule(schedule)
+            ) {
+                is Resource.Success -> {
+                    activeSchedule.postValue(schedule)
+                    if (schedule.isGroup) {
+                        sharedPrefsUseCase.setActiveScheduleId(schedule.group.id)
+                    } else {
+                        sharedPrefsUseCase.setActiveScheduleId(schedule.employee.id)
+                    }
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType,
+                        message = result.message
+                    ))
+                }
             }
         }
         loading.value = false
@@ -99,8 +111,20 @@ class SavedSchedulesViewModel(
     fun deleteSchedule(schedule: SavedSchedule) {
         loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            getSavedScheduleUseCase.deleteSchedule(schedule)
-            getSavedSchedules()
+            when (
+                val result = getSavedScheduleUseCase.deleteSchedule(schedule)
+            ) {
+                is Resource.Success -> {
+                    getSavedSchedules()
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType,
+                        message = result.message
+                    ))
+                }
+            }
         }
         loading.value = false
     }

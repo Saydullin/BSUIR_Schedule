@@ -37,21 +37,8 @@ class GroupScheduleViewModel(
     val groupLoadingStatus = groupLoading
     val employeeLoadingStatus = employeeLoading
 
-    fun updateIfEmpty() {
-        if (schedule.value != null && schedule.value?.id != -1) {
-            getScheduleById(schedule.value?.id!!)
-        } else {
-            val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
-            if (activeScheduleId != -1) {
-                getScheduleById(activeScheduleId)
-            }
-        }
-    }
-
-    fun updateSchedule() {
-        if (schedule.value != null && schedule.value?.id != -1) {
-            getScheduleById(schedule.value?.id!!)
-        }
+    fun scheduleLoadedToNull() {
+        scheduleLoaded.value = null
     }
 
     fun selectSchedule(savedSchedule: SavedSchedule) {
@@ -124,7 +111,6 @@ class GroupScheduleViewModel(
                     ))
                 }
                 is Resource.Error -> {
-                    schedule.postValue(Schedule.empty)
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
@@ -168,7 +154,6 @@ class GroupScheduleViewModel(
                         type = Resource.DATA_ERROR
                     ))
                     schedule.postValue(Schedule.empty)
-                    Log.e("sady", "2 Error here")
                 } else {
                     getScheduleById(groupSchedule.id)
                 }

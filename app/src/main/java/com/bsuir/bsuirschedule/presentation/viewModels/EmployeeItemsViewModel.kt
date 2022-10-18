@@ -31,11 +31,13 @@ class EmployeeItemsViewModel(
         isUpdating.value = true
         loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            val newEmployeeItems = getEmployeeItemsUseCase.getEmployeeItemsAPI()
-            when(newEmployeeItems) {
+            when (
+                val newEmployeeItems = getEmployeeItemsUseCase.getEmployeeItemsAPI()
+            ) {
                 is Resource.Success -> {
-                    val responseSave = getEmployeeItemsUseCase.saveEmployeeItem(newEmployeeItems.data!!)
-                    when(responseSave) {
+                    when (
+                        val responseSave = getEmployeeItemsUseCase.saveEmployeeItem(newEmployeeItems.data!!)
+                    ) {
                         is Resource.Success -> {
                             employeeItems.postValue(newEmployeeItems.data)
                         }
@@ -69,8 +71,9 @@ class EmployeeItemsViewModel(
     fun getAllEmployeeItems() {
         loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            val result = getEmployeeItemsUseCase.getEmployeeItems()
-            when(result) {
+            when (
+                val result = getEmployeeItemsUseCase.getEmployeeItems()
+            ) {
                 is Resource.Success -> {
                     employeeItems.postValue(result.data!!)
                 }

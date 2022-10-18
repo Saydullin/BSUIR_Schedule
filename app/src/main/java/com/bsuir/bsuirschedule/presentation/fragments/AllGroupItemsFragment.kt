@@ -1,11 +1,11 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
@@ -38,7 +38,7 @@ class AllGroupItemsFragment : Fragment() {
         val saveGroupLambda = { group: Group ->
             groupScheduleVM.getGroupScheduleAPI(group)
         }
-        val adapter = GroupItemsAdapter(context!!, ArrayList(), ArrayList(), saveGroupLambda)
+        val adapter = GroupItemsAdapter(context!!, ArrayList(), saveGroupLambda)
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
 
@@ -59,7 +59,8 @@ class AllGroupItemsFragment : Fragment() {
         dialog.isCancelable = false
 
         groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
-            if (savedSchedule == null) return@observe
+            if (savedSchedule == null || !savedSchedule.isGroup) return@observe
+            adapter.setSavedItem(savedSchedule, true)
             savedItemsVM.saveSchedule(savedSchedule)
             groupScheduleVM.scheduleLoadedToNull()
         }
@@ -99,11 +100,10 @@ class AllGroupItemsFragment : Fragment() {
                 binding.content.visibility = View.GONE
             } else {
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_groups, groupItems.size, groupItems.size)
-                val savedItems = savedItemsVM.savedSchedulesStatus.value ?: ArrayList() // FIXME
                 binding.placeholder.visibility = View.GONE
                 binding.content.visibility = View.VISIBLE
                 binding.nestedFilter.filterAmount.text = pluralSchedules
-                adapter.setList(groupItems, savedItems)
+                adapter.setGroupList(groupItems)
                 binding.scheduleItemsRecycler.alpha = 0f
                 binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }

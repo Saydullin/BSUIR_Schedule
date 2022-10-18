@@ -81,7 +81,6 @@ class GroupScheduleViewModel(
                     ))
                 }
                 is Resource.Error -> {
-//                    schedule.postValue(Schedule.empty)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
                         type = groupScheduleResponse.errorType,
@@ -226,9 +225,11 @@ class GroupScheduleViewModel(
                     state = StateStatus.SUCCESS_STATE,
                     type = 0
                 ))
-                schedule.postValue(Schedule.empty)
-                activeSchedule.postValue(null)
-                sharedPrefsUseCase.setActiveScheduleId(-1)
+                if (schedule.value?.id == savedSchedule.id) {
+                    schedule.postValue(Schedule.empty)
+                    activeSchedule.postValue(null)
+                    sharedPrefsUseCase.setActiveScheduleId(-1)
+                }
             } catch (e: Exception) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,

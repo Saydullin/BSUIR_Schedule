@@ -18,8 +18,4 @@ interface EmployeeItemsRepository {
 
     suspend fun saveEmployeeItem(employeeList: ArrayList<Employee>): Resource<Unit>
 
-    suspend fun deleteEmployeeItem(employee: Employee): Resource<Unit>
-
-    suspend fun getEmployeeItemByName(employeeName: String): Resource<ArrayList<Employee>>
-
 }

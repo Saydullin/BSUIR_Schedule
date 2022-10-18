@@ -91,6 +91,12 @@ class EmployeeItemsViewModel(
         }
     }
 
+    fun saveEmployeeItem(employee: Employee) {
+        viewModelScope.launch(Dispatchers.IO) {
+            getEmployeeItemsUseCase.saveEmployeeItem(arrayListOf(employee))
+        }
+    }
+
     fun filterByKeyword(s: String, isAsc: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = if (isAsc) {

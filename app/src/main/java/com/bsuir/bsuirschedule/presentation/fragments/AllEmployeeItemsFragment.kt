@@ -1,11 +1,11 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllEmployeeItemsBinding
@@ -53,7 +53,7 @@ class AllEmployeeItemsFragment : Fragment() {
         val saveEmployeeLambda = { employee: Employee ->
             groupSchedule.getEmployeeScheduleAPI(employee)
         }
-        val adapter = EmployeeItemsAdapter(context!!, ArrayList(), ArrayList(), saveEmployeeLambda)
+        val adapter = EmployeeItemsAdapter(context!!, ArrayList(), saveEmployeeLambda)
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
 
@@ -86,8 +86,11 @@ class AllEmployeeItemsFragment : Fragment() {
         }
 
         groupSchedule.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
-            if (savedSchedule == null) return@observe
+            if (savedSchedule == null || savedSchedule.isGroup) return@observe
+            adapter.setSavedItem(savedSchedule, true)
             savedItemsVM.saveSchedule(savedSchedule)
+            savedSchedule.employee.isSaved = true
+            employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
             groupSchedule.scheduleLoadedToNull()
         }
 
@@ -99,8 +102,7 @@ class AllEmployeeItemsFragment : Fragment() {
                 binding.placeholder.visibility = View.GONE
                 binding.content.visibility = View.VISIBLE
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_employees, employeeItems.size, employeeItems.size)
-                val savedSchedules = savedItemsVM.savedSchedulesStatus.value ?: ArrayList()
-                adapter.setList(employeeItems, savedSchedules)
+                adapter.setEmployeeList(employeeItems)
                 binding.nestedFilter.filterAmount.text = pluralSchedules
                 binding.scheduleItemsRecycler.alpha = 0f
                 binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()

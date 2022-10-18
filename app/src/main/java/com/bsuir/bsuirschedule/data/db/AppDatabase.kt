@@ -22,10 +22,10 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         DepartmentTable::class,
         CurrentWeekTable::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration (from = 1, to = 3)
+        AutoMigration (from = 1, to = 4)
     ]
 )
 @TypeConverters(

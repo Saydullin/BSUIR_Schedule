@@ -17,6 +17,12 @@ class SavedItemsAdapter(
     private val longPressLambda: (schedule: SavedSchedule, view: View) -> Unit,
 ) : RecyclerView.Adapter<SavedItemsAdapter.ViewHolder>() {
 
+    fun updateItems(newItems: ArrayList<SavedSchedule>) {
+        savedSchedules.clear()
+        savedSchedules.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(
         scheduleListItemBinding: ScheduleListItemBinding,
         private val saveScheduleLambda: (schedule: SavedSchedule) -> Unit,

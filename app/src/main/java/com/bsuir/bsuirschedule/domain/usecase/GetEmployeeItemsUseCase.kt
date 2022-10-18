@@ -1,12 +1,15 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
 import com.bsuir.bsuirschedule.domain.models.Employee
+import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.repository.DepartmentRepository
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
+import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 class GetEmployeeItemsUseCase(
     private val employeeItemsRepository: EmployeeItemsRepository,
+    private val savedScheduleRepository: SavedScheduleRepository,
     private val departmentRepository: DepartmentRepository
 ) {
 
@@ -17,8 +20,9 @@ class GetEmployeeItemsUseCase(
             when(result) {
                 is Resource.Success -> {
                     val employees = result.data!!
-                    val isMergedDepartments = mergeDepartments(employees)
-                    when(isMergedDepartments) {
+                    when (
+                        val isMergedDepartments = mergeDepartments(employees)
+                    ) {
                         is Resource.Success -> {
                             Resource.Success(employees)
                         }
@@ -78,10 +82,6 @@ class GetEmployeeItemsUseCase(
         }
     }
 
-    suspend fun getEmployeeItems(): Resource<ArrayList<Employee>> {
-        return employeeItemsRepository.getEmployeeItems()
-    }
-
     suspend fun filterByKeywordASC(s: String): Resource<ArrayList<Employee>> {
         return employeeItemsRepository.filterByKeywordASC(s)
     }
@@ -94,12 +94,35 @@ class GetEmployeeItemsUseCase(
         return employeeItemsRepository.saveEmployeeItem(employeeList)
     }
 
-    suspend fun deleteEmployeeItem(employee: Employee): Resource<Unit> {
-        return employeeItemsRepository.deleteEmployeeItem(employee)
+    suspend fun getEmployeeItems(): Resource<ArrayList<Employee>> {
+        return when (
+            val result = employeeItemsRepository.getEmployeeItems()
+        ) {
+            is Resource.Success -> {
+                val data = result.data ?: ArrayList()
+                val filledIsSaved = fillIsSavedFields(data)
+                Resource.Success(filledIsSaved)
+            }
+            is Resource.Error -> {
+                Resource.Error(
+                    errorType = result.errorType,
+                    message = result.message
+                )
+            }
+        }
     }
 
-    suspend fun getEmployeesByName(employeeName: String): Resource<ArrayList<Employee>> {
-       return  employeeItemsRepository.getEmployeeItemByName(employeeName)
+    private suspend fun fillIsSavedFields(employeeItems: ArrayList<Employee>): ArrayList<Employee> {
+        val savedSchedules = savedScheduleRepository.getSavedSchedules()
+
+        if (savedSchedules is Resource.Success) {
+            val data = savedSchedules.data ?: ArrayList()
+            employeeItems.map { employee ->
+                employee.isSaved = data.find { it.isGroup && it.id == employee.id } != null
+            }
+        }
+
+        return employeeItems
     }
 
 }

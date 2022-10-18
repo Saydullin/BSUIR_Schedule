@@ -5,6 +5,7 @@ import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.Speciality
 import com.bsuir.bsuirschedule.domain.repository.FacultyRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
+import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.repository.SpecialityRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import kotlin.collections.ArrayList
@@ -12,6 +13,7 @@ import kotlin.collections.ArrayList
 class GetGroupItemsUseCase(
     private val groupItemsRepository: GroupItemsRepository,
     private val specialityRepository: SpecialityRepository,
+    private val savedScheduleRepository: SavedScheduleRepository,
     private val facultyRepository: FacultyRepository,
 ) {
 
@@ -121,8 +123,9 @@ class GetGroupItemsUseCase(
 
     suspend fun saveGroupItems(groups: ArrayList<Group>): Resource<Unit> {
         return try {
-            val result = groupItemsRepository.saveGroupItemsList(groups)
-            when(result) {
+            when (
+                val result = groupItemsRepository.saveGroupItemsList(groups)
+            ) {
                 is Resource.Success -> {
                     Resource.Success(null)
                 }
@@ -142,7 +145,34 @@ class GetGroupItemsUseCase(
     }
 
     suspend fun getAllGroupItems(): Resource<ArrayList<Group>> {
-        return groupItemsRepository.getAllGroupItems()
+        return when (
+            val result = groupItemsRepository.getAllGroupItems()
+        ) {
+            is Resource.Success -> {
+                val data = result.data ?: ArrayList()
+                val filledIsSaved = fillIsSavedFields(data)
+                Resource.Success(filledIsSaved)
+            }
+            is Resource.Error -> {
+                Resource.Error(
+                    errorType = result.errorType,
+                    message = result.message
+                )
+            }
+        }
+    }
+
+    private suspend fun fillIsSavedFields(groupItems: ArrayList<Group>): ArrayList<Group> {
+        val savedSchedules = savedScheduleRepository.getSavedSchedules()
+
+        if (savedSchedules is Resource.Success) {
+            val data = savedSchedules.data ?: ArrayList()
+            groupItems.map { group ->
+                group.isSaved = data.find { it.isGroup && it.id == group.id } != null
+            }
+        }
+
+        return groupItems
     }
 
 }

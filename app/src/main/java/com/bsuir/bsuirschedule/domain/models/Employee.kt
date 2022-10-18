@@ -19,7 +19,7 @@ data class Employee (
     val departmentsAbbrList: List<String>?,
     var departments: ArrayList<Department> = arrayListOf(),
     val urlId: String,
-    val isSaved: Boolean
+    var isSaved: Boolean
 ) {
 
     companion object {
@@ -95,6 +95,7 @@ data class Employee (
         calendarId = calendarId ?: "",
         academicDepartment = departmentsAbbrList ?: listOf(),
         departments = departments.map { it.toDepartmentTable() },
+        isSaved = isSaved,
         urlId = urlId
     )
 

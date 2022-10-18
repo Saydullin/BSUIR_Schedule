@@ -9,9 +9,6 @@ interface EmployeeDao {
     @Query("SELECT * FROM EmployeeTable ORDER BY fullName")
     fun getEmployees(): List<EmployeeTable>
 
-    @Query("SELECT * FROM EmployeeTable WHERE fullName LIKE :name")
-    fun getEmployeesByName(name: String): List<EmployeeTable>
-
     @Query("SELECT * FROM EmployeeTable WHERE fullName LIKE :s " +
             "OR degree LIKE :s " +
             "OR degreeAbbrev LIKE :s " +
@@ -30,8 +27,5 @@ interface EmployeeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveEmployeeItem(employeeList: List<EmployeeTable>)
-
-    @Delete
-    fun deleteEmployeeItem(employee: EmployeeTable)
 
 }

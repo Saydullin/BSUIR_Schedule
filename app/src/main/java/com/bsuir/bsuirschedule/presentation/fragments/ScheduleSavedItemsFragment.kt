@@ -41,8 +41,6 @@ class ScheduleSavedItemsFragment : Fragment() {
         )
         filterManager.init()
 
-        binding.scheduleSavedItemsRecycler.layoutManager = LinearLayoutManager(context)
-
         val loadingStatus = LoadingStatus(LoadingStatus.LOAD_SCHEDULE)
         val dialog = LoadingDialog(loadingStatus)
         dialog.isCancelable = false
@@ -76,6 +74,10 @@ class ScheduleSavedItemsFragment : Fragment() {
 
             popupMenu.show()
         }
+
+        binding.scheduleSavedItemsRecycler.layoutManager = LinearLayoutManager(context)
+        val adapter = SavedItemsAdapter(context!!, ArrayList(), getGroupScheduleLambda, longPressLambda)
+        binding.scheduleSavedItemsRecycler.adapter = adapter
 
         groupScheduleVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
@@ -113,9 +115,8 @@ class ScheduleSavedItemsFragment : Fragment() {
                 binding.savedSchedules.visibility = View.VISIBLE
                 binding.hiddenPlaceholder.visibility = View.GONE
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_schedules, savedSchedules.size, savedSchedules.size)
+                adapter.updateItems(savedSchedules)
                 binding.nestedFilter.filterAmount.text = pluralSchedules
-                val adapter = SavedItemsAdapter(context!!, savedSchedules, getGroupScheduleLambda, longPressLambda)
-                binding.scheduleSavedItemsRecycler.adapter = adapter
                 binding.scheduleSavedItemsRecycler.alpha = 0f
                 binding.scheduleSavedItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }

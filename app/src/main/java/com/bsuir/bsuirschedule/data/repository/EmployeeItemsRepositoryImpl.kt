@@ -86,30 +86,4 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
         }
     }
 
-    override suspend fun deleteEmployeeItem(employee: Employee): Resource<Unit> {
-
-        return try {
-            employeeDao.deleteEmployeeItem(employee.toEmployeeTable())
-            Resource.Success(null)
-        } catch (e: Exception) {
-            Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
-                message = e.message
-            )
-        }
-    }
-
-    override suspend fun getEmployeeItemByName(employeeName: String): Resource<ArrayList<Employee>> {
-
-        return try {
-            val data = employeeDao.getEmployeesByName(employeeName).map { it.toEmployee() } as ArrayList<Employee>
-            Resource.Success(data)
-        } catch (e: Exception) {
-            Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
-                message = e.message
-            )
-        }
-    }
-
 }

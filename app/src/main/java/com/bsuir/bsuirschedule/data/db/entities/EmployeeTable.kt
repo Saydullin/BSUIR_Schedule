@@ -21,26 +21,28 @@ data class EmployeeTable (
     @ColumnInfo val jobPosition: String,
     @ColumnInfo val academicDepartment: List<String>,
     @ColumnInfo val departments: List<DepartmentTable>,
+    @ColumnInfo val isSaved: Boolean?,
     @ColumnInfo val urlId: String,
 ) {
 
     companion object {
         val empty = EmployeeTable(
-            -1,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            listOf(),
-            listOf(),
-            ""
+            id = -1,
+            firstName ="",
+            lastName = "",
+            middleName = "",
+            fullName = "",
+            degree = "",
+            degreeAbbrev = "",
+            rank = "",
+            email= "",
+            photoLink = "",
+            calendarId = "",
+            jobPosition = "",
+            academicDepartment = listOf(),
+            departments = listOf(),
+            isSaved = false,
+            urlId = ""
         )
     }
 
@@ -73,7 +75,7 @@ data class EmployeeTable (
         calendarId = calendarId,
         departmentsAbbrList = academicDepartment,
         departments = departments.map { it.toDepartment() } as ArrayList<Department>,
-        isSaved = false,
+        isSaved = isSaved ?: false,
         urlId = urlId,
     )
 

@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.models
 
-import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.db.entities.EmployeeTable
 import java.util.*
 import kotlin.collections.ArrayList
@@ -65,6 +64,7 @@ data class EmployeeSubject(
         jobPosition = jobPosition ?: "",
         academicDepartment = department ?: listOf(),
         departments = departmentsList?.map { it.toDepartmentTable() } ?: listOf(),
+        isSaved = null,
         urlId = urlId,
     )
 
@@ -81,7 +81,7 @@ data class EmployeeSubject(
         departmentsAbbrList = department,
         departments = departmentsList ?: arrayListOf(),
         urlId = urlId,
-        isSaved = true
+        isSaved = false
     )
 
     fun getFullDepartments(separator: String): String {

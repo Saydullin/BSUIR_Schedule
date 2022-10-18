@@ -13,7 +13,7 @@ data class Group (
     var speciality: Speciality?,
     val course: Int,
     val calendarId: String?,
-    val isSaved: Boolean,
+    var isSaved: Boolean,
     var isSelected: Boolean = false
 ) {
 

@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,7 +28,6 @@ class GroupScheduleViewModel(
     private val error = MutableLiveData<StateStatus>(null)
     val scheduleStatus = schedule
     val examsScheduleStatus = examsSchedule
-    val activeScheduleStatus = activeSchedule
     val errorStatus = error
     val scheduleLoadedStatus = scheduleLoaded
     val loadingStatus = loading
@@ -37,7 +35,7 @@ class GroupScheduleViewModel(
     val groupLoadingStatus = groupLoading
     val employeeLoadingStatus = employeeLoading
 
-    fun scheduleLoadedToNull() {
+    fun setScheduleLoadedNull() {
         scheduleLoaded.value = null
     }
 

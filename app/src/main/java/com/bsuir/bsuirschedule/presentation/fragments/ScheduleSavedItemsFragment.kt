@@ -16,6 +16,8 @@ import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.SavedSchedulePopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
+import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -23,6 +25,8 @@ import org.koin.androidx.navigation.koinNavGraphViewModel
 // Saved items
 class ScheduleSavedItemsFragment : Fragment() {
 
+    private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val savedScheduleVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
@@ -53,6 +57,13 @@ class ScheduleSavedItemsFragment : Fragment() {
         val deleteSchedule = { savedSchedule: SavedSchedule ->
             savedScheduleVM.deleteSchedule(savedSchedule)
             groupScheduleVM.deleteSchedule(savedSchedule)
+            if (savedSchedule.isGroup) {
+                savedSchedule.group.isSaved = false
+                groupItemsVM.saveGroupItem(savedSchedule.group)
+            } else {
+                savedSchedule.employee.isSaved = false
+                employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
+            }
         }
 
         val updateSchedule = { savedSchedule: SavedSchedule ->

@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.repository
 
+import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetEmployeeItemsService
 import com.bsuir.bsuirschedule.data.db.dao.EmployeeDao

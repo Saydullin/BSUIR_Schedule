@@ -12,9 +12,6 @@ interface GroupDao {
     @Query("SELECT * FROM GroupTable ORDER BY name ASC")
     fun getAllGroups(): List<GroupTable>
 
-    @Query("SELECT * FROM GroupTable WHERE isSaved=1")
-    fun getSavedGroups(): List<GroupTable>
-
     @Query("SELECT * FROM GroupTable WHERE name LIKE :s " +
             "OR faculty_abbr||' '||speciality_education_form_name LIKE :s " +
             "OR faculty_abbr||' '||course LIKE :s " +

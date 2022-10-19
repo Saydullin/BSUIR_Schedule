@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +27,13 @@ class GroupItemsViewModel(
         error.value = null
     }
 
-    // Update all group items with API
+    fun saveGroupItem(group: Group) {
+        viewModelScope.launch(Dispatchers.IO) {
+            getGroupItemsUseCase.saveGroupItems(arrayListOf(group))
+        }
+    }
+
+    // Update all group items from API
     fun updateGroupItems() {
         isUpdating.value = true
         viewModelScope.launch(Dispatchers.IO) {

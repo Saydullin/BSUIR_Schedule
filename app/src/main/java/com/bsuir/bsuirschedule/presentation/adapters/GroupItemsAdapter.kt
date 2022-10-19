@@ -23,10 +23,9 @@ class GroupItemsAdapter(
         notifyDataSetChanged()
     }
 
-    fun setSavedItem(item: SavedSchedule, isSaved: Boolean) {
+    fun setSavedItem(item: SavedSchedule) {
         val position = data.indexOfFirst { it.id == item.id }
         if (position != -1) {
-            data[position].isSaved = isSaved
             notifyItemChanged(position)
         }
     }

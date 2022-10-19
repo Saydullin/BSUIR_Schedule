@@ -36,7 +36,6 @@ val domainModule = module {
         GetGroupItemsUseCase(
             groupItemsRepository = get(),
             specialityRepository = get(),
-            savedScheduleRepository = get(),
             facultyRepository = get()
         )
     }
@@ -52,7 +51,6 @@ val domainModule = module {
     factory {
         GetEmployeeItemsUseCase(
             employeeItemsRepository = get(),
-            savedScheduleRepository = get(),
             departmentRepository = get()
         )
     }

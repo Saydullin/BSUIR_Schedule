@@ -12,8 +12,6 @@ interface GroupItemsRepository {
 
     suspend fun getAllGroupItems(): Resource<ArrayList<Group>>
 
-    suspend fun getSavedGroupItems(): Resource<ArrayList<Group>>
-
     suspend fun filterByKeywordASC(s: String): Resource<ArrayList<Group>>
 
     suspend fun filterByKeywordDESC(s: String): Resource<ArrayList<Group>>

@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -87,11 +86,11 @@ class AllEmployeeItemsFragment : Fragment() {
 
         groupSchedule.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null || savedSchedule.isGroup) return@observe
-            adapter.setSavedItem(savedSchedule, true)
-            savedItemsVM.saveSchedule(savedSchedule)
             savedSchedule.employee.isSaved = true
+            adapter.setSavedItem(savedSchedule)
+            savedItemsVM.saveSchedule(savedSchedule)
             employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
-            groupSchedule.scheduleLoadedToNull()
+            groupSchedule.setScheduleLoadedNull()
         }
 
         employeeItemsVM.employeeItemsStatus.observe(viewLifecycleOwner) { employeeItems ->

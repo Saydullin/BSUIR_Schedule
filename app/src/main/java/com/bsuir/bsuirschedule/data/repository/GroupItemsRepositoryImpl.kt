@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.repository
 
+import android.util.Log
 import androidx.core.text.isDigitsOnly
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupItemsService
@@ -47,26 +48,12 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
         }
     }
 
-    override suspend fun getSavedGroupItems(): Resource<ArrayList<Group>> {
-        return try {
-            val data = groupDao.getSavedGroups().map { it.toGroup() } as ArrayList<Group>
-            Resource.Success(data)
-        } catch (e: Exception) {
-            Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
-                message = e.message
-            )
-        }
-    }
-
     override suspend fun filterByKeywordASC(s: String): Resource<ArrayList<Group>> {
         return try {
             val data: List<GroupTable> = if (s.length == 1 && s.isDigitsOnly()) {
                 val res = groupDao.filterByCourseASC(s.toInt())
-                if (res.isEmpty()) {
+                res.ifEmpty {
                     groupDao.filterByKeywordASC("%${s}%")
-                } else {
-                    res
                 }
             } else {
                 groupDao.filterByKeywordASC("%${s}%")
@@ -85,10 +72,8 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
         return try {
             val data: List<GroupTable> = if (s.length == 1 && s.isDigitsOnly()) {
                 val res = groupDao.filterByCourseDESC(s.toInt())
-                if (res.isEmpty()) {
+                res.ifEmpty {
                     groupDao.filterByKeywordDESC("%${s}%")
-                } else {
-                    res
                 }
             } else {
                 groupDao.filterByKeywordDESC("%${s}%")

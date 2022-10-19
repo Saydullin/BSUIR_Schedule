@@ -13,7 +13,6 @@ import kotlin.collections.ArrayList
 class GetGroupItemsUseCase(
     private val groupItemsRepository: GroupItemsRepository,
     private val specialityRepository: SpecialityRepository,
-    private val savedScheduleRepository: SavedScheduleRepository,
     private val facultyRepository: FacultyRepository,
 ) {
 
@@ -150,8 +149,7 @@ class GetGroupItemsUseCase(
         ) {
             is Resource.Success -> {
                 val data = result.data ?: ArrayList()
-                val filledIsSaved = fillIsSavedFields(data)
-                Resource.Success(filledIsSaved)
+                Resource.Success(data)
             }
             is Resource.Error -> {
                 Resource.Error(
@@ -160,19 +158,6 @@ class GetGroupItemsUseCase(
                 )
             }
         }
-    }
-
-    private suspend fun fillIsSavedFields(groupItems: ArrayList<Group>): ArrayList<Group> {
-        val savedSchedules = savedScheduleRepository.getSavedSchedules()
-
-        if (savedSchedules is Resource.Success) {
-            val data = savedSchedules.data ?: ArrayList()
-            groupItems.map { group ->
-                group.isSaved = data.find { it.isGroup && it.id == group.id } != null
-            }
-        }
-
-        return groupItems
     }
 
 }

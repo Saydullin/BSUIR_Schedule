@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
 import com.bsuir.bsuirschedule.domain.models.Employee
-import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.repository.DepartmentRepository
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
@@ -9,7 +8,6 @@ import com.bsuir.bsuirschedule.domain.utils.Resource
 
 class GetEmployeeItemsUseCase(
     private val employeeItemsRepository: EmployeeItemsRepository,
-    private val savedScheduleRepository: SavedScheduleRepository,
     private val departmentRepository: DepartmentRepository
 ) {
 
@@ -100,8 +98,7 @@ class GetEmployeeItemsUseCase(
         ) {
             is Resource.Success -> {
                 val data = result.data ?: ArrayList()
-                val filledIsSaved = fillIsSavedFields(data)
-                Resource.Success(filledIsSaved)
+                Resource.Success(data)
             }
             is Resource.Error -> {
                 Resource.Error(
@@ -110,19 +107,6 @@ class GetEmployeeItemsUseCase(
                 )
             }
         }
-    }
-
-    private suspend fun fillIsSavedFields(employeeItems: ArrayList<Employee>): ArrayList<Employee> {
-        val savedSchedules = savedScheduleRepository.getSavedSchedules()
-
-        if (savedSchedules is Resource.Success) {
-            val data = savedSchedules.data ?: ArrayList()
-            employeeItems.map { employee ->
-                employee.isSaved = data.find { it.isGroup && it.id == employee.id } != null
-            }
-        }
-
-        return employeeItems
     }
 
 }

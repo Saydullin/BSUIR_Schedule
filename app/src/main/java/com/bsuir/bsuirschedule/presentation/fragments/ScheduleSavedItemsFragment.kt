@@ -14,6 +14,7 @@ import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.SavedItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.WarningDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.SavedSchedulePopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
@@ -66,6 +67,11 @@ class ScheduleSavedItemsFragment : Fragment() {
             }
         }
 
+        val deleteWarning = { savedSchedule: SavedSchedule ->
+            val warningDialog = WarningDialog(savedSchedule = savedSchedule, agreeCallback = deleteSchedule)
+            warningDialog.show(parentFragmentManager, "WarningDialog")
+        }
+
         val updateSchedule = { savedSchedule: SavedSchedule ->
             savedScheduleVM.setActiveSchedule(savedSchedule)
             if (savedSchedule.isGroup) {
@@ -79,7 +85,7 @@ class ScheduleSavedItemsFragment : Fragment() {
             val popupMenu = SavedSchedulePopupMenu(
                 context!!,
                 savedSchedule = savedSchedule,
-                delete = deleteSchedule,
+                delete = deleteWarning,
                 update = updateSchedule
             ).initPopupMenu(view)
 

@@ -76,21 +76,13 @@ class AllEmployeeItemsFragment : Fragment() {
             }
         }
 
-        groupSchedule.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
-            if (errorStatus != null) {
-                val stateDialog = StateDialog(errorStatus)
-                stateDialog.isCancelable = true
-                stateDialog.show(parentFragmentManager, "ErrorDialog")
-            }
-        }
-
         groupSchedule.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null || savedSchedule.isGroup) return@observe
             savedSchedule.employee.isSaved = true
-            adapter.setSavedItem(savedSchedule)
             savedItemsVM.saveSchedule(savedSchedule)
             employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
             groupSchedule.setScheduleLoadedNull()
+            adapter.setSavedItem(savedSchedule.employee)
         }
 
         employeeItemsVM.employeeItemsStatus.observe(viewLifecycleOwner) { employeeItems ->

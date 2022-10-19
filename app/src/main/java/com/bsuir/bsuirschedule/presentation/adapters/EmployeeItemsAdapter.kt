@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,9 +24,11 @@ class EmployeeItemsAdapter(
         notifyDataSetChanged()
     }
 
-    fun setSavedItem(item: SavedSchedule) {
+    fun setSavedItem(item: Employee) {
         val position = data.indexOfFirst { it.id == item.id }
+        Log.e("sady", "adapter employee position $position, item $item")
         if (position != -1) {
+            data[position] = item
             notifyItemChanged(position)
         }
     }

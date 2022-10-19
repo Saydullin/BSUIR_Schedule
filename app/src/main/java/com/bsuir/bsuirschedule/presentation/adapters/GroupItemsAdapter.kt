@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.GroupItemBinding
 import com.bsuir.bsuirschedule.domain.models.Group
-import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 
 class GroupItemsAdapter(
     val context: Context,
@@ -23,10 +22,11 @@ class GroupItemsAdapter(
         notifyDataSetChanged()
     }
 
-    fun setSavedItem(item: SavedSchedule) {
-        val position = data.indexOfFirst { it.id == item.id }
+    fun setSavedItem(item: Group) {
+        val position = data.indexOfFirst { it.id == item.id && it.name == item.name }
+        Log.e("sady", "adapter group position $position, isSaved ${data[position].isSaved} item $item\n${data[position]}\n")
         if (position != -1) {
-            notifyItemChanged(position)
+            notifyItemChanged(position, null)
         }
     }
 
@@ -76,3 +76,5 @@ class GroupItemsAdapter(
     }
 
 }
+
+

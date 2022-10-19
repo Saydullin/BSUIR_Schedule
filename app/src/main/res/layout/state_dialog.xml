@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/schedule_list_button"
+            android:id="@+id/cancel_button"
             style="@style/Theme.BSUIRSchedule.ImageButton"
             android:contentDescription="@string/cd_schedule_list"
             android:src="@drawable/ic_close_dark"
@@ -21,7 +21,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -41,10 +40,9 @@
 
             <TextView
                 android:id="@+id/title"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_medium_size"
                 android:text="Success" />
 
             <Space

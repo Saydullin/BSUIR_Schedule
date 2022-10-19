@@ -36,6 +36,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_info_primary.xml" value="0.1295" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_language.xml" value="0.1295" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_launcher_background.xml" value="0.137" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1275" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_list.xml" value="0.1795" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_location.xml" value="0.1275" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_logo_icon.xml" value="0.14" />
@@ -66,6 +67,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_update.xml" value="0.137" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_update_primary.xml" value="0.14" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_update_white.xml" value="0.1715" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/ic_warning.xml" value="0.1275" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/list.xml" value="0.1235" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/progress_bar.xml" value="0.1405" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/drawable/splash_screen.xml" value="0.131" />
@@ -147,6 +149,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/subject_item_source.xml" value="0.23777173913043478" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/success_dialog.xml" value="0.23859649122807017" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/tab_views.xml" value="0.2391304347826087" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/warning_dialog.xml" value="0.264" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/welcome_page_item.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/welcome_pager.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/menu/main_menu.xml" value="0.25" />

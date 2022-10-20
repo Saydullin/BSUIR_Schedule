@@ -23,6 +23,14 @@ class SavedItemsAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeItem(savedSchedule: SavedSchedule) {
+        val position = savedSchedules.indexOfFirst { it.id == savedSchedule.id && (it.isGroup == savedSchedule.isGroup)}
+        if (position != -1) {
+            savedSchedules.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
     class ViewHolder(
         scheduleListItemBinding: ScheduleListItemBinding,
         private val saveScheduleLambda: (schedule: SavedSchedule) -> Unit,

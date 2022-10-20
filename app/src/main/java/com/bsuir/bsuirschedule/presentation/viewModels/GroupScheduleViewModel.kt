@@ -24,9 +24,11 @@ class GroupScheduleViewModel(
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
     private val schedule = MutableLiveData<Schedule>(null)
+    private val deletedSchedule = MutableLiveData<SavedSchedule>(null)
     private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
     val scheduleStatus = schedule
+    val deletedScheduleStatus = deletedSchedule
     val examsScheduleStatus = examsSchedule
     val errorStatus = error
     val scheduleLoadedStatus = scheduleLoaded
@@ -223,6 +225,7 @@ class GroupScheduleViewModel(
                     state = StateStatus.SUCCESS_STATE,
                     type = 0
                 ))
+                deletedSchedule.postValue(savedSchedule)
                 if (schedule.value?.id == savedSchedule.id) {
                     schedule.postValue(Schedule.empty)
                     activeSchedule.postValue(null)

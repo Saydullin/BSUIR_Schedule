@@ -111,19 +111,13 @@ class SavedSchedulesViewModel(
     fun deleteSchedule(schedule: SavedSchedule) {
         loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            when (
-                val result = getSavedScheduleUseCase.deleteSchedule(schedule)
-            ) {
-                is Resource.Success -> {
-                    getSavedSchedules()
-                }
-                is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
-                        message = result.message
-                    ))
-                }
+            val result = getSavedScheduleUseCase.deleteSchedule(schedule)
+            if (result is Resource.Error) {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = result.errorType,
+                    message = result.message
+                ))
             }
         }
         loading.value = false

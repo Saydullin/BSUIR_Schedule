@@ -20,12 +20,33 @@ class SavedSchedulesViewModel(
     private val activeSchedule = MutableLiveData<SavedSchedule>()
     private val error = MutableLiveData<StateStatus>(null)
     private val savedSchedules = MutableLiveData<ArrayList<SavedSchedule>>(null)
+    private val savedSchedulesCount = MutableLiveData<Int>(null)
     val activeScheduleStatus = activeSchedule
+    val activeScheduleStatusCount = savedSchedulesCount
     val savedSchedulesStatus = savedSchedules
     val errorMessageStatus = error
 
     fun closeError() {
         error.value = null
+    }
+
+    fun updateSavedSchedulesCount() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (
+                val result = getSavedScheduleUseCase.getSavedSchedules()
+            ) {
+                is Resource.Success -> {
+                    savedSchedulesCount.postValue(result.data!!.size)
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType,
+                        message = result.message
+                    ))
+                }
+            }
+        }
     }
 
     fun getSavedSchedules() {
@@ -37,8 +58,10 @@ class SavedSchedulesViewModel(
                 is Resource.Success -> {
                     if (result.data!!.size == 0) {
                         savedSchedules.postValue(null)
+                        savedSchedulesCount.postValue(null)
                     } else {
                         savedSchedules.postValue(result.data)
+                        savedSchedulesCount.postValue(result.data.size)
                     }
                 }
                 is Resource.Error -> {

@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -99,6 +98,7 @@ class ScheduleSavedItemsFragment : Fragment() {
         groupScheduleVM.deletedScheduleStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule != null) {
                 savedScheduleVM.deleteSchedule(savedSchedule)
+                savedScheduleVM.updateSavedSchedulesCount()
                 adapter.removeItem(savedSchedule)
             }
         }
@@ -131,6 +131,12 @@ class ScheduleSavedItemsFragment : Fragment() {
             }
         }
 
+        savedScheduleVM.activeScheduleStatusCount.observe(viewLifecycleOwner) { savedSchedulesCount ->
+            if (savedSchedulesCount == null) return@observe
+            val pluralSchedules = resources.getQuantityString(R.plurals.plural_schedules, savedSchedulesCount, savedSchedulesCount)
+            binding.nestedFilter.filterAmount.text = pluralSchedules
+        }
+
         savedScheduleVM.savedSchedulesStatus.observe(viewLifecycleOwner) { savedSchedules ->
             if (savedSchedules == null) {
                 binding.hiddenPlaceholder.visibility = View.VISIBLE
@@ -138,9 +144,7 @@ class ScheduleSavedItemsFragment : Fragment() {
             } else {
                 binding.savedSchedules.visibility = View.VISIBLE
                 binding.hiddenPlaceholder.visibility = View.GONE
-                val pluralSchedules = resources.getQuantityString(R.plurals.plural_schedules, savedSchedules.size, savedSchedules.size)
                 adapter.updateItems(savedSchedules)
-                binding.nestedFilter.filterAmount.text = pluralSchedules
                 binding.scheduleSavedItemsRecycler.alpha = 0f
                 binding.scheduleSavedItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }

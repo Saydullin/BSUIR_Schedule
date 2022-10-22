@@ -13,6 +13,8 @@
     <string name="info_dialog_title">Внимание</string>
     <string name="update">Обновить</string>
     <string name="okay">Понятно</string>
+    <string name="and">и</string>
+    <string name="after">через</string>
     <string name="delete">Удалить</string>
     <string name="last_update">Было обновлено %s</string>
     <string name="subject_now">Сейчас %s</string>
@@ -23,7 +25,7 @@
     <string name="subject_status_tomorrow">Завтра к %s (%s)</string>
     <string name="subject_status_days_left">Через %s %s в %s</string>
     <string name="subject_next_time_undefined">Этого предмета больше не будет</string>
-    <string name="subject_next_time">В след. раз %s будет %s</string>
+    <string name="subject_next_time">Cлед. %s будет %s</string>
     <string name="subject_next_time_current_week">%s будет в этой же неделе (%s)</string>
     <string name="subject_next_time_left_days">через %s</string>
     <string name="subject_next_time_in_week_day">в %s</string>
@@ -254,6 +256,15 @@
         <item quantity="few">%d пары</item>
         <item quantity="many">%d пар</item>
         <item quantity="other">%d пары</item>
+    </plurals>
+
+    <plurals name="plural_weeks_left">
+        <item quantity="zero">%d недель</item>
+        <item quantity="one">неделю</item>
+        <item quantity="two">%d недели</item>
+        <item quantity="few">%d недели</item>
+        <item quantity="many">%d недель</item>
+        <item quantity="other">%d недель</item>
     </plurals>
 
     <plurals name="plural_days_left">

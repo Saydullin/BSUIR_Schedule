@@ -107,6 +107,15 @@
         <item quantity="other">%d lessons</item>
     </plurals>
 
+    <plurals name="plural_weeks_left">
+        <item quantity="zero">%d weeks</item>
+        <item quantity="one">%d week</item>
+        <item quantity="two">%d weeks</item>
+        <item quantity="few">%d weeks</item>
+        <item quantity="many">%d weeks</item>
+        <item quantity="other">%d weeks</item>
+    </plurals>
+
     <plurals name="plural_days_left">
         <item quantity="zero">%d days</item>
         <item quantity="one">%d day</item>
@@ -230,4 +239,6 @@
     <string name="subject_next_time_current_week">%s will be in the same week (%s)</string>
     <string name="subject_next_time">Next time %s will be %s</string>
     <string name="subject_next_time_undefined">This lesson will no longer be held</string>
+    <string name="and">and</string>
+    <string name="after">after</string>
 </resources>

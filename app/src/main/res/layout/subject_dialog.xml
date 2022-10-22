@@ -93,7 +93,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_subgroup_hint"
+                android:src="@drawable/ic_subgroup"
                 android:contentDescription="@string/cd_schedule_subgroup" />
 
             <Space
@@ -128,7 +128,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_warning"
+                android:src="@drawable/ic_redo"
                 android:contentDescription="@string/cd_subject_type" />
 
             <Space

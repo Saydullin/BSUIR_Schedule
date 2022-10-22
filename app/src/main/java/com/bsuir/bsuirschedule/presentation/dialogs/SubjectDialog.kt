@@ -71,22 +71,44 @@ class SubjectDialog(private val subject: ScheduleSubject): DialogFragment() {
         binding.sourceRecycler.layoutManager = LinearLayoutManager(context)
 
         if (subject.nextTimeDaysLeft != null) {
-            // TODO   if (subject.nextTimeDaysLeft!! > 7) { ... }
-            val pluralDaysText = resources.getQuantityString(
-                R.plurals.plural_days_left,
-                subject.nextTimeDaysLeft!!,
-                subject.nextTimeDaysLeft
-            )
-            val afterText = resources.getString(
-                R.string.subject_next_time_left_days,
-                pluralDaysText
-            )
-            val nextTimeSubjectText = resources.getString(
-                R.string.subject_next_time,
-                subject.subject,
-                afterText
-            )
-            binding.subjectNextTime.text = nextTimeSubjectText
+            val daysLeft = subject.nextTimeDaysLeft!!
+            val afterText = resources.getString(R.string.after)
+            if (daysLeft >= 7) {
+                val weeksAmount = daysLeft / 7
+                val andDaysLeft = daysLeft % 7
+                var daysLeftText = ""
+                val weeksAmountText = resources.getQuantityString(
+                    R.plurals.plural_weeks_left,
+                    weeksAmount,
+                    weeksAmount
+                )
+                if (andDaysLeft != 0) {
+                    val andText = resources.getString(R.string.and)
+                    daysLeftText = "$andText " + resources.getQuantityString(
+                        R.plurals.plural_days_left,
+                        andDaysLeft,
+                        andDaysLeft
+                    )
+                }
+                val nextTimeSubjectText = resources.getString(
+                    R.string.subject_next_time,
+                    subject.subject,
+                    afterText
+                )
+                binding.subjectNextTime.text = "$nextTimeSubjectText $weeksAmountText $daysLeftText".trim()
+            } else {
+                val pluralDaysText = resources.getQuantityString(
+                    R.plurals.plural_days_left,
+                    subject.nextTimeDaysLeft!!,
+                    subject.nextTimeDaysLeft
+                )
+                val nextTimeSubjectText = resources.getString(
+                    R.string.subject_next_time,
+                    subject.subject,
+                    "$afterText $pluralDaysText"
+                )
+                binding.subjectNextTime.text = nextTimeSubjectText
+            }
         } else {
             val undefinedNextTimeSubjectText = resources.getString(
                 R.string.subject_next_time_undefined

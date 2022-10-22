@@ -1,11 +1,7 @@
 package com.bsuir.bsuirschedule.data.db.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.bsuir.bsuirschedule.domain.models.*
-import org.koin.core.time.TimeInMillis
 
 @Entity
 data class GroupScheduleSubjectTable(
@@ -15,6 +11,7 @@ data class GroupScheduleSubjectTable(
     @ColumnInfo val lessonTypeAbbrev: String,
     @Embedded val employees: List<EmployeeTable>,
     @Embedded val groups: List<GroupTable>,
+    @ColumnInfo val nextTimeDaysLeft: Int,
     @Embedded val groupSubjects: List<GroupSubjectTable>,
     @ColumnInfo val startMillis: Long,
     @ColumnInfo val endMillis: Long,
@@ -38,6 +35,8 @@ data class GroupScheduleSubjectTable(
         employees = employees.map { it.toEmployeeSubject() } as ArrayList<EmployeeSubject>,
         groups = groups.map { it.toGroup() } as ArrayList<Group>,
         subjectGroups = groupSubjects.map { it.toGroupSubject() } as ArrayList<GroupSubject>,
+        nextTimeDaysLeft = nextTimeDaysLeft,
+        nextTimeSubject = null,
         startMillis = startMillis,
         endMillis = endMillis,
         startLessonTime = startLessonTime,

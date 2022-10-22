@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 @ProvidedTypeConverter
-class ScheduleSubjectsConverter {
+class ScheduleSubjectsListConverter {
 
     @TypeConverter
     fun fromSubjectsToString(subjects: ArrayList<ScheduleSubject>?): String? {

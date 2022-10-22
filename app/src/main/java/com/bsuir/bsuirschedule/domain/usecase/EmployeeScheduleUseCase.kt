@@ -141,6 +141,10 @@ class EmployeeScheduleUseCase(
         return scheduleRepository.saveSchedule(schedule)
     }
 
+    suspend fun updateScheduleSettings(id: Int, newSchedule: ScheduleSettings): Resource<Unit> {
+        return scheduleRepository.updateScheduleSettings(id, newSchedule)
+    }
+
     suspend fun deleteSchedule(savedSchedule: SavedSchedule): Resource<Unit> {
         return scheduleRepository.deleteEmployeeSchedule(savedSchedule.employee.urlId)
     }

@@ -13,29 +13,45 @@
         android:padding="20dp"
         android:orientation="vertical">
 
-        <include android:id="@+id/schedule_subgroup_settings"
-            layout="@layout/settings_subgroup" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/schedule_settings_subgroup"
+            tools:layout="@layout/settings_subgroup"
+            android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsSubgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
-        <include android:id="@+id/schedule_settings"
-            layout="@layout/settings_schedule" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/schedule_settings_schedule"
+            tools:layout="@layout/settings_schedule"
+            android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
-        <include android:id="@+id/exams_settings"
-            layout="@layout/settings_exams" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/schedule_settings_exams"
+            tools:layout="@layout/settings_exams"
+            android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsExams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
-        <include android:id="@+id/alarm_settings"
-            layout="@layout/settings_alarm" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/schedule_settings_alarm"
+            tools:layout="@layout/settings_alarm"
+            android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

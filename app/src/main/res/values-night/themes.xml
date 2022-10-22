@@ -29,6 +29,7 @@
         <item name="primaryOnColor">@color/dark</item>
         <item name="primaryOnHintColor">@color/white_hint</item>
         <item name="dialogBg">@color/dark_dialog</item>
+        <item name="secondaryOnHintColor">@color/secondary_hint</item>
         <item name="secondaryColor">@color/primaryOnColorDarkTheme</item>
         <item name="secondaryTextColor">@color/textColorDarkTheme</item>
         <item name="primaryTextColor">@color/white</item>

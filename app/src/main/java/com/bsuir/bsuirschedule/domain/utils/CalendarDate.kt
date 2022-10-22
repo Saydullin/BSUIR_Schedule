@@ -13,6 +13,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         private val inputFormat = SimpleDateFormat("dd.MM.yyyy")
         val TODAY_DATE: String = inputFormat.format(Date().time)
         const val TODAY = "Today"
+        const val YESTERDAY = "Yesterday"
         const val TOMORROW = "Tomorrow"
     }
 
@@ -53,6 +54,11 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return counter
     }
 
+    fun minusDays(num: Int) {
+        // FIXME Check if got number bigger than passed days from startDate
+        calendar.add(Calendar.DATE, num * -1)
+    }
+
     fun getDateUnixTime(): Long {
         return calendar.timeInMillis
     }
@@ -66,6 +72,11 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     fun getDateStatus(): String {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
         val calendarNow = Calendar.getInstance()
+        calendarNow.add(Calendar.DATE, -1)
+        if (dateFormat.format(calendar.time) == dateFormat.format(calendarNow.time)) {
+            return YESTERDAY
+        }
+        calendarNow.add(Calendar.DATE, 1)
         if (dateFormat.format(calendar.time) == dateFormat.format(calendarNow.time)) {
             return TODAY
         }

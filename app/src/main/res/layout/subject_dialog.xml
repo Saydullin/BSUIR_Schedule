@@ -85,6 +85,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:paddingHorizontal="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -118,6 +119,31 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_warning"
+                android:contentDescription="@string/cd_subject_type" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/subject_next_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.TextView"
+                android:text="В следующий раз Физика будет через 3 дня" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/subject_note"
             android:layout_width="wrap_content"
@@ -141,6 +167,8 @@
                 android:id="@+id/source_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:itemCount="3"
+                tools:listitem="@layout/subject_item_source"
                 app:layout_constraintHeight_max="280dp"
                 android:scrollbars="vertical" />
 

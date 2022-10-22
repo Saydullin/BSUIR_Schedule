@@ -252,21 +252,6 @@ class ScheduleManager {
                         schedule = filteredSubjects as ArrayList<ScheduleSubject>,
                     ))
                 i++
-//                for (filteredDay in filteredDays) {
-//                    calendarDate.getIncDate(i)
-//                    val weekNum = calendarDate.getWeekNumber()
-//                    val filteredSubjects = filteredDay.schedule.filter { subject -> weekNum in (subject.weekNumber ?: ArrayList()) }
-//                    scheduleFull.schedules.add(
-//                        ScheduleDay(
-//                            date = calendarDate.getDateStatus(),
-//                            dateUnixTime = calendarDate.getDateUnixTime(),
-//                            weekDayName = calendarDate.getWeekDayName(),
-//                            weekDayNumber = calendarDate.getWeekDayNumber(),
-//                            weekNumber = calendarDate.getWeekNumber(),
-//                            schedule = filteredSubjects as ArrayList<ScheduleSubject>,
-//                        ))
-//                    i++
-//                }
             }
             beginOnDay = 1
         }

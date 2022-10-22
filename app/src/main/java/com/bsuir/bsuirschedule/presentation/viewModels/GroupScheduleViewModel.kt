@@ -21,6 +21,7 @@ class GroupScheduleViewModel(
     private val dataLoading = MutableLiveData(false)
     private val scheduleLoaded = MutableLiveData<SavedSchedule>(null)
     private val groupLoading = MutableLiveData(false)
+    private val settingsUpdated = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
     private val schedule = MutableLiveData<Schedule>(null)
@@ -28,6 +29,7 @@ class GroupScheduleViewModel(
     private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
     val scheduleStatus = schedule
+    val settingsUpdatedStatus = settingsUpdated
     val deletedScheduleStatus = deletedSchedule
     val examsScheduleStatus = examsSchedule
     val errorStatus = error
@@ -142,28 +144,52 @@ class GroupScheduleViewModel(
         }
     }
 
-    private suspend fun saveGroupSchedule(groupSchedule: Schedule) {
-        when (
-            val saveResponse = groupScheduleUseCase.saveSchedule(groupSchedule)
-        ) {
-            is Resource.Success -> {
-                if (groupSchedule.id == -1) {
+    private fun saveGroupSchedule(groupSchedule: Schedule) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (
+                val saveResponse = groupScheduleUseCase.saveSchedule(groupSchedule)
+            ) {
+                is Resource.Success -> {
+                    if (groupSchedule.id == -1) {
+                        error.postValue(StateStatus(
+                            state = StateStatus.ERROR_STATE,
+                            type = Resource.DATA_ERROR
+                        ))
+                        schedule.postValue(Schedule.empty)
+                    } else {
+                        getScheduleById(groupSchedule.id)
+                    }
+                }
+                is Resource.Error -> {
+                    schedule.postValue(Schedule.empty)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = Resource.DATA_ERROR
+                        type = saveResponse.errorType,
+                        message = saveResponse.message
                     ))
-                    schedule.postValue(Schedule.empty)
-                } else {
-                    getScheduleById(groupSchedule.id)
                 }
             }
-            is Resource.Error -> {
-                schedule.postValue(Schedule.empty)
-                error.postValue(StateStatus(
-                    state = StateStatus.ERROR_STATE,
-                    type = saveResponse.errorType,
-                    message = saveResponse.message
-                ))
+        }
+    }
+
+    fun updateScheduleSettings(id: Int, newSettings: ScheduleSettings) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsUpdated.postValue(false)
+            when (
+                val saveResponse = groupScheduleUseCase.updateScheduleSettings(id, newSettings)
+            ) {
+                is Resource.Success -> {
+                    settingsUpdated.postValue(true)
+                    getScheduleById(id)
+                }
+                is Resource.Error -> {
+                    schedule.postValue(Schedule.empty)
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = saveResponse.errorType,
+                        message = saveResponse.message
+                    ))
+                }
             }
         }
     }
@@ -186,7 +212,7 @@ class GroupScheduleViewModel(
             dataLoading.postValue(true)
             try {
                 when (
-                    val result = groupScheduleUseCase.getScheduleById(scheduleId)
+                    val result = groupScheduleUseCase.getScheduleById(scheduleId, 0, -1)
                 ) {
                     is Resource.Success -> {
                         val data = result.data!!

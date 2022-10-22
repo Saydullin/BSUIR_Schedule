@@ -13,6 +13,7 @@ data class ScheduleSettingsTable (
     @ColumnInfo val isAutoUpdate: Boolean,
     @ColumnInfo val isShowEmptyDays: Boolean,
     @ColumnInfo val isShowPastDays: Boolean,
+    @ColumnInfo val pastDaysNumber: Int,
     @ColumnInfo val isShowEmptyExamDays: Boolean,
     @ColumnInfo val isShowPastExamDays: Boolean,
     @Embedded(prefix = "alarm_") val alarmSettings: ScheduleAlarmTable
@@ -23,6 +24,7 @@ data class ScheduleSettingsTable (
         isAutoUpdate = isAutoUpdate,
         isShowEmptyDays = isShowEmptyDays,
         isShowPastDays = isShowPastDays,
+        pastDaysNumber = pastDaysNumber,
         isShowEmptyExamDays = isShowEmptyExamDays,
         isShowPastExamDays = isShowPastExamDays,
         alarmSettings = alarmSettings.toScheduleAlarm()

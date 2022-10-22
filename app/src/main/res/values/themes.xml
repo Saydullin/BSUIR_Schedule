@@ -13,9 +13,9 @@
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:textColorPrimaryDisableOnly">@color/text_dark</item>
-<!--        <item name="android:popupBackground">@color/white</item>-->
+        <!--        <item name="android:popupBackground">@color/white</item>-->
         <item name="android:itemBackground">@color/white</item>
-<!--        <item name="android:popupMenuStyle">@style/PopupMenu</item>-->
+        <!--        <item name="android:popupMenuStyle">@style/PopupMenu</item>-->
         <item name="colorPrimaryDark">@color/white</item>
         <item name="android:textColor">@color/text_dark</item>
         <!-- Status bar color. -->
@@ -27,6 +27,7 @@
         <item name="primaryOnHintColor">@color/white_hint</item>
         <item name="dialogBg">@color/white</item>
         <item name="primaryTextColor">@color/white</item>
+        <item name="secondaryOnHintColor">@color/secondary_hint</item>
         <item name="secondaryColor">@color/primary_holder</item>
         <item name="secondaryTextColor">@color/dark</item>
         <item name="textColor">@color/dark</item>
@@ -40,8 +41,8 @@
     <style name="Theme.BSUIRSchedule.Checkbox">
         <item name="android:textColor">?attr/textColor</item>
         <item name="android:padding">10dp</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">10dp</item>
+        <item name="android:minHeight">10dp</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.Button">
@@ -50,7 +51,7 @@
         <item name="android:backgroundTint">?attr/primaryColor</item>
         <item name="android:textColor">@color/on_primary</item>
         <item name="android:stateListAnimator">@null</item>
-        <item name="android:minHeight">0dp</item>
+        <item name="android:minHeight">42dp</item>
         <item name="android:minWidth">100dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -67,7 +68,7 @@
     </style>
 
     <style name="Theme.BSUIRSchedule.Button.Hint" parent="Theme.BSUIRSchedule.Button">
-        <item name="android:backgroundTint">?attr/secondaryColor</item>
+        <item name="android:backgroundTint">?attr/secondaryOnHintColor</item>
         <item name="android:textColor">?attr/textColor</item>
     </style>
 
@@ -112,6 +113,21 @@
 
     <style name="Theme.BSUIRSchedule.TextView.Medium.Title" parent="Theme.BSUIRSchedule.TextView.Medium">
         <item name="android:textSize">@dimen/font_medium_size</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.AppWidgetContainer" parent="Theme.BSUIRSchedule.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">16dp</item>
     </style>
 
 </resources>

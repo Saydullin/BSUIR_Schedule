@@ -3,24 +3,26 @@ package com.bsuir.bsuirschedule.domain.models
 import com.bsuir.bsuirschedule.data.db.entities.ScheduleSettingsTable
 
 data class ScheduleSettings (
-   val id: Int,
-   val isAutoUpdate: Boolean,
-   val isShowEmptyDays: Boolean,
-   val isShowPastDays: Boolean,
-   val isShowEmptyExamDays: Boolean,
-   val isShowPastExamDays: Boolean,
-   val alarmSettings: ScheduleAlarm
+    val id: Int,
+    var isAutoUpdate: Boolean,
+    var isShowEmptyDays: Boolean,
+    var isShowPastDays: Boolean,
+    var pastDaysNumber: Int,
+    val isShowEmptyExamDays: Boolean,
+    val isShowPastExamDays: Boolean,
+    val alarmSettings: ScheduleAlarm
 ) {
 
     companion object {
         val empty = ScheduleSettings(
             id = -1,
-            isAutoUpdate = false,
-            isShowEmptyDays = false,
+            isAutoUpdate = true,
+            isShowEmptyDays = true,
             isShowPastDays = false,
-            isShowEmptyExamDays = false,
+            pastDaysNumber = 1,
+            isShowEmptyExamDays = true,
             isShowPastExamDays = false,
-            ScheduleAlarm.empty
+            alarmSettings = ScheduleAlarm.empty
         )
     }
 
@@ -30,8 +32,11 @@ data class ScheduleSettings (
         isShowEmptyDays = isShowEmptyDays,
         isShowPastDays = isShowPastDays,
         isShowEmptyExamDays = isShowEmptyExamDays,
+        pastDaysNumber = pastDaysNumber,
         isShowPastExamDays = isShowPastExamDays,
         alarmSettings = alarmSettings.toScheduleAlarmTable()
     )
 
 }
+
+

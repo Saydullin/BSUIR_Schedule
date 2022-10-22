@@ -3,7 +3,8 @@ package com.bsuir.bsuirschedule.data.db.entities
 import androidx.room.*
 import com.bsuir.bsuirschedule.data.db.converters.IntListConverter
 import com.bsuir.bsuirschedule.data.db.converters.ScheduleDayListConverter
-import com.bsuir.bsuirschedule.data.db.converters.ScheduleSubjectsConverter
+import com.bsuir.bsuirschedule.data.db.converters.ScheduleSettingsConverter
+import com.bsuir.bsuirschedule.data.db.converters.ScheduleSubjectsListConverter
 import com.bsuir.bsuirschedule.domain.models.*
 
 @Entity
@@ -17,12 +18,12 @@ data class ScheduleTable (
     @Embedded(prefix = "employee_") val employee: EmployeeTable,
     @TypeConverters(IntListConverter::class) val subgroups: List<Int>,
     @ColumnInfo val isGroup: Boolean?,
-    @TypeConverters(ScheduleSubjectsConverter::class) var exams: ArrayList<ScheduleSubject>,
+    @TypeConverters(ScheduleSubjectsListConverter::class) var exams: ArrayList<ScheduleSubject>,
     @TypeConverters(ScheduleDayListConverter::class) var examsSchedule: ArrayList<ScheduleDay>,
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
     @ColumnInfo val lastUpdateTime: Long,
     @ColumnInfo var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
-    @Embedded(prefix = "settings_") val settings: ScheduleSettingsTable
+    @TypeConverters(ScheduleSettingsConverter::class) val settings: ScheduleSettingsTable
 ) {
 
     fun toSchedule() = Schedule(

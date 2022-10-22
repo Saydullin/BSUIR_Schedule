@@ -58,6 +58,7 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/autoUpdateCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_auto_update"
@@ -74,6 +75,7 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/emptyDaysCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_show_empty_day"
@@ -91,6 +93,7 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/pastDaysCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:labelFor="@+id/label_for_checkbox3"

@@ -125,7 +125,7 @@ class GroupScheduleUseCase(
         }
     }
 
-    suspend fun getScheduleById(groupId: Int): Resource<Schedule> {
+    suspend fun getScheduleById(groupId: Int, page: Int, pageSize: Int): Resource<Schedule> {
         return try {
             when (
                 val result = scheduleRepository.getScheduleById(groupId)
@@ -133,7 +133,7 @@ class GroupScheduleUseCase(
                 is Resource.Success -> {
                     val data = result.data!!
                     val scheduleController = ScheduleController()
-                    val schedule = scheduleController.getRegularSchedule(data)
+                    val schedule = scheduleController.getRegularSchedule(data, page, pageSize)
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -183,6 +183,10 @@ class GroupScheduleUseCase(
                 )
             }
         }
+    }
+
+    suspend fun updateScheduleSettings(id: Int, newSchedule: ScheduleSettings): Resource<Unit> {
+        return scheduleRepository.updateScheduleSettings(id, newSchedule)
     }
 
     suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {

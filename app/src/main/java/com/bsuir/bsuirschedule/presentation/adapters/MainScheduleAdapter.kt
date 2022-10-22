@@ -68,6 +68,9 @@ class MainScheduleAdapter(
             }
 
             when (scheduleDay.date) {
+                CalendarDate.YESTERDAY -> {
+                    binding.scheduleDate.text = context.getString(R.string.yesterday)
+                }
                 CalendarDate.TODAY -> {
                     binding.scheduleDate.text = context.getString(R.string.today)
                 }

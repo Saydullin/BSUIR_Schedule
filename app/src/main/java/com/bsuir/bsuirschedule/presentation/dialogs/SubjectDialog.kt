@@ -70,6 +70,30 @@ class SubjectDialog(private val subject: ScheduleSubject): DialogFragment() {
         binding.subjectAudience.text = subject.getAudienceInLine()
         binding.sourceRecycler.layoutManager = LinearLayoutManager(context)
 
+        if (subject.nextTimeDaysLeft != null) {
+            // TODO   if (subject.nextTimeDaysLeft!! > 7) { ... }
+            val pluralDaysText = resources.getQuantityString(
+                R.plurals.plural_days_left,
+                subject.nextTimeDaysLeft!!,
+                subject.nextTimeDaysLeft
+            )
+            val afterText = resources.getString(
+                R.string.subject_next_time_left_days,
+                pluralDaysText
+            )
+            val nextTimeSubjectText = resources.getString(
+                R.string.subject_next_time,
+                subject.subject,
+                afterText
+            )
+            binding.subjectNextTime.text = nextTimeSubjectText
+        } else {
+            val undefinedNextTimeSubjectText = resources.getString(
+                R.string.subject_next_time_undefined
+            )
+            binding.subjectNextTime.text = undefinedNextTimeSubjectText
+        }
+
         if (subject.employees != null && !subject.employees.isNullOrEmpty()) {
             val scheduleItems = subject.employees!!.map { it.toSavedSchedule() } as ArrayList<SavedSchedule>
             val adapter = SubjectItemsAdapter(context!!, scheduleItems)

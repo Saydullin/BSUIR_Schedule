@@ -22,16 +22,17 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         DepartmentTable::class,
         CurrentWeekTable::class
     ],
-    version = 4,
+    version = 2,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration (from = 1, to = 4)
+        AutoMigration (from = 1, to = 2)
     ]
 )
 @TypeConverters(
     ScheduleDayListConverter::class,
     EmployeeScheduleConverter::class,
-    ScheduleSubjectsConverter::class,
+    ScheduleSubjectsListConverter::class,
+    ScheduleSettingsConverter::class,
     DepartmentConverter::class,
     IntListConverter::class,
     StrListConverter::class,

@@ -220,4 +220,14 @@
     <string name="agree">Yes</string>
     <string name="delete_schedule_dialog_title">Are you sure you want to delete the schedule?</string>
     <string name="delete_schedule_dialog_caption">The schedule can be downloaded again</string>
+    <string name="reset_schedule_settings">Settings reset</string>
+    <string name="save_schedule_settings">Settings saved</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="schedule_settings_schedule_past_days_hint_text">How many past days to show?</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="subject_next_time_left_days">after %s</string>
+    <string name="subject_next_time_in_week_day">on %s</string>
+    <string name="subject_next_time_current_week">%s will be in the same week (%s)</string>
+    <string name="subject_next_time">Next time %s will be %s</string>
+    <string name="subject_next_time_undefined">This lesson will no longer be held</string>
 </resources>

@@ -193,25 +193,86 @@ class ScheduleController {
         }
 
         val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
-        val daysWithDates = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
+        val daysWithDatesSchedule = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
 
-        return getMillisTimeInSubjects(daysWithDates)
+        setSubjectsPrediction(daysWithDatesSchedule)
+
+        return getMillisTimeInSubjects(daysWithDatesSchedule)
+    }
+
+    private fun getPagingLimit(schedule: Schedule, page: Int, pageSize: Int): Schedule {
+        val limitedScheduleDays = ArrayList<ScheduleDay>()
+
+        val loopUntil = if (schedule.schedules.size < pageSize) schedule.schedules.size else pageSize
+
+        for (i in 0 until loopUntil) {
+            limitedScheduleDays.add(schedule.schedules[i])
+        }
+
+        schedule.schedules = limitedScheduleDays
+
+        return schedule
     }
 
     // This schedule will be shown on UI
-    fun getRegularSchedule(schedule: Schedule, fromCurrentDate: Boolean = true): Schedule {
-        val filteredSchedule = if (fromCurrentDate) {
+    fun getRegularSchedule(schedule: Schedule, page: Int, pageSize: Int): Schedule {
+        val filteredSchedule = if (!schedule.settings.isShowPastDays) {
             filterActualSchedule(schedule)
         } else {
-            schedule.copy()
+            filterActualSchedule(schedule, schedule.settings.pastDaysNumber)
         }
-        setActualDateStatuses(schedule)
 
+//        val pagingLimit = getPagingLimit(filteredSchedule, page, pageSize)
+        setActualDateStatuses(filteredSchedule, schedule.settings.isShowPastDays)
+
+        setSubjectsPrediction(filteredSchedule)
         filteredSchedule.schedules = filterBySubgroup(filteredSchedule.schedules, filteredSchedule.selectedSubgroup)
         filteredSchedule.schedules = getSubjectsBreakTime(filteredSchedule.schedules)
         filteredSchedule.subjectNow = getActualSubject(filteredSchedule)
 
-        return filteredSchedule
+        return getScheduleBySettings(filteredSchedule)
+    }
+
+    private fun setSubjectsPrediction(schedule: Schedule) {
+        schedule.schedules.mapIndexed { index, day ->
+            day.schedule.map { subject ->
+                var i = 0
+                for (dayIndex in index + 1 until schedule.schedules.size) {
+                    i++
+                    val scheduleDay = schedule.schedules[dayIndex]
+                    val foundSubject = scheduleDay.schedule.find {
+                        it.subject == subject.subject && it.lessonTypeAbbrev == subject.lessonTypeAbbrev &&
+                                ((it.numSubgroup ?: 0) == 0
+                                        ||
+                                        (it.numSubgroup ?: 0) == schedule.selectedSubgroup)
+                    }
+
+                    if (foundSubject != null) {
+                        subject.nextTimeDaysLeft = i
+                        subject.nextTimeSubject = subject
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getScheduleBySettings(schedule: Schedule): Schedule {
+        val settings = schedule.settings
+
+        if (!settings.isShowEmptyDays) {
+            val scheduleDays = ArrayList<ScheduleDay>()
+            scheduleDays.addAll(schedule.schedules)
+
+            schedule.schedules.map { day ->
+                if (day.schedule.size == 0) {
+                    scheduleDays.remove(day)
+                }
+            }
+            schedule.schedules = scheduleDays
+        }
+
+        return schedule
     }
 
     private fun filterBySubgroup(schedule: ArrayList<ScheduleDay>, subgroup: Int): ArrayList<ScheduleDay> {
@@ -227,25 +288,31 @@ class ScheduleController {
         return scheduleList
     }
 
-    private fun setActualDateStatuses(schedule: Schedule) {
+    // Set in ScheduleDay: "Yesterday", "Today" and "Tomorrow" values
+    private fun setActualDateStatuses(schedule: Schedule, isShowPastDays: Boolean) {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
-        var isStop = false
 
-        for (day in schedule.schedules) {
-            if (day.dateUnixTime == calendarDate.getDateUnixTime()) {
-                day.date = calendarDate.getDateStatus()
-                calendarDate.incDate(1)
-                if (isStop) {
-                    break
-                }
-                isStop = true
-            }
+        val todayStartIndex = schedule.schedules.indexOfFirst { it.dateUnixTime == calendarDate.getDateUnixTime() }
+
+        if (isShowPastDays && todayStartIndex > 0) {
+            calendarDate.minusDays(1)
+            schedule.schedules[todayStartIndex - 1].date = calendarDate.getDateStatus()
         }
+
+        for ((dateCounter, i) in (todayStartIndex..todayStartIndex + 2).withIndex()) {
+            calendarDate.incDate(dateCounter)
+            schedule.schedules[i].date = calendarDate.getDateStatus()
+        }
+
+        // FIXME If dayStartIndex+2 > schedule.size = Error
     }
 
-    private fun filterActualSchedule(schedule: Schedule): Schedule {
+    private fun filterActualSchedule(schedule: Schedule, preDays: Int = 0): Schedule {
         val newSchedule = schedule.copy()
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        if (preDays > 0 && schedule.settings.isShowPastDays) {
+            calendarDate.minusDays(preDays)
+        }
 
         val scheduleDays = newSchedule.schedules.filter { day ->
             day.dateUnixTime >= calendarDate.getDateUnixTime()

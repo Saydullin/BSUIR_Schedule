@@ -3,6 +3,7 @@ package com.bsuir.bsuirschedule.domain.repository
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 interface ScheduleRepository {
@@ -16,6 +17,8 @@ interface ScheduleRepository {
     suspend fun getScheduleById(id: Int): Resource<Schedule>
 
     suspend fun saveSchedule(schedule: Schedule): Resource<Unit>
+
+    suspend fun updateScheduleSettings(id: Int, newSettings: ScheduleSettings): Resource<Unit>
 
     suspend fun deleteGroupSchedule(groupName: String): Resource<Unit>
 

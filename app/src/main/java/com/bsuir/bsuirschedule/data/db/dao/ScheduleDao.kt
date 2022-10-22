@@ -15,6 +15,9 @@ interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSchedule(schedule: ScheduleTable)
 
+    @Query("UPDATE ScheduleTable SET settings = :newSettingsJSON WHERE id = :id")
+    fun updateScheduleSettings(id: Int, newSettingsJSON: String)
+
     @Query("DELETE FROM ScheduleTable WHERE group_name = :groupName")
     fun deleteGroupSchedule(groupName: String)
 

@@ -12,6 +12,7 @@
     <color name="primary">#0984E3</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="primary_holder">#dfe6e9</color>
+    <color name="secondary_hint">#CBD2D5</color>
     <color name="light_danger">#ff7675</color>
     <color name="danger">#d63031</color>
     <color name="text_hint">#dfe6e9</color>
@@ -35,5 +36,9 @@
     <color name="subject_lecture">#00b894</color>
     <color name="subject_practise">#fdcb6e</color>
     <color name="subject_lab">#d63031</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 
 </resources>

@@ -60,13 +60,6 @@ class ScheduleSettingsSchedule : Fragment() {
             }
         }
 
-        binding.resetButton.setOnClickListener {
-            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
-            groupScheduleVM.updateScheduleSettings(schedule.id, ScheduleSettings.empty)
-            val resetText = getString(R.string.reset_schedule_settings)
-            Toast.makeText(context, resetText, Toast.LENGTH_SHORT).show()
-        }
-
         binding.pastDaysAmountEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) return
@@ -85,6 +78,13 @@ class ScheduleSettingsSchedule : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+
+        binding.resetButton.setOnClickListener {
+            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
+            groupScheduleVM.updateScheduleSettings(schedule.id, ScheduleSettings.empty)
+            val resetText = getString(R.string.reset_schedule_settings)
+            Toast.makeText(context, resetText, Toast.LENGTH_SHORT).show()
+        }
 
         binding.saveButton.setOnClickListener {
             val savedText = getString(R.string.save_schedule_settings)

@@ -8,8 +8,8 @@ data class ScheduleSettings (
     var isShowEmptyDays: Boolean,
     var isShowPastDays: Boolean,
     var pastDaysNumber: Int,
-    val isShowEmptyExamDays: Boolean,
-    val isShowPastExamDays: Boolean,
+    var isShowEmptyExamDays: Boolean,
+    var isShowPastExamDays: Boolean,
     val alarmSettings: ScheduleAlarm
 ) {
 

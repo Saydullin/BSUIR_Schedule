@@ -184,7 +184,7 @@
     <string name="settings_schedule_subgroup_title">Subgroup</string>
     <string name="get_started">Get Started</string>
     <string name="settings_alarm_on">Turn on</string>
-    <string name="settings_alarm_title">Alarm (beta)</string>
+    <string name="settings_alarm_title">Alarm</string>
     <string name="settings_all_subgroups">All subgroups</string>
     <string name="settings_item_subgroup">%d subgroup</string>
     <string name="all_subgroups_short">all</string>
@@ -208,7 +208,6 @@
     <string name="settings_exams_caption">Exams settings</string>
     <string name="settings_alarm_caption">Alarm clock a few hours before the first lesson</string>
     <string name="settings_schedule_subgroup_caption">Filter lessons by subgroups</string>
-    <string name="settings_lang_ru">Russian</string>
     <string name="settings_light_theme">Light</string>
     <string name="settings_thin_font_size">Thin</string>
     <string name="settings_medium_font_size">Normal</string>
@@ -241,4 +240,7 @@
     <string name="subject_next_time_undefined">This lesson will no longer be held</string>
     <string name="and">and</string>
     <string name="after">after</string>
+    <string name="not_available">On development stage</string>
 </resources>
+
+

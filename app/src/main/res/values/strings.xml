@@ -179,12 +179,12 @@
     <string name="settings_schedule_caption">Вы можете изменить настройки расписаний</string>
     <string name="settings_exams_title">Экзамены</string>
     <string name="settings_exams_caption">Настройки экзаменов</string>
-    <string name="settings_alarm_title">Будильник (бета)</string>
+    <string name="settings_alarm_title">Будильник</string>
     <string name="settings_alarm_caption">Будильник за несколько часов до первой пары</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
     <string name="settings_schedule_subgroup_caption">Отфильтруйте занятия по подгруппам</string>
     <string name="settings_lang_chosen">Выбран %s язык</string>
-    <string name="settings_lang_ru">Русский</string>
+    <string name="settings_lang_ru" translatable="false">Русский</string>
     <string name="settings_lang_en" translatable="false">English</string>
     <string name="settings_lang_be" translatable="false">Беларускі</string>
     <string name="settings_light_theme">Светлая</string>
@@ -195,6 +195,7 @@
     <string name="settings_item_subgroup">%d подгруппа</string>
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
+    <string name="not_available">В процессе разработки</string>
 
     <string-array name="languages">
         <item>Русский</item>

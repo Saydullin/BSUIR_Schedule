@@ -225,6 +225,7 @@ class ScheduleController {
 //        val pagingLimit = getPagingLimit(filteredSchedule, page, pageSize)
         setActualDateStatuses(filteredSchedule, schedule.settings.isShowPastDays)
 
+        // Remove later
         setSubjectsPrediction(filteredSchedule)
         filteredSchedule.schedules = filterBySubgroup(filteredSchedule.schedules, filteredSchedule.selectedSubgroup)
         filteredSchedule.schedules = getSubjectsBreakTime(filteredSchedule.schedules)

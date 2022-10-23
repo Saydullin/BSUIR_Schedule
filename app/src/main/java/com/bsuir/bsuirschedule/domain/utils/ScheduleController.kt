@@ -216,14 +216,14 @@ class ScheduleController {
 
     // This schedule will be shown on UI
     fun getRegularSchedule(schedule: Schedule, page: Int, pageSize: Int): Schedule {
-        val filteredSchedule = if (!schedule.settings.isShowPastDays) {
+        val filteredSchedule = if (!schedule.settings.schedule.isShowPastDays) {
             filterActualSchedule(schedule)
         } else {
-            filterActualSchedule(schedule, schedule.settings.pastDaysNumber)
+            filterActualSchedule(schedule, schedule.settings.schedule.pastDaysNumber)
         }
 
 //        val pagingLimit = getPagingLimit(filteredSchedule, page, pageSize)
-        setActualDateStatuses(filteredSchedule, schedule.settings.isShowPastDays)
+        setActualDateStatuses(filteredSchedule, schedule.settings.schedule.isShowPastDays)
 
         // Remove later
         setSubjectsPrediction(filteredSchedule)
@@ -261,7 +261,7 @@ class ScheduleController {
     private fun getScheduleBySettings(schedule: Schedule): Schedule {
         val settings = schedule.settings
 
-        if (!settings.isShowEmptyDays) {
+        if (!settings.schedule.isShowEmptyDays) {
             val scheduleDays = ArrayList<ScheduleDay>()
             scheduleDays.addAll(schedule.schedules)
 
@@ -311,7 +311,7 @@ class ScheduleController {
     private fun filterActualSchedule(schedule: Schedule, preDays: Int = 0): Schedule {
         val newSchedule = schedule.copy()
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
-        if (preDays > 0 && schedule.settings.isShowPastDays) {
+        if (preDays > 0 && schedule.settings.schedule.isShowPastDays) {
             calendarDate.minusDays(preDays)
         }
 

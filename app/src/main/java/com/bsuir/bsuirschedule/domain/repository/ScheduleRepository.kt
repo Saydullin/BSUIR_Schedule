@@ -3,7 +3,7 @@ package com.bsuir.bsuirschedule.domain.repository
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
-import com.bsuir.bsuirschedule.domain.models.ScheduleSettings
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 interface ScheduleRepository {

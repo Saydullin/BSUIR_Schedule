@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.domain.utils
 
 import com.bsuir.bsuirschedule.domain.models.*
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import kotlin.collections.ArrayList
 
 class ScheduleManager {

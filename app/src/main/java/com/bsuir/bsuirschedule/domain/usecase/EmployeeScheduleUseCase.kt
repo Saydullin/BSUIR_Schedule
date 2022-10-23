@@ -1,7 +1,7 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository

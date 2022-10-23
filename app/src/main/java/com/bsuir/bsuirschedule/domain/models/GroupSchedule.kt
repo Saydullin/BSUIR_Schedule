@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.models
 
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.google.gson.annotations.SerializedName
 import java.util.*
 import kotlin.collections.ArrayList

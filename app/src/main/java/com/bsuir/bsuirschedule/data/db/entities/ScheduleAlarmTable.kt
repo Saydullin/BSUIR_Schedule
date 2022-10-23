@@ -3,7 +3,7 @@ package com.bsuir.bsuirschedule.data.db.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.bsuir.bsuirschedule.domain.models.ScheduleAlarm
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettingsAlarm
 
 @Entity
 data class ScheduleAlarmTable (
@@ -17,7 +17,7 @@ data class ScheduleAlarmTable (
     @ColumnInfo val music: String
 ) {
 
-    fun toScheduleAlarm() = ScheduleAlarm(
+    fun toScheduleAlarm() = ScheduleSettingsAlarm(
         id = id,
         createDate = createDate,
         isTurnOn = isTurnOn,

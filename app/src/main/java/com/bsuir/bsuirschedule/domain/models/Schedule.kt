@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.domain.models
 
 import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -117,7 +118,7 @@ data class Schedule (
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
         selectedSubgroup = selectedSubgroup,
-        settings = settings.toScheduleSettingsTable()
+        settings = settings
     )
 
 }

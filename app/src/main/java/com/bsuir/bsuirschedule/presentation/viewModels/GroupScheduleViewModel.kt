@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsuir.bsuirschedule.domain.models.*
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.usecase.EmployeeScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GroupScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase

@@ -6,6 +6,7 @@ import com.bsuir.bsuirschedule.data.db.converters.ScheduleDayListConverter
 import com.bsuir.bsuirschedule.data.db.converters.ScheduleSettingsConverter
 import com.bsuir.bsuirschedule.data.db.converters.ScheduleSubjectsListConverter
 import com.bsuir.bsuirschedule.domain.models.*
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 
 @Entity
 data class ScheduleTable (
@@ -23,7 +24,7 @@ data class ScheduleTable (
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
     @ColumnInfo val lastUpdateTime: Long,
     @ColumnInfo var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
-    @TypeConverters(ScheduleSettingsConverter::class) val settings: ScheduleSettingsTable
+    @TypeConverters(ScheduleSettingsConverter::class) val settings: ScheduleSettings
 ) {
 
     fun toSchedule() = Schedule(
@@ -42,7 +43,7 @@ data class ScheduleTable (
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
         selectedSubgroup = selectedSubgroup, // 0 - non selected, show all subgroups
-        settings = settings.toScheduleSettings()
+        settings = settings
     )
 
 }

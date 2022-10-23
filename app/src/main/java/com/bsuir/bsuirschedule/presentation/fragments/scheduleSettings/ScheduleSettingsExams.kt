@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSettingsExamsBinding
-import com.bsuir.bsuirschedule.domain.models.ScheduleSettings
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -24,34 +23,25 @@ class ScheduleSettingsExams : Fragment() {
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
-            val settings = schedule.settings
+            val settings = schedule.settings.exams
 
-            binding.emptyDaysCheckBox.isChecked = settings.isShowEmptyExamDays
-            binding.pastDaysCheckBox.isChecked = settings.isShowPastExamDays
-        }
-
-        binding.emptyDaysCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnCheckedChangeListener
-            schedule.settings.isShowEmptyExamDays = isChecked
-            groupScheduleVM.updateScheduleSettings(schedule.id, schedule.settings)
-        }
-
-        binding.pastDaysCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnCheckedChangeListener
-            schedule.settings.isShowPastExamDays = isChecked
-            groupScheduleVM.updateScheduleSettings(schedule.id, schedule.settings)
+            binding.emptyDaysCheckBox.isChecked = settings.isShowEmptyDays
+            binding.pastDaysCheckBox.isChecked = settings.isShowPastDays
         }
 
         binding.resetButton.setOnClickListener {
             val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
-            groupScheduleVM.updateScheduleSettings(schedule.id, ScheduleSettings.empty)
-            val resetText = getString(R.string.reset_schedule_settings)
-            Toast.makeText(context, resetText, Toast.LENGTH_SHORT).show()
+            val scheduleSettings = schedule.settings
+            scheduleSettings.exams = ScheduleSettings.empty.exams
+            groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
         }
 
         binding.saveButton.setOnClickListener {
-            val savedText = getString(R.string.save_schedule_settings)
-            Toast.makeText(context, savedText, Toast.LENGTH_SHORT).show()
+            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
+            val scheduleSettings = schedule.settings
+            scheduleSettings.exams.isShowPastDays = binding.pastDaysCheckBox.isChecked
+            scheduleSettings.exams.isShowEmptyDays = binding.emptyDaysCheckBox.isChecked
+            groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
         }
 
         return binding.root

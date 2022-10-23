@@ -1,8 +1,8 @@
-package com.bsuir.bsuirschedule.domain.models
+package com.bsuir.bsuirschedule.domain.models.scheduleSettings
 
 import com.bsuir.bsuirschedule.data.db.entities.ScheduleAlarmTable
 
-data class ScheduleAlarm (
+data class ScheduleSettingsAlarm (
     val id: Int,
     val createDate: Long,
     val isTurnOn: Boolean,
@@ -14,7 +14,7 @@ data class ScheduleAlarm (
 ) {
 
    companion object {
-       val empty = ScheduleAlarm(
+       val empty = ScheduleSettingsAlarm(
            -1,
                0L,
                false,

@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.BSUIRSchedule.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#303030"
+    android:theme="@style/Theme.BSUIRSchedule.AppWidgetContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/cd_schedule_list"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/schedule_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
+            android:contentDescription="schedule title"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/font_medium_size"
+            android:text="151003"
+            android:textColor="@color/text_light"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/cd_schedule_list"
+            android:src="@drawable/subgroup" />
+
+        <TextView
+            android:id="@+id/schedule_subgroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:contentDescription="schedule title"
+            android:textSize="@dimen/font_regular_size"
+            android:text="2"
+            android:textColor="@color/text_light"
+            android:textStyle="bold" />
+
+<!--        <Space-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1" />-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:contentDescription="@string/cd_schedule_subgroup"-->
+<!--            android:src="@drawable/ic_subgroup" />-->
+
+<!--        <Space-->
+<!--            android:layout_width="10dp"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--        <TextView-->
+<!--            style="@style/Theme.BSUIRSchedule.TextView.Medium"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="2" />-->
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

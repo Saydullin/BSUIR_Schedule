@@ -44,6 +44,10 @@ class GroupScheduleViewModel(
         scheduleLoaded.value = null
     }
 
+    fun getActiveSchedule(): Schedule? {
+        return schedule.value
+    }
+
     fun selectSchedule(savedSchedule: SavedSchedule) {
         viewModelScope.launch(Dispatchers.IO) {
             if (savedSchedule.id == activeSchedule.value?.id &&

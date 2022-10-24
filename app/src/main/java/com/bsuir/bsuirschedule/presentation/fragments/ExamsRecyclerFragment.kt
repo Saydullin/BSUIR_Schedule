@@ -30,7 +30,8 @@ class ExamsRecyclerFragment : Fragment() {
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
 
-        val adapter = MainScheduleAdapter(context!!, ArrayList(), false, showSubjectDialog, true)
+        val adapter = MainScheduleAdapter(context!!)
+        adapter.setExams(true)
         binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleDailyRecycler.adapter = adapter
 

@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -19,7 +20,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         DepartmentTable::class,
         CurrentWeekTable::class
     ],
-    version = 2,
+    version = 1,
     exportSchema = true,
 //    autoMigrations = [
 //        AutoMigration (from = 1, to = 2)

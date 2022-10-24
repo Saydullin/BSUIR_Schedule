@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BSUIRSchedule">
         <receiver
-            android:name=".presentation.widgets.MainSchedule"
+            android:name=".presentation.widgets.MainWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -25,7 +25,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/main_schedule_info" />
+                android:resource="@xml/main_widget_info" />
         </receiver>
 
         <activity

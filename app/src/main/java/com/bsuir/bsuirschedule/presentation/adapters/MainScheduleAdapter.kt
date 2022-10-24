@@ -14,11 +14,13 @@ import com.bsuir.bsuirschedule.domain.utils.CalendarDate
 
 class MainScheduleAdapter(
     private val context: Context,
-    private var data: ArrayList<ScheduleDay>,
-    private var isGroupSchedule: Boolean,
-    private var showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
-    private val isExams: Boolean = false
 ): RecyclerView.Adapter<MainScheduleAdapter.ViewHolder>() {
+
+    private var data = ArrayList<ScheduleDay>()
+    private var isGroupSchedule = false
+    private var isShortSchedule = false
+    private var showSubjectDialog: ((subject: ScheduleSubject) -> Unit)? = null
+    private var isExams = false
 
     fun updateSchedule(newData: ArrayList<ScheduleDay>, isGroup: Boolean, subjectDialog: ((subject: ScheduleSubject) -> Unit)?) {
         isGroupSchedule = isGroup
@@ -28,10 +30,19 @@ class MainScheduleAdapter(
         notifyDataSetChanged()
     }
 
+    fun setShortSchedule(isShort: Boolean) {
+        isShortSchedule = isShort
+        notifyDataSetChanged()
+    }
+
+    fun setExams(isExamsSchedule: Boolean) {
+        isExams = isExamsSchedule
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ScheduleDayBinding.inflate(LayoutInflater.from(context), parent, false)
 
-        return ViewHolder(isGroupSchedule, showSubjectDialog, view, isExams)
+        return ViewHolder(isGroupSchedule, isShortSchedule, showSubjectDialog, view, isExams)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -47,6 +58,7 @@ class MainScheduleAdapter(
 
     class ViewHolder(
         private val isGroupSchedule: Boolean,
+        private val isShortSchedule: Boolean,
         private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
         private val binding: ScheduleDayBinding,
         private val isExams: Boolean
@@ -95,7 +107,11 @@ class MainScheduleAdapter(
                 if (isExams) {
                     binding.scheduleDayHeader.setBackgroundResource(R.drawable.subject_exams_holder)
                 }
-                val adapter = ScheduleSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog)
+                val adapter = if (isShortSchedule) {
+                    ScheduleShortSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog)
+                } else {
+                    ScheduleSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog)
+                }
                 binding.scheduleSubjectsRecycler.adapter = adapter
                 binding.scheduleSubjectsRecycler.layoutManager = LinearLayoutManager(context)
                 binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()

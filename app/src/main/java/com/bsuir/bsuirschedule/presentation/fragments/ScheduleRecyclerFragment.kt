@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
@@ -35,7 +36,7 @@ class ScheduleRecyclerFragment : Fragment() {
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
-        val adapter = MainScheduleAdapter(context!!, ArrayList(), false, null)
+        val adapter = MainScheduleAdapter(context!!)
         binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleDailyRecycler.adapter = adapter
 
@@ -73,6 +74,7 @@ class ScheduleRecyclerFragment : Fragment() {
             if (groupSchedule.schedules.size > 0) {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
+                adapter.setShortSchedule(groupSchedule.settings.schedule.isShowShortSchedule)
                 adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog)
                 binding.scheduleDailyRecycler.adapter = adapter
             } else {

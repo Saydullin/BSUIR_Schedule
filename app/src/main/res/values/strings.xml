@@ -174,6 +174,7 @@
     <string name="settings_auto_update">Автоматическое обновление</string>
     <string name="settings_alarm_on">Включить будильник</string>
     <string name="settings_show_empty_day">Показывать пустые дни</string>
+    <string name="settings_show_short_version">Показывать в коротком виде</string>
     <string name="settings_show_past_days">Показывать прошедшие дни</string>
     <string name="settings_schedule_title">Расписания</string>
     <string name="settings_schedule_caption">Вы можете изменить настройки расписаний</string>

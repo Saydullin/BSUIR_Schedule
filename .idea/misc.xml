@@ -125,6 +125,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/loading_dialog.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/loading_modal.xml" value="0.176" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/main_schedule_widget.xml" value="0.2164855072463768" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/main_widget.xml" value="0.1" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/new_app_widget.xml" value="0.2164855072463768" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_calendar_placeholder.xml" value="0.2" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/no_exams_placeholder.xml" value="0.25" />
@@ -140,6 +141,7 @@
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/schedule_list_item.xml" value="0.264" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/schedule_placeholder.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/schedule_subject.xml" value="0.264" />
+        <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/schedule_subject_short.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_alarm.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_exams.xml" value="0.25" />
         <entry key="..\:/Users/saydu/AndroidStudioProjects/BSUIRSchedule/app/src/main/res/layout/settings_feedback.xml" value="0.25" />

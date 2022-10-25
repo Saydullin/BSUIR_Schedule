@@ -128,7 +128,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_redo"
+                android:src="@drawable/ic_next"
                 android:contentDescription="@string/cd_subject_type" />
 
             <Space

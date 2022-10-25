@@ -29,22 +29,49 @@ class ScheduleSettingsExams : Fragment() {
             binding.pastDaysCheckBox.isChecked = settings.isShowPastDays
         }
 
+        binding.emptyDaysCheckBox.setOnCheckedChangeListener { _, _ ->
+            validateChanges(binding)
+        }
+
+        binding.pastDaysCheckBox.setOnCheckedChangeListener { _, _ ->
+            validateChanges(binding)
+        }
+
         binding.resetButton.setOnClickListener {
-            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
+            val schedule = groupScheduleVM.getActiveSchedule() ?: return@setOnClickListener
             val scheduleSettings = schedule.settings
             scheduleSettings.exams = ScheduleSettings.empty.exams
             groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
         }
 
         binding.saveButton.setOnClickListener {
-            val schedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
+            val schedule = groupScheduleVM.getActiveSchedule() ?: return@setOnClickListener
             val scheduleSettings = schedule.settings
+            binding.saveButton.animate().setDuration(300).alpha(0f)
+            binding.saveButton.isEnabled = false
             scheduleSettings.exams.isShowPastDays = binding.pastDaysCheckBox.isChecked
             scheduleSettings.exams.isShowEmptyDays = binding.emptyDaysCheckBox.isChecked
             groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
         }
 
         return binding.root
+    }
+
+    private fun validateChanges(binding: FragmentScheduleSettingsExamsBinding) {
+        val schedule = groupScheduleVM.getActiveSchedule() ?: return
+        val scheduleSettings = schedule.settings.exams
+
+        if (
+            scheduleSettings.isShowEmptyDays != binding.emptyDaysCheckBox.isChecked ||
+            scheduleSettings.isShowPastDays != binding.pastDaysCheckBox.isChecked
+        ) {
+            binding.saveButton.animate().setDuration(300).alpha(1f)
+            binding.saveButton.isEnabled = true
+        } else {
+            binding.saveButton.animate().setDuration(300).alpha(0f)
+            binding.saveButton.isEnabled = false
+        }
+
     }
 
 }

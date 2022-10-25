@@ -27,15 +27,6 @@ class ScheduleController {
         val schedule = groupSchedule.toSchedule()
         schedule.schedules = weekDays
 
-        if (!schedule.isExamsNotExist()) {
-            schedule.examsSchedule = getDaysFromSubjects(
-                schedule.exams,
-                schedule.startExamsDate,
-                schedule.endExamsDate
-            )
-            schedule.examsSchedule = getSubjectsBreakTime(schedule.examsSchedule)
-        }
-
         return schedule
     }
 
@@ -153,13 +144,19 @@ class ScheduleController {
         return subjectsBreakTime
     }
 
-    private fun getSubgroupsList(schedule: ArrayList<ScheduleDay>): List<Int> {
+    private fun getSubgroupsList(schedule: Schedule): List<Int> {
         val amount = ArrayList<Int>()
 
         amount.add(0)
 
-        schedule.forEach { day ->
-            day.schedule.forEach { subject ->
+        if (!schedule.isNotExistSchedule()) {
+            schedule.schedules.forEach { day ->
+                day.schedule.forEach { subject ->
+                    amount.add(subject.numSubgroup ?: 0)
+                }
+            }
+        } else if (!schedule.isExamsNotExist()) {
+            schedule.exams.forEach { subject ->
                 amount.add(subject.numSubgroup ?: 0)
             }
         }
@@ -186,7 +183,16 @@ class ScheduleController {
     // This schedule will be saved in DB
     fun getBasicSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
         val schedule = getNormalSchedule(groupSchedule)
-        schedule.subgroups = getSubgroupsList(schedule.schedules)
+
+        if (!schedule.isExamsNotExist()) {
+            schedule.examsSchedule = getDaysFromSubjects(
+                schedule.exams,
+                schedule.startExamsDate,
+                schedule.endExamsDate
+            )
+        }
+
+        schedule.subgroups = getSubgroupsList(schedule)
 
         if (schedule.isNotExistSchedule()) {
             return schedule
@@ -196,6 +202,8 @@ class ScheduleController {
         val daysWithDatesSchedule = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
 
         setSubjectsPrediction(daysWithDatesSchedule)
+
+
 
         return getMillisTimeInSubjects(daysWithDatesSchedule)
     }
@@ -216,22 +224,52 @@ class ScheduleController {
 
     // This schedule will be shown on UI
     fun getRegularSchedule(schedule: Schedule, page: Int, pageSize: Int): Schedule {
-        val filteredSchedule = if (!schedule.settings.schedule.isShowPastDays) {
-            filterActualSchedule(schedule)
+        val regularSchedule = schedule.copy()
+
+        if (!schedule.isExamsNotExist()) {
+            if (!schedule.settings.exams.isShowPastDays) {
+                regularSchedule.examsSchedule = filterActualSchedule(regularSchedule.examsSchedule)
+            } else {
+                regularSchedule.examsSchedule = filterActualSchedule(
+                    regularSchedule.examsSchedule,
+                    30
+                )
+            }
+            regularSchedule.examsSchedule = setActualDateStatuses(
+                regularSchedule.examsSchedule,
+                regularSchedule.settings.exams.isShowPastDays
+            )
+            regularSchedule.examsSchedule = filterBySubgroup(regularSchedule.examsSchedule, regularSchedule.selectedSubgroup)
+            regularSchedule.examsSchedule = getSubjectsBreakTime(regularSchedule.examsSchedule)
+            regularSchedule.examsSchedule = getScheduleBySettings(
+                regularSchedule.examsSchedule,
+                regularSchedule.settings.exams.isShowEmptyDays
+            )
         } else {
-            filterActualSchedule(schedule, schedule.settings.schedule.pastDaysNumber)
+            regularSchedule.examsSchedule = ArrayList()
         }
 
-//        val pagingLimit = getPagingLimit(filteredSchedule, page, pageSize)
-        setActualDateStatuses(filteredSchedule, schedule.settings.schedule.isShowPastDays)
+        if (!schedule.isNotExistSchedule()) {
+            if (!schedule.settings.schedule.isShowPastDays) {
+                regularSchedule.schedules = filterActualSchedule(regularSchedule.schedules)
+            } else {
+                regularSchedule.schedules = filterActualSchedule(regularSchedule.schedules, regularSchedule.settings.schedule.pastDaysNumber)
+            }
 
-        // Remove later
-        setSubjectsPrediction(filteredSchedule)
-        filteredSchedule.schedules = filterBySubgroup(filteredSchedule.schedules, filteredSchedule.selectedSubgroup)
-        filteredSchedule.schedules = getSubjectsBreakTime(filteredSchedule.schedules)
-        filteredSchedule.subjectNow = getActualSubject(filteredSchedule)
+            //  val pagingLimit = getPagingLimit(filteredSchedule, page, pageSize)
+            regularSchedule.schedules = setActualDateStatuses(regularSchedule.schedules, schedule.settings.schedule.isShowPastDays)
+            regularSchedule.schedules = filterBySubgroup(regularSchedule.schedules, regularSchedule.selectedSubgroup)
+            regularSchedule.schedules = getSubjectsBreakTime(regularSchedule.schedules)
+            regularSchedule.subjectNow = getActualSubject(regularSchedule)
+            regularSchedule.schedules = getScheduleBySettings(
+                regularSchedule.schedules,
+                regularSchedule.settings.schedule.isShowEmptyDays
+            )
+        } else {
+            regularSchedule.schedules = ArrayList()
+        }
 
-        return getScheduleBySettings(filteredSchedule)
+        return regularSchedule
     }
 
     private fun setSubjectsPrediction(schedule: Schedule) {
@@ -258,22 +296,19 @@ class ScheduleController {
         }
     }
 
-    private fun getScheduleBySettings(schedule: Schedule): Schedule {
-        val settings = schedule.settings
+    private fun getScheduleBySettings(schedule: ArrayList<ScheduleDay>, isShowEmptyDays: Boolean): ArrayList<ScheduleDay> {
+        val scheduleDays = ArrayList<ScheduleDay>()
+        scheduleDays.addAll(schedule)
 
-        if (!settings.schedule.isShowEmptyDays) {
-            val scheduleDays = ArrayList<ScheduleDay>()
-            scheduleDays.addAll(schedule.schedules)
-
-            schedule.schedules.map { day ->
+        if (!isShowEmptyDays) {
+            schedule.map { day ->
                 if (day.schedule.size == 0) {
                     scheduleDays.remove(day)
                 }
             }
-            schedule.schedules = scheduleDays
         }
 
-        return schedule
+        return scheduleDays
     }
 
     private fun filterBySubgroup(schedule: ArrayList<ScheduleDay>, subgroup: Int): ArrayList<ScheduleDay> {
@@ -290,38 +325,37 @@ class ScheduleController {
     }
 
     // Set in ScheduleDay: "Yesterday", "Today" and "Tomorrow" values
-    private fun setActualDateStatuses(schedule: Schedule, isShowPastDays: Boolean) {
+    private fun setActualDateStatuses(schedule: ArrayList<ScheduleDay>, isShowPastDays: Boolean): ArrayList<ScheduleDay> {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
 
-        val todayStartIndex = schedule.schedules.indexOfFirst { it.dateUnixTime == calendarDate.getDateUnixTime() }
+        val todayStartIndex = schedule.indexOfFirst { it.dateUnixTime == calendarDate.getDateUnixTime() }
+        if (todayStartIndex == -1) return schedule
 
         if (isShowPastDays && todayStartIndex > 0) {
             calendarDate.minusDays(1)
-            schedule.schedules[todayStartIndex - 1].date = calendarDate.getDateStatus()
+            schedule[todayStartIndex - 1].date = calendarDate.getDateStatus()
         }
 
         for ((dateCounter, i) in (todayStartIndex..todayStartIndex + 2).withIndex()) {
+            if (i >= schedule.size) break
             calendarDate.incDate(dateCounter)
-            schedule.schedules[i].date = calendarDate.getDateStatus()
+            schedule[i].date = calendarDate.getDateStatus()
         }
 
-        // FIXME If dayStartIndex+2 > schedule.size = Error
+        return schedule
     }
 
-    private fun filterActualSchedule(schedule: Schedule, preDays: Int = 0): Schedule {
-        val newSchedule = schedule.copy()
+    private fun filterActualSchedule(schedule: ArrayList<ScheduleDay>, preDays: Int = 0): ArrayList<ScheduleDay> {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
-        if (preDays > 0 && schedule.settings.schedule.isShowPastDays) {
+        if (preDays > 0) {
             calendarDate.minusDays(preDays)
         }
 
-        val scheduleDays = newSchedule.schedules.filter { day ->
+        val scheduleDays = schedule.filter { day ->
             day.dateUnixTime >= calendarDate.getDateUnixTime()
         }
 
-        newSchedule.schedules = scheduleDays as ArrayList<ScheduleDay>
-
-        return newSchedule
+        return scheduleDays as ArrayList<ScheduleDay>
     }
 
     private fun getDaysFromSubjects(

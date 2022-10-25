@@ -57,7 +57,7 @@
             android:paddingHorizontal="10dp"
             android:orientation="horizontal">
 
-            <CheckBox
+            <Switch
                 android:id="@+id/autoUpdateCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             android:paddingHorizontal="10dp"
             android:orientation="horizontal">
 
-            <CheckBox
+            <Switch
                 android:id="@+id/emptyDaysCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             android:paddingHorizontal="10dp"
             android:orientation="horizontal">
 
-            <CheckBox
+            <Switch
                 android:id="@+id/pastDaysCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

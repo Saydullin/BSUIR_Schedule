@@ -40,6 +40,7 @@ class ExamsRecyclerFragment : Fragment() {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 adapter.updateSchedule(groupSchedule.examsSchedule, groupSchedule.isGroup(), showSubjectDialog)
+                binding.scheduleDailyRecycler.adapter = adapter
                 binding.scheduleDailyRecycler.alpha = 0f
                 binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {

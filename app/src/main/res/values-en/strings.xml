@@ -206,7 +206,7 @@
     <string name="settings_schedule_caption">You can change schedule settings</string>
     <string name="settings_exams_title">Exams</string>
     <string name="settings_exams_caption">Exams settings</string>
-    <string name="settings_alarm_caption">Alarm clock a few hours before the first lesson</string>
+    <string name="settings_alarm_caption">The alarm clock determines on which lesson you need tomorrow and rings N hours before it starts. On development stage.</string>
     <string name="settings_schedule_subgroup_caption">Filter lessons by subgroups</string>
     <string name="settings_light_theme">Light</string>
     <string name="settings_thin_font_size">Thin</string>
@@ -241,6 +241,7 @@
     <string name="and">and</string>
     <string name="after">after</string>
     <string name="not_available">On development stage</string>
+    <string name="settings_show_short_version">Show in short form</string>
 </resources>
 
 

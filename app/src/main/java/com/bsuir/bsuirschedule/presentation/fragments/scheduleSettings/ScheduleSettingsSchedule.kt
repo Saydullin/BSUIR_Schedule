@@ -86,11 +86,12 @@ class ScheduleSettingsSchedule : Fragment() {
             binding.saveButton.animate().setDuration(300).alpha(0f)
             binding.saveButton.isEnabled = false
             scheduleSettings.schedule.isShowPastDays = binding.pastDaysCheckBox.isChecked
-            if (binding.pastDaysAmountEditText.text.isDigitsOnly()) {
+            if (binding.pastDaysAmountEditText.text.isNotEmpty() && binding.pastDaysAmountEditText.text.isDigitsOnly()) {
                 scheduleSettings.schedule.pastDaysNumber = binding.pastDaysAmountEditText.text.toString().toInt()
             } else {
                 scheduleSettings.schedule.pastDaysNumber = 0
             }
+            binding.pastDaysAmountEditText.clearFocus()
             scheduleSettings.schedule.isShowEmptyDays = binding.emptyDaysCheckBox.isChecked
             scheduleSettings.schedule.isShowShortSchedule = binding.shortScheduleCheckBox.isChecked
             scheduleSettings.schedule.isAutoUpdate = binding.autoUpdateCheckBox.isChecked

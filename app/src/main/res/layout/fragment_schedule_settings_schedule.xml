@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Theme.BSUIRSchedule.Button.Hint"
-                android:text="Сбросить" />
+                android:text="@string/reset" />
 
             <Space
                 android:layout_width="0dp"
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 style="@style/Theme.BSUIRSchedule.Button"
-                android:text="Сохранить" />
+                android:text="@string/save" />
 
         </LinearLayout>
 

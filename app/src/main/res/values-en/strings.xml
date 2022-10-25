@@ -242,6 +242,8 @@
     <string name="after">after</string>
     <string name="not_available">On development stage</string>
     <string name="settings_show_short_version">Show in short form</string>
+    <string name="reset">Reset</string>
+    <string name="save">Save</string>
 </resources>
 
 

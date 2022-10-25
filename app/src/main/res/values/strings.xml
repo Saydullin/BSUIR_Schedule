@@ -299,6 +299,8 @@
     <string name="add_widget" translatable="false">Add widget</string>
     <string name="app_widget_description" translatable="false">This is an app widget description</string>
     <string name="schedule_settings_schedule_past_days_hint_text">Сколько прошедших дней показывать?</string>
+    <string name="reset">Сбросить</string>
+    <string name="save">Сохранить</string>
 
 </resources>
 

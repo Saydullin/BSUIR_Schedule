@@ -208,18 +208,16 @@ class ScheduleController {
         return getMillisTimeInSubjects(daysWithDatesSchedule)
     }
 
-    private fun getPagingLimit(schedule: Schedule, page: Int, pageSize: Int): Schedule {
+    private fun getPagingLimit(schedule: ArrayList<ScheduleDay>, page: Int, pageSize: Int): ArrayList<ScheduleDay> {
         val limitedScheduleDays = ArrayList<ScheduleDay>()
 
-        val loopUntil = if (schedule.schedules.size < pageSize) schedule.schedules.size else pageSize
+        val loopUntil = if (schedule.size < pageSize) schedule.size else pageSize
 
         for (i in 0 until loopUntil) {
-            limitedScheduleDays.add(schedule.schedules[i])
+            limitedScheduleDays.add(schedule[i])
         }
 
-        schedule.schedules = limitedScheduleDays
-
-        return schedule
+        return limitedScheduleDays
     }
 
     // This schedule will be shown on UI
@@ -256,7 +254,7 @@ class ScheduleController {
                 regularSchedule.schedules = filterActualSchedule(regularSchedule.schedules, regularSchedule.settings.schedule.pastDaysNumber)
             }
 
-            //  val pagingLimit = getPagingLimit(filteredSchedule, page, pageSize)
+//            regularSchedule.schedules = getPagingLimit(regularSchedule.schedules, page, 3)
             regularSchedule.schedules = setActualDateStatuses(regularSchedule.schedules, schedule.settings.schedule.isShowPastDays)
             regularSchedule.schedules = filterBySubgroup(regularSchedule.schedules, regularSchedule.selectedSubgroup)
             regularSchedule.schedules = getSubjectsBreakTime(regularSchedule.schedules)

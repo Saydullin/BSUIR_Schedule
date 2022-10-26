@@ -44,6 +44,11 @@ class GroupScheduleViewModel(
         scheduleLoaded.value = null
     }
 
+    fun updateSchedule() {
+        schedule.value = schedule.value
+        settingsUpdated.value = false
+    }
+
     fun getActiveSchedule(): Schedule? {
         return schedule.value
     }

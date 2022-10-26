@@ -25,7 +25,7 @@ class ScheduleSettingsSchedule : Fragment() {
     ): View {
         val binding = FragmentScheduleSettingsScheduleBinding.inflate(inflater)
 
-        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) {schedule ->
             if (schedule == null) return@observe
             val settings = schedule.settings.schedule
 

@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,12 +59,20 @@ class AllGroupItemsFragment : Fragment() {
 
         groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null || !savedSchedule.isGroup) return@observe
-            Log.e("sady", "ScheduleLoaded observe triggered")
             savedSchedule.group.isSaved = true
             groupItemsVM.saveGroupItem(savedSchedule.group)
             savedItemsVM.saveSchedule(savedSchedule)
             adapter.setSavedItem(savedSchedule.group)
             groupScheduleVM.setScheduleLoadedNull()
+        }
+
+        groupItemsVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
+            if (errorStatus != null) {
+                val stateDialog = StateDialog(errorStatus)
+                stateDialog.isCancelable = true
+                stateDialog.show(parentFragmentManager, "ErrorDialog")
+                groupItemsVM.closeError()
+            }
         }
 
         groupScheduleVM.groupLoadingStatus.observe(viewLifecycleOwner) { loading ->

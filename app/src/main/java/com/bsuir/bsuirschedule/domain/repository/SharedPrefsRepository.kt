@@ -10,6 +10,10 @@ interface SharedPrefsRepository {
 
     fun setFirstTime(isFirst: Boolean)
 
+    fun isDataLoadingTrouble(): Boolean
+
+    fun setDataLoadingTrouble(isTrouble: Boolean)
+
     fun getActiveScheduleId(): Int
 
     fun setActiveScheduleId(scheduleId: Int)

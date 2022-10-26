@@ -89,7 +89,7 @@ class GroupScheduleViewModel(
                     scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isNotExistExams()))
                     error.postValue(StateStatus(
                         state = StateStatus.SUCCESS_STATE,
-                        type = 0,
+                        type = Resource.SCHEDULE_LOADED_SUCCESS,
                     ))
                 }
                 is Resource.Error -> {
@@ -259,7 +259,7 @@ class GroupScheduleViewModel(
                 }
                 error.postValue(StateStatus(
                     state = StateStatus.SUCCESS_STATE,
-                    type = 0
+                    type = Resource.SCHEDULE_DELETED_SUCCESS
                 ))
                 deletedSchedule.postValue(savedSchedule)
                 if (schedule.value?.id == savedSchedule.id) {

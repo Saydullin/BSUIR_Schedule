@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.dialogs
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +26,11 @@ class StateDialog(private val stateStatus: StateStatus): DialogFragment() {
 
         when(stateStatus.state) {
             StateStatus.SUCCESS_STATE -> {
+                val errorMessage = ErrorMessage(context!!).get(stateStatus.type)
+
                 binding.icon.setImageResource(R.drawable.ic_success_icon)
-                binding.title.text = resources.getString(R.string.success_dialog_title)
-                binding.caption.text = resources.getString(R.string.success_dialog_caption)
+                binding.title.text = errorMessage.title
+                binding.caption.text = errorMessage.caption
             }
             StateStatus.INFO_STATE -> {
                 binding.icon.setImageResource(R.drawable.ic_info_icon)
@@ -43,14 +44,14 @@ class StateDialog(private val stateStatus: StateStatus): DialogFragment() {
                 binding.title.text = errorMessage.title
                 binding.caption.text = errorMessage.caption
             }
+            else -> {
+                binding.icon.setImageResource(R.drawable.ic_info_icon)
+                binding.title.text = resources.getString(R.string.info_dialog_title)
+                binding.caption.text = stateStatus.message
+            }
         }
 
         return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        setRetainInstance(true)
-        return super.onCreateDialog(savedInstanceState)
     }
 
 }

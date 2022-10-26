@@ -25,7 +25,7 @@ class CurrentWeekViewModel(
         error.value = null
     }
 
-    fun checkIsWeekActual() {
+    fun setCurrentWeekNumber() {
         viewModelScope.launch(Dispatchers.IO) {
             when (
                 val result = getCurrentWeekUseCase.isCurrentWeekPassed()
@@ -36,11 +36,13 @@ class CurrentWeekViewModel(
                     }
                 }
                 is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
-                        message = result.message
-                    ))
+                    error.postValue(
+                        StateStatus(
+                            state = StateStatus.ERROR_STATE,
+                            type = result.errorType,
+                            message = result.message
+                        )
+                    )
                 }
             }
         }
@@ -57,9 +59,10 @@ class CurrentWeekViewModel(
                     currentWeek.postValue(data.week)
                 }
                 is Resource.Error -> {
-                    error.postValue(StateStatus(
+                    error.postValue(
+                        StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
+                            type = Resource.WEEK_API_LOADING_ERROR,
                             message = result.message
                         )
                     )
@@ -68,11 +71,11 @@ class CurrentWeekViewModel(
         }
     }
 
-    private fun saveCurrentWeek(currentWeek: CurrentWeek) {
+    private fun saveCurrentWeek(currentWeekNumber: CurrentWeek) {
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
             when(
-                val result = getCurrentWeekUseCase.saveCurrentWeek(currentWeek)
+                val result = getCurrentWeekUseCase.saveCurrentWeek(currentWeekNumber)
             ) {
                 is Resource.Success -> {
                     loading.postValue(false)
@@ -98,14 +101,12 @@ class CurrentWeekViewModel(
                     currentWeek.postValue(result.data!!)
                 }
                 is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
-                        message = result.message
-                    ))
+                    currentWeek.postValue(0)
                 }
             }
         }
     }
 
 }
+
+

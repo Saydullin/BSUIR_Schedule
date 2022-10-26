@@ -18,12 +18,12 @@ class InitialDataViewModel(
     private val getDepartmentUseCase: GetDepartmentUseCase
 ): ViewModel() {
 
-    private val isFacultiesDone: MutableLiveData<Boolean> = MutableLiveData(false)
-    private val isSpecialitiesDone: MutableLiveData<Boolean> = MutableLiveData(false)
-    private val isDepartmentsDone: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val isFacultiesDone = MutableLiveData(false)
+    private val isSpecialitiesDone = MutableLiveData(false)
+    private val isDepartmentsDone = MutableLiveData(false)
+    private val isTrouble = MutableLiveData(false)
     private val allDoneMerger: MediatorLiveData<Boolean> = MediatorLiveData<Boolean>()
-    private val error = MutableLiveData<StateStatus>(null)
-    val errorStatus = error
+    val isTroubleStatus = isTrouble
     val allDoneStatus = allDoneMerger
 
     fun initAllData() {
@@ -50,24 +50,23 @@ class InitialDataViewModel(
     private fun updateFaculties() {
         isFacultiesDone.value = false
         viewModelScope.launch(IO) {
-            val result = getFacultyUseCase.getFacultiesAPI()
-            when(result) {
+            when (
+                val result = getFacultyUseCase.getFacultiesAPI()
+            ) {
                 is Resource.Success -> {
-                    val savedResult = getFacultyUseCase.saveFaculties(result.data!!)
-                    if (savedResult is Resource.Error) {
-                        error.postValue(StateStatus(
-                            state = StateStatus.ERROR_STATE,
-                            type = savedResult.errorType,
-                            message = savedResult.message
-                        ))
+                    when (
+                        getFacultyUseCase.saveFaculties(result.data!!)
+                    ) {
+                        is Resource.Success -> {
+                            isTrouble.postValue(false)
+                        }
+                        is Resource.Error -> {
+                            isTrouble.postValue(true)
+                        }
                     }
                 }
                 is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
-                        message = result.message
-                    ))
+                    isTrouble.postValue(true)
                 }
             }
             isFacultiesDone.postValue(true)
@@ -77,24 +76,23 @@ class InitialDataViewModel(
     private fun updateSpecialities() {
         isSpecialitiesDone.value = false
         viewModelScope.launch(IO) {
-            val result = getSpecialityUseCase.getSpecialitiesAPI()
-            when(result) {
+            when (
+                val result = getSpecialityUseCase.getSpecialitiesAPI()
+            ) {
                 is Resource.Success -> {
-                    val savedResult = getSpecialityUseCase.saveSpecialities(result.data!!)
-                    if (savedResult is Resource.Error) {
-                        error.postValue(StateStatus(
-                            state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
-                            message = result.message
-                        ))
+                    when (
+                        getSpecialityUseCase.saveSpecialities(result.data!!)
+                    ) {
+                        is Resource.Success -> {
+                            isTrouble.postValue(false)
+                        }
+                        is Resource.Error -> {
+                            isTrouble.postValue(true)
+                        }
                     }
                 }
                 is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
-                        message = result.message
-                    ))
+                    isTrouble.postValue(true)
                 }
             }
             isSpecialitiesDone.postValue(true)
@@ -104,24 +102,23 @@ class InitialDataViewModel(
     private fun updateDepartments() {
         isDepartmentsDone.value = false
         viewModelScope.launch(IO) {
-            val result = getDepartmentUseCase.getDepartmentsAPI()
-            when(result) {
+            when (
+                val result = getDepartmentUseCase.getDepartmentsAPI()
+            ) {
                 is Resource.Success -> {
-                    val savedResult = getDepartmentUseCase.saveDepartments(result.data!!)
-                    if (savedResult is Resource.Error) {
-                        error.postValue(StateStatus(
-                            state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
-                            message = result.message
-                        ))
+                    when (
+                        getDepartmentUseCase.saveDepartments(result.data!!)
+                    ) {
+                        is Resource.Success -> {
+                            isTrouble.postValue(false)
+                        }
+                        is Resource.Error -> {
+                            isTrouble.postValue(true)
+                        }
                     }
                 }
                 is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
-                        message = result.message
-                    ))
+                    isTrouble.postValue(true)
                 }
             }
             isDepartmentsDone.postValue(true)

@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.dialogs
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -106,11 +105,6 @@ class SavedScheduleDialog(
         }
 
         return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        setRetainInstance(true)
-        return super.onCreateDialog(savedInstanceState)
     }
 
 }

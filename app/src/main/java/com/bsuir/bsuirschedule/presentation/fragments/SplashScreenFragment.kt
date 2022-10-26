@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentSplashScreenBinding
+import com.bsuir.bsuirschedule.domain.models.StateStatus
+import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.*
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -36,16 +39,8 @@ class SplashScreenFragment : Fragment() {
             currentWeekVM.getCurrentWeekAPI()
         } else {
             groupScheduleVM.initActiveSchedule()
-            currentWeekVM.checkIsWeekActual()
+            currentWeekVM.setCurrentWeekNumber()
             findNavController().navigate(R.id.action_to_mainScheduleFragment)
-        }
-
-        initialDataVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
-            if (errorStatus != null) {
-                val statusState = StateDialog(errorStatus)
-                statusState.isCancelable = false
-                statusState.show(parentFragmentManager, "errorInStart")
-            }
         }
 
         initialDataVM.allDoneStatus.observe(viewLifecycleOwner) { isAllDone ->
@@ -53,6 +48,20 @@ class SplashScreenFragment : Fragment() {
                 groupItemsVM.updateGroupItems()
                 employeeItemsVM.updateEmployeeItems()
                 findNavController().navigate(R.id.action_splashScreenFragment_to_welcomeFragment)
+            }
+        }
+
+        initialDataVM.isTroubleStatus.observe(viewLifecycleOwner) { isTrouble ->
+            prefs.setDataLoadingTrouble(isTrouble)
+            if (isTrouble) {
+                val errorStatus = StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = Resource.INITIAL_DATA_LOADING_TROUBLE
+                )
+                val statusState = StateDialog(errorStatus)
+                statusState.isCancelable = false
+                statusState.show(parentFragmentManager, "errorInStart")
+                initialDataVM.isTroubleStatus.removeObservers(this)
             }
         }
 

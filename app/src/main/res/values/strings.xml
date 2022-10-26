@@ -112,6 +112,8 @@
     <string name="exams">Экзамены</string>
 
     <!--  Errors  -->
+    <string name="initial_data_loading_error">Где данные?</string>
+    <string name="initial_data_loading_error_caption">Проблема загрузки ключевых данных. Без этих данных, приложение может работать нестабильно.  Впрочем, их можно загрузить позже.</string>
     <string name="data_error">Ошибка обработки данных</string>
     <string name="data_error_caption">Попробуйте обновить данные</string>
     <string name="server_error">Ошибка сервера</string>
@@ -126,6 +128,12 @@
     <string name="database_error_caption">Попробуйте очистить данные приложения в настройках</string>
     <string name="system_error">Системная ошибка</string>
     <string name="system_error_caption">Переустановите приложение</string>
+    <string name="schedule_success_loaded">Расписание загружено</string>
+    <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
+    <string name="schedule_success_deleted">Расписание удалено</string>
+    <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
+    <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
+    <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
     <string name="no_error">Нет ошибки</string>
     <string name="no_error_caption">Операция выполнена успешно</string>
     <string name="unknown_error">Неизвестная ошибка</string>
@@ -157,6 +165,7 @@
     <!--  Shared Preferences  -->
     <string name="preference_file_name" translatable="false">my_app</string>
     <string name="preference_is_first_time" translatable="false">is_first_time</string>
+    <string name="preference_is_data_loading_trouble" translatable="false">is_data_loading_trouble</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>

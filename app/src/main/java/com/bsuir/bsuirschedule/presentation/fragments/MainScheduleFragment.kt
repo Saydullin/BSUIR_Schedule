@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,11 @@ class MainScheduleFragment : Fragment() {
         binding.scheduleItemsTabLayout.visibility = View.VISIBLE
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
-            if (schedule == null) return@observe
+            if (schedule == null) {
+                binding.hiddenPlaceholder.visibility = View.VISIBLE
+                binding.mainScheduleContent.visibility = View.GONE
+                return@observe
+            }
             if (schedule.id == -1) {
                 binding.hiddenPlaceholder.visibility = View.VISIBLE
                 binding.mainScheduleContent.visibility = View.GONE
@@ -93,6 +98,7 @@ class MainScheduleFragment : Fragment() {
 
         currentWeekVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
+                Log.e("sady", "Current Week Error")
                 val stateStatus = StateDialog(errorStatus)
                 stateStatus.isCancelable = true
                 stateStatus.show(parentFragmentManager, "ErrorDialog")

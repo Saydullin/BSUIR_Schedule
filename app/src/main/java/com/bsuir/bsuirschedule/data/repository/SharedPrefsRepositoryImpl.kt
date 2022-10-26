@@ -26,6 +26,23 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
+    override fun isDataLoadingTrouble(): Boolean {
+        return prefs.getBoolean(
+            context.getString(R.string.preference_is_data_loading_trouble),
+            true
+        )
+    }
+
+    override fun setDataLoadingTrouble(isTrouble: Boolean) {
+        with(prefs.edit()) {
+            putBoolean(
+                context.getString(R.string.preference_is_data_loading_trouble),
+                isTrouble
+            )
+            apply()
+        }
+    }
+
     override fun getActiveScheduleId(): Int {
         return prefs.getInt(
             context.getString(R.string.active_schedule_id),

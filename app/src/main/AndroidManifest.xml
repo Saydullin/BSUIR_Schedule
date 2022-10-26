@@ -30,6 +30,7 @@
 
         <activity
             android:name="com.bsuir.bsuirschedule.presentation.activities.MainActivity"
+            android:configChanges="screenSize|orientation"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

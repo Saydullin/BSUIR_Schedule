@@ -28,12 +28,6 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.connection_error_caption)
                 )
             }
-            Resource.INITIAL_DATA_LOADING_TROUBLE -> {
-                ErrorMessageText(
-                    title = resources.getString(R.string.initial_data_loading_error),
-                    caption = resources.getString(R.string.initial_data_loading_error_caption)
-                )
-            }
             Resource.SERVER_ERROR -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.server_error),
@@ -74,12 +68,6 @@ class ErrorMessage(private val context: Context) {
                 ErrorMessageText(
                     title = resources.getString(R.string.schedule_success_deleted),
                     caption = resources.getString(R.string.schedule_success_deleted_caption)
-                )
-            }
-            Resource.INITIAL_DATA_LOADING_SUCCESS -> {
-                ErrorMessageText(
-                    title = resources.getString(R.string.schedule_week_init_data_success),
-                    caption = resources.getString(R.string.schedule_week_init_data_success_caption)
                 )
             }
             Resource.WEEK_API_LOADING_ERROR -> {

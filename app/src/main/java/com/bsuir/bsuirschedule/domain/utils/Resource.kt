@@ -16,12 +16,10 @@ sealed class Resource<T>(
         const val SYSTEM_ERROR = 6
         const val DATA_ERROR = 7
         const val UNKNOWN_ERROR = 8
-        const val INITIAL_DATA_LOADING_TROUBLE = 9
-        const val INITIAL_DATA_LOADING_SUCCESS = 10
-        const val WEEK_API_LOADING_ERROR = 11
+        const val WEEK_API_LOADING_ERROR = 9
 
-        const val SCHEDULE_LOADED_SUCCESS = 12
-        const val SCHEDULE_DELETED_SUCCESS = 13
+        const val SCHEDULE_LOADED_SUCCESS = 10
+        const val SCHEDULE_DELETED_SUCCESS = 11
     }
 
     class Success<T>(data: T?): Resource<T>(data)

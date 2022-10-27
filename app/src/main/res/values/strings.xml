@@ -112,8 +112,6 @@
     <string name="exams">Экзамены</string>
 
     <!--  Errors  -->
-    <string name="initial_data_loading_error">Где данные?</string>
-    <string name="initial_data_loading_error_caption">Проблема загрузки ключевых данных. Без этих данных, приложение может работать нестабильно.  Впрочем, их можно загрузить позже.</string>
     <string name="data_error">Ошибка обработки данных</string>
     <string name="data_error_caption">Попробуйте обновить данные</string>
     <string name="server_error">Ошибка сервера</string>

@@ -244,8 +244,6 @@
     <string name="settings_show_short_version">Show in short form</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
-    <string name="initial_data_loading_error">Where is the data?</string>
-    <string name="initial_data_loading_error_caption">Problem loading key data.\nWithout this data, the application may become unstable.\n\nHowever, they can be downloaded later.</string>
     <string name="schedule_success_loaded">Schedule loaded</string>
     <string name="schedule_success_loaded_caption">Schedule uploaded and simulated successfully</string>
     <string name="schedule_success_deleted">Schedule deleted</string>

@@ -132,8 +132,6 @@
     <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
     <string name="schedule_success_deleted">Расписание удалено</string>
     <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
-    <string name="schedule_week_init_data_success">Ключевые данные загружены</string>
-    <string name="schedule_week_init_data_success_caption">Теперь расписание будет иметь полную информацию</string>
     <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
     <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
     <string name="no_error">Нет ошибки</string>

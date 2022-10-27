@@ -99,6 +99,7 @@ class ScheduleSavedItemsFragment : Fragment() {
             if (savedSchedule != null) {
                 savedScheduleVM.deleteSchedule(savedSchedule)
                 savedScheduleVM.updateSavedSchedulesCount()
+                groupScheduleVM.setDeletedScheduleNull()
                 adapter.removeItem(savedSchedule)
             }
         }

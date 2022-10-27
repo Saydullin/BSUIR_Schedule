@@ -76,6 +76,12 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.schedule_success_deleted_caption)
                 )
             }
+            Resource.INITIAL_DATA_LOADING_SUCCESS -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.schedule_week_init_data_success),
+                    caption = resources.getString(R.string.schedule_week_init_data_success_caption)
+                )
+            }
             Resource.WEEK_API_LOADING_ERROR -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.schedule_week_loaded_error),

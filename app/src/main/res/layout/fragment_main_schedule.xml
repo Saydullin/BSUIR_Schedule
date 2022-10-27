@@ -37,8 +37,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/text_primary"
-                android:text="@string/loading_dots"
-                tools:text="@string/test_header_title" />
+                android:text="@string/test_header_title" />
 
         </LinearLayout>
 

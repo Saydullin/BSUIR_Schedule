@@ -16,7 +16,7 @@ class CurrentWeekViewModel(
 ): ViewModel() {
 
     private val currentWeek = MutableLiveData(0)
-    private val error = MutableLiveData<StateStatus>()
+    private val error = MutableLiveData<StateStatus>(null)
     private val loading = MutableLiveData(false)
     val currentWeekStatus = currentWeek
     val errorStatus = error

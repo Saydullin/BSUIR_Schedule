@@ -1,18 +1,21 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsuir.bsuirschedule.domain.models.StateStatus
 import com.bsuir.bsuirschedule.domain.models.Group
+import com.bsuir.bsuirschedule.domain.usecase.GetFacultyUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GetGroupItemsUseCase
+import com.bsuir.bsuirschedule.domain.usecase.GetSpecialityUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GroupItemsViewModel(
-    private val getGroupItemsUseCase: GetGroupItemsUseCase
+    private val getGroupItemsUseCase: GetGroupItemsUseCase,
+    private val getFacultyUseCase: GetFacultyUseCase,
+    private val getSpecialityUseCase: GetSpecialityUseCase
 ) : ViewModel() {
 
     private val allGroupItemsLoading = MutableLiveData(false)
@@ -33,38 +36,107 @@ class GroupItemsViewModel(
         }
     }
 
-    // Update all group items from API
-    fun updateGroupItems() {
-        isUpdating.value = true
+    private suspend fun updateFaculties() {
+        when (
+            val result = getFacultyUseCase.getFacultiesAPI()
+        ) {
+            is Resource.Success -> {
+                val savedFaculties = getFacultyUseCase.saveFaculties(result.data!!)
+//                if (savedFaculties is Resource.Error) {
+//                    error.postValue(
+//                        StateStatus(
+//                            state = StateStatus.ERROR_STATE,
+//                            type = result.errorType,
+//                            message = result.message
+//                        )
+//                    )
+//                }
+//                FIXME Send Error
+            }
+            is Resource.Error -> {
+//                error.postValue(
+//                    StateStatus(
+//                        state = StateStatus.ERROR_STATE,
+//                        type = result.errorType,
+//                        message = result.message
+//                    )
+//                )
+//                FIXME Send Error
+            }
+        }
+    }
+
+    private suspend fun updateSpecialities() {
+        when (
+            val result = getSpecialityUseCase.getSpecialitiesAPI()
+        ) {
+            is Resource.Success -> {
+            val savedSpecialities = getSpecialityUseCase.saveSpecialities(result.data!!)
+//                if (savedSpecialities is Resource.Error) {
+//                    error.postValue(
+//                        StateStatus(
+//                            state = StateStatus.ERROR_STATE,
+//                            type = savedSpecialities.errorType,
+//                            message = savedSpecialities.message
+//                        )
+//                    )
+//                }
+//                FIXME Send Error
+            }
+            is Resource.Error -> {
+//                error.postValue(
+//                    StateStatus(
+//                        state = StateStatus.ERROR_STATE,
+//                        type = result.errorType,
+//                        message = result.message
+//                    )
+//                )
+//                FIXME Send Error
+            }
+        }
+    }
+
+    fun updateInitDataAndGroups() {
         viewModelScope.launch(Dispatchers.IO) {
-            when (
-                val newGroupItems = getGroupItemsUseCase.getGroupItemsAPI()
-            ) {
-                is Resource.Success -> {
-                    when (
-                        getGroupItemsUseCase.saveGroupItems(newGroupItems.data!!)
-                    ) {
-                        is Resource.Success -> {
-                            getAllGroupItems()
-                        }
-                        is Resource.Error -> {
-                            error.postValue(StateStatus(
-                                state = StateStatus.ERROR_STATE,
-                                type = newGroupItems.errorType,
-                                message = newGroupItems.message
-                            ))
-                        }
+            isUpdating.postValue(true)
+            val initData = launch(Dispatchers.IO) {
+                updateSpecialities()
+                updateFaculties()
+            }
+            initData.join()
+            updateGroupItems()
+            isUpdating.postValue(false)
+        }
+    }
+
+    // Update all group items from API
+    private suspend fun updateGroupItems() {
+        when (
+            val newGroupItems = getGroupItemsUseCase.getGroupItemsAPI()
+        ) {
+            is Resource.Success -> {
+                when (
+                    getGroupItemsUseCase.saveGroupItems(newGroupItems.data!!)
+                ) {
+                    is Resource.Success -> {
+                        getAllGroupItems()
+                    }
+                    is Resource.Error -> {
+                        error.postValue(StateStatus(
+                            state = StateStatus.ERROR_STATE,
+                            type = newGroupItems.errorType,
+                            message = newGroupItems.message
+                        ))
                     }
                 }
-                is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = newGroupItems.errorType,
-                        message = newGroupItems.message
-                    ))
-                }
             }
-            isUpdating.postValue(false)
+            is Resource.Error -> {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = newGroupItems.errorType,
+                    message = newGroupItems.message
+                ))
+            }
         }
     }
 

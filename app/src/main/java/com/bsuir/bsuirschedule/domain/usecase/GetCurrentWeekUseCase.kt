@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.CurrentWeek
 import com.bsuir.bsuirschedule.domain.repository.CurrentWeekRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -10,6 +9,16 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
 
     suspend fun getCurrentWeekAPI(): Resource<CurrentWeek> {
         return currentWeekRepository.getCurrentWeekAPI()
+    }
+
+    suspend fun updateWeekNumber(): Resource<CurrentWeek> {
+        val currentWeekNum = getCurrentWeekAPI()
+
+        if (currentWeekNum is Resource.Success) {
+            saveCurrentWeek(currentWeekNum.data!!)
+        }
+
+        return currentWeekNum
     }
 
     suspend fun isCurrentWeekPassed(): Resource<Boolean> {
@@ -62,7 +71,6 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
     }
 
     suspend fun saveCurrentWeek(currentWeek: CurrentWeek): Resource<Unit> {
-        Log.e("sady", "saveCurrentWeek = ${currentWeek.week}")
         return currentWeekRepository.saveCurrentWeek(currentWeek)
     }
 

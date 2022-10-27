@@ -46,7 +46,7 @@ class AllGroupItemsFragment : Fragment() {
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)
         binding.refreshScheduleItems.setOnRefreshListener {
-            groupItemsVM.updateGroupItems()
+            groupItemsVM.updateInitDataAndGroups()
         }
 
         groupItemsVM.isUpdatingStatus.observe(viewLifecycleOwner) { isUpdating ->

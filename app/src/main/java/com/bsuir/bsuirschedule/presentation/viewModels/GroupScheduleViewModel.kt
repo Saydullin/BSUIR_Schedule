@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.usecase.EmployeeScheduleUseCase
+import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GroupScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -16,6 +17,7 @@ class GroupScheduleViewModel(
     private val groupScheduleUseCase: GroupScheduleUseCase,
     private val employeeScheduleUseCase: EmployeeScheduleUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
+    private val getCurrentWeekUseCase: GetCurrentWeekUseCase
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
@@ -42,6 +44,10 @@ class GroupScheduleViewModel(
 
     fun setScheduleLoadedNull() {
         scheduleLoaded.value = null
+    }
+
+    fun setDeletedScheduleNull() {
+        deletedSchedule.value = null
     }
 
     fun updateSchedule() {
@@ -80,6 +86,13 @@ class GroupScheduleViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
             groupLoading.postValue(true)
+            val currentWeek = getCurrentWeekUseCase.getCurrentWeek()
+            if (currentWeek is Resource.Error) {
+                val currentWeekAPI = launch(Dispatchers.IO) {
+                    getCurrentWeekUseCase.updateWeekNumber()
+                }
+                currentWeekAPI.join()
+            }
             when (
                 val groupScheduleResponse = groupScheduleUseCase.getGroupScheduleAPI(group.name)
             ) {
@@ -118,7 +131,7 @@ class GroupScheduleViewModel(
                     scheduleLoaded.postValue(employee.toSavedSchedule(!data.isNotExistExams()))
                     error.postValue(StateStatus(
                         state = StateStatus.SUCCESS_STATE,
-                        type = 0,
+                        type = Resource.SCHEDULE_LOADED_SUCCESS,
                     ))
                 }
                 is Resource.Error -> {

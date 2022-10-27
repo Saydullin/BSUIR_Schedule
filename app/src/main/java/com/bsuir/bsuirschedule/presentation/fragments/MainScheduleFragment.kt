@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.bsuir.bsuirschedule.databinding.TabViewsBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleTabs
 import com.bsuir.bsuirschedule.presentation.adapters.ScheduleExamsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.MainPopupMenu
-import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.CurrentWeekViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -98,7 +97,6 @@ class MainScheduleFragment : Fragment() {
 
         currentWeekVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
-                Log.e("sady", "Current Week Error")
                 val stateStatus = StateDialog(errorStatus)
                 stateStatus.isCancelable = true
                 stateStatus.show(parentFragmentManager, "ErrorDialog")

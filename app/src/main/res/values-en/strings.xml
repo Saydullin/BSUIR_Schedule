@@ -252,6 +252,7 @@
     <string name="schedule_success_deleted_caption">Schedule deleted successfully</string>
     <string name="schedule_week_loaded_error">What week is now?</string>
     <string name="schedule_week_loaded_error_caption">Failed to load current week number</string>
+    <string name="test_header_title">0 week</string>
 </resources>
 
 

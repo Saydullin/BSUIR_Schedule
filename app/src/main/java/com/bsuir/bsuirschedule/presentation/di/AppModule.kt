@@ -7,18 +7,11 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel {
-        InitialDataViewModel(
-            getFacultyUseCase = get(),
-            getSpecialityUseCase = get(),
-            getDepartmentUseCase = get()
-        )
-    }
-
-    viewModel {
         GroupScheduleViewModel(
             groupScheduleUseCase = get(),
             employeeScheduleUseCase = get(),
             sharedPrefsUseCase = get(),
+            getCurrentWeekUseCase = get()
         )
     }
 
@@ -30,13 +23,16 @@ val appModule = module {
 
     viewModel {
         GroupItemsViewModel(
-            getGroupItemsUseCase = get()
+            getGroupItemsUseCase = get(),
+            getFacultyUseCase = get(),
+            getSpecialityUseCase = get()
         )
     }
 
     viewModel {
         EmployeeItemsViewModel(
-            getEmployeeItemsUseCase = get()
+            getEmployeeItemsUseCase = get(),
+            getDepartmentUseCase = get()
         )
     }
 

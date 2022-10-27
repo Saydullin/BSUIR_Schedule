@@ -42,7 +42,7 @@ class AllEmployeeItemsFragment : Fragment() {
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)
         binding.refreshScheduleItems.setOnRefreshListener {
-            employeeItemsVM.updateEmployeeItems()
+            employeeItemsVM.updateDepartmentsAndEmployeeItems()
         }
 
         employeeItemsVM.isUpdatingStatus.observe(viewLifecycleOwner) { isUpdated ->

@@ -76,7 +76,7 @@
     <string name="test_subject_break_time" translatable="false">14 минут</string>
     <string name="test_subject_time" translatable="false">09:00 — 10:20</string>
     <string name="test_subject_note" translatable="false">Примечание, только до 21 августа</string>
-    <string name="test_header_title" translatable="false">1 неделя</string>
+    <string name="test_header_title">0 неделя</string>
     <string name="controls_settings">Настройки расписание</string>
     <string name="schedules_list_title">Мои расписания</string>
     <string name="no_teacher_title">Преподаватель не указан</string>
@@ -132,6 +132,8 @@
     <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
     <string name="schedule_success_deleted">Расписание удалено</string>
     <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
+    <string name="schedule_week_init_data_success">Ключевые данные загружены</string>
+    <string name="schedule_week_init_data_success_caption">Теперь расписание будет иметь полную информацию</string>
     <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
     <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
     <string name="no_error">Нет ошибки</string>

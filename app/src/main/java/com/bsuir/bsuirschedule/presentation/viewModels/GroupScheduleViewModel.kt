@@ -76,7 +76,6 @@ class GroupScheduleViewModel(
     fun initActiveSchedule() {
         viewModelScope.launch(Dispatchers.IO) {
             val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
-
             if (activeScheduleId != -1) {
                 getScheduleById(activeScheduleId)
             }

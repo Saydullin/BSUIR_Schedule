@@ -24,6 +24,7 @@ class GroupItemsAdapter(
 
     fun setSavedItem(item: Group) {
         val position = data.indexOfFirst { it.id == item.id && it.name == item.name }
+
         if (position != -1) {
             notifyItemChanged(position, null)
         }

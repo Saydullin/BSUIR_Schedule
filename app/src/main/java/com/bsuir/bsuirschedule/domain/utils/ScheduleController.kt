@@ -25,6 +25,13 @@ class ScheduleController {
         )
 
         val schedule = groupSchedule.toSchedule()
+
+        if (schedule.isGroup()) {
+            schedule.id = groupSchedule.group?.id ?: -1
+        } else {
+            schedule.id = groupSchedule.employee?.id ?: -1
+        }
+
         schedule.schedules = weekDays
 
         return schedule
@@ -203,8 +210,6 @@ class ScheduleController {
 
         setSubjectsPrediction(daysWithDatesSchedule)
 
-
-
         return getMillisTimeInSubjects(daysWithDatesSchedule)
     }
 
@@ -237,7 +242,10 @@ class ScheduleController {
                 regularSchedule.examsSchedule,
                 regularSchedule.settings.exams.isShowPastDays
             )
-            regularSchedule.examsSchedule = filterBySubgroup(regularSchedule.examsSchedule, regularSchedule.selectedSubgroup)
+            regularSchedule.examsSchedule = filterBySubgroup(
+                regularSchedule.examsSchedule,
+                regularSchedule.settings.subgroup.selectedNum
+            )
             regularSchedule.examsSchedule = getSubjectsBreakTime(regularSchedule.examsSchedule)
             regularSchedule.examsSchedule = getScheduleBySettings(
                 regularSchedule.examsSchedule,
@@ -256,7 +264,10 @@ class ScheduleController {
 
 //            regularSchedule.schedules = getPagingLimit(regularSchedule.schedules, page, 3)
             regularSchedule.schedules = setActualDateStatuses(regularSchedule.schedules, schedule.settings.schedule.isShowPastDays)
-            regularSchedule.schedules = filterBySubgroup(regularSchedule.schedules, regularSchedule.selectedSubgroup)
+            regularSchedule.schedules = filterBySubgroup(
+                regularSchedule.schedules,
+                regularSchedule.settings.subgroup.selectedNum
+            )
             regularSchedule.schedules = getSubjectsBreakTime(regularSchedule.schedules)
             regularSchedule.subjectNow = getActualSubject(regularSchedule)
             regularSchedule.schedules = getScheduleBySettings(
@@ -281,7 +292,7 @@ class ScheduleController {
                         it.subject == subject.subject && it.lessonTypeAbbrev == subject.lessonTypeAbbrev &&
                                 ((it.numSubgroup ?: 0) == 0
                                         ||
-                                        (it.numSubgroup ?: 0) == schedule.selectedSubgroup)
+                                        (it.numSubgroup ?: 0) == schedule.settings.subgroup.selectedNum)
                     }
 
                     if (foundSubject != null) {

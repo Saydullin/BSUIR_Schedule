@@ -35,7 +35,7 @@ class ScheduleSettingsSubgroup : Fragment() {
             }
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, subgroups)
             binding.autoCompleteTextView.setAdapter(arrayAdapter)
-            val selectedSubgroup = schedule.selectedSubgroup
+            val selectedSubgroup = schedule.settings.subgroup.selectedNum
             val selectionText = if (selectedSubgroup == 0) {
                 allSubgroupsText
             } else {
@@ -45,10 +45,11 @@ class ScheduleSettingsSubgroup : Fragment() {
         }
 
         binding.autoCompleteTextView.setOnItemClickListener { _, _, i, _ ->
-            val schedule = groupScheduleVM.scheduleStatus.value
-            if (schedule != null && schedule.selectedSubgroup != schedule.subgroups[i]) {
-                schedule.selectedSubgroup = schedule.subgroups[i]
-                groupScheduleVM.changeSubgroup(schedule)
+            val schedule = groupScheduleVM.getActiveSchedule() ?: return@setOnItemClickListener
+            val scheduleSettings = schedule.settings
+            if (scheduleSettings.subgroup.selectedNum != schedule.subgroups[i]) {
+                scheduleSettings.subgroup.selectedNum = schedule.subgroups[i]
+                groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
                 if (schedule.subgroups[i] == 0) {
                     Toast.makeText(context, allSubgroupsText, Toast.LENGTH_SHORT).show()
                 } else {

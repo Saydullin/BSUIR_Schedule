@@ -21,7 +21,7 @@ class FullScheduleUseCase {
             // Get schedule for all weeks
             val fullSchedule = sm.getFullScheduleModel(schedule, currentWeek)
             // Get schedule for selected subgroup
-            fullSchedule.schedules = sm.filterBySubgroup(fullSchedule.schedules, fullSchedule.selectedSubgroup)
+            fullSchedule.schedules = sm.filterBySubgroup(fullSchedule.schedules, fullSchedule.settings.subgroup.selectedNum)
             // Get break time for each subject (except the first subjects for each day)
             fullSchedule.schedules = sm.getSubjectsBreakTime(fullSchedule.schedules)
             // Set Current Subject

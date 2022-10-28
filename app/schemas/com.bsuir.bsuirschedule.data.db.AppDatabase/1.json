@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4903b5092b8b2e344bca8e70a8a98efc",
+    "identityHash": "2b84a32654c5b86acba5311bc80b00cc",
     "entities": [
       {
         "tableName": "GroupTable",
@@ -270,7 +270,7 @@
       },
       {
         "tableName": "ScheduleTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startExamsDate` TEXT NOT NULL, `endExamsDate` TEXT NOT NULL, `subgroups` TEXT NOT NULL, `isGroup` INTEGER, `exams` TEXT NOT NULL, `examsSchedule` TEXT NOT NULL, `schedules` TEXT NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `selectedSubgroup` INTEGER NOT NULL, `settings` TEXT NOT NULL, `group_id` INTEGER NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startExamsDate` TEXT NOT NULL, `endExamsDate` TEXT NOT NULL, `subgroups` TEXT NOT NULL, `isGroup` INTEGER, `exams` TEXT NOT NULL, `examsSchedule` TEXT NOT NULL, `schedules` TEXT NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `settings` TEXT NOT NULL, `group_id` INTEGER NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -335,12 +335,6 @@
           {
             "fieldPath": "lastUpdateTime",
             "columnName": "lastUpdateTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "selectedSubgroup",
-            "columnName": "selectedSubgroup",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -968,7 +962,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4903b5092b8b2e344bca8e70a8a98efc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2b84a32654c5b86acba5311bc80b00cc')"
     ]
   }
 }

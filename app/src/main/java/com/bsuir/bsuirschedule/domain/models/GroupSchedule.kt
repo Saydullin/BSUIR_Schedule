@@ -18,7 +18,6 @@ data class GroupSchedule (
     val exams: ArrayList<ScheduleSubject>? = ArrayList(),
     var examsSchedule: ArrayList<ScheduleDay>? = ArrayList(),
     var lastUpdateTime: Long? = Date().time,
-    var selectedSubgroup: Int = 0 // 0 - non selected, show all subgroups
 ) {
 
     companion object {
@@ -36,12 +35,6 @@ data class GroupSchedule (
             lastUpdateTime = Date().time,
             schedules = GroupScheduleWeek.empty
         )
-    }
-
-    fun isNotExistExams(): Boolean {
-        return startExamsDate.isNullOrEmpty() ||
-                endExamsDate.isNullOrEmpty() ||
-                exams?.isEmpty() == true
     }
 
     fun isNotSuitable(): Boolean {
@@ -63,7 +56,6 @@ data class GroupSchedule (
         examsSchedule = examsSchedule ?: ArrayList(),
         subjectNow = null,
         lastUpdateTime = lastUpdateTime ?: Date().time,
-        selectedSubgroup = selectedSubgroup,
         schedules = ArrayList(),
         settings = ScheduleSettings.empty
     )

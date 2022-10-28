@@ -23,7 +23,6 @@ data class ScheduleTable (
     @TypeConverters(ScheduleDayListConverter::class) var examsSchedule: ArrayList<ScheduleDay>,
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
     @ColumnInfo val lastUpdateTime: Long,
-    @ColumnInfo var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
     @TypeConverters(ScheduleSettingsConverter::class) val settings: ScheduleSettings
 ) {
 
@@ -42,7 +41,6 @@ data class ScheduleTable (
         subjectNow = null,
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
-        selectedSubgroup = selectedSubgroup, // 0 - non selected, show all subgroups
         settings = settings
     )
 

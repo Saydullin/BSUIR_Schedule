@@ -5,17 +5,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
-import com.bsuir.bsuirschedule.domain.usecase.EmployeeScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GroupScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.DeleteScheduleUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.SaveScheduleUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.UpdateScheduleSettingsUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GroupScheduleViewModel(
+    private val getScheduleUseCase: GetScheduleUseCase,
     private val groupScheduleUseCase: GroupScheduleUseCase,
-    private val employeeScheduleUseCase: EmployeeScheduleUseCase,
+    private val updateScheduleSettingsUseCase: UpdateScheduleSettingsUseCase,
+    private val saveScheduleUseCase: SaveScheduleUseCase,
+    private val deleteScheduleUseCase: DeleteScheduleUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase
 ) : ViewModel() {
@@ -94,7 +100,7 @@ class GroupScheduleViewModel(
                 currentWeekAPI.join()
             }
             when (
-                val groupScheduleResponse = groupScheduleUseCase.getGroupScheduleAPI(group.name)
+                val groupScheduleResponse = getScheduleUseCase.getAPI(group.name)
             ) {
                 is Resource.Success -> {
                     val groupSchedule = groupScheduleResponse.data!!
@@ -123,7 +129,7 @@ class GroupScheduleViewModel(
             loading.postValue(true)
             employeeLoading.postValue(true)
             when (
-                val groupSchedule = employeeScheduleUseCase.getScheduleAPI(employee.urlId)
+                val groupSchedule = getScheduleUseCase.getAPI(employee.urlId)
             ) {
                 is Resource.Success -> {
                     val data = groupSchedule.data!!
@@ -149,28 +155,10 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun changeSubgroup(schedule: Schedule) {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (
-                val result = groupScheduleUseCase.changeSubgroup(schedule)
-            ) {
-                is Resource.Success -> {
-                    getScheduleById(schedule.id)
-                }
-                is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.errorType
-                    ))
-                }
-            }
-        }
-    }
-
     private fun saveGroupSchedule(groupSchedule: Schedule) {
         viewModelScope.launch(Dispatchers.IO) {
             when (
-                val saveResponse = groupScheduleUseCase.saveSchedule(groupSchedule)
+                val saveResponse = saveScheduleUseCase.invoke(groupSchedule)
             ) {
                 is Resource.Success -> {
                     if (groupSchedule.id == -1) {
@@ -199,7 +187,7 @@ class GroupScheduleViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             settingsUpdated.postValue(false)
             when (
-                val saveResponse = groupScheduleUseCase.updateScheduleSettings(id, newSettings)
+                val saveResponse = updateScheduleSettingsUseCase.invoke(id, newSettings)
             ) {
                 is Resource.Success -> {
                     settingsUpdated.postValue(true)
@@ -235,7 +223,7 @@ class GroupScheduleViewModel(
             dataLoading.postValue(true)
             try {
                 when (
-                    val result = groupScheduleUseCase.getScheduleById(scheduleId, 0, -1)
+                    val result = getScheduleUseCase.getById(scheduleId, 0, -1)
                 ) {
                     is Resource.Success -> {
                         val data = result.data!!
@@ -264,28 +252,28 @@ class GroupScheduleViewModel(
 
     fun deleteSchedule(savedSchedule: SavedSchedule) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (savedSchedule.isGroup) {
-                    groupScheduleUseCase.deleteSchedule(savedSchedule)
-                } else {
-                    employeeScheduleUseCase.deleteSchedule(savedSchedule)
+            when (
+                val isDeletedSchedule = deleteScheduleUseCase.invoke(savedSchedule)
+            ) {
+                is Resource.Success -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.SUCCESS_STATE,
+                        type = Resource.SCHEDULE_DELETED_SUCCESS
+                    ))
+                    deletedSchedule.postValue(savedSchedule)
+                    if (schedule.value?.id == savedSchedule.id) {
+                        schedule.postValue(Schedule.empty)
+                        activeSchedule.postValue(null)
+                        sharedPrefsUseCase.setActiveScheduleId(-1)
+                    }
                 }
-                error.postValue(StateStatus(
-                    state = StateStatus.SUCCESS_STATE,
-                    type = Resource.SCHEDULE_DELETED_SUCCESS
-                ))
-                deletedSchedule.postValue(savedSchedule)
-                if (schedule.value?.id == savedSchedule.id) {
-                    schedule.postValue(Schedule.empty)
-                    activeSchedule.postValue(null)
-                    sharedPrefsUseCase.setActiveScheduleId(-1)
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = isDeletedSchedule.errorType,
+                        message = isDeletedSchedule.message
+                    ))
                 }
-            } catch (e: Exception) {
-                error.postValue(StateStatus(
-                    state = StateStatus.ERROR_STATE,
-                    type = Resource.DATA_ERROR, // DELETE_ERROR
-                    message = e.message
-                ))
             }
         }
     }

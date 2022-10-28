@@ -37,6 +37,7 @@ class ActiveScheduleFragment : Fragment() {
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
+            val selectedSubgroup = schedule.settings.subgroup.selectedNum
 
             if (schedule.isGroup()) {
                 val group = schedule.group
@@ -58,10 +59,10 @@ class ActiveScheduleFragment : Fragment() {
 
             setCurrentSubject(binding.currentSubjectInfo, schedule.subjectNow)
 
-            if (schedule.selectedSubgroup == 0) {
+            if (selectedSubgroup == 0) {
                 binding.subgroup.text = resources.getString(R.string.all_subgroups_short)
             } else {
-                binding.subgroup.text = schedule.selectedSubgroup.toString()
+                binding.subgroup.text = selectedSubgroup.toString()
             }
         }
 

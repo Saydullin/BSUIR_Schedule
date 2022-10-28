@@ -210,7 +210,6 @@ class ScheduleManager {
             examsSchedule = schedule.examsSchedule,
             subjectNow = null,
             lastUpdateTime = schedule.lastUpdateTime,
-            selectedSubgroup = schedule.selectedSubgroup,
             schedules = ArrayList(),
             settings = ScheduleSettings.empty
         )

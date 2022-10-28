@@ -37,6 +37,7 @@ class EmployeeScheduleUseCase(
                                 )
                             }
                             val schedule = getNormalSchedule(data, currentWeek.data!!)
+                            setActualSettings(schedule)
                             fullScheduleUseCase.mergeGroupsSubjects(schedule, groupItems.data!!)
                             val isMergedDepartments = mergeDepartments(schedule)
                             if (isMergedDepartments is Resource.Error) {
@@ -69,6 +70,13 @@ class EmployeeScheduleUseCase(
                 errorType = Resource.DATA_ERROR,
                 message = e.message
             )
+        }
+    }
+
+    private suspend fun setActualSettings(schedule: Schedule) {
+        val foundSchedule = getScheduleById(schedule.id)
+        if (foundSchedule is Resource.Success) {
+            schedule.settings = foundSchedule.data!!.settings
         }
     }
 

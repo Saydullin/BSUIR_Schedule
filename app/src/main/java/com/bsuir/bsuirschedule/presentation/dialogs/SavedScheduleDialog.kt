@@ -28,10 +28,11 @@ class SavedScheduleDialog(
         val lastUpdateText = resources.getString(R.string.last_update, schedule.getLastUpdateText())
         val courseText = resources.getString(R.string.course)
         val moreText = resources.getString(R.string.more)
-        binding.scheduleSubgroup.text = if (schedule.selectedSubgroup == 0) {
+        val selectedSubgroup = schedule.settings.subgroup.selectedNum
+        binding.scheduleSubgroup.text = if (selectedSubgroup == 0) {
             resources.getString(R.string.selected_all_subgroups)
         } else {
-            resources.getString(R.string.selected_subgroup, schedule.selectedSubgroup)
+            resources.getString(R.string.selected_subgroup, selectedSubgroup)
         }
 
         val examsDatePeriod = if (!schedule.isExamsNotExist()) {

@@ -25,13 +25,13 @@ class GroupScheduleViewModel(
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
-    private val dataLoading = MutableLiveData(false)
+    private val dataLoading = MutableLiveData(true)
     private val scheduleLoaded = MutableLiveData<SavedSchedule>(null)
     private val groupLoading = MutableLiveData(false)
     private val settingsUpdated = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
-    private val schedule = MutableLiveData<Schedule>(null)
+    private val schedule = MutableLiveData<Schedule>(Schedule.empty)
     private val deletedSchedule = MutableLiveData<SavedSchedule>(null)
     private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
@@ -164,13 +164,13 @@ class GroupScheduleViewModel(
                             state = StateStatus.ERROR_STATE,
                             type = Resource.DATA_ERROR
                         ))
-                        schedule.postValue(Schedule.empty)
+                        schedule.postValue(null)
                     } else {
                         getScheduleById(groupSchedule.id)
                     }
                 }
                 is Resource.Error -> {
-                    schedule.postValue(Schedule.empty)
+                    schedule.postValue(null)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
                         type = saveResponse.errorType,
@@ -192,7 +192,7 @@ class GroupScheduleViewModel(
                     getScheduleById(id)
                 }
                 is Resource.Error -> {
-                    schedule.postValue(Schedule.empty)
+                    schedule.postValue(null)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
                         type = saveResponse.errorType,
@@ -228,7 +228,7 @@ class GroupScheduleViewModel(
                         saveScheduleToLiveData(data)
                     }
                     is Resource.Error -> {
-                        schedule.postValue(Schedule.empty)
+                        schedule.postValue(null)
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
                             type = result.errorType,
@@ -237,7 +237,7 @@ class GroupScheduleViewModel(
                     }
                 }
             } catch (e: Exception) {
-                schedule.postValue(Schedule.empty)
+                schedule.postValue(null)
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
                     type = Resource.UNKNOWN_ERROR,
@@ -260,7 +260,7 @@ class GroupScheduleViewModel(
                     ))
                     deletedSchedule.postValue(savedSchedule)
                     if (schedule.value?.id == savedSchedule.id) {
-                        schedule.postValue(Schedule.empty)
+                        schedule.postValue(null)
                         activeSchedule.postValue(null)
                         sharedPrefsUseCase.setActiveScheduleId(-1)
                     }

@@ -49,13 +49,8 @@ class MainScheduleFragment : Fragment() {
                 binding.mainScheduleContent.visibility = View.GONE
                 return@observe
             }
-            if (schedule.id == -1) {
-                binding.hiddenPlaceholder.visibility = View.VISIBLE
-                binding.mainScheduleContent.visibility = View.GONE
-            } else {
-                binding.hiddenPlaceholder.visibility = View.GONE
-                binding.mainScheduleContent.visibility = View.VISIBLE
-            }
+            binding.hiddenPlaceholder.visibility = View.GONE
+            binding.mainScheduleContent.visibility = View.VISIBLE
 
             TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->
                 when (position) {

@@ -1,8 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
-import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
-import com.bsuir.bsuirschedule.domain.models.GroupSchedule
-import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
@@ -17,11 +15,11 @@ class GetScheduleUseCase(
     private val currentWeekUseCase: GetCurrentWeekUseCase
 ) {
 
-    suspend fun getAPI(groupName: String): Resource<Schedule> {
+    suspend fun getGroupAPI(groupName: String): Resource<Schedule> {
 
         return try {
             when (
-                val apiSchedule = scheduleRepository.getScheduleAPI(groupName)
+                val apiSchedule = scheduleRepository.getGroupScheduleAPI(groupName)
             ) {
                 is Resource.Success -> {
                     val data = apiSchedule.data!!
@@ -37,17 +35,11 @@ class GetScheduleUseCase(
                     setActualSettings(schedule)
                     val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(schedule)
                     if (isMergedFacultyAndSpeciality is Resource.Error) {
-                        return Resource.Error(
-                            errorType = isMergedFacultyAndSpeciality.errorType,
-                            message = isMergedFacultyAndSpeciality.message
-                        )
+                        return isMergedFacultyAndSpeciality
                     }
                     val isMergedEmployees = mergeEmployeeItems(schedule)
                     if (isMergedEmployees is Resource.Error) {
-                        return Resource.Error(
-                            errorType = isMergedEmployees.errorType,
-                            message = isMergedEmployees.message
-                        )
+                        return isMergedEmployees
                     }
                     Resource.Success(schedule)
                 }
@@ -66,7 +58,85 @@ class GetScheduleUseCase(
         }
     }
 
+    suspend fun getEmployeeAPI(urlId: String): Resource<Schedule> {
 
+        return try {
+            when (
+                val apiSchedule = scheduleRepository.getEmployeeScheduleAPI(urlId)
+            ) {
+                is Resource.Success -> {
+                    val data = apiSchedule.data!!
+                    when (
+                        val groupItems = groupItemsRepository.getAllGroupItems()
+                    ) {
+                        is Resource.Success -> {
+                            val currentWeek = currentWeekUseCase.getCurrentWeek()
+                            if (currentWeek is Resource.Error) {
+                                return Resource.Error(
+                                    errorType = currentWeek.errorType,
+                                    message = currentWeek.message
+                                )
+                            }
+                            val schedule = getNormalSchedule(data, currentWeek.data!!)
+                            mergeGroupsSubjects(schedule, groupItems.data!!)
+                            val isMergedDepartments = mergeDepartments(schedule)
+                            if (isMergedDepartments is Resource.Error) {
+                                return isMergedDepartments
+                            }
+                            return Resource.Success(schedule)
+                        }
+                        is Resource.Error -> {
+                            return Resource.Error(
+                                errorType = groupItems.errorType,
+                                message = groupItems.message
+                            )
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    return Resource.Error(
+                        errorType = apiSchedule.errorType,
+                        message = apiSchedule.message
+                    )
+                }
+            }
+        } catch(e: Exception) {
+            e.printStackTrace()
+            Resource.Error(
+                errorType = Resource.DATA_ERROR,
+                message = e.message
+            )
+        }
+    }
+
+    private fun mergeGroupsSubjects(schedule: Schedule, groupItems: ArrayList<Group>) {
+        val scheduleController = ScheduleController()
+        scheduleController.mergeGroupsSubjects(schedule, groupItems)
+    }
+
+    private suspend fun mergeDepartments(schedule: Schedule): Resource<Schedule> {
+        return when (
+            val result = employeeItemsRepository.getEmployeeItems()
+        ) {
+            is Resource.Success -> {
+                val data = result.data!!
+                if (schedule.employee.id == -1) {
+                    return Resource.Error(
+                        errorType = Resource.DATA_ERROR
+                    )
+                }
+                val employeeMatch = data.find { it.id == schedule.employee.id }
+                schedule.employee.departmentsList = employeeMatch?.departments
+                Resource.Success(null)
+            }
+            is Resource.Error -> {
+                Resource.Error(
+                    errorType = result.errorType,
+                    message = result.message
+                )
+            }
+        }
+    }
 
     private suspend fun mergeEmployeeItems(schedule: Schedule): Resource<Schedule> {
         return when (

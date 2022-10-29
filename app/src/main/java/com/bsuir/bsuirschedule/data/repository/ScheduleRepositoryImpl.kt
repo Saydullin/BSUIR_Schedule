@@ -15,7 +15,7 @@ class ScheduleRepositoryImpl(
     override val scheduleDao: ScheduleDao,
 ) : ScheduleRepository {
 
-    override suspend fun getScheduleAPI(groupName: String): Resource<GroupSchedule> {
+    override suspend fun getGroupScheduleAPI(groupName: String): Resource<GroupSchedule> {
         val groupScheduleService = RetrofitBuilder.getInstance().create(GetGroupScheduleService::class.java)
 
         return try {

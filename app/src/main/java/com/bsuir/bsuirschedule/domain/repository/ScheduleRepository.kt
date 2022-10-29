@@ -10,7 +10,7 @@ interface ScheduleRepository {
 
     val scheduleDao: ScheduleDao
 
-    suspend fun getScheduleAPI(groupName: String): Resource<GroupSchedule>
+    suspend fun getGroupScheduleAPI(groupName: String): Resource<GroupSchedule>
 
     suspend fun getEmployeeScheduleAPI(groupName: String): Resource<GroupSchedule>
 

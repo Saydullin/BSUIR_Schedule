@@ -98,7 +98,7 @@ class GroupScheduleViewModel(
                 currentWeekAPI.join()
             }
             when (
-                val groupScheduleResponse = getScheduleUseCase.getAPI(group.name)
+                val groupScheduleResponse = getScheduleUseCase.getGroupAPI(group.name)
             ) {
                 is Resource.Success -> {
                     val groupSchedule = groupScheduleResponse.data!!
@@ -127,7 +127,7 @@ class GroupScheduleViewModel(
             loading.postValue(true)
             employeeLoading.postValue(true)
             when (
-                val groupSchedule = getScheduleUseCase.getAPI(employee.urlId)
+                val groupSchedule = getScheduleUseCase.getEmployeeAPI(employee.urlId)
             ) {
                 is Resource.Success -> {
                     val data = groupSchedule.data!!

@@ -1,9 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import com.bsuir.bsuirschedule.domain.models.GroupSchedule
-import com.bsuir.bsuirschedule.domain.models.Schedule
-import com.bsuir.bsuirschedule.domain.models.ScheduleDay
-import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -35,6 +32,21 @@ class ScheduleController {
         schedule.schedules = weekDays
 
         return schedule
+    }
+
+    fun mergeGroupsSubjects(schedule: Schedule, groupItems: ArrayList<Group>) {
+        schedule.schedules.map { day ->
+            day.schedule.map { subject ->
+                val groups = ArrayList<Group>()
+                subject.subjectGroups?.map { subjectGroup ->
+                    val groupItem = groupItems.find { it.name == subjectGroup.name }
+                    if (groupItem != null) {
+                        groups.add(groupItem)
+                    }
+                }
+                subject.groups = groups
+            }
+        }
     }
 
     private fun initScheduleDay(subjects: ArrayList<ScheduleSubject>, dayNumber: Int): ScheduleDay {

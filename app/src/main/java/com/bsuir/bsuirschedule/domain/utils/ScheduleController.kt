@@ -107,7 +107,7 @@ class ScheduleController {
             if (weekNumberDaysCopy.isEmpty()) {
                 scheduleDays.add(
                     ScheduleDay(
-                        date = calendarDate.getDateStatus() + ", " + weekDayNumber,
+                        date = calendarDate.getDateStatus(),
                         dateUnixTime = calendarDate.getDateUnixTime(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
@@ -122,7 +122,7 @@ class ScheduleController {
                 val subjectsCopy = subjects.map { it.copy() }
                 scheduleDays.add(
                     ScheduleDay(
-                        date = calendarDate.getDateStatus() + ", " + weekDayNumber,
+                        date = calendarDate.getDateStatus(),
                         dateUnixTime = calendarDate.getDateUnixTime(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
@@ -243,11 +243,16 @@ class ScheduleController {
 
         if (!schedule.isExamsNotExist()) {
             if (!schedule.settings.exams.isShowPastDays) {
-                regularSchedule.examsSchedule = filterActualSchedule(regularSchedule.examsSchedule)
+                regularSchedule.examsSchedule = filterActualSchedule(
+                    regularSchedule.examsSchedule,
+                    0,
+                    schedule.startExamsDate
+                )
             } else {
                 regularSchedule.examsSchedule = filterActualSchedule(
                     regularSchedule.examsSchedule,
-                    30
+                    -1,
+                    schedule.startExamsDate
                 )
             }
             regularSchedule.examsSchedule = setActualDateStatuses(
@@ -269,9 +274,17 @@ class ScheduleController {
 
         if (!schedule.isNotExistSchedule()) {
             if (!schedule.settings.schedule.isShowPastDays) {
-                regularSchedule.schedules = filterActualSchedule(regularSchedule.schedules)
+                regularSchedule.schedules = filterActualSchedule(
+                    regularSchedule.schedules,
+                    0,
+                    schedule.startDate
+                )
             } else {
-                regularSchedule.schedules = filterActualSchedule(regularSchedule.schedules, regularSchedule.settings.schedule.pastDaysNumber)
+                regularSchedule.schedules = filterActualSchedule(
+                    regularSchedule.schedules,
+                    regularSchedule.settings.schedule.pastDaysNumber,
+                    schedule.startDate
+                )
             }
 
 //            regularSchedule.schedules = getPagingLimit(regularSchedule.schedules, page, 3)
@@ -366,8 +379,12 @@ class ScheduleController {
         return schedule
     }
 
-    private fun filterActualSchedule(schedule: ArrayList<ScheduleDay>, preDays: Int = 0): ArrayList<ScheduleDay> {
-        val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
+    private fun filterActualSchedule(schedule: ArrayList<ScheduleDay>, preDays: Int = 0, startDate: String): ArrayList<ScheduleDay> {
+        val calendarDate = if (preDays == -1) {
+            CalendarDate(startDate = startDate)
+        } else {
+            CalendarDate(startDate = CalendarDate.TODAY_DATE)
+        }
         if (preDays > 0) {
             calendarDate.minusDays(preDays)
         }

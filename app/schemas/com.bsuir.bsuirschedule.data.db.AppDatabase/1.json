@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2b84a32654c5b86acba5311bc80b00cc",
+    "identityHash": "9162c8dfbab22dee95c8ffb4e0f6bd61",
     "entities": [
       {
         "tableName": "GroupTable",
@@ -224,38 +224,6 @@
             "fieldPath": "urlId",
             "columnName": "urlId",
             "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "ActiveGroupTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `groupId` INTEGER NOT NULL, `groupScheduleId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "groupId",
-            "columnName": "groupId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "groupScheduleId",
-            "columnName": "groupScheduleId",
-            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -962,7 +930,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2b84a32654c5b86acba5311bc80b00cc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9162c8dfbab22dee95c8ffb4e0f6bd61')"
     ]
   }
 }

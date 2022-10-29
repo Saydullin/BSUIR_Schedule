@@ -15,7 +15,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/schedule_settings_subgroup"
-            tools:layout="@layout/settings_subgroup"
+            tools:layout="@layout/fragment_schedule_settings_subgroup"
             android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsSubgroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -26,7 +26,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/schedule_settings_schedule"
-            tools:layout="@layout/settings_schedule"
+            tools:layout="@layout/fragment_schedule_settings_schedule"
             android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsSchedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -37,7 +37,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/schedule_settings_exams"
-            tools:layout="@layout/settings_exams"
+            tools:layout="@layout/fragment_schedule_settings_exams"
             android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsExams"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -48,7 +48,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/schedule_settings_alarm"
-            tools:layout="@layout/settings_alarm"
+            tools:layout="@layout/fragment_schedule_settings_alarm"
             android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsAlarm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

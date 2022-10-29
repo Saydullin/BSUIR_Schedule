@@ -2,11 +2,11 @@ package com.bsuir.bsuirschedule.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.bsuir.bsuirschedule.domain.usecase.GroupScheduleUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 class PagingSourceImpl(
-    private val groupScheduleUseCase: GroupScheduleUseCase,
+    private val getScheduleUseCase: GetScheduleUseCase,
     private val groupId: Int
 ): PagingSource<Int, Int>() {
 
@@ -22,7 +22,7 @@ class PagingSourceImpl(
         val pageSize = params.loadSize
 
         return when (
-            val result = groupScheduleUseCase.getScheduleById(groupId, page, pageSize)
+            val result = getScheduleUseCase.getById(groupId, page, pageSize)
         ) {
             is Resource.Success -> {
                 val data = result.data!!

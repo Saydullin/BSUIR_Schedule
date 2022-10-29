@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.CurrentWeek
 import java.text.SimpleDateFormat
 import java.util.*

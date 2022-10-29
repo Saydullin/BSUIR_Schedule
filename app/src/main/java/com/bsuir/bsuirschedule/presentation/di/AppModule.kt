@@ -8,7 +8,6 @@ val appModule = module {
 
     viewModel {
         GroupScheduleViewModel(
-            groupScheduleUseCase = get(),
             sharedPrefsUseCase = get(),
             getCurrentWeekUseCase = get(),
             getScheduleUseCase = get(),

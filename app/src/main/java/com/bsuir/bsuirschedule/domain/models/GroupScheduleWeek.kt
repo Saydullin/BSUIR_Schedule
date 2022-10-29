@@ -1,7 +1,5 @@
 package com.bsuir.bsuirschedule.domain.models
 
-import com.bsuir.bsuirschedule.data.db.entities.GroupScheduleSubjectTable
-import com.bsuir.bsuirschedule.data.db.entities.GroupScheduleWeekTable
 import com.google.gson.annotations.SerializedName
 
 data class GroupScheduleWeek (
@@ -24,27 +22,6 @@ data class GroupScheduleWeek (
             saturday = ArrayList(),
         )
     }
-
-    fun getList(): List<ArrayList<ScheduleSubject>> {
-        return listOf(
-            monday ?: ArrayList(),
-            tuesday ?: ArrayList(),
-            wednesday ?: ArrayList(),
-            thursday ?: ArrayList(),
-            friday ?: ArrayList(),
-            saturday ?: ArrayList(),
-            sunday ?: ArrayList()
-        )
-    }
-
-    fun toGroupScheduleWeekTable() = GroupScheduleWeekTable(
-        monday = monday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,
-        tuesday = tuesday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,
-        wednesday = wednesday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,
-        thursday = thursday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,
-        friday = friday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>,
-        saturday = saturday?.map { it.toGroupScheduleSubjectTable() } as ArrayList<GroupScheduleSubjectTable>
-    )
 
 }
 

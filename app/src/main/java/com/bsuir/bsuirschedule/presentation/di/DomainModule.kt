@@ -10,33 +10,6 @@ import org.koin.dsl.module
 val domainModule = module {
 
     factory {
-        GroupScheduleUseCase(
-            scheduleRepository = get(),
-            groupItemsRepository = get(),
-            employeeItemsRepository = get(),
-            currentWeekUseCase = get()
-        )
-    }
-
-    factory {
-        EmployeeScheduleUseCase(
-            scheduleRepository = get(),
-            employeeItemsRepository = get(),
-            groupItemsRepository = get(),
-            fullScheduleUseCase = get(),
-            currentWeekUseCase = get()
-        )
-    }
-
-    factory {
-        FullScheduleUseCase()
-    }
-
-    factory {
-        FullExamsScheduleUseCase()
-    }
-
-    factory {
         GetScheduleUseCase(
             groupItemsRepository = get(),
             currentWeekUseCase = get(),

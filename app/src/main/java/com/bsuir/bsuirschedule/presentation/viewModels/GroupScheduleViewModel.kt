@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
-import com.bsuir.bsuirschedule.domain.usecase.GroupScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.DeleteScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 
 class GroupScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase,
-    private val groupScheduleUseCase: GroupScheduleUseCase,
     private val updateScheduleSettingsUseCase: UpdateScheduleSettingsUseCase,
     private val saveScheduleUseCase: SaveScheduleUseCase,
     private val deleteScheduleUseCase: DeleteScheduleUseCase,

@@ -50,11 +50,6 @@ class ScheduleSettingsSubgroup : Fragment() {
             if (scheduleSettings.subgroup.selectedNum != schedule.subgroups[i]) {
                 scheduleSettings.subgroup.selectedNum = schedule.subgroups[i]
                 groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
-                if (schedule.subgroups[i] == 0) {
-                    Toast.makeText(context, allSubgroupsText, Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, resources.getString(R.string.subgroup_selected, schedule.subgroups[i]), Toast.LENGTH_SHORT).show()
-                }
             }
         }
 

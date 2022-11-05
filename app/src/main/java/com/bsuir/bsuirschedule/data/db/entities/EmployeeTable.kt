@@ -8,6 +8,7 @@ import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 @Entity
 data class EmployeeTable (
     @PrimaryKey val id: Int,
+    @ColumnInfo val title: String,
     @ColumnInfo val firstName: String,
     @ColumnInfo val lastName: String,
     @ColumnInfo val middleName: String,
@@ -28,7 +29,8 @@ data class EmployeeTable (
     companion object {
         val empty = EmployeeTable(
             id = -1,
-            firstName ="",
+            title = "",
+            firstName = "",
             lastName = "",
             middleName = "",
             fullName = "",
@@ -48,6 +50,7 @@ data class EmployeeTable (
 
     fun toEmployeeSubject() = EmployeeSubject(
         id = id,
+        title = title,
         firstName = firstName,
         lastName = lastName,
         middleName = middleName,
@@ -65,6 +68,7 @@ data class EmployeeTable (
 
     fun toEmployee() = Employee(
         id = id,
+        title = title,
         firstName = firstName,
         lastName = lastName,
         middleName = middleName,

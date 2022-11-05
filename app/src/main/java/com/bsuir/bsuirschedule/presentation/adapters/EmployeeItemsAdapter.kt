@@ -26,7 +26,6 @@ class EmployeeItemsAdapter(
 
     fun setSavedItem(item: Employee) {
         val position = data.indexOfFirst { it.id == item.id }
-        Log.e("sady", "adapter employee position $position, item $item")
         if (position != -1) {
             data[position] = item
             notifyItemChanged(position)
@@ -55,7 +54,7 @@ class EmployeeItemsAdapter(
         private val binding = employeeItemBinding
 
         fun bind(context: Context, employee: Employee) {
-            binding.nestedEmployee.title.text = employee.getFullName()
+            binding.nestedEmployee.title.text = employee.getTitleOrFullName()
             binding.nestedEmployee.departments.text = employee.getDegreeAndRank()
             binding.nestedEmployee.educationType.text = employee.getShortDepartmentsAbbr()
 

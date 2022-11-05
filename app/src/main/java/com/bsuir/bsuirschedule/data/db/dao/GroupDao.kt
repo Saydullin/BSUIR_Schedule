@@ -17,6 +17,7 @@ interface GroupDao {
             "OR faculty_abbr||' '||course LIKE :s " +
             "OR faculty_name LIKE :s " +
             "OR speciality_name LIKE :s " +
+            "OR title LIKE :s " +
             "OR faculty_abbr||' '||speciality_abbrev||' '||course||' '||speciality_education_form_name LIKE :s  ORDER BY name ASC")
     fun filterByKeywordASC(s: String): List<GroupTable>
 
@@ -25,6 +26,7 @@ interface GroupDao {
             "OR faculty_abbr||' '||speciality_education_form_name LIKE :s " +
             "OR faculty_abbr||' '||course LIKE :s " +
             "OR faculty_name LIKE :s " +
+            "OR title LIKE :s " +
             "OR speciality_name LIKE :s ORDER BY name DESC")
     fun filterByKeywordDESC(s: String): List<GroupTable>
 

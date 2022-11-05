@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -80,12 +81,16 @@ class ScheduleController {
         val actualDays = schedule.schedules.filter { it.dateUnixTime >= dateUnixTime - 86400000 }
 
         var actualSubject: ScheduleSubject? = null
+        var actualSubjectIndex: Int
         for (actualDay in actualDays) {
-            actualSubject = actualDay.schedule.find { subject ->
+            actualSubjectIndex = actualDay.schedule.indexOfFirst { subject ->
                 (dateUnixTime < subject.startMillis) or
                         (dateUnixTime > subject.startMillis && dateUnixTime < subject.endMillis)
             }
-            if (actualSubject != null) {
+            if (actualSubjectIndex != -1) {
+                actualDay.schedule[actualSubjectIndex].isActual = true
+                Log.e("sady", "${actualDay.schedule[actualSubjectIndex]}")
+                actualSubject = actualDay.schedule[actualSubjectIndex]
                 break
             }
         }

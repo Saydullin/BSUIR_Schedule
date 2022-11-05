@@ -6,6 +6,7 @@ import java.util.*
 
 data class Group (
     val id: Int,
+    var title: String?,
     val name: String,
     val facultyId: Int,
     var faculty: Faculty?,
@@ -20,6 +21,7 @@ data class Group (
     companion object {
         val empty = Group(
             id = -1,
+            title = "",
             name = "",
             facultyId = -1,
             faculty = Faculty.empty,
@@ -29,6 +31,14 @@ data class Group (
             calendarId = "",
             isSaved = false
         )
+    }
+
+    fun getTitleOrName(): String {
+        if (title.isNullOrEmpty()) {
+            return name
+        }
+
+        return "$name ($title)"
     }
 
     fun getFacultyAndSpecialityFull(): String {
@@ -56,6 +66,7 @@ data class Group (
 
     fun toGroupTable() = GroupTable(
         id = id,
+        title = title ?: "",
         name = name,
         facultyId = facultyId,
         specialityId = specialityId,

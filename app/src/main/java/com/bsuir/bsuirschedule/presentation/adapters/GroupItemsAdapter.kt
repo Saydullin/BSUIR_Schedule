@@ -63,7 +63,7 @@ class GroupItemsAdapter(
                 binding.nestedGroup.iconAdded.visibility = View.GONE
             }
 
-            binding.nestedGroup.title.text = group.name
+            binding.nestedGroup.title.text = group.getTitleOrName()
             binding.nestedGroup.course.text = "${group.course} $courseString"
             binding.nestedGroup.departments.text = group.getFacultyAndSpecialityAbbr()
             binding.nestedGroup.educationType.text = group.speciality?.educationForm?.name ?: ""

@@ -19,7 +19,8 @@ sealed class Resource<T>(
         const val WEEK_API_LOADING_ERROR = 9
 
         const val SCHEDULE_LOADED_SUCCESS = 10
-        const val SCHEDULE_DELETED_SUCCESS = 11
+        const val SCHEDULE_UPDATED_SUCCESS = 11
+        const val SCHEDULE_DELETED_SUCCESS = 12
     }
 
     class Success<T>(data: T?): Resource<T>(data)

@@ -10,7 +10,9 @@ interface SavedScheduleDao {
     fun getSavedSchedules(): List<SavedScheduleTable>
 
     @Query("SELECT * FROM SavedScheduleTable WHERE " +
-            "employee_fullName LIKE :title " +
+            "employee_title LIKE :title " +
+            "OR group_title LIKE :title " +
+            "OR employee_fullName LIKE :title " +
             "OR employee_degreeAbbrev LIKE :title " +
             "OR employee_degree LIKE :title " +
             "OR employee_rank LIKE :title " +
@@ -25,7 +27,9 @@ interface SavedScheduleDao {
     fun filterByKeywordASC(title: String): List<SavedScheduleTable>
 
     @Query("SELECT * FROM SavedScheduleTable WHERE " +
-            "employee_fullName LIKE :title " +
+            "employee_title LIKE :title " +
+            "OR group_title LIKE :title " +
+            "OR employee_fullName LIKE :title " +
             "OR employee_degreeAbbrev LIKE :title " +
             "OR employee_degree LIKE :title " +
             "OR employee_rank LIKE :title " +

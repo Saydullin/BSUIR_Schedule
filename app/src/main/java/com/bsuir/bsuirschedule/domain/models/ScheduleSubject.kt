@@ -24,6 +24,7 @@ data class ScheduleSubject (
     val dateLesson: String?,
     val startLessonDate: String?,
     val endLessonDate: String?,
+    var isActual: Boolean? = false,
     @SerializedName("auditories") val audience: ArrayList<String>?
 ) {
 
@@ -49,7 +50,8 @@ data class ScheduleSubject (
             dateLesson = "",
             startLessonDate = "",
             endLessonDate = "",
-            ArrayList()
+            isActual = false,
+            audience = ArrayList()
         )
 
         const val CONSULTATION = "УЗк"
@@ -83,6 +85,7 @@ data class ScheduleSubject (
         dateLesson = dateLesson ?: "",
         startLessonDate = startLessonDate ?: "",
         endLessonDate = endLessonDate ?: "",
+        isActual = isActual ?: false,
         audience = audience ?: ArrayList(),
     )
 

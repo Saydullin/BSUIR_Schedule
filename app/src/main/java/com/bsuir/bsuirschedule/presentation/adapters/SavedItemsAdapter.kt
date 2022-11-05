@@ -23,6 +23,14 @@ class SavedItemsAdapter(
         notifyDataSetChanged()
     }
 
+    fun updateItem(savedSchedule: SavedSchedule) {
+        val position = savedSchedules.indexOfFirst { it.id == savedSchedule.id && (it.isGroup == savedSchedule.isGroup)}
+        if (position != -1) {
+            savedSchedules[position] = savedSchedule
+            notifyItemChanged(position)
+        }
+    }
+
     fun removeItem(savedSchedule: SavedSchedule) {
         val position = savedSchedules.indexOfFirst { it.id == savedSchedule.id && (it.isGroup == savedSchedule.isGroup)}
         if (position != -1) {
@@ -30,6 +38,10 @@ class SavedItemsAdapter(
             notifyItemRemoved(position)
         }
     }
+
+    override fun getItemId(position: Int) = position.toLong()
+
+    override fun getItemViewType(position: Int) = position
 
     class ViewHolder(
         scheduleListItemBinding: ScheduleListItemBinding,
@@ -44,25 +56,35 @@ class SavedItemsAdapter(
                 val group = schedule.group
                 Glide.with(context)
                     .load(R.drawable.ic_group_placeholder)
-                    .into(binding.nestedGroup.image)
-                binding.nestedGroup.title.text = group.name
-                binding.nestedGroup.course.text = "${group.course} $courseText"
-                binding.nestedGroup.departments.text = group.getFacultyAndSpecialityAbbr()
-                binding.nestedGroup.educationType.text = group.speciality?.educationForm?.name ?: ""
+                    .into(binding.image)
+                binding.title.text = group.getTitleOrName()
+                binding.course.text = "${group.course} $courseText"
+                binding.departments.text = group.getFacultyAndSpecialityAbbr()
+                binding.educationType.text = group.speciality?.educationForm?.name ?: ""
             } else {
                 val employee = schedule.employee
                 Glide.with(context)
                     .load(employee.photoLink)
                     .placeholder(R.drawable.ic_person_placeholder)
-                    .into(binding.nestedGroup.image)
-                binding.nestedGroup.title.text = employee.getFullName()
-                binding.nestedGroup.course.visibility = View.GONE
-                binding.nestedGroup.educationType.text = employee.getShortDepartmentsAbbr()
-                binding.nestedGroup.departments.text = employee.getDegreeAndRank()
+                    .into(binding.image)
+                binding.title.text = employee.getTitleOrFullName()
+                binding.course.visibility = View.GONE
+                binding.educationType.text = employee.getShortDepartmentsAbbr()
+                binding.departments.text = employee.getDegreeAndRank()
+            }
+
+            if (schedule.isExistExams) {
+                binding.iconFlag.visibility = View.VISIBLE
+            } else {
+                binding.iconFlag.visibility = View.GONE
             }
 
             binding.root.setOnClickListener {
                 saveScheduleLambda(schedule)
+            }
+
+            binding.moreButton.setOnClickListener {
+                longPressLambda(schedule, binding.moreButton)
             }
 
             binding.root.setOnLongClickListener {

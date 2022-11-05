@@ -37,7 +37,7 @@ class SubjectManager(
 
     private fun getTodayString(): String {
         val calendarStart = Calendar.getInstance()
-        val millisLeft = subject.startMillis - calendarStart.timeInMillis
+        val millisLeft = subject.startMillis - calendarStart.timeInMillis + 60_000
         val hours = millisLeft / 3_600_000
         val minutes = millisLeft % 3_600_000 / 60_000
         val pluralHoursText = context.resources.getQuantityString(R.plurals.plural_hours, hours.toInt(), hours.toInt())
@@ -52,6 +52,15 @@ class SubjectManager(
             return context.resources.getString(
                 subjectStatusTodayString,
                 pluralMinutesText,
+                subject.subject,
+                subject.getAudienceInLine()
+            )
+        }
+
+        if (minutes == 0L) {
+            return context.resources.getString(
+                subjectStatusTodayString,
+                pluralHoursText,
                 subject.subject,
                 subject.getAudienceInLine()
             )

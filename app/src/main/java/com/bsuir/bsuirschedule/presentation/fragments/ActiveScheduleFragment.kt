@@ -46,7 +46,7 @@ class ActiveScheduleFragment : Fragment() {
                     .load(R.drawable.ic_group_placeholder)
                     .into(binding.scheduleImage)
                 binding.scheduleCourse.text = "${group.course} $courseText"
-                binding.activeScheduleTitle.text = group.name
+                binding.activeScheduleTitle.text = group.getTitleOrName()
             } else {
                 val employee = schedule.employee
                 binding.scheduleCourse.text = ""
@@ -54,7 +54,7 @@ class ActiveScheduleFragment : Fragment() {
                     .load(employee.photoLink)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.scheduleImage)
-                binding.activeScheduleTitle.text = employee.getFullName()
+                binding.activeScheduleTitle.text = employee.getTitleOrFullName()
             }
 
             setCurrentSubject(binding.currentSubjectInfo, schedule.subjectNow)
@@ -83,14 +83,13 @@ class ActiveScheduleFragment : Fragment() {
             warningDialog.show(parentFragmentManager, "WarningDialog")
         }
 
-
         val updateSchedule = { savedSchedule: SavedSchedule ->
             savedSchedule.lastUpdateTime = Date().time
             savedScheduleVM.setActiveSchedule(savedSchedule)
             if (savedSchedule.isGroup) {
-                groupScheduleVM.getGroupScheduleAPI(savedSchedule.group)
+                groupScheduleVM.getGroupScheduleAPI(savedSchedule.group, isUpdate = true)
             } else {
-                groupScheduleVM.getEmployeeScheduleAPI(savedSchedule.employee)
+                groupScheduleVM.getEmployeeScheduleAPI(savedSchedule.employee, isUpdate = true)
             }
         }
 

@@ -7,6 +7,7 @@ import kotlin.collections.ArrayList
 
 data class Employee (
     val id: Int,
+    var title: String?,
     val firstName: String,
     val lastName: String,
     val middleName: String,
@@ -25,6 +26,7 @@ data class Employee (
     companion object {
         val empty = Employee(
             id = -1,
+            title = "",
             firstName = "",
             lastName = "",
             middleName = "",
@@ -42,6 +44,7 @@ data class Employee (
 
     fun toEmployeeSubject() = EmployeeSubject(
         id = id,
+        title = title,
         firstName = firstName,
         lastName = lastName,
         middleName = middleName,
@@ -58,6 +61,16 @@ data class Employee (
     )
 
     fun getFullName() = "$lastName $firstName $middleName"
+
+    fun getTitleOrFullName(): String {
+        if (title.isNullOrEmpty()) {
+            return getFullName()
+        }
+
+        return "${getName()} ($title)"
+    }
+
+    fun getName() = "$lastName ${firstName[0]}. ${middleName[0]}.".trim()
 
     fun getShortDepartmentsAbbr(): String {
         if (departmentsAbbrList.isNullOrEmpty()) return ""
@@ -82,6 +95,7 @@ data class Employee (
 
     fun toEmployeeTable() = EmployeeTable(
         id = id,
+        title = title ?: "",
         firstName = firstName,
         lastName = lastName,
         middleName = middleName,

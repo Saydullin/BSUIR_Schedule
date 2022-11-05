@@ -171,6 +171,9 @@ class GroupItemsViewModel(
             ) {
                 is Resource.Success -> {
                     allGroupItems.postValue(result.data)
+                    if (result.data.isNullOrEmpty()) {
+                        allGroupItems.postValue(null)
+                    }
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(

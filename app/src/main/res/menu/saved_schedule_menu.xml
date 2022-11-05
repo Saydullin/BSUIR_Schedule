@@ -7,10 +7,10 @@
         android:checkable="false"
         android:title="@string/popup_update" />
     <item
-        android:id="@+id/more"
-        android:icon="@drawable/ic_info"
+        android:id="@+id/rename"
+        android:icon="@drawable/ic_edit"
         android:iconTint="@color/primary"
-        android:title="@string/popup_more" />
+        android:title="@string/popup_rename" />
     <item
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete"

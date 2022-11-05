@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
@@ -13,9 +14,11 @@ import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.SavedItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.RenameScheduleDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.WarningDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.SavedSchedulePopupMenu
+import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
@@ -50,7 +53,8 @@ class ScheduleSavedItemsFragment : Fragment() {
         val dialog = LoadingDialog(loadingStatus)
         dialog.isCancelable = false
 
-        val getGroupScheduleLambda = { savedSchedule: SavedSchedule ->
+        val onSelectSchedule = { savedSchedule: SavedSchedule ->
+            groupScheduleVM.setUpdateStatus(false)
             groupScheduleVM.selectSchedule(savedSchedule)
             Navigation.findNavController(binding.root).navigate(R.id.action_to_main_schedules)
         }
@@ -71,12 +75,33 @@ class ScheduleSavedItemsFragment : Fragment() {
             warningDialog.show(parentFragmentManager, "WarningDialog")
         }
 
+        val onRenameSubmit = { savedSchedule: SavedSchedule, newTitle: String ->
+            if (savedSchedule.isGroup) {
+                savedSchedule.group.title = newTitle
+                groupItemsVM.saveGroupItem(savedSchedule.group)
+            } else {
+                savedSchedule.employee.title = newTitle
+                employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
+            }
+            savedScheduleVM.updateSchedule(savedSchedule)
+            groupScheduleVM.renameSchedule(savedSchedule.id, newTitle)
+        }
+
+        val onRenameClick = { savedSchedule: SavedSchedule ->
+            val stateDialog = RenameScheduleDialog(
+                savedSchedule = savedSchedule,
+                onRenameSubmit = onRenameSubmit
+            )
+            stateDialog.isCancelable = true
+            stateDialog.show(parentFragmentManager, "RenameSchedule")
+        }
+
         val updateSchedule = { savedSchedule: SavedSchedule ->
             savedScheduleVM.setActiveSchedule(savedSchedule)
             if (savedSchedule.isGroup) {
-                groupScheduleVM.getGroupScheduleAPI(savedSchedule.group)
+                groupScheduleVM.getGroupScheduleAPI(savedSchedule.group, true)
             } else {
-                groupScheduleVM.getEmployeeScheduleAPI(savedSchedule.employee)
+                groupScheduleVM.getEmployeeScheduleAPI(savedSchedule.employee, true)
             }
         }
 
@@ -85,14 +110,15 @@ class ScheduleSavedItemsFragment : Fragment() {
                 context!!,
                 savedSchedule = savedSchedule,
                 delete = deleteWarning,
-                update = updateSchedule
+                update = updateSchedule,
+                rename = onRenameClick
             ).initPopupMenu(view)
 
             popupMenu.show()
         }
 
         binding.scheduleSavedItemsRecycler.layoutManager = LinearLayoutManager(context)
-        val adapter = SavedItemsAdapter(context!!, ArrayList(), getGroupScheduleLambda, longPressLambda)
+        val adapter = SavedItemsAdapter(context!!, ArrayList(), onSelectSchedule, longPressLambda)
         binding.scheduleSavedItemsRecycler.adapter = adapter
 
         groupScheduleVM.deletedScheduleStatus.observe(viewLifecycleOwner) { savedSchedule ->
@@ -104,12 +130,26 @@ class ScheduleSavedItemsFragment : Fragment() {
             }
         }
 
+        savedScheduleVM.updatedScheduleStatus.observe(viewLifecycleOwner) { updatedSchedule ->
+            if (updatedSchedule != null) {
+                adapter.updateItem(updatedSchedule)
+            }
+        }
+
         groupScheduleVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
                 val stateDialog = StateDialog(errorStatus)
                 stateDialog.isCancelable = true
                 stateDialog.show(parentFragmentManager, "ErrorDialog")
                 groupScheduleVM.closeError()
+            }
+        }
+
+        groupScheduleVM.successStatus.observe(viewLifecycleOwner) { successCode ->
+            if (successCode != null) {
+                val messageManager = ErrorMessage(context!!).get(successCode)
+                groupScheduleVM.setSuccessNull()
+                Toast.makeText(context, messageManager.title, Toast.LENGTH_SHORT).show()
             }
         }
 

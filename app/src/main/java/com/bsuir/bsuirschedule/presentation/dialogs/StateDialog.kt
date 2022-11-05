@@ -51,6 +51,9 @@ class StateDialog(private val stateStatus: StateStatus): DialogFragment() {
             }
         }
 
+        binding.root.alpha = 0f
+        binding.root.animate().alpha(1f).setDuration(200).start()
+
         return binding.root
     }
 

@@ -64,6 +64,12 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.schedule_success_loaded_caption)
                 )
             }
+            Resource.SCHEDULE_UPDATED_SUCCESS -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.schedule_success_updated),
+                    caption = resources.getString(R.string.schedule_success_updated_caption)
+                )
+            }
             Resource.SCHEDULE_DELETED_SUCCESS -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.schedule_success_deleted),

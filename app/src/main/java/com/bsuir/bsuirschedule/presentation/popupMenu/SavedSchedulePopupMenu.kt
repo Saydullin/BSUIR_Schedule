@@ -10,7 +10,8 @@ class SavedSchedulePopupMenu(
     private val context: Context,
     private val savedSchedule: SavedSchedule,
     private val update: (savedSchedule: SavedSchedule) -> Unit,
-    private val delete: (savedSchedule: SavedSchedule) -> Unit
+    private val delete: (savedSchedule: SavedSchedule) -> Unit,
+    private val rename: (savedSchedule: SavedSchedule) -> Unit,
 ) {
 
     fun initPopupMenu(targetView: View): PopupMenu {
@@ -26,6 +27,10 @@ class SavedSchedulePopupMenu(
                 }
                 R.id.delete -> {
                     delete(savedSchedule)
+                    true
+                }
+                R.id.rename -> {
+                    rename(savedSchedule)
                     true
                 }
                 else -> {

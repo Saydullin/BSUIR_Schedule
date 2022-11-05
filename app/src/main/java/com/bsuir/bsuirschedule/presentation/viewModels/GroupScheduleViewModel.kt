@@ -25,21 +25,25 @@ class GroupScheduleViewModel(
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
+    private val update = MutableLiveData(false)
     private val dataLoading = MutableLiveData(true)
     private val scheduleLoaded = MutableLiveData<SavedSchedule>(null)
     private val groupLoading = MutableLiveData(false)
     private val settingsUpdated = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
     private val activeSchedule = MutableLiveData<SavedSchedule>(null)
-    private val schedule = MutableLiveData<Schedule>(Schedule.empty)
+    private val schedule = MutableLiveData<Schedule>(null)
     private val deletedSchedule = MutableLiveData<SavedSchedule>(null)
     private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
+    private val success = MutableLiveData<Int>(null)
     val scheduleStatus = schedule
     val settingsUpdatedStatus = settingsUpdated
     val deletedScheduleStatus = deletedSchedule
     val examsScheduleStatus = examsSchedule
     val errorStatus = error
+    val successStatus = success
+    val updateStatus = update
     val scheduleLoadedStatus = scheduleLoaded
     val loadingStatus = loading
     val dataLoadingStatus = dataLoading
@@ -50,13 +54,24 @@ class GroupScheduleViewModel(
         scheduleLoaded.value = null
     }
 
+    fun setSuccessNull() {
+        success.value = null
+    }
+
     fun setDeletedScheduleNull() {
         deletedSchedule.value = null
     }
 
+    fun setUpdateStatus(updateStatus: Boolean) {
+        update.value = updateStatus
+    }
+
     fun updateSchedule() {
-        schedule.value = schedule.value
-        settingsUpdated.value = false
+        if (updateStatus.value == true) {
+            val scheduleId = schedule.value?.id ?: return
+            settingsUpdated.value = false
+            getScheduleById(scheduleId, false)
+        }
     }
 
     fun getActiveSchedule(): Schedule? {
@@ -86,7 +101,32 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun getGroupScheduleAPI(group: Group) {
+    fun renameSchedule(scheduleId: Int, newTitle: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (
+                val result = getScheduleUseCase.getById(scheduleId, 0, -1)
+            ) {
+                is Resource.Success -> {
+                    val data = result.data!!
+                    if (data.isGroup()) {
+                        data.group.title = newTitle
+                    } else {
+                        data.employee.title = newTitle
+                    }
+                    saveGroupSchedule(data)
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType,
+                        message = result.message
+                    ))
+                }
+            }
+        }
+    }
+
+    fun getGroupScheduleAPI(group: Group, isUpdate: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
             groupLoading.postValue(true)
@@ -104,10 +144,11 @@ class GroupScheduleViewModel(
                     val groupSchedule = groupScheduleResponse.data!!
                     saveGroupSchedule(groupSchedule)
                     scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isNotExistExams()))
-                    error.postValue(StateStatus(
-                        state = StateStatus.SUCCESS_STATE,
-                        type = Resource.SCHEDULE_LOADED_SUCCESS,
-                    ))
+                    if (isUpdate) {
+                        success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
+                    } else {
+                        success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                    }
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(
@@ -122,7 +163,7 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun getEmployeeScheduleAPI(employee: Employee) {
+    fun getEmployeeScheduleAPI(employee: Employee, isUpdate: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
             employeeLoading.postValue(true)
@@ -133,10 +174,11 @@ class GroupScheduleViewModel(
                     val data = groupSchedule.data!!
                     saveGroupSchedule(data)
                     scheduleLoaded.postValue(employee.toSavedSchedule(!data.isNotExistExams()))
-                    error.postValue(StateStatus(
-                        state = StateStatus.SUCCESS_STATE,
-                        type = Resource.SCHEDULE_LOADED_SUCCESS,
-                    ))
+                    if (isUpdate) {
+                        success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
+                    } else {
+                        success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                    }
                 }
                 is Resource.Error -> {
                     error.postValue(
@@ -216,9 +258,18 @@ class GroupScheduleViewModel(
         }
     }
 
-    private fun getScheduleById(scheduleId: Int) {
+    private fun getScheduleById(scheduleId: Int, isNotUpdate: Boolean = true) {
+        if (scheduleId == -1) {
+            schedule.postValue(null)
+            error.postValue(StateStatus(
+                state = StateStatus.ERROR_STATE,
+                type = Resource.DATABASE_NOT_FOUND_ERROR
+            ))
+            return
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
-            dataLoading.postValue(true)
+            dataLoading.postValue(isNotUpdate)
             try {
                 when (
                     val result = getScheduleUseCase.getById(scheduleId, 0, -1)
@@ -254,10 +305,7 @@ class GroupScheduleViewModel(
                 val isDeletedSchedule = deleteScheduleUseCase.invoke(savedSchedule)
             ) {
                 is Resource.Success -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.SUCCESS_STATE,
-                        type = Resource.SCHEDULE_DELETED_SUCCESS
-                    ))
+                    success.postValue(Resource.SCHEDULE_DELETED_SUCCESS)
                     deletedSchedule.postValue(savedSchedule)
                     if (schedule.value?.id == savedSchedule.id) {
                         schedule.postValue(null)

@@ -10,6 +10,7 @@ interface EmployeeDao {
     fun getEmployees(): List<EmployeeTable>
 
     @Query("SELECT * FROM EmployeeTable WHERE fullName LIKE :s " +
+            "OR title LIKE :s " +
             "OR degree LIKE :s " +
             "OR degreeAbbrev LIKE :s " +
             "OR departments LIKE :s " +
@@ -18,6 +19,7 @@ interface EmployeeDao {
     fun filterByKeywordASC(s: String): List<EmployeeTable>
 
     @Query("SELECT * FROM EmployeeTable WHERE fullName LIKE :s " +
+            "OR title LIKE :s " +
             "OR degree LIKE :s " +
             "OR degreeAbbrev LIKE :s " +
             "OR departments LIKE :s " +

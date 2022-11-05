@@ -108,6 +108,9 @@ class EmployeeItemsViewModel(
             ) {
                 is Resource.Success -> {
                     employeeItems.postValue(result.data!!)
+                    if (result.data.isNullOrEmpty()) {
+                        employeeItems.postValue(null)
+                    }
                 }
                 is Resource.Error -> {
                     error.postValue(

@@ -15,6 +15,7 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleTabs
 import com.bsuir.bsuirschedule.presentation.adapters.ScheduleExamsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.MainPopupMenu
+import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.CurrentWeekViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -30,6 +31,12 @@ class MainScheduleFragment : Fragment() {
         super.onResume()
 
         groupScheduleVM.updateSchedule()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        groupScheduleVM.setUpdateStatus(true)
     }
 
     override fun onCreateView(
@@ -96,6 +103,14 @@ class MainScheduleFragment : Fragment() {
                 stateStatus.isCancelable = true
                 stateStatus.show(parentFragmentManager, "ErrorDialog")
                 currentWeekVM.closeError()
+            }
+        }
+
+        groupScheduleVM.successStatus.observe(viewLifecycleOwner) { successCode ->
+            if (successCode != null) {
+                val messageManager = ErrorMessage(context!!).get(successCode)
+                groupScheduleVM.setSuccessNull()
+                Toast.makeText(context, messageManager.title, Toast.LENGTH_SHORT).show()
             }
         }
 

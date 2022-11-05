@@ -43,7 +43,7 @@
     <string name="agree">Да</string>
     <string name="active_schedule_no_departments">Кафедра отсутствует</string>
     <string name="delete_schedule_dialog_title">Вы уверены, что хотите удалить расписание?</string>
-    <string name="delete_schedule_dialog_caption">Расписание можно будет скачать заново</string>
+    <string name="delete_schedule_dialog_caption">Настройки и все кастомные данные будут удалены</string>
     <string name="reset_schedule_settings">Настройки сброшены</string>
     <string name="save_schedule_settings">Настройки сохранены</string>
 
@@ -95,11 +95,13 @@
     <string name="no_data_field">Не указано</string>
     <string name="subject_break_time_or">или</string>
     <string name="search_placeholder">Поиск</string>
+    <string name="schedule_title_placeholder">Введите что угодно</string>
     <string name="loading_dots">загружается ...</string>
     <string name="popup_settings">Настройки</string>
     <string name="popup_about">О приложении</string>
     <string name="popup_update">Обновить</string>
     <string name="popup_more">Дополнительно</string>
+    <string name="popup_rename">Переименовать</string>
     <string name="popup_delete">Удалить</string>
     <string name="all_subgroups">Для всех подгрупп</string>
     <string name="all_subgroups_short">*</string>
@@ -126,8 +128,8 @@
     <string name="database_error_caption">Попробуйте очистить данные приложения в настройках</string>
     <string name="system_error">Системная ошибка</string>
     <string name="system_error_caption">Переустановите приложение</string>
-    <string name="schedule_success_loaded">Расписание загружено</string>
-    <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
+    <string name="schedule_success_updated">Расписание обновлено</string>
+    <string name="schedule_success_updated_caption">Расписание обновлено успешно</string>
     <string name="schedule_success_deleted">Расписание удалено</string>
     <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
     <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
@@ -308,6 +310,11 @@
     <string name="schedule_settings_schedule_past_days_hint_text">Сколько прошедших дней показывать?</string>
     <string name="reset">Сбросить</string>
     <string name="save">Сохранить</string>
+    <string name="rename_schedule_dialog_caption">Новое название будет в помечено скобках</string>
+    <string name="rename_schedule_dialog_title">Введите название</string>
+    <string name="done">Готово</string>
+    <string name="schedule_success_loaded">Расписание загружено</string>
+    <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
 
 </resources>
 

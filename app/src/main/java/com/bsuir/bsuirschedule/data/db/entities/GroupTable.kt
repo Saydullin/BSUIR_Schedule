@@ -9,6 +9,7 @@ import com.bsuir.bsuirschedule.domain.models.Group
 @Entity
 data class GroupTable (
     @PrimaryKey val id: Int,
+    @ColumnInfo val title: String,
     @ColumnInfo val name: String,
     @ColumnInfo val facultyId: Int,
     @Embedded(prefix = "faculty_") val faculty: FacultyTable,
@@ -21,6 +22,7 @@ data class GroupTable (
 
     fun toGroup() = Group(
         id = id,
+        title = title,
         name = name,
         facultyId = facultyId,
         faculty = faculty.toFaculty(),

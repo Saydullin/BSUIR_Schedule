@@ -227,7 +227,7 @@
     <string name="delete_schedule">Delete %s?</string>
     <string name="agree">Yes</string>
     <string name="delete_schedule_dialog_title">Are you sure you want to delete the schedule?</string>
-    <string name="delete_schedule_dialog_caption">The schedule can be downloaded again</string>
+    <string name="delete_schedule_dialog_caption">Settings and all custom data will be deleted</string>
     <string name="reset_schedule_settings">Settings reset</string>
     <string name="save_schedule_settings">Settings saved</string>
     <string name="appwidget_text">EXAMPLE</string>
@@ -251,6 +251,13 @@
     <string name="schedule_week_loaded_error">What week is now?</string>
     <string name="schedule_week_loaded_error_caption">Failed to load current week number</string>
     <string name="test_header_title">0 week</string>
+    <string name="popup_rename">Rename</string>
+    <string name="rename_schedule_dialog_caption">The new name will be marked in brackets</string>
+    <string name="rename_schedule_dialog_title">Enter the title</string>
+    <string name="schedule_title_placeholder">Enter anything</string>
+    <string name="done">Done</string>
+    <string name="schedule_success_updated_caption">Schedule updated</string>
+    <string name="schedule_success_updated">Schedule updated successfully</string>
 </resources>
 
 

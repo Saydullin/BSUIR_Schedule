@@ -54,6 +54,12 @@ class ScheduleSubjectsAdapter(
             binding.subjectAudience.text = subject.getAudienceInLine()
             binding.subjectTitle.text = subject.subject
 
+            if (subject.isActual == true) {
+                binding.actualSubjectIcon.visibility = View.VISIBLE
+            } else {
+                binding.actualSubjectIcon.visibility = View.GONE
+            }
+
             when (subject.lessonTypeAbbrev) {
                 ScheduleSubject.LABORATORY -> {
                     binding.subjectType.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))

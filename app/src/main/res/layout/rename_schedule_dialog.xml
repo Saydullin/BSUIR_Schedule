@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
+            android:layout_gravity="center"
+            android:text="@string/rename_schedule_dialog_title" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Hint"
+            android:layout_gravity="center"
+            android:text="@string/rename_schedule_dialog_caption" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:maxLength="30"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:inputType="text"
+            android:autofillHints="name"
+            android:hint="@string/schedule_title_placeholder"
+            android:focusedByDefault="true"
+            android:textColorHint="?attr/textHintColor"
+            android:textColor="?attr/textColor"
+            android:textColorHighlight="?attr/primaryColor"
+            android:textSize="@dimen/font_medium_size"
+            android:backgroundTint="?attr/textHintColor"
+            android:textCursorDrawable="@drawable/edit_text_cursor" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.Button.Hint"
+                android:text="@string/cancel" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.Button"
+                android:text="@string/done" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+

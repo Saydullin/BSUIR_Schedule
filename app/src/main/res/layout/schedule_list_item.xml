@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,45 +16,123 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:padding="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <include
-            android:id="@+id/nested_group"
-            layout="@layout/group" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:shape="ring"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="25dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_group_placeholder"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/app_name" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="@string/test_subject_subtitle" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/course"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.BSUIRSchedule.TextView"
+                        android:text="@string/test_group_course" />
+
+                    <ImageView
+                        android:id="@+id/icon_flag"
+                        android:visibility="gone"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/ic_flag" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/departments"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="@string/test_group_spDep" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/education_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                        android:text="@string/test_group_type" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
+            android:id="@+id/moreButton"
             style="@style/Theme.BSUIRSchedule.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_more" />
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="20dp"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:src="@drawable/ic_update"-->
-<!--                android:contentDescription="@string/cd_last_update" />-->
-
-<!--            <Space-->
-<!--                android:layout_width="5dp"-->
-<!--                android:layout_height="match_parent" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/last_update"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                style="@style/Theme.BSUIRSchedule.TextView.Hint"-->
-<!--                android:visibility="gone"-->
-<!--                android:text="@string/test_group_update" />-->
-
-<!--        </LinearLayout>-->
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_more_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="10dp" />
 
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+
+

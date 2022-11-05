@@ -24,7 +24,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:gravity="end"
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
@@ -45,6 +45,14 @@
                     android:textColor="?attr/textColor"
                     android:gravity="end"
                     tools:text="13:45" />
+
+                <ImageView
+                    android:id="@+id/actual_subject_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_two_dots" />
 
             </LinearLayout>
 

@@ -68,12 +68,9 @@ data class Schedule (
 
     fun getDateText(date: String): String {
         if (date.isEmpty()) return "???"
-        val dateFormat = SimpleDateFormat("dd.MM.yyyy").parse(date)
-        if (dateFormat != null) {
-            return SimpleDateFormat("d MMMM").format(Date(dateFormat.time))
-        }
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy").parse(date) ?: return "???"
 
-        return "???"
+        return SimpleDateFormat("d MMMM").format(Date(dateFormat.time))
     }
 
     fun isGroup() = group.id != -1
@@ -117,7 +114,7 @@ data class Schedule (
         examsSchedule = examsSchedule,
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
-        settings = settings
+        settings = settings,
     )
 
 }

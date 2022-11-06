@@ -39,10 +39,6 @@ class SavedItemsAdapter(
         }
     }
 
-    override fun getItemId(position: Int) = position.toLong()
-
-    override fun getItemViewType(position: Int) = position
-
     class ViewHolder(
         scheduleListItemBinding: ScheduleListItemBinding,
         private val saveScheduleLambda: (schedule: SavedSchedule) -> Unit,

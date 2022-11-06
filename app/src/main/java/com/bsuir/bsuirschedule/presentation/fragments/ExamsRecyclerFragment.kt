@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentExamsRecyclerBinding
+import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
@@ -24,8 +26,16 @@ class ExamsRecyclerFragment : Fragment() {
     ): View {
         val binding = FragmentExamsRecyclerBinding.inflate(inflater)
 
+        val onSubjectSourceClick = { savedSchedule: SavedSchedule ->
+            if (savedSchedule.isGroup) {
+                Toast.makeText(context, savedSchedule.group.name, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, savedSchedule.employee.getFullName(), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         val showSubjectDialog = { subject: ScheduleSubject ->
-            val subjectDialog = SubjectDialog(subject)
+            val subjectDialog = SubjectDialog(subject, onSubjectSourceClick)
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }

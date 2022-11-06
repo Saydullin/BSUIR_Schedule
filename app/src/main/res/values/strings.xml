@@ -42,6 +42,9 @@
     <string name="delete_schedule">Удалить %s?</string>
     <string name="agree">Да</string>
     <string name="active_schedule_no_departments">Кафедра отсутствует</string>
+    <string name="upload_schedule_dialog_title">Хотите посмотреть на расписание\n"%s"?</string>
+    <string name="upload_schedule_dialog_title_holder">Хотите посмотреть на это расписание?</string>
+    <string name="upload_schedule_dialog_caption">Если это расписание не было загружено Вами, оно загрузится автоматически</string>
     <string name="delete_schedule_dialog_title">Вы уверены, что хотите удалить расписание?</string>
     <string name="delete_schedule_dialog_caption">Настройки и все кастомные данные будут удалены</string>
     <string name="reset_schedule_settings">Настройки сброшены</string>

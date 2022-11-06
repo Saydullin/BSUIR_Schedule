@@ -5,15 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
+import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.UploadScheduleDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -30,8 +33,18 @@ class ScheduleRecyclerFragment : Fragment() {
         val dialog = LoadingDialog(loadingStatus)
         dialog.isCancelable = false
 
+        val onSubmitUploadSchedule = { savedSchedule: SavedSchedule ->
+            groupScheduleVM.getOrUploadSchedule(savedSchedule)
+        }
+
+        val onSubjectSourceClick = { savedSchedule: SavedSchedule ->
+            val uploadScheduleDialog = UploadScheduleDialog(savedSchedule, onSubmitUploadSchedule)
+            uploadScheduleDialog.isCancelable = true
+            uploadScheduleDialog.show(parentFragmentManager, "uploadScheduleDialog")
+        }
+
         val showSubjectDialog = { subject: ScheduleSubject ->
-            val subjectDialog = SubjectDialog(subject)
+            val subjectDialog = SubjectDialog(subject, onSubjectSourceClick)
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }

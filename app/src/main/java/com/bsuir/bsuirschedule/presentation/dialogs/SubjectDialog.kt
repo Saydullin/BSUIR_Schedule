@@ -13,7 +13,10 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.SubjectItemsAdapter
 
-class SubjectDialog(private val subject: ScheduleSubject): DialogFragment() {
+class SubjectDialog(
+    private val subject: ScheduleSubject,
+    private val onClickSubjectSource: (savedSchedule: SavedSchedule) -> Unit,
+): DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -115,15 +118,20 @@ class SubjectDialog(private val subject: ScheduleSubject): DialogFragment() {
             binding.subjectNextTime.text = undefinedNextTimeSubjectText
         }
 
+        val onClickSource = { savedSchedule: SavedSchedule ->
+            onClickSubjectSource(savedSchedule)
+            dismiss()
+        }
+
         if (subject.employees != null && !subject.employees.isNullOrEmpty()) {
             val scheduleItems = subject.employees!!.map { it.toSavedSchedule() } as ArrayList<SavedSchedule>
-            val adapter = SubjectItemsAdapter(context!!, scheduleItems)
+            val adapter = SubjectItemsAdapter(context!!, scheduleItems, onClickSource)
             binding.sourceRecycler.adapter = adapter
         }
 
         if (subject.groups != null && subject.groups!!.isNotEmpty()) {
             val scheduleItems = subject.groups!!.map { it.toSavedSchedule(false) } as ArrayList<SavedSchedule>
-            val adapter = SubjectItemsAdapter(context!!, scheduleItems)
+            val adapter = SubjectItemsAdapter(context!!, scheduleItems, onClickSource)
             binding.sourceRecycler.adapter = adapter
         }
 

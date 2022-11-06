@@ -16,13 +16,15 @@ import com.bsuir.bsuirschedule.presentation.adapters.ScheduleExamsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.MainPopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
-import com.bsuir.bsuirschedule.presentation.viewModels.CurrentWeekViewModel
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.*
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class MainScheduleFragment : Fragment() {
 
+    private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val currentWeekVM: CurrentWeekViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private lateinit var binding: FragmentMainScheduleBinding
@@ -112,6 +114,19 @@ class MainScheduleFragment : Fragment() {
                 groupScheduleVM.setSuccessNull()
                 Toast.makeText(context, messageManager.title, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        groupScheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
+            if (savedSchedule == null) return@observe
+            if (savedSchedule.isGroup) {
+                savedSchedule.group.isSaved = true
+                groupItemsVM.saveGroupItem(savedSchedule.group)
+            } else {
+                savedSchedule.employee.isSaved = true
+                employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
+            }
+            savedItemsVM.saveSchedule(savedSchedule)
+            groupScheduleVM.setScheduleLoadedNull()
         }
 
         return binding.root

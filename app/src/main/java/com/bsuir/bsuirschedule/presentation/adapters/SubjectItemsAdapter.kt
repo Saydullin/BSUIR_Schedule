@@ -12,10 +12,14 @@ import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 
 class SubjectItemsAdapter(
     private val context: Context,
-    private val items: ArrayList<SavedSchedule>
+    private val items: ArrayList<SavedSchedule>,
+    private val onClick: (savedSchedule: SavedSchedule) -> Unit,
 ): RecyclerView.Adapter<SubjectItemsAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: SubjectItemSourceBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: SubjectItemSourceBinding,
+        private val onClick: (savedSchedule: SavedSchedule) -> Unit,
+        ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, item: SavedSchedule) {
             val courseText = context.getString(R.string.course)
@@ -38,13 +42,17 @@ class SubjectItemsAdapter(
                 binding.nestedGroup.title.text = employee.getFullName()
                 binding.nestedGroup.departments.text = employee.getDegreeAndRank()
             }
+
+            binding.root.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = SubjectItemSourceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -78,6 +78,26 @@ class GroupScheduleViewModel(
         return schedule.value
     }
 
+    fun getOrUploadSchedule(savedSchedule: SavedSchedule) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (
+                val result = getScheduleUseCase.getById(savedSchedule.id, 0, -1)
+            ) {
+                is Resource.Success -> {
+                    val data = result.data!!
+                    saveScheduleToLiveData(data)
+                }
+                is Resource.Error -> {
+                    if (savedSchedule.isGroup) {
+                        getGroupScheduleAPI(savedSchedule.group)
+                    } else {
+                        getEmployeeScheduleAPI(savedSchedule.employee)
+                    }
+                }
+            }
+        }
+    }
+
     fun selectSchedule(savedSchedule: SavedSchedule) {
         viewModelScope.launch(Dispatchers.IO) {
             if (savedSchedule.id == activeSchedule.value?.id &&

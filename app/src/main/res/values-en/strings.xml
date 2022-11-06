@@ -258,6 +258,9 @@
     <string name="done">Done</string>
     <string name="schedule_success_updated_caption">Schedule updated</string>
     <string name="schedule_success_updated">Schedule updated successfully</string>
+    <string name="upload_schedule_dialog_title">Would you like to see %s\' schedule?</string>
+    <string name="upload_schedule_dialog_title_holder">Would you like to see this schedule?</string>
+    <string name="upload_schedule_dialog_caption">Schedule uploaded and simulated successfully</string>
 </resources>
 
 

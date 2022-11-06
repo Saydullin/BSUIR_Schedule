@@ -10,7 +10,6 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/text_dark_hint</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:popupBackground">@drawable/popup_menu_background</item>
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:textColorPrimaryDisableOnly">@color/text_dark</item>
@@ -31,10 +30,6 @@
         <item name="secondaryTextColor">@color/dark</item>
         <item name="textColor">@color/dark</item>
         <item name="textHintColor">@color/text_dark_hint</item>
-    </style>
-
-    <style name="PopupMenu" parent="@style/Widget.MaterialComponents.PopupMenu.Overflow">
-        <item name="android:popupBackground">@drawable/popup_menu_background</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.Checkbox">

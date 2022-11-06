@@ -88,6 +88,7 @@ class SavedSchedulesViewModel(
             }
             when(result) {
                 is Resource.Success -> {
+                    savedSchedulesCount.postValue(result.data!!.size)
                     savedSchedules.postValue(result.data)
                 }
                 is Resource.Error -> {

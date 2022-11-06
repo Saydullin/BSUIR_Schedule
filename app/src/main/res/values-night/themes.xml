@@ -36,10 +36,6 @@
         <item name="textHintColor">@color/textHintColorDarkTheme</item>
     </style>
 
-    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
-        <item name="android:popupBackground">@drawable/popup_menu_background</item>
-    </style>
-
 </resources>
 
 

@@ -47,7 +47,6 @@
             android:focusedByDefault="true"
             android:textColorHint="?attr/textHintColor"
             android:textColor="?attr/textColor"
-            android:textColorHighlight="?attr/primaryColor"
             android:textSize="@dimen/font_medium_size"
             android:backgroundTint="?attr/textHintColor"
             android:textCursorDrawable="@drawable/edit_text_cursor" />

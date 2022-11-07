@@ -1,9 +1,9 @@
 package com.bsuir.bsuirschedule.domain.models
 
-import com.bsuir.bsuirschedule.data.db.entities.GroupScheduleSubjectTable
 import com.google.gson.annotations.SerializedName
 
 data class ScheduleSubject (
+    var id: Int? = 0,
     val subject: String?,
     val subjectFullName: String?,
     var lessonTypeAbbrev: String?,
@@ -25,11 +25,13 @@ data class ScheduleSubject (
     val startLessonDate: String?,
     val endLessonDate: String?,
     var isActual: Boolean? = false,
+    var isIgnored: Boolean? = false,
     @SerializedName("auditories") val audience: ArrayList<String>?
 ) {
 
     companion object {
         val empty = ScheduleSubject(
+            id = 0,
             subject = "",
             subjectFullName = "",
             lessonTypeAbbrev = "",
@@ -51,6 +53,7 @@ data class ScheduleSubject (
             startLessonDate = "",
             endLessonDate = "",
             isActual = false,
+            isIgnored = false,
             audience = ArrayList()
         )
 
@@ -65,29 +68,30 @@ data class ScheduleSubject (
 
     fun getAudienceInLine() = audience?.joinToString(", ") ?: ""
 
-    fun toGroupScheduleSubjectTable() = GroupScheduleSubjectTable(
-        subject = subject ?: "",
-        subjectFullName = subjectFullName ?: "",
-        lessonTypeAbbrev = lessonTypeAbbrev ?: "",
-        employees = employees?.map { it.toEmployeeTable() } ?: ArrayList(),
-        groups = groups?.map { it.toGroupTable() } ?: ArrayList(),
-        groupSubjects = subjectGroups?.map { it.toGroupSubjectTable() } ?: ArrayList(),
-        startMillis = startMillis,
-        endMillis = endMillis,
-        nextTimeDaysLeft = nextTimeDaysLeft ?: -1,
-        startLessonTime = startLessonTime ?: "",
-        endLessonTime = endLessonTime ?: "",
-        numSubgroup = numSubgroup ?: 0,
-        note = note ?: "",
-        breakMinutes = breakTime ?: SubjectBreakTime.empty,
-        weekNumber = weekNumber ?: ArrayList(),
-        dayNumber = dayNumber,
-        dateLesson = dateLesson ?: "",
-        startLessonDate = startLessonDate ?: "",
-        endLessonDate = endLessonDate ?: "",
-        isActual = isActual ?: false,
-        audience = audience ?: ArrayList(),
-    )
+//    fun toGroupScheduleSubjectTable() = GroupScheduleSubjectTable(
+//        subject = subject ?: "",
+//        subjectFullName = subjectFullName ?: "",
+//        lessonTypeAbbrev = lessonTypeAbbrev ?: "",
+//        employees = employees?.map { it.toEmployeeTable() } ?: ArrayList(),
+//        groups = groups?.map { it.toGroupTable() } ?: ArrayList(),
+//        groupSubjects = subjectGroups?.map { it.toGroupSubjectTable() } ?: ArrayList(),
+//        startMillis = startMillis,
+//        endMillis = endMillis,
+//        nextTimeDaysLeft = nextTimeDaysLeft ?: -1,
+//        startLessonTime = startLessonTime ?: "",
+//        endLessonTime = endLessonTime ?: "",
+//        numSubgroup = numSubgroup ?: 0,
+//        note = note ?: "",
+//        breakMinutes = breakTime ?: SubjectBreakTime.empty,
+//        weekNumber = weekNumber ?: ArrayList(),
+//        dayNumber = dayNumber,
+//        dateLesson = dateLesson ?: "",
+//        startLessonDate = startLessonDate ?: "",
+//        endLessonDate = endLessonDate ?: "",
+//        isActual = isActual ?: false,
+//        isIgnored = isIgnored ?: false,
+//        audience = audience ?: ArrayList(),
+//    )
 
 }
 

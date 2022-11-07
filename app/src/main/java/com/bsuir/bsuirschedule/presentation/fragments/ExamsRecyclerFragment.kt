@@ -13,6 +13,7 @@ import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.UploadScheduleDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -26,12 +27,20 @@ class ExamsRecyclerFragment : Fragment() {
     ): View {
         val binding = FragmentExamsRecyclerBinding.inflate(inflater)
 
+        val onSubmitUploadSchedule = { savedSchedule: SavedSchedule ->
+            groupScheduleVM.getOrUploadSchedule(savedSchedule)
+        }
+
         val onSubjectSourceClick = { savedSchedule: SavedSchedule ->
-            if (savedSchedule.isGroup) {
-                Toast.makeText(context, savedSchedule.group.name, Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, savedSchedule.employee.getFullName(), Toast.LENGTH_SHORT).show()
-            }
+            val uploadScheduleDialog = UploadScheduleDialog(savedSchedule, onSubmitUploadSchedule)
+            uploadScheduleDialog.isCancelable = true
+            uploadScheduleDialog.show(parentFragmentManager, "uploadScheduleDialog")
+        }
+
+        val onLongClickSubject = { subject: ScheduleSubject, subjectView: View ->
+            val subjectDialog = SubjectDialog(subject, onSubjectSourceClick)
+            subjectDialog.isCancelable = true
+            subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
 
         val showSubjectDialog = { subject: ScheduleSubject ->
@@ -49,12 +58,12 @@ class ExamsRecyclerFragment : Fragment() {
             if (groupSchedule != null) {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
-                adapter.updateSchedule(groupSchedule.examsSchedule, groupSchedule.isGroup(), showSubjectDialog)
+                adapter.updateSchedule(groupSchedule.examsSchedule, groupSchedule.isGroup(), showSubjectDialog, onLongClickSubject)
                 binding.scheduleDailyRecycler.adapter = adapter
                 binding.scheduleDailyRecycler.alpha = 0f
                 binding.scheduleDailyRecycler.animate().alpha(1f).setDuration(300).start()
             } else {
-                adapter.updateSchedule(ArrayList(), false, null)
+                adapter.updateSchedule(ArrayList(), false, null, null)
                 binding.placeholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
             }

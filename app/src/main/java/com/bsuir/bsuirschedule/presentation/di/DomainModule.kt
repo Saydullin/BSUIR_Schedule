@@ -1,10 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.di
 
 import com.bsuir.bsuirschedule.domain.usecase.*
-import com.bsuir.bsuirschedule.domain.usecase.schedule.DeleteScheduleUseCase
-import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
-import com.bsuir.bsuirschedule.domain.usecase.schedule.SaveScheduleUseCase
-import com.bsuir.bsuirschedule.domain.usecase.schedule.UpdateScheduleSettingsUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -14,6 +11,12 @@ val domainModule = module {
             groupItemsRepository = get(),
             currentWeekUseCase = get(),
             employeeItemsRepository = get(),
+            scheduleRepository = get()
+        )
+    }
+
+    factory {
+        ScheduleSubjectUseCase(
             scheduleRepository = get()
         )
     }

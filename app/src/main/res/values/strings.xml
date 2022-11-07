@@ -39,14 +39,17 @@
     <string name="exams_empty_date_period">Экзаменов нет</string>
     <string name="more">ещё</string>
     <string name="cancel">Назад</string>
-    <string name="delete_schedule">Удалить %s?</string>
+    <string name="delete_schedule">Удалить расписание\n «%s»?</string>
+    <string name="delete_subject">Удалить занятие «%s»?</string>
     <string name="agree">Да</string>
     <string name="active_schedule_no_departments">Кафедра отсутствует</string>
     <string name="upload_schedule_dialog_title">Хотите посмотреть на расписание %s?</string>
     <string name="upload_schedule_dialog_title_holder">Хотите посмотреть на это расписание?</string>
     <string name="upload_schedule_dialog_caption">Если это расписание не было загружено Вами, оно загрузится автоматически</string>
     <string name="delete_schedule_dialog_title">Вы уверены, что хотите удалить расписание?</string>
-    <string name="delete_schedule_dialog_caption">Настройки и все кастомные данные будут удалены</string>
+    <string name="delete_schedule_dialog_caption">Настройки расписания так же будут удалены</string>
+    <string name="delete_subject_dialog_title">Вы уверены, что хотите удалить занятие?</string>
+    <string name="delete_subject_dialog_caption">Вернуть занятие можно будет лишь обновив расписание</string>
     <string name="reset_schedule_settings">Настройки сброшены</string>
     <string name="save_schedule_settings">Настройки сохранены</string>
 
@@ -103,8 +106,11 @@
     <string name="popup_settings">Настройки</string>
     <string name="popup_about">О приложении</string>
     <string name="popup_update">Обновить</string>
+    <string name="popup_edit">Изменить</string>
     <string name="popup_more">Дополнительно</string>
     <string name="popup_rename">Переименовать</string>
+    <string name="popup_deactivate">Не пойду</string>
+    <string name="popup_activate">Пойду</string>
     <string name="popup_delete">Удалить</string>
     <string name="all_subgroups">Для всех подгрупп</string>
     <string name="all_subgroups_short">*</string>
@@ -136,6 +142,12 @@
     <string name="schedule_success_deleted">Расписание удалено</string>
     <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
     <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
+    <string name="schedule_subject_deleted">Занятие удалено</string>
+    <string name="schedule_subject_ignored">Занятие будет игнорироваться</string>
+    <string name="schedule_subject_ignored_caption">В статусе расписания больше не будет учитываться это занятие</string>
+    <string name="schedule_subject_not_ignored">Занятие НЕ будет игнорироваться</string>
+    <string name="schedule_subject_not_ignored_caption">Это занятие теперь будет учитываться в статусе расписания</string>
+    <string name="schedule_subject_deleted_caption">Занятие успешно удалено с этого расписания</string>
     <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
     <string name="no_error">Нет ошибки</string>
     <string name="no_error_caption">Операция выполнена успешно</string>

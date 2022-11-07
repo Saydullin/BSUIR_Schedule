@@ -15,7 +15,7 @@ import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentActiveScheduleBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
-import com.bsuir.bsuirschedule.presentation.dialogs.WarningDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
@@ -79,8 +79,8 @@ class ActiveScheduleFragment : Fragment() {
         }
 
         val deleteWarning = { savedSchedule: SavedSchedule ->
-            val warningDialog = WarningDialog(savedSchedule = savedSchedule, agreeCallback = deleteSchedule)
-            warningDialog.show(parentFragmentManager, "WarningDialog")
+            val deleteScheduleDialog = DeleteScheduleDialog(savedSchedule = savedSchedule, agreeCallback = deleteSchedule)
+            deleteScheduleDialog.show(parentFragmentManager, "WarningDialog")
         }
 
         val updateSchedule = { savedSchedule: SavedSchedule ->

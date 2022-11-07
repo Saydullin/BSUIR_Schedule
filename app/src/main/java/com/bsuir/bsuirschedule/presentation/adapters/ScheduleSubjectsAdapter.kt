@@ -20,13 +20,14 @@ class ScheduleSubjectsAdapter(
     private val context: Context,
     private val data: ArrayList<ScheduleSubject>,
     private val isGroupSubject: Boolean,
-    private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?
+    private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
+    private val onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
 ): RecyclerView.Adapter<ScheduleSubjectsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ScheduleSubjectBinding.inflate(LayoutInflater.from(context), parent, false)
 
-        return ViewHolder(context, isGroupSubject, showSubjectDialog, view)
+        return ViewHolder(context, isGroupSubject, showSubjectDialog, onLongPress, view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -41,6 +42,7 @@ class ScheduleSubjectsAdapter(
         private val context: Context,
         private val isGroup: Boolean,
         private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
+        private val onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)?,
         private val binding: ScheduleSubjectBinding,
     ): RecyclerView.ViewHolder(binding.root) {
 
@@ -99,9 +101,18 @@ class ScheduleSubjectsAdapter(
                 binding.subjectBreakTime.visibility = View.GONE
             }
 
+            if (subject.isIgnored == true) {
+                binding.root.alpha = .7f
+            }
+
             if (subject.note?.isNotEmpty() == true) {
                 binding.subjectAdditional.visibility = View.VISIBLE
                 binding.subjectNote.text = subject.note
+            }
+
+            binding.root.setOnLongClickListener {
+                onLongPress?.let { it(subject, binding.root) }
+                true
             }
 
             binding.root.setOnClickListener {

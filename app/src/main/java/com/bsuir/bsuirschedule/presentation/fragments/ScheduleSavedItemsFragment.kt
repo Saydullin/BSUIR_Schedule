@@ -16,7 +16,7 @@ import com.bsuir.bsuirschedule.presentation.adapters.SavedItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.RenameScheduleDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
-import com.bsuir.bsuirschedule.presentation.dialogs.WarningDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.SavedSchedulePopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
@@ -71,8 +71,8 @@ class ScheduleSavedItemsFragment : Fragment() {
         }
 
         val deleteWarning = { savedSchedule: SavedSchedule ->
-            val warningDialog = WarningDialog(savedSchedule = savedSchedule, agreeCallback = deleteSchedule)
-            warningDialog.show(parentFragmentManager, "WarningDialog")
+            val deleteScheduleDialog = DeleteScheduleDialog(savedSchedule = savedSchedule, agreeCallback = deleteSchedule)
+            deleteScheduleDialog.show(parentFragmentManager, "WarningDialog")
         }
 
         val onRenameSubmit = { savedSchedule: SavedSchedule, newTitle: String ->

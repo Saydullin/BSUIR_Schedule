@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/deactivate_subject"
+        android:icon="@drawable/ic_notifications_off"
+        android:iconTint="@color/primary"
+        android:checkable="false"
+        android:title="@string/popup_deactivate" />
+    <item
+        android:id="@+id/activate_subject"
+        android:icon="@drawable/ic_notifications"
+        android:iconTint="@color/primary"
+        android:checkable="false"
+        android:title="@string/popup_activate" />
+    <item
+        android:id="@+id/edit_subject"
+        android:icon="@drawable/ic_edit"
+        android:iconTint="@color/primary"
+        android:title="@string/popup_edit" />
+    <item
+        android:id="@+id/delete_subject"
+        android:icon="@drawable/ic_delete"
+        android:iconTint="@color/danger"
+        android:title="@string/popup_delete" />
+</menu>

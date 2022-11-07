@@ -82,6 +82,24 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.schedule_week_loaded_error_caption)
                 )
             }
+            Resource.SCHEDULE_SUBJECT_DELETED -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.schedule_subject_deleted),
+                    caption = resources.getString(R.string.schedule_subject_deleted_caption)
+                )
+            }
+            Resource.SCHEDULE_SUBJECT_IGNORED -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.schedule_subject_ignored),
+                    caption = resources.getString(R.string.schedule_subject_ignored_caption)
+                )
+            }
+            Resource.SCHEDULE_SUBJECT_NOT_IGNORED -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.schedule_subject_not_ignored),
+                    caption = resources.getString(R.string.schedule_subject_not_ignored_caption)
+                )
+            }
             else -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.unknown_error),

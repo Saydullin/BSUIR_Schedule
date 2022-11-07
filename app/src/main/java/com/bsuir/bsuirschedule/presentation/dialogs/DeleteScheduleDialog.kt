@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bsuir.bsuirschedule.R
-import com.bsuir.bsuirschedule.databinding.WarningDialogBinding
+import com.bsuir.bsuirschedule.databinding.DeleteScheduleDialogBinding
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 
-class WarningDialog(
+class DeleteScheduleDialog(
     private val savedSchedule: SavedSchedule,
     private val agreeCallback: (savedSchedule: SavedSchedule) -> Unit,
 ) : DialogFragment() {
@@ -19,7 +19,7 @@ class WarningDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = WarningDialogBinding.inflate(inflater)
+        val binding = DeleteScheduleDialogBinding.inflate(inflater)
 
         isCancelable = true
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)

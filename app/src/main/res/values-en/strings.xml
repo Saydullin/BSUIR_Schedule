@@ -227,7 +227,7 @@
     <string name="delete_schedule">Delete %s?</string>
     <string name="agree">Yes</string>
     <string name="delete_schedule_dialog_title">Are you sure you want to delete the schedule?</string>
-    <string name="delete_schedule_dialog_caption">Settings and all custom data will be deleted</string>
+    <string name="delete_schedule_dialog_caption">Schedule settings will also be deleted</string>
     <string name="reset_schedule_settings">Settings reset</string>
     <string name="save_schedule_settings">Settings saved</string>
     <string name="appwidget_text">EXAMPLE</string>
@@ -261,6 +261,17 @@
     <string name="upload_schedule_dialog_title">Would you like to see %s\' schedule?</string>
     <string name="upload_schedule_dialog_title_holder">Would you like to see this schedule?</string>
     <string name="upload_schedule_dialog_caption">Schedule uploaded and simulated successfully</string>
+    <string name="schedule_subject_deleted_caption">Lesson has been successfully removed from this schedule</string>
+    <string name="schedule_subject_deleted">Lesson deleted</string>
+    <string name="delete_subject">Delete activity \"%s\"?</string>
+    <string name="delete_subject_dialog_caption">It will be possible to return the lesson only by updating the schedule</string>
+    <string name="delete_subject_dialog_title">Are you sure you want to delete the activity?</string>
+    <string name="schedule_subject_ignored">The lesson will be ignored</string>
+    <string name="schedule_subject_ignored_caption">Schedule status will no longer include this lesson</string>
+    <string name="schedule_subject_not_ignored">The lesson will NOT be ignored</string>
+    <string name="schedule_subject_not_ignored_caption">This lesson will now be counted in the schedule status</string>
+    <string name="popup_deactivate">I\'ll will not go</string>
+    <string name="popup_activate">I\'ll go</string>
 </resources>
 
 

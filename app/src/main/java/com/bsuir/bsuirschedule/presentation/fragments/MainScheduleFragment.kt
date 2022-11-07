@@ -8,11 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
-import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.bsuir.bsuirschedule.databinding.TabViewsBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleTabs
-import com.bsuir.bsuirschedule.presentation.adapters.ScheduleExamsAdapter
+import com.bsuir.bsuirschedule.presentation.adapters.ScheduleVPAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.MainPopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
@@ -49,7 +48,7 @@ class MainScheduleFragment : Fragment() {
         val tabViews = TabViewsBinding.inflate(inflater)
         val weekText = getString(R.string.week)
 
-        binding.scheduleViewPager.adapter = ScheduleExamsAdapter(activity!!)
+        binding.scheduleViewPager.adapter = ScheduleVPAdapter(activity!!)
         binding.scheduleItemsTabLayout.visibility = View.VISIBLE
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->

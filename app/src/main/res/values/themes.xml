@@ -13,7 +13,7 @@
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:textColorPrimaryDisableOnly">@color/text_dark</item>
-        <item name="android:itemBackground">@color/white</item>
+<!--        <item name="android:itemBackground">@color/white</item>-->
         <item name="colorPrimaryDark">@color/white</item>
         <item name="android:textColor">@color/text_dark</item>
         <!-- Status bar color. -->

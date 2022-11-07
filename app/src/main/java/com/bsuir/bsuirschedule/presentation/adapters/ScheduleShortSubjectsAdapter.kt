@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleSubjectShortBinding
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
-import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.GroupSubject
 import kotlin.math.absoluteValue
@@ -18,13 +17,14 @@ class ScheduleShortSubjectsAdapter(
     private val context: Context,
     private val data: ArrayList<ScheduleSubject>,
     private val isGroupSubject: Boolean,
-    private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?
+    private val onClick: ((subject: ScheduleSubject) -> Unit)?,
+    private val onLongClick: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
 ): RecyclerView.Adapter<ScheduleShortSubjectsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ScheduleSubjectShortBinding.inflate(LayoutInflater.from(context), parent, false)
 
-        return ViewHolder(context, isGroupSubject, showSubjectDialog, view)
+        return ViewHolder(context, isGroupSubject, onClick, onLongClick, view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -38,7 +38,8 @@ class ScheduleShortSubjectsAdapter(
     class ViewHolder(
         private val context: Context,
         private val isGroup: Boolean,
-        private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
+        private val onClick: ((subject: ScheduleSubject) -> Unit)?,
+        private val onLongClick: ((subject: ScheduleSubject, subjectView: View) -> Unit)?,
         private val binding: ScheduleSubjectShortBinding,
     ): RecyclerView.ViewHolder(binding.root) {
 
@@ -79,7 +80,7 @@ class ScheduleShortSubjectsAdapter(
             if (isGroup) {
                 setSubjectEmployee(subject.employees ?: ArrayList())
             } else {
-                setSubjectGroup(subject.subjectGroups ?: ArrayList(), subject.groups ?: ArrayList())
+                setSubjectGroup(subject.subjectGroups ?: ArrayList())
             }
 
             if (subject.breakTime?.isExist == true) {
@@ -97,13 +98,22 @@ class ScheduleShortSubjectsAdapter(
                 binding.subjectBreakTime.visibility = View.GONE
             }
 
+            if (subject.isIgnored == true) {
+                binding.root.alpha = .7f
+            }
+
             if (subject.note?.isNotEmpty() == true) {
                 binding.subjectAdditional.visibility = View.VISIBLE
                 binding.subjectNote.text = subject.note
             }
 
+            binding.root.setOnLongClickListener {
+                onLongClick?.let { it(subject, binding.root) }
+                true
+            }
+
             binding.root.setOnClickListener {
-                showSubjectDialog?.let { it(subject) }
+                onClick?.let { it(subject) }
             }
 
         }
@@ -119,8 +129,7 @@ class ScheduleShortSubjectsAdapter(
             }
         }
 
-        private fun setSubjectGroup(subjectGroupList: ArrayList<GroupSubject>, subjectGroups: ArrayList<Group>) {
-            val courseText = context.getString(R.string.course)
+        private fun setSubjectGroup(subjectGroupList: ArrayList<GroupSubject>) {
             if (subjectGroupList.isNotEmpty()) {
                 binding.subjectEmployeeName.text = subjectGroupList[0].name + if (subjectGroupList.size > 1) {
                     val moreText = context.getString(R.string.more)

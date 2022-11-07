@@ -26,10 +26,12 @@ data class GroupScheduleSubjectTable(
     @ColumnInfo val dateLesson: String,
     @ColumnInfo val startLessonDate: String,
     @ColumnInfo val endLessonDate: String,
-    @ColumnInfo val isActual: Boolean
+    @ColumnInfo val isActual: Boolean,
+    @ColumnInfo val isIgnored: Boolean
 ) {
 
     fun toScheduleSubject() = ScheduleSubject(
+        id = id,
         subject = subject,
         subjectFullName = subjectFullName,
         lessonTypeAbbrev = lessonTypeAbbrev,
@@ -51,6 +53,7 @@ data class GroupScheduleSubjectTable(
         startLessonDate = startLessonDate,
         endLessonDate = endLessonDate,
         isActual = isActual,
+        isIgnored = isIgnored,
         audience = audience
     )
 

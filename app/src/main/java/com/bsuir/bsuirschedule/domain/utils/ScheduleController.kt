@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,6 +32,16 @@ class ScheduleController {
         schedule.schedules = weekDays
 
         return schedule
+    }
+
+    private fun setSubjectIds(schedule: Schedule) {
+        var idCounter = 0
+        schedule.schedules.map { day ->
+            day.schedule.map { subject ->
+                subject.id = idCounter
+                idCounter++
+            }
+        }
     }
 
     fun mergeGroupsSubjects(schedule: Schedule, groupItems: ArrayList<Group>) {
@@ -84,12 +93,11 @@ class ScheduleController {
         var actualSubjectIndex: Int
         for (actualDay in actualDays) {
             actualSubjectIndex = actualDay.schedule.indexOfFirst { subject ->
-                (dateUnixTime < subject.startMillis) or
-                        (dateUnixTime > subject.startMillis && dateUnixTime < subject.endMillis)
+                subject.isIgnored != true && ((dateUnixTime < subject.startMillis) or
+                        (dateUnixTime > subject.startMillis && dateUnixTime < subject.endMillis))
             }
             if (actualSubjectIndex != -1) {
                 actualDay.schedule[actualSubjectIndex].isActual = true
-                Log.e("sady", "${actualDay.schedule[actualSubjectIndex]}")
                 actualSubject = actualDay.schedule[actualSubjectIndex]
                 break
             }
@@ -223,6 +231,7 @@ class ScheduleController {
         }
 
         val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
+        setSubjectIds(schedule) // set unique id to subjects
         val daysWithDatesSchedule = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
 
         setSubjectsPrediction(daysWithDatesSchedule)
@@ -243,7 +252,7 @@ class ScheduleController {
     }
 
     // This schedule will be shown on UI
-    fun getRegularSchedule(schedule: Schedule, page: Int, pageSize: Int): Schedule {
+    fun getRegularSchedule(schedule: Schedule, page: Int = 0, pageSize: Int = -1): Schedule {
         val regularSchedule = schedule.copy()
 
         if (!schedule.isExamsNotExist()) {

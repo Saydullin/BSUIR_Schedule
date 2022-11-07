@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
@@ -13,10 +12,8 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
-import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
-import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
-import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
-import com.bsuir.bsuirschedule.presentation.dialogs.UploadScheduleDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.*
+import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleSubjectPopupMenu
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -41,6 +38,35 @@ class ScheduleRecyclerFragment : Fragment() {
             val uploadScheduleDialog = UploadScheduleDialog(savedSchedule, onSubmitUploadSchedule)
             uploadScheduleDialog.isCancelable = true
             uploadScheduleDialog.show(parentFragmentManager, "uploadScheduleDialog")
+        }
+
+        val onEditScheduleSubject = { scheduleSubject: ScheduleSubject ->
+            // Перенаправить на другой фрагмент, где изменяется этот предмет
+        }
+
+        val onIgnoreScheduleSubject = { scheduleSubject: ScheduleSubject, isIgnore: Boolean ->
+            groupScheduleVM.ignoreSubject(scheduleSubject, isIgnore)
+        }
+
+        val onDeleteSubmitScheduleSubject = { scheduleSubject: ScheduleSubject ->
+            groupScheduleVM.deleteSubject(scheduleSubject)
+        }
+
+        val onDeleteScheduleSubject = { scheduleSubject: ScheduleSubject ->
+            val deleteSubjectDialog = DeleteSubjectDialog(scheduleSubject = scheduleSubject, agreeCallback = onDeleteSubmitScheduleSubject)
+            deleteSubjectDialog.show(parentFragmentManager, "WarningDialog")
+        }
+
+        val onLongPressSubject = { subject: ScheduleSubject, subjectView: View ->
+            val popupMenu = ScheduleSubjectPopupMenu(
+                context = context!!,
+                scheduleSubject = subject,
+                edit = onEditScheduleSubject,
+                isIgnore = onIgnoreScheduleSubject,
+                delete = onDeleteScheduleSubject
+            ).initPopupMenu(subjectView)
+
+            popupMenu.show()
         }
 
         val showSubjectDialog = { subject: ScheduleSubject ->
@@ -87,10 +113,10 @@ class ScheduleRecyclerFragment : Fragment() {
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 adapter.setShortSchedule(groupSchedule.settings.schedule.isShowShortSchedule)
-                adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog)
+                adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog, onLongPressSubject)
                 binding.scheduleDailyRecycler.adapter = adapter
             } else {
-                adapter.updateSchedule(ArrayList(), false, null)
+                adapter.updateSchedule(ArrayList(), false, null, null)
                 binding.placeholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
             }

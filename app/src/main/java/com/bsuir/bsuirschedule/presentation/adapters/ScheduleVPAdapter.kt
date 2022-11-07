@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bsuir.bsuirschedule.domain.models.ScheduleTabs
 import com.bsuir.bsuirschedule.presentation.fragments.*
 
-class ScheduleExamsAdapter(
+class ScheduleVPAdapter(
     fa: FragmentActivity,
 ): FragmentStateAdapter(fa) {
 

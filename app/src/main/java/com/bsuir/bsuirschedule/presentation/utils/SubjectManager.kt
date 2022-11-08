@@ -128,6 +128,63 @@ class SubjectManager(
         return getDaysLeftString()
     }
 
+    fun getSubjectType(): String {
+
+        return when (subject.lessonTypeAbbrev) {
+            ScheduleSubject.LABORATORY -> {
+                context.getString(R.string.laboratory)
+            }
+            ScheduleSubject.PRACTISE -> {
+                context.getString(R.string.practise)
+            }
+            ScheduleSubject.LECTURE -> {
+                context.getString(R.string.lecture)
+            }
+            ScheduleSubject.CONSULTATION -> {
+                context.getString(R.string.consultation)
+            }
+            ScheduleSubject.EXAM -> {
+                context.getString(R.string.exam)
+            }
+            else -> {
+                context.getString(R.string.unknown)
+            }
+        }
+    }
+
+    fun getShortDayOfWeek(): String {
+        val timeFormat = SimpleDateFormat("EEE")
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = subject.startMillis
+
+        return timeFormat.format(calendar.time)
+    }
+
+    fun getSubjectWeeks(): String {
+
+        return context.getString(
+            R.string.subject_weeks,
+            subject.weekNumber?.joinToString(", ") ?: ""
+        )
+    }
+
+    fun getSubjectNote(): String {
+
+        return context.getString(
+            R.string.subject_note,
+            subject.note
+        )
+    }
+
+    fun getSubjectSubgroup(): String {
+
+        return if (subject.numSubgroup == 0) {
+            context.getString(R.string.all_subgroups)
+        } else {
+            context.getString(R.string.subgroup, subject.numSubgroup)
+        }
+    }
+
 }
 
 

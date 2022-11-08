@@ -10,6 +10,7 @@
     <string name="lecture">Лекция</string>
     <string name="practise">Практика</string>
     <string name="laboratory">Лабораторная</string>
+    <string name="unknown">Неизвестно</string>
     <string name="info_dialog_title">Внимание</string>
     <string name="update">Обновить</string>
     <string name="okay">Понятно</string>
@@ -49,7 +50,7 @@
     <string name="delete_schedule_dialog_title">Вы уверены, что хотите удалить расписание?</string>
     <string name="delete_schedule_dialog_caption">Настройки расписания так же будут удалены</string>
     <string name="delete_subject_dialog_title">Вы уверены, что хотите удалить занятие?</string>
-    <string name="delete_subject_dialog_caption">Вернуть занятие можно будет лишь обновив расписание</string>
+    <string name="delete_subject_dialog_caption">Вернуть занятие можно будет лишь обновив расписание!</string>
     <string name="reset_schedule_settings">Настройки сброшены</string>
     <string name="save_schedule_settings">Настройки сохранены</string>
 
@@ -88,6 +89,7 @@
     <string name="no_teacher_title">Преподаватель не указан</string>
     <string name="no_group_title">Группа не указана</string>
     <string name="schedules_all_list_title">Все расписания</string>
+    <string name="schedules_subject_edit_title">Изменить занятие</string>
     <string name="schedules_first_add_all_list_title">Выберите расписания</string>
     <string name="schedules_settings_title">Настройки (в процессе разр.)</string>
     <string name="schedules_no_lessons">Нет занятий</string>
@@ -330,6 +332,9 @@
     <string name="done">Готово</string>
     <string name="schedule_success_loaded">Расписание загружено</string>
     <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
+    <string name="delete_subject_dialog_all">Все занятия по %s</string>
+    <string name="delete_subject_dialog_type">Все занятия по %s (%s)</string>
+    <string name="delete_subject_dialog_period">Все занятия по %s по %s\n%s</string>
 
 </resources>
 

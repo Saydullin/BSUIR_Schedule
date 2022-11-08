@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
+import com.bsuir.bsuirschedule.domain.models.DeleteSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -48,8 +49,8 @@ class ScheduleRecyclerFragment : Fragment() {
             groupScheduleVM.ignoreSubject(scheduleSubject, isIgnore)
         }
 
-        val onDeleteSubmitScheduleSubject = { scheduleSubject: ScheduleSubject ->
-            groupScheduleVM.deleteSubject(scheduleSubject)
+        val onDeleteSubmitScheduleSubject = { scheduleSubject: ScheduleSubject, deleteSettings: DeleteSubjectSettings ->
+            groupScheduleVM.deleteSubject(scheduleSubject, deleteSettings)
         }
 
         val onDeleteScheduleSubject = { scheduleSubject: ScheduleSubject ->
@@ -110,10 +111,12 @@ class ScheduleRecyclerFragment : Fragment() {
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
             if (groupSchedule == null) return@observe
             if (groupSchedule.schedules.size > 0) {
+                val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 binding.placeholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 adapter.setShortSchedule(groupSchedule.settings.schedule.isShowShortSchedule)
                 adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog, onLongPressSubject)
+                (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
                 binding.scheduleDailyRecycler.adapter = adapter
             } else {
                 adapter.updateSchedule(ArrayList(), false, null, null)

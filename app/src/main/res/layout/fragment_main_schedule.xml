@@ -22,24 +22,15 @@
             android:src="@drawable/ic_list"
             android:contentDescription="@string/cd_schedule_list" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/title_week_number"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium"
+            android:layout_weight="1"
             android:gravity="center"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/title_week_number"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/text_primary"
-                android:text="@string/test_header_title" />
-
-        </LinearLayout>
+            android:textColor="@color/text_primary"
+            android:text="@string/test_header_title" />
 
         <ImageButton
             style="@style/Theme.BSUIRSchedule.ImageButton"

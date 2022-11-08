@@ -12,6 +12,7 @@ import com.bsuir.bsuirschedule.databinding.SubjectDialogBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.SubjectItemsAdapter
+import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 
 class SubjectDialog(
     private val subject: ScheduleSubject,
@@ -25,6 +26,7 @@ class SubjectDialog(
     ): View {
         val binding = SubjectDialogBinding.inflate(inflater)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        val subjectManager = SubjectManager(subject = subject, context = context!!)
 
         val timeText = resources.getString(R.string.subject_time, subject.startLessonTime, subject.endLessonTime)
         binding.subjectTime.text = timeText
@@ -55,17 +57,11 @@ class SubjectDialog(
             }
         }
 
-        if (subject.numSubgroup == 0) {
-            binding.subjectSubgroup.text = resources.getString(R.string.all_subgroups)
-        } else {
-            val subgroupText = resources.getString(R.string.subgroup, subject.numSubgroup)
-            binding.subjectSubgroup.text = subgroupText
-        }
+        binding.subjectSubgroup.text = subjectManager.getSubjectSubgroup()
 
         if (subject.note != null && subject.note.isNotEmpty()) {
-            val noteText = resources.getString(R.string.subject_note, subject.note)
             binding.subjectNote.visibility = View.VISIBLE
-            binding.subjectNote.text = noteText
+            binding.subjectNote.text = subjectManager.getSubjectNote()
         }
 
         binding.subjectTitle.text = subject.subjectFullName

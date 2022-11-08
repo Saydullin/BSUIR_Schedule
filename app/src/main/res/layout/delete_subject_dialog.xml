@@ -36,9 +36,56 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Hint"
                 android:gravity="center"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
                 android:text="@string/delete_subject_dialog_caption" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.TextView.Hint"
+            android:paddingHorizontal="10dp"
+            android:text="Удалить так же:" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:id="@+id/delete_subject_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/delete_all_subjects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_subject_dialog_all"
+                style="@style/Theme.BSUIRSchedule.Checkbox"
+                android:checked="false" />
+
+            <Switch
+                android:id="@+id/delete_all_subjects_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_subject_dialog_type"
+                style="@style/Theme.BSUIRSchedule.Checkbox"
+                android:checked="false" />
+
+            <Switch
+                android:id="@+id/delete_all_subjects_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_subject_dialog_period"
+                style="@style/Theme.BSUIRSchedule.Checkbox"
+                android:checked="false" />
 
         </LinearLayout>
 

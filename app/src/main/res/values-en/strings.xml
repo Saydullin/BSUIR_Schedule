@@ -264,7 +264,7 @@
     <string name="schedule_subject_deleted_caption">Lesson has been successfully removed from this schedule</string>
     <string name="schedule_subject_deleted">Lesson deleted</string>
     <string name="delete_subject">Delete activity \"%s\"?</string>
-    <string name="delete_subject_dialog_caption">It will be possible to return the lesson only by updating the schedule</string>
+    <string name="delete_subject_dialog_caption">It will be possible to return the lesson only by updating the schedule!</string>
     <string name="delete_subject_dialog_title">Are you sure you want to delete the activity?</string>
     <string name="schedule_subject_ignored">The lesson will be ignored</string>
     <string name="schedule_subject_ignored_caption">Schedule status will no longer include this lesson</string>
@@ -272,6 +272,12 @@
     <string name="schedule_subject_not_ignored_caption">This lesson will now be counted in the schedule status</string>
     <string name="popup_deactivate">I\'ll will not go</string>
     <string name="popup_activate">I\'ll go</string>
+    <string name="popup_edit">Edit</string>
+    <string name="schedules_subject_edit_title">Edit lesson</string>
+    <string name="delete_subject_dialog_all">All lessons for %s</string>
+    <string name="delete_subject_dialog_type">All lessons for %s (%s)</string>
+    <string name="delete_subject_dialog_period">All classes by %s by %s\n%s</string>
+    <string name="unknown">Unknown</string>
 </resources>
 
 

@@ -2,6 +2,7 @@ package com.bsuir.bsuirschedule.presentation.widgets
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bsuir.bsuirschedule.R
@@ -23,9 +24,11 @@ class StackRemoteViewsFactory(
     private val scheduleDayList = ArrayList<ScheduleDay>()
 
     override fun onCreate() {
+        Log.e("sady", "widget created")
     }
 
     override fun onDataSetChanged() {
+        Log.e("sady", "widget onDataSetChanged")
     }
 
     override fun onDestroy() {
@@ -39,7 +42,7 @@ class StackRemoteViewsFactory(
 
     override fun getViewAt(position: Int): RemoteViews {
         val removeViews = RemoteViews(context.packageName, R.layout.main_widget_list_item)
-        removeViews.setTextViewText(R.id.text, "Hello")
+        removeViews.setTextViewText(R.id.lesson_title, "Hello")
 
         return removeViews
     }

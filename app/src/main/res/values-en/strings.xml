@@ -278,6 +278,7 @@
     <string name="delete_subject_dialog_type">All lessons for %s (%s)</string>
     <string name="delete_subject_dialog_period">All classes by %s by %s\n%s</string>
     <string name="unknown">Unknown</string>
+    <string name="also_delete">Also delete</string>
 </resources>
 
 

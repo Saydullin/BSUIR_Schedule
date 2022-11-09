@@ -4,13 +4,13 @@
     android:initialKeyguardLayout="@layout/main_widget"
     android:initialLayout="@layout/main_widget"
     android:minWidth="180dp"
-    android:minHeight="180dp"
-    android:previewImage="@mipmap/ic_launcher_round"
+    android:minHeight="90dp"
+    android:previewImage="@layout/main_widget"
     android:previewLayout="@layout/main_widget"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="3"
     android:targetCellHeight="3"
-    android:updatePeriodMillis="1000"
-    android:widgetCategory="home_screen" />
+    android:updatePeriodMillis="5000"
+    android:widgetCategory="home_screen|keyguard" />
 
 

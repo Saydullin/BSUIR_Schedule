@@ -335,6 +335,7 @@
     <string name="delete_subject_dialog_all">Все занятия по %s</string>
     <string name="delete_subject_dialog_type">Все занятия по %s (%s)</string>
     <string name="delete_subject_dialog_period">Все занятия по %s по %s\n%s</string>
+    <string name="also_delete">Удалить так же:</string>
 
 </resources>
 

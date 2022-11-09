@@ -2,14 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp">
+    android:paddingVertical="10dp">
 
-    <TextView
-        android:id="@+id/text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/startLessonTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:25"
+            android:textColor="#dfe6e9"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/endLessonTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13:45"
+            android:textSize="14sp"
+            android:textColor="#dfe6e9"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lesson_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="Okay"
-        android:textColor="#dfe6e9"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        android:textColor="#dfe6e9" />
 
 </LinearLayout>

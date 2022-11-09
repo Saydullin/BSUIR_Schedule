@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView.Medium"
                     android:paddingHorizontal="10dp"
-                    android:text="Удалить так же:" />
+                    android:text="@string/also_delete" />
 
                 <Space
                     android:layout_width="wrap_content"

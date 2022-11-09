@@ -19,7 +19,6 @@ class MainWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        Toast.makeText(context, "Виджет обновлён!", Toast.LENGTH_SHORT).show()
         val views = RemoteViews(context.packageName, R.layout.main_widget)
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
@@ -32,12 +31,10 @@ class MainWidget : AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
-        Log.e("sady", "widget onEnabled")
         // Enter relevant functionality for when the first widget is created
     }
 
     override fun onDisabled(context: Context) {
-        Log.e("sady", "widget onDisabled")
         // Enter relevant functionality for when the last widget is disabled
     }
 }
@@ -50,8 +47,6 @@ internal fun updateAppWidget(
     // Construct the RemoteViews object
 //    views.setTextViewText(R.id.appwidget_text, widgetText)
     // There may be multiple widgets active, so update all of them
-    Log.e("sady", "widget updated")
-    Toast.makeText(context, "Виджет добавлен!", Toast.LENGTH_SHORT).show()
     val views = RemoteViews(context.packageName, R.layout.main_widget)
     val intent = Intent(context, MainWidgetService::class.java)
     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)

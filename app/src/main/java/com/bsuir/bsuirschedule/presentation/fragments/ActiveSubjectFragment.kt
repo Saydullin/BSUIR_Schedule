@@ -43,6 +43,13 @@ class ActiveSubjectFragment : Fragment() {
                 subjectView.subjectNote.text = subjectManager.getSubjectNote()
             }
 
+            subjectView.subgroupInfo.visibility = View.VISIBLE
+            if (activeSubject.numSubgroup == 0) {
+                subjectView.subjectSubgroup.text = resources.getString(R.string.all_subgroups_short)
+            } else {
+                subjectView.subjectSubgroup.text = activeSubject.numSubgroup.toString()
+            }
+
             if (activeSubject.employees != null) {
                 val employeeNotListedText = getString(R.string.no_teacher_title)
                 if (activeSubject.employees!!.size > 0) {

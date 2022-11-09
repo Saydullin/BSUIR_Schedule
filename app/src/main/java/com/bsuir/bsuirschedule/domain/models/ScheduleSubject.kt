@@ -16,7 +16,7 @@ data class ScheduleSubject (
     var endMillis: Long = 0,
     val startLessonTime: String?,
     val endLessonTime: String?,
-    val numSubgroup: Int? = 0,
+    var numSubgroup: Int? = 0,
     var note: String?,
     var breakTime: SubjectBreakTime?,
     val weekNumber: ArrayList<Int>?,

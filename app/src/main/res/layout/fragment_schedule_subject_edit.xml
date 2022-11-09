@@ -153,33 +153,6 @@
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
                     android:paddingHorizontal="2dp"
-                    android:text="Тип занятия" />
-
-                <EditText
-                    android:id="@+id/lesson_type_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.EditText"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:paddingHorizontal="2dp"
                     android:text="Примечание" />
 
                 <EditText
@@ -207,17 +180,34 @@
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
                     android:paddingHorizontal="2dp"
-                    android:text="Учебные недели" />
+                    android:text="Подгруппа" />
 
-                <EditText
-                    android:id="@+id/weeks_edit_text"
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.EditText"
-                    android:maxLines="2"
-                    android:ellipsize="end" />
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/subgroupAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/text_hint"
+                        android:background="@color/text_hint"
+                        android:inputType="none"
+                        android:padding="10dp"
+                        android:text="@string/settings_all_subgroups" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
             <Space
                 android:layout_width="wrap_content"

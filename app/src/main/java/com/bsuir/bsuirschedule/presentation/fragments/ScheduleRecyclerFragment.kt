@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
@@ -42,7 +43,8 @@ class ScheduleRecyclerFragment : Fragment() {
         }
 
         val onEditScheduleSubject = { scheduleSubject: ScheduleSubject ->
-            // Перенаправить на другой фрагмент, где изменяется этот предмет
+            groupScheduleVM.setActiveSubject(scheduleSubject)
+            Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSubjectEditFragment)
         }
 
         val onIgnoreScheduleSubject = { scheduleSubject: ScheduleSubject, isIgnore: Boolean ->

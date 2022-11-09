@@ -32,16 +32,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/Theme.BSUIRSchedule.EditText"
             android:paddingBottom="15dp"
             android:inputType="text"
             android:autofillHints="name"
             android:hint="@string/search_placeholder"
             android:focusedByDefault="false"
-            android:textColorHint="?attr/textHintColor"
-            android:textColor="?attr/textColor"
-            android:textSize="@dimen/font_medium_size"
-            android:backgroundTint="?attr/textHintColor"
-            android:textCursorDrawable="@drawable/edit_text_cursor"
             android:labelFor="@+id/search_button" />
 
         <Space

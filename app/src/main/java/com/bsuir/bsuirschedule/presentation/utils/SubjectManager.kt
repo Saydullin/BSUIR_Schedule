@@ -1,6 +1,8 @@
 package com.bsuir.bsuirschedule.presentation.utils
 
 import android.content.Context
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import java.text.SimpleDateFormat
@@ -126,6 +128,26 @@ class SubjectManager(
 
         // N days left
         return getDaysLeftString()
+    }
+
+    fun setSubjectTypeView(imageView: ImageView) {
+        when (subject.lessonTypeAbbrev) {
+            ScheduleSubject.LABORATORY -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
+            }
+            ScheduleSubject.PRACTISE -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
+            }
+            ScheduleSubject.LECTURE -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
+            }
+            ScheduleSubject.CONSULTATION -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
+            }
+            ScheduleSubject.EXAM -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_exam))
+            }
+        }
     }
 
     fun getSubjectType(): String {

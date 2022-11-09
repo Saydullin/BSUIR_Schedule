@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class ScheduleSubject (
     var id: Int? = 0,
-    val subject: String?,
-    val subjectFullName: String?,
+    var subject: String?,
+    var subjectFullName: String?,
     var lessonTypeAbbrev: String?,
     var employees: ArrayList<EmployeeSubject>?,
     var groups: ArrayList<Group>?,
@@ -17,7 +17,7 @@ data class ScheduleSubject (
     val startLessonTime: String?,
     val endLessonTime: String?,
     val numSubgroup: Int? = 0,
-    val note: String?,
+    var note: String?,
     var breakTime: SubjectBreakTime?,
     val weekNumber: ArrayList<Int>?,
     var dayNumber: Int = 0,
@@ -26,7 +26,7 @@ data class ScheduleSubject (
     val endLessonDate: String?,
     var isActual: Boolean? = false,
     var isIgnored: Boolean? = false,
-    @SerializedName("auditories") val audience: ArrayList<String>?
+    @SerializedName("auditories") var audience: ArrayList<String>?
 ) {
 
     companion object {

@@ -24,6 +24,13 @@
             app:popEnterAnim="@anim/rev_enter"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainScheduleFragment_to_scheduleSubjectEditFragment"
+            app:destination="@id/scheduleSubjectEditFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/rev_exit"
+            app:popEnterAnim="@anim/rev_enter"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/schedulesListFragment"
@@ -122,6 +129,20 @@
             app:exitAnim="@anim/rev_exit"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleSubjectEditFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleSubjectEditFragment"
+        android:label="fragment_schedule_subject_edit"
+        tools:layout="@layout/fragment_schedule_subject_edit" >
+        <action
+            android:id="@+id/action_scheduleSubjectEditFragment_to_mainScheduleFragment"
+            app:destination="@id/mainScheduleFragment"
+            app:enterAnim="@anim/rev_enter"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/scheduleSubjectEditFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
 

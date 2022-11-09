@@ -26,6 +26,7 @@ class GroupScheduleViewModel(
     private val update = MutableLiveData(false)
     private val dataLoading = MutableLiveData(true)
     private val scheduleLoaded = MutableLiveData<SavedSchedule>(null)
+    private val activeSubject = MutableLiveData<ScheduleSubject>(null)
     private val groupLoading = MutableLiveData(false)
     private val settingsUpdated = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
@@ -36,6 +37,7 @@ class GroupScheduleViewModel(
     private val error = MutableLiveData<StateStatus>(null)
     private val success = MutableLiveData<Int>(null)
     val scheduleStatus = schedule
+    val activeSubjectStatus = activeSubject
     val settingsUpdatedStatus = settingsUpdated
     val deletedScheduleStatus = deletedSchedule
     val examsScheduleStatus = examsSchedule
@@ -54,6 +56,10 @@ class GroupScheduleViewModel(
 
     fun setSuccessNull() {
         success.value = null
+    }
+
+    fun setActiveSubject(subject: ScheduleSubject) {
+        activeSubject.value = subject
     }
 
     fun setDeletedScheduleNull() {

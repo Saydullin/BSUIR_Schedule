@@ -44,50 +44,60 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Theme.BSUIRSchedule.TextView.Hint"
-            android:paddingHorizontal="10dp"
-            android:text="Удалить так же:" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <LinearLayout
-            android:id="@+id/delete_subject_options"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:backgroundTint="?attr/secondaryColor"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="10dp">
 
-            <Switch
-                android:id="@+id/delete_all_subjects"
+            <LinearLayout
+                android:id="@+id/delete_subject_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/delete_subject_dialog_all"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:checked="false" />
+                android:padding="10dp"
+                android:orientation="vertical">
 
-            <Switch
-                android:id="@+id/delete_all_subjects_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_subject_dialog_type"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:checked="false" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                    android:paddingHorizontal="10dp"
+                    android:text="Удалить так же:" />
 
-            <Switch
-                android:id="@+id/delete_all_subjects_period"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_subject_dialog_period"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:checked="false" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp" />
 
-        </LinearLayout>
+                <Switch
+                    android:id="@+id/delete_all_subjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_subject_dialog_all"
+                    style="@style/Theme.BSUIRSchedule.Checkbox"
+                    android:checked="false" />
+
+                <Switch
+                    android:id="@+id/delete_all_subjects_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_subject_dialog_type"
+                    style="@style/Theme.BSUIRSchedule.Checkbox"
+                    android:checked="false" />
+
+                <Switch
+                    android:id="@+id/delete_all_subjects_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_subject_dialog_period"
+                    style="@style/Theme.BSUIRSchedule.Checkbox"
+                    android:checked="false" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <Space
             android:layout_width="wrap_content"

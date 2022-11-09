@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
@@ -34,32 +33,12 @@ class SubjectDialog(
         val weekText = resources.getString(R.string.subject_weeks, subject.weekNumber?.joinToString(", ") ?: "")
         binding.subjectWeeks.text = weekText
 
-        when (subject.lessonTypeAbbrev) {
-            ScheduleSubject.LABORATORY -> {
-                binding.subjectType.setColorFilter(ContextCompat.getColor(context!!, R.color.subject_lab))
-                binding.subjectTypeName.text = resources.getString(R.string.laboratory)
-            }
-            ScheduleSubject.PRACTISE -> {
-                binding.subjectType.setColorFilter(ContextCompat.getColor(context!!, R.color.subject_practise))
-                binding.subjectTypeName.text = resources.getString(R.string.practise)
-            }
-            ScheduleSubject.LECTURE -> {
-                binding.subjectType.setColorFilter(ContextCompat.getColor(context!!, R.color.subject_lecture))
-                binding.subjectTypeName.text = resources.getString(R.string.lecture)
-            }
-            ScheduleSubject.CONSULTATION -> {
-                binding.subjectType.setColorFilter(ContextCompat.getColor(context!!, R.color.subject_consultation))
-                binding.subjectTypeName.text = resources.getString(R.string.consultation)
-            }
-            ScheduleSubject.EXAM -> {
-                binding.subjectType.setColorFilter(ContextCompat.getColor(context!!, R.color.subject_exam))
-                binding.subjectTypeName.text = resources.getString(R.string.exam)
-            }
-        }
+        binding.subjectTypeName.text = subjectManager.getSubjectType()
+        subjectManager.setSubjectTypeView(binding.subjectType)
 
         binding.subjectSubgroup.text = subjectManager.getSubjectSubgroup()
 
-        if (subject.note != null && subject.note.isNotEmpty()) {
+        if (subject.note != null && subject.note!!.isNotEmpty()) {
             binding.subjectNote.visibility = View.VISIBLE
             binding.subjectNote.text = subjectManager.getSubjectNote()
         }

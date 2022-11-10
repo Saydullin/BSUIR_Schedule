@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.DeleteSubjectDialogBinding
-import com.bsuir.bsuirschedule.domain.models.DeleteSubjectSettings
+import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 
 class DeleteSubjectDialog(
     private val scheduleSubject: ScheduleSubject,
-    private val agreeCallback: (scheduleSubject: ScheduleSubject, deleteSettings: DeleteSubjectSettings) -> Unit,
+    private val agreeCallback: (scheduleSubject: ScheduleSubject, deleteSettings: ChangeSubjectSettings) -> Unit,
 ) : DialogFragment() {
 
     override fun onCreateView(
@@ -33,13 +33,13 @@ class DeleteSubjectDialog(
         val deleteAllSubjects = getString(R.string.delete_subject_dialog_all, scheduleSubject.subject)
         val deleteTypeSubjects = getString(
             R.string.delete_subject_dialog_type,
+            subjectManager.getSubjectType(),
             scheduleSubject.subject,
-            subjectManager.getSubjectType()
         )
         val deletePeriodSubjects = getString(
             R.string.delete_subject_dialog_period,
             scheduleSubject.subject,
-            subjectManager.getShortDayOfWeek().uppercase(),
+            subjectManager.getDayOfWeek(),
             subjectManager.getSubjectWeeks()
         )
 
@@ -48,10 +48,10 @@ class DeleteSubjectDialog(
         binding.deleteAllSubjectsPeriod.text = deletePeriodSubjects
 
         binding.agreeButton.setOnClickListener {
-            val deleteSettings = DeleteSubjectSettings(
-                deleteAll = binding.deleteAllSubjects.isChecked,
-                deleteOnlyType = binding.deleteAllSubjectsType.isChecked,
-                deleteOnlyPeriod = binding.deleteAllSubjectsPeriod.isChecked
+            val deleteSettings = ChangeSubjectSettings(
+                forAll = binding.deleteAllSubjects.isChecked,
+                forOnlyType = binding.deleteAllSubjectsType.isChecked,
+                forOnlyPeriod = binding.deleteAllSubjectsPeriod.isChecked
             )
             agreeCallback(scheduleSubject, deleteSettings)
             dismiss()

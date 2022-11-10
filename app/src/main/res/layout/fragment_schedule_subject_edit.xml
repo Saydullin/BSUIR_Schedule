@@ -39,14 +39,30 @@
 
     </LinearLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/active_subject_fragment"
-        tools:layout="@layout/fragment_active_subject"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:name="com.bsuir.bsuirschedule.presentation.fragments.ActiveSubjectFragment"
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/active_subject_fragment"-->
+<!--        tools:layout="@layout/fragment_active_subject"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_marginVertical="10dp"-->
+<!--        android:name="com.bsuir.bsuirschedule.presentation.fragments.ActiveSubjectFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp">
+
+        <include
+            android:id="@+id/nested_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/schedule_subject_short" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,7 +75,7 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,8 +175,14 @@
                     android:id="@+id/note_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    android:inputType="text|textMultiLine"
+                    android:maxLines="8"
+                    android:maxHeight="100dp"
+                    android:scrollbarStyle="insideInset"
+                    android:overScrollMode="always"
+                    android:gravity="top|start"
                     style="@style/Theme.BSUIRSchedule.EditText"
-                    android:maxLines="2"
                     android:ellipsize="end" />
 
             </LinearLayout>
@@ -207,11 +229,7 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="30dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -232,7 +250,7 @@
                         android:layout_height="wrap_content"
                         style="@style/Theme.BSUIRSchedule.TextView.Medium"
                         android:paddingHorizontal="10dp"
-                        android:text="Изменить так же:" />
+                        android:text="@string/also_edit" />
 
                     <Space
                         android:layout_width="wrap_content"
@@ -268,7 +286,7 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="30dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

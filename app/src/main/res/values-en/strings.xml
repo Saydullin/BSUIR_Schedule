@@ -28,7 +28,7 @@
     <string name="all_subgroups">For all subgroups</string>
     <string name="subgroup">For %d subgroup</string>
     <string name="subject_time">from %s to %s</string>
-    <string name="subject_weeks">on %s weeks</string>
+    <string name="subject_weeks">at %s weeks</string>
     <string name="subject_note">Note: %s</string>
     <string name="data_error">Data processing error</string>
     <string name="data_error_caption">Try to update data</string>
@@ -37,7 +37,7 @@
     <string name="connection_error">Connection error</string>
     <string name="connection_error_caption">Check your internet connection</string>
     <string name="update_error">Data not found</string>
-    <string name="update_error_caption">Load data or connect to internet to automaticcally load data</string>
+    <string name="update_error_caption">Load data or connect to internet to automatically load data</string>
     <string name="database_not_found_error">Data not found</string>
     <string name="database_not_found_error_caption">Try to load data again</string>
     <string name="database_error">Database error</string>
@@ -263,22 +263,25 @@
     <string name="upload_schedule_dialog_caption">Schedule uploaded and simulated successfully</string>
     <string name="schedule_subject_deleted_caption">Lesson has been successfully removed from this schedule</string>
     <string name="schedule_subject_deleted">Lesson deleted</string>
-    <string name="delete_subject">Delete activity \"%s\"?</string>
+    <string name="delete_subject">Delete one %s lesson?</string>
     <string name="delete_subject_dialog_caption">It will be possible to return the lesson only by updating the schedule!</string>
     <string name="delete_subject_dialog_title">Are you sure you want to delete the activity?</string>
     <string name="schedule_subject_ignored">The lesson will be ignored</string>
     <string name="schedule_subject_ignored_caption">Schedule status will no longer include this lesson</string>
-    <string name="schedule_subject_not_ignored">The lesson will NOT be ignored</string>
+    <string name="schedule_subject_not_ignored">The lesson will be visible</string>
     <string name="schedule_subject_not_ignored_caption">This lesson will now be counted in the schedule status</string>
     <string name="popup_deactivate">I\'ll will not go</string>
     <string name="popup_activate">I\'ll go</string>
     <string name="popup_edit">Edit</string>
     <string name="schedules_subject_edit_title">Edit lesson</string>
     <string name="delete_subject_dialog_all">All lessons for %s</string>
-    <string name="delete_subject_dialog_type">All lessons for %s (%s)</string>
-    <string name="delete_subject_dialog_period">All classes by %s by %s\n%s</string>
+    <string name="delete_subject_dialog_type">All (%s) lessons for %s</string>
+    <string name="delete_subject_dialog_period">All %s lessons on %s\n%s</string>
     <string name="unknown">Unknown</string>
     <string name="also_delete">Also delete</string>
+    <string name="schedule_subject_edited">Lesson changed</string>
+    <string name="schedule_subject_edited_caption">Lesson successfully changed</string>
+    <string name="also_edit">Edit the same way:</string>
 </resources>
 
 

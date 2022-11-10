@@ -9,7 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
-import com.bsuir.bsuirschedule.domain.models.DeleteSubjectSettings
+import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -51,7 +51,7 @@ class ScheduleRecyclerFragment : Fragment() {
             groupScheduleVM.ignoreSubject(scheduleSubject, isIgnore)
         }
 
-        val onDeleteSubmitScheduleSubject = { scheduleSubject: ScheduleSubject, deleteSettings: DeleteSubjectSettings ->
+        val onDeleteSubmitScheduleSubject = { scheduleSubject: ScheduleSubject, deleteSettings: ChangeSubjectSettings ->
             groupScheduleVM.deleteSubject(scheduleSubject, deleteSettings)
         }
 

@@ -91,7 +91,7 @@
                             style="@style/Theme.BSUIRSchedule.TextView.Medium"
                             android:layout_marginEnd="10dp"
                             android:ellipsize="end"
-                            android:maxLines="2"
+                            android:maxLines="1"
                             android:text="@string/test_subject_title" />
 
                         <Space
@@ -155,8 +155,8 @@
                     <LinearLayout
                         android:id="@+id/subject_additional"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:visibility="gone"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
@@ -165,6 +165,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                            android:maxLines="5"
+                            android:ellipsize="end"
                             android:text="@string/test_subject_note" />
 
                     </LinearLayout>

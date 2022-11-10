@@ -235,6 +235,8 @@
                             android:id="@+id/subject_note"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:maxLines="5"
+                            android:ellipsize="end"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
                             android:text="@string/test_subject_note" />
 

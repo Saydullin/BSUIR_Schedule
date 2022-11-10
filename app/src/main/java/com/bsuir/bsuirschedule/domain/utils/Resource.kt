@@ -22,8 +22,9 @@ sealed class Resource<T>(
         const val SCHEDULE_UPDATED_SUCCESS = 11
         const val SCHEDULE_DELETED_SUCCESS = 12
         const val SCHEDULE_SUBJECT_DELETED = 13
-        const val SCHEDULE_SUBJECT_IGNORED = 14
-        const val SCHEDULE_SUBJECT_NOT_IGNORED = 15
+        const val SCHEDULE_SUBJECT_EDITED = 14
+        const val SCHEDULE_SUBJECT_IGNORED = 15
+        const val SCHEDULE_SUBJECT_NOT_IGNORED = 16
 
     }
 

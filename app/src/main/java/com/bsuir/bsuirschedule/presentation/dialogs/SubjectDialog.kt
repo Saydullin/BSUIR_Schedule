@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.dialogs
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,8 +40,8 @@ class SubjectDialog(
         binding.subjectSubgroup.text = subjectManager.getSubjectSubgroup()
 
         if (subject.note != null && subject.note!!.isNotEmpty()) {
-            binding.subjectNote.visibility = View.VISIBLE
-            binding.subjectNote.text = subjectManager.getSubjectNote()
+            binding.subjectNoteContainer.visibility = View.VISIBLE
+            binding.subjectNote.text = subject.note
         }
 
         binding.subjectTitle.text = subject.subjectFullName

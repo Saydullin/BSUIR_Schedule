@@ -174,8 +174,8 @@ class SubjectManager(
         }
     }
 
-    fun getShortDayOfWeek(): String {
-        val timeFormat = SimpleDateFormat("EEE")
+    fun getDayOfWeek(): String {
+        val timeFormat = SimpleDateFormat("EEEE")
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = subject.startMillis
 
@@ -187,14 +187,6 @@ class SubjectManager(
         return context.getString(
             R.string.subject_weeks,
             subject.weekNumber?.joinToString(", ") ?: ""
-        )
-    }
-
-    fun getSubjectNote(): String {
-
-        return context.getString(
-            R.string.subject_note,
-            subject.note
         )
     }
 

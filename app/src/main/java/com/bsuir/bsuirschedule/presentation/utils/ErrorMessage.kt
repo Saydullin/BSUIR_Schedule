@@ -82,6 +82,12 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.schedule_week_loaded_error_caption)
                 )
             }
+            Resource.SCHEDULE_SUBJECT_EDITED -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.schedule_subject_edited),
+                    caption = resources.getString(R.string.schedule_subject_edited_caption)
+                )
+            }
             Resource.SCHEDULE_SUBJECT_DELETED -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.schedule_subject_deleted),

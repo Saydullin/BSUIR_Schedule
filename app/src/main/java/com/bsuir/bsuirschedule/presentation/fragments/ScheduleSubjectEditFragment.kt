@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSubjectEditBinding
+import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
+import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -26,11 +26,11 @@ class ScheduleSubjectEditFragment : Fragment() {
     ): View {
         val binding = FragmentScheduleSubjectEditBinding.inflate(inflater)
         val allSubgroupsText = resources.getString(R.string.settings_all_subgroups)
+        val allSubgroupsShortText = resources.getString(R.string.all_subgroups_short)
 
-        binding.shortNameEditText.clearFocus()
-        binding.fullNameEditText.clearFocus()
-        binding.noteEditText.clearFocus()
-        binding.audienceEditText.clearFocus()
+        binding.noteEditText.isVerticalScrollBarEnabled = true
+        binding.nestedSubject.subgroupInfo.visibility = View.VISIBLE
+        binding.nestedSubject.subjectBreakTime.visibility = View.GONE
 
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
@@ -41,10 +41,38 @@ class ScheduleSubjectEditFragment : Fragment() {
         }
 
         groupScheduleVM.activeSubjectStatus.observe(viewLifecycleOwner) { activeSubject ->
-            binding.shortNameEditText.updateText(activeSubject.subject ?: "")
-            binding.fullNameEditText.updateText(activeSubject.subjectFullName ?: "")
-            binding.noteEditText.updateText(activeSubject.note ?: "")
-            binding.audienceEditText.updateText(activeSubject.getAudienceInLine() ?: "")
+            val subjectManager = SubjectManager(activeSubject, requireContext())
+
+            subjectManager.setSubjectTypeView(binding.nestedSubject.subjectType)
+            binding.nestedSubject.subjectStartLesson.text = activeSubject.startLessonTime ?: "--:--"
+            binding.nestedSubject.subjectEndLesson.text = activeSubject.endLessonTime ?: "--:--"
+            binding.shortNameEditText.setText(activeSubject.subject ?: "")
+            binding.fullNameEditText.setText(activeSubject.subjectFullName ?: "")
+            binding.noteEditText.setText(activeSubject.note ?: "")
+            binding.audienceEditText.setText(activeSubject.getAudienceInLine())
+
+            if (activeSubject.employees != null) {
+                val employeeNotListedText = getString(R.string.no_teacher_title)
+                if (activeSubject.employees!!.size > 0) {
+                    binding.nestedSubject.subjectEmployeeName.text = activeSubject.employees!![0].getName()
+                } else {
+                    binding.nestedSubject.subjectEmployeeName.text = employeeNotListedText
+                }
+            }
+            if (activeSubject.groups != null) {
+                val groupNotListedText = getString(R.string.no_group_title)
+                if (activeSubject.groups!!.size > 0) {
+                    binding.nestedSubject.subjectEmployeeName.text = activeSubject.groups!![0].getTitleOrName()
+                } else {
+                    binding.nestedSubject.subjectEmployeeName.text = groupNotListedText
+                }
+            }
+
+            if (activeSubject.numSubgroup == 0) {
+                binding.nestedSubject.subjectSubgroup.text = resources.getString(R.string.all_subgroups_short)
+            } else {
+                binding.nestedSubject.subjectSubgroup.text = activeSubject.numSubgroup.toString()
+            }
 
             val selectedSubgroup = activeSubject.numSubgroup
             val selectionText = if (selectedSubgroup == 0) {
@@ -53,6 +81,23 @@ class ScheduleSubjectEditFragment : Fragment() {
                 resources.getString(R.string.settings_item_subgroup, selectedSubgroup)
             }
             binding.subgroupAutoCompleteTextView.setText(selectionText, false)
+
+            val deleteAllSubjects = getString(R.string.delete_subject_dialog_all, activeSubject.subject)
+            val deleteTypeSubjects = getString(
+                R.string.delete_subject_dialog_type,
+                subjectManager.getSubjectType(),
+                activeSubject.subject,
+            )
+            val deletePeriodSubjects = getString(
+                R.string.delete_subject_dialog_period,
+                activeSubject.subject,
+                subjectManager.getDayOfWeek(),
+                subjectManager.getSubjectWeeks()
+            )
+
+            binding.editSubjectsAll.text = deleteAllSubjects
+            binding.editSubjectsType.text = deleteTypeSubjects
+            binding.editSubjectsPeriod.text = deletePeriodSubjects
         }
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
@@ -75,10 +120,8 @@ class ScheduleSubjectEditFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-                if (binding.shortNameEditText.hasFocus()) {
-                    setSubjectShortTitle(p0.toString().trimStart())
-                }
+            override fun afterTextChanged(text: Editable?) {
+                binding.nestedSubject.subjectTitle.text = text.toString()
             }
         })
 
@@ -89,10 +132,8 @@ class ScheduleSubjectEditFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-                if (binding.audienceEditText.hasFocus()) {
-                    setSubjectAudience(p0.toString().trimStart())
-                }
+            override fun afterTextChanged(text: Editable?) {
+                binding.nestedSubject.subjectAudience.text = text.toString()
             }
         })
 
@@ -103,9 +144,12 @@ class ScheduleSubjectEditFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-                if (binding.noteEditText.hasFocus()) {
-                    setSubjectNote(p0.toString().trimStart())
+            override fun afterTextChanged(text: Editable?) {
+                if ((text ?: "").trim().isNotEmpty()) {
+                    binding.nestedSubject.subjectAdditional.visibility = View.VISIBLE
+                    binding.nestedSubject.subjectNote.text = text.toString()
+                } else {
+                    binding.nestedSubject.subjectAdditional.visibility = View.GONE
                 }
             }
         })
@@ -113,62 +157,39 @@ class ScheduleSubjectEditFragment : Fragment() {
         binding.subgroupAutoCompleteTextView.setOnItemClickListener { _, _, i, _ ->
             val schedule = groupScheduleVM.getActiveSchedule() ?: return@setOnItemClickListener
             val selectedSubgroup = schedule.subgroups[i]
-            setSubjectSubgroup(selectedSubgroup)
+            binding.nestedSubject.subjectSubgroup.text = if (selectedSubgroup == 0) {
+                allSubgroupsShortText
+            } else {
+                selectedSubgroup.toString()
+            }
         }
 
         binding.saveButton.setOnClickListener {
-            setSubjectFullTitle(binding.fullNameEditText.text.toString().trim())
-            // Call save activeSubject in Schedule
+            val subject = groupScheduleVM.getActiveSubject() ?: return@setOnClickListener
+
+            val editSubject = subject.copy()
+
+            editSubject.subject = binding.shortNameEditText.text.toString().trim()
+            editSubject.subjectFullName = binding.fullNameEditText.text.toString().trim()
+            editSubject.audience = arrayListOf(binding.audienceEditText.text.toString().trim())
+            editSubject.note = binding.noteEditText.text.toString().trim()
+            editSubject.numSubgroup = if (binding.nestedSubject.subjectSubgroup.text == allSubgroupsShortText) {
+                0
+            } else {
+                binding.nestedSubject.subjectSubgroup.text.toString().toInt()
+            } // FIXME
+
+            val changeSubjectSettings = ChangeSubjectSettings(
+                forAll = binding.editSubjectsAll.isChecked,
+                forOnlyType = binding.editSubjectsType.isChecked,
+                forOnlyPeriod = binding.editSubjectsPeriod.isChecked
+            )
+
+            groupScheduleVM.editSubject(editSubject, changeSubjectSettings)
+            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
         }
 
         return binding.root
-    }
-
-    private fun EditText.updateText(text: String) {
-        val focussed = hasFocus()
-        if (focussed) {
-            clearFocus()
-        }
-        setText(text)
-        if (focussed) {
-            requestFocus()
-        }
-        setSelection(text.length)
-    }
-
-    private fun setSubjectNote(note: String) {
-        val actualSubjectVM = groupScheduleVM.activeSubjectStatus.value ?: return
-        val actualSubject = actualSubjectVM.copy()
-        actualSubject.note = note
-        groupScheduleVM.setActiveSubject(actualSubject)
-    }
-
-    private fun setSubjectAudience(audience: String) {
-        val actualSubjectVM = groupScheduleVM.activeSubjectStatus.value ?: return
-        val actualSubject = actualSubjectVM.copy()
-        actualSubject.audience = arrayListOf(audience)
-        groupScheduleVM.setActiveSubject(actualSubject)
-    }
-
-    private fun setSubjectShortTitle(shortTitle: String) {
-        val actualSubjectVM = groupScheduleVM.activeSubjectStatus.value ?: return
-        val actualSubject = actualSubjectVM.copy()
-        actualSubject.subject = shortTitle
-        groupScheduleVM.setActiveSubject(actualSubject)
-    }
-
-    private fun setSubjectFullTitle(fullTitle: String) {
-        val actualSubjectVM = groupScheduleVM.activeSubjectStatus.value ?: return
-        val actualSubject = actualSubjectVM.copy()
-        actualSubject.subjectFullName = fullTitle
-        groupScheduleVM.setActiveSubject(actualSubject)
-    }
-
-    private fun setSubjectSubgroup(subgroup: Int) {
-        val actualSubjectVM = groupScheduleVM.activeSubjectStatus.value ?: return
-        val actualSubject = actualSubjectVM.copy()
-        actualSubject.numSubgroup = subgroup
-        groupScheduleVM.setActiveSubject(actualSubject)
     }
 
 }

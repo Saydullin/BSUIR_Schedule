@@ -78,6 +78,10 @@ class GroupScheduleViewModel(
         }
     }
 
+    fun getActiveSubject(): ScheduleSubject? {
+        return activeSubject.value
+    }
+
     fun getActiveSchedule(): Schedule? {
         return schedule.value
     }
@@ -130,7 +134,51 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun deleteSubject(scheduleSubject: ScheduleSubject, deleteSettings: DeleteSubjectSettings) {
+    fun editSubject(scheduleSubject: ScheduleSubject, changeSettings: ChangeSubjectSettings) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (schedule.value == null || schedule.value!!.id == -1) {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = Resource.DATA_ERROR,
+                ))
+            }
+
+            val scheduleId = schedule.value!!.id
+            when (
+                val result = scheduleSubjectUseCase.edit(
+                    scheduleId = scheduleId,
+                    scheduleSubject = scheduleSubject,
+                    deleteSettings = changeSettings
+                )
+            ) {
+                is Resource.Success -> {
+                    val data = result.data!!
+                    when (
+                        val saveResponse = saveScheduleUseCase.invoke(data)
+                    ) {
+                        is Resource.Success -> {
+                            success.postValue(Resource.SCHEDULE_SUBJECT_EDITED)
+                            getScheduleById(data.id, isNotUpdate = false)
+                        }
+                        is Resource.Error -> {
+                            error.postValue(StateStatus(
+                                state = StateStatus.ERROR_STATE,
+                                type = saveResponse.errorType,
+                            ))
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.errorType,
+                    ))
+                }
+            }
+        }
+    }
+
+    fun deleteSubject(scheduleSubject: ScheduleSubject, changeSettings: ChangeSubjectSettings) {
         viewModelScope.launch(Dispatchers.IO) {
             if (schedule.value == null || schedule.value!!.id == -1) {
                 error.postValue(StateStatus(
@@ -144,7 +192,7 @@ class GroupScheduleViewModel(
                 val result = scheduleSubjectUseCase.delete(
                     scheduleId = scheduleId,
                     scheduleSubject = scheduleSubject,
-                    deleteSettings = deleteSettings
+                    deleteSettings = changeSettings
                 )
             ) {
                 is Resource.Success -> {

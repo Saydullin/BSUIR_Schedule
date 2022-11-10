@@ -41,7 +41,7 @@
     <string name="more">ещё</string>
     <string name="cancel">Назад</string>
     <string name="delete_schedule">Удалить расписание\n «%s»?</string>
-    <string name="delete_subject">Удалить занятие «%s»?</string>
+    <string name="delete_subject">Удалить одно занятие по %s?</string>
     <string name="agree">Да</string>
     <string name="active_schedule_no_departments">Кафедра отсутствует</string>
     <string name="upload_schedule_dialog_title">Хотите посмотреть на расписание %s?</string>
@@ -120,7 +120,7 @@
     <string name="subgroup_selected">%d подгруппа выбрана</string>
     <string name="subject_time">с %s до %s</string>
     <string name="subject_weeks">на %s нед.</string>
-    <string name="subject_note">Примечание: %s</string>
+    <string name="subject_note">Примечание:</string>
     <string name="schedule_week_number">%d неделя</string>
     <string name="exams">Экзамены</string>
 
@@ -144,10 +144,12 @@
     <string name="schedule_success_deleted">Расписание удалено</string>
     <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
     <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
+    <string name="schedule_subject_edited">Занятие изменено</string>
+    <string name="schedule_subject_edited_caption">Занятие успешно изменено и сохранено в расписании</string>
     <string name="schedule_subject_deleted">Занятие удалено</string>
     <string name="schedule_subject_ignored">Занятие будет игнорироваться</string>
     <string name="schedule_subject_ignored_caption">В статусе расписания больше не будет учитываться это занятие</string>
-    <string name="schedule_subject_not_ignored">Занятие НЕ будет игнорироваться</string>
+    <string name="schedule_subject_not_ignored">Занятие будет учитываться</string>
     <string name="schedule_subject_not_ignored_caption">Это занятие теперь будет учитываться в статусе расписания</string>
     <string name="schedule_subject_deleted_caption">Занятие успешно удалено с этого расписания</string>
     <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
@@ -333,9 +335,10 @@
     <string name="schedule_success_loaded">Расписание загружено</string>
     <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
     <string name="delete_subject_dialog_all">Все занятия по %s</string>
-    <string name="delete_subject_dialog_type">Все занятия по %s (%s)</string>
-    <string name="delete_subject_dialog_period">Все занятия по %s по %s\n%s</string>
+    <string name="delete_subject_dialog_type">Все (%s) по %s</string>
+    <string name="delete_subject_dialog_period">Все занятия по %s,\n(%s), %s</string>
     <string name="also_delete">Удалить так же:</string>
+    <string name="also_edit">Изменить так же:</string>
 
 </resources>
 

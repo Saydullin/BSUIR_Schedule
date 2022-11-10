@@ -40,7 +40,7 @@ class ActiveSubjectFragment : Fragment() {
             subjectManager.setSubjectTypeView(subjectView.subjectType)
             if (!activeSubject.note.isNullOrEmpty()) {
                 subjectView.subjectAdditional.visibility = View.VISIBLE
-                subjectView.subjectNote.text = subjectManager.getSubjectNote()
+                subjectView.subjectNote.text = activeSubject.note
             }
 
             subjectView.subgroupInfo.visibility = View.VISIBLE

@@ -25,14 +25,14 @@ class SubjectManager(
         if (subject.audience.isNullOrEmpty()) {
             return context.resources.getString(
                 R.string.subject_status_now,
-                subject.subject,
+                subject.getShortTitle(),
                 subject.getAudienceInLine()
             )
         }
 
         return context.resources.getString(
             R.string.subject_status_now_in,
-            subject.subject,
+            subject.getShortTitle(),
             subject.getAudienceInLine()
         )
     }
@@ -54,7 +54,7 @@ class SubjectManager(
             return context.resources.getString(
                 subjectStatusTodayString,
                 pluralMinutesText,
-                subject.subject,
+                subject.getShortTitle(),
                 subject.getAudienceInLine()
             )
         }
@@ -63,7 +63,7 @@ class SubjectManager(
             return context.resources.getString(
                 subjectStatusTodayString,
                 pluralHoursText,
-                subject.subject,
+                subject.getShortTitle(),
                 subject.getAudienceInLine()
             )
         }
@@ -71,7 +71,7 @@ class SubjectManager(
         return context.resources.getString(
             subjectStatusTodayString,
             "$pluralHoursText $pluralMinutesText",
-            subject.subject,
+            subject.getShortTitle(),
             subject.getAudienceInLine()
         )
 
@@ -82,7 +82,7 @@ class SubjectManager(
         return context.resources.getString(
             R.string.subject_status_tomorrow,
             getSubjectStartTime(),
-            subject.subject
+            subject.getShortTitle()
         )
     }
 
@@ -98,7 +98,7 @@ class SubjectManager(
         return context.resources.getString(
             R.string.subject_status_days_left,
             daysText,
-            subject.subject,
+            subject.getShortTitle(),
             subject.startLessonTime
         )
     }

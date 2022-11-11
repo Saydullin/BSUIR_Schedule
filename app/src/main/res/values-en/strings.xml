@@ -282,6 +282,12 @@
     <string name="schedule_subject_edited">Lesson changed</string>
     <string name="schedule_subject_edited_caption">Lesson successfully changed</string>
     <string name="also_edit">Edit the same way:</string>
+    <string name="delete_subject_dialog_subgroup">Only for %d subgroup</string>
+    <string name="subgroup_label">Subgroup</string>
+    <string name="note_label">Note</string>
+    <string name="audience_label">Audience</string>
+    <string name="full_title_label">Full title</string>
+    <string name="short_title_label">Short title</string>
 </resources>
 
 

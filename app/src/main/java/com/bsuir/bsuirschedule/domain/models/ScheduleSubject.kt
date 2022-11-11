@@ -9,6 +9,7 @@ data class ScheduleSubject (
     var lessonTypeAbbrev: String?,
     var employees: ArrayList<EmployeeSubject>?,
     var groups: ArrayList<Group>?,
+    var edited: ScheduleSubjectEdit?,
     @SerializedName("studentGroups") val subjectGroups: ArrayList<GroupSubject>?,
     var nextTimeDaysLeft: Int?,
     var nextTimeSubject: ScheduleSubject?,
@@ -26,8 +27,8 @@ data class ScheduleSubject (
     val endLessonDate: String?,
     var isActual: Boolean? = false,
     var isIgnored: Boolean? = false,
-    @SerializedName("auditories") var audience: ArrayList<String>?
-) {
+    @SerializedName("auditories") var audience: ArrayList<String>?,
+    ) {
 
     companion object {
         val empty = ScheduleSubject(
@@ -54,7 +55,8 @@ data class ScheduleSubject (
             endLessonDate = "",
             isActual = false,
             isIgnored = false,
-            audience = ArrayList()
+            audience = ArrayList(),
+            edited = ScheduleSubjectEdit.empty
         )
 
         const val CONSULTATION = "УЗк"
@@ -64,34 +66,44 @@ data class ScheduleSubject (
         const val LABORATORY = "ЛР"
     }
 
-    fun getNumSubgroupStr() = (numSubgroup ?: 0).toString()
+    fun getShortTitle(): String {
+        if (edited != null) {
+            return edited!!.shortTitle
+        }
 
-    fun getAudienceInLine() = audience?.joinToString(", ") ?: ""
+        return subject ?: ""
+    }
 
-//    fun toGroupScheduleSubjectTable() = GroupScheduleSubjectTable(
-//        subject = subject ?: "",
-//        subjectFullName = subjectFullName ?: "",
-//        lessonTypeAbbrev = lessonTypeAbbrev ?: "",
-//        employees = employees?.map { it.toEmployeeTable() } ?: ArrayList(),
-//        groups = groups?.map { it.toGroupTable() } ?: ArrayList(),
-//        groupSubjects = subjectGroups?.map { it.toGroupSubjectTable() } ?: ArrayList(),
-//        startMillis = startMillis,
-//        endMillis = endMillis,
-//        nextTimeDaysLeft = nextTimeDaysLeft ?: -1,
-//        startLessonTime = startLessonTime ?: "",
-//        endLessonTime = endLessonTime ?: "",
-//        numSubgroup = numSubgroup ?: 0,
-//        note = note ?: "",
-//        breakMinutes = breakTime ?: SubjectBreakTime.empty,
-//        weekNumber = weekNumber ?: ArrayList(),
-//        dayNumber = dayNumber,
-//        dateLesson = dateLesson ?: "",
-//        startLessonDate = startLessonDate ?: "",
-//        endLessonDate = endLessonDate ?: "",
-//        isActual = isActual ?: false,
-//        isIgnored = isIgnored ?: false,
-//        audience = audience ?: ArrayList(),
-//    )
+    fun getFullTitle(): String {
+        if (edited != null) {
+            return edited!!.fullTitle
+        }
+
+        return subjectFullName ?: ""
+    }
+
+    fun getSubjectNote(): String {
+        if (edited != null) {
+            return edited!!.note
+        }
+
+        return note ?: ""
+    }
+
+    fun getAudienceInLine(): String {
+        if (edited != null) {
+            return edited!!.audience
+        }
+
+        return audience?.joinToString(", ") ?: ""
+    }
+
+    fun getNumSubgroup(): Int {
+        if (edited != null) {
+            return edited!!.subgroup
+        }
+        return (numSubgroup ?: 0)
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
@@ -36,18 +37,33 @@ class ScheduleSubjectUseCase(
             is Resource.Success -> {
                 val data = result.data!!
                 if (deleteSettings.forAll) {
-                    data.schedules = getEditedAllSubjectsSchedule(data.schedules, scheduleSubject)
+                    data.schedules = getEditedAllSubjectsSchedule(
+                        data.schedules,
+                        scheduleSubject,
+                        deleteSettings.forOnlySubgroup
+                    )
                     return Resource.Success(data)
                 }
-//                if (deleteSettings.forOnlyType) {
-//                    data.schedules = getDeletedTypeSubjectsSchedule(data.schedules, scheduleSubject)
-//                    return Resource.Success(data)
-//                }
-//                if (deleteSettings.forOnlyPeriod) {
-//                    data.schedules = getDeletedPeriodSubjectsSchedule(data.schedules, scheduleSubject)
-//                    return Resource.Success(data)
-//                }
-                data.schedules = getEditedSubjectSchedule(data.schedules, scheduleSubject)
+                if (deleteSettings.forOnlyType) {
+                    data.schedules = getEditedTypeSubjectsSchedule(
+                        data.schedules,
+                        scheduleSubject,
+                        deleteSettings.forOnlySubgroup
+                    )
+                    return Resource.Success(data)
+                }
+                if (deleteSettings.forOnlyPeriod) {
+                    data.schedules = getEditedPeriodSubjectsSchedule(
+                        data.schedules,
+                        scheduleSubject,
+                        deleteSettings.forOnlySubgroup
+                    )
+                    return Resource.Success(data)
+                }
+                data.schedules = getEditedSubjectSchedule(
+                    data.schedules,
+                    scheduleSubject,
+                )
                 return Resource.Success(data)
             }
             is Resource.Error -> {
@@ -66,15 +82,27 @@ class ScheduleSubjectUseCase(
             is Resource.Success -> {
                 val data = result.data!!
                 if (deleteSettings.forAll) {
-                    data.schedules = getDeletedAllSubjectsSchedule(data.schedules, scheduleSubject)
+                    data.schedules = getDeletedAllSubjectsSchedule(
+                        data.schedules,
+                        scheduleSubject,
+                        deleteSettings.forOnlySubgroup,
+                    )
                     return Resource.Success(data)
                 }
                 if (deleteSettings.forOnlyType) {
-                    data.schedules = getDeletedTypeSubjectsSchedule(data.schedules, scheduleSubject)
+                    data.schedules = getDeletedTypeSubjectsSchedule(
+                        data.schedules,
+                        scheduleSubject,
+                        deleteSettings.forOnlySubgroup,
+                    )
                     return Resource.Success(data)
                 }
                 if (deleteSettings.forOnlyPeriod) {
-                    data.schedules = getDeletedPeriodSubjectsSchedule(data.schedules, scheduleSubject)
+                    data.schedules = getDeletedPeriodSubjectsSchedule(
+                        data.schedules,
+                        scheduleSubject,
+                        deleteSettings.forOnlySubgroup,
+                    )
                     return Resource.Success(data)
                 }
                 data.schedules = getDeletedSubjectSchedule(data.schedules, scheduleSubject)
@@ -108,12 +136,14 @@ class ScheduleSubjectUseCase(
 
     private fun getDeletedPeriodSubjectsSchedule(
         scheduleDaysList: ArrayList<ScheduleDay>,
-        scheduleSubject: ScheduleSubject
+        scheduleSubject: ScheduleSubject,
+        isOnlySubgroup: Boolean,
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule = day.schedule.filterNot { subject ->
                 (subject.subject == scheduleSubject.subject &&
                         subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev &&
+                        ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
                         subject.dayNumber == scheduleSubject.dayNumber &&
                         subject.weekNumber == scheduleSubject.weekNumber)
             } as ArrayList<ScheduleSubject>
@@ -124,44 +154,13 @@ class ScheduleSubjectUseCase(
 
     private fun getDeletedTypeSubjectsSchedule(
         scheduleDaysList: ArrayList<ScheduleDay>,
-        scheduleSubject: ScheduleSubject
+        scheduleSubject: ScheduleSubject,
+        isOnlySubgroup: Boolean,
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule = day.schedule.filterNot { subject ->
                 (subject.subject == scheduleSubject.subject &&
-                        subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev)
-            } as ArrayList<ScheduleSubject>
-        }
-
-        return scheduleDaysList
-    }
-
-    private fun getEditedAllSubjectsSchedule(
-        scheduleDaysList: ArrayList<ScheduleDay>,
-        scheduleSubject: ScheduleSubject
-    ): ArrayList<ScheduleDay> {
-        for (day in scheduleDaysList) {
-            day.schedule.map { subject ->
-                if (subject.subject == scheduleSubject.subject) {
-                    subject.subject = scheduleSubject.subject
-                    subject.subjectFullName = scheduleSubject.subjectFullName
-                    subject.audience = scheduleSubject.audience
-                    subject.note = scheduleSubject.note
-                    subject.numSubgroup = scheduleSubject.numSubgroup
-                }
-            }
-        }
-
-        return scheduleDaysList
-    }
-
-    private fun getEditedTypeSubjectsSchedule(
-        scheduleDaysList: ArrayList<ScheduleDay>,
-        scheduleSubject: ScheduleSubject
-    ): ArrayList<ScheduleDay> {
-        for (day in scheduleDaysList) {
-            day.schedule = day.schedule.filterNot { subject ->
-                (subject.subject == scheduleSubject.subject &&
+                        ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
                         subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev)
             } as ArrayList<ScheduleSubject>
         }
@@ -171,12 +170,71 @@ class ScheduleSubjectUseCase(
 
     private fun getDeletedAllSubjectsSchedule(
         scheduleDaysList: ArrayList<ScheduleDay>,
-        scheduleSubject: ScheduleSubject
+        scheduleSubject: ScheduleSubject,
+        isOnlySubgroup: Boolean,
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule = day.schedule.filterNot { subject ->
-                (subject.subject == scheduleSubject.subject)
+                (subject.subject == scheduleSubject.subject &&
+                        ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup))
             } as ArrayList<ScheduleSubject>
+        }
+
+        return scheduleDaysList
+    }
+
+    private fun getEditedAllSubjectsSchedule(
+        scheduleDaysList: ArrayList<ScheduleDay>,
+        scheduleSubject: ScheduleSubject,
+        isOnlySubgroup: Boolean
+    ): ArrayList<ScheduleDay> {
+        for (day in scheduleDaysList) {
+            day.schedule.map { subject ->
+                if (subject.subject == scheduleSubject.subject &&
+                    ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup)) {
+
+                    subject.edited = scheduleSubject.edited
+                }
+            }
+        }
+
+        return scheduleDaysList
+    }
+
+    private fun getEditedTypeSubjectsSchedule(
+        scheduleDaysList: ArrayList<ScheduleDay>,
+        scheduleSubject: ScheduleSubject,
+        isOnlySubgroup: Boolean
+    ): ArrayList<ScheduleDay> {
+        for (day in scheduleDaysList) {
+            day.schedule.map { subject ->
+                if (subject.subject == scheduleSubject.subject &&
+                    ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
+                    subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev) {
+                    subject.edited = scheduleSubject.edited
+                }
+            }
+        }
+
+        return scheduleDaysList
+    }
+
+    private fun getEditedPeriodSubjectsSchedule(
+        scheduleDaysList: ArrayList<ScheduleDay>,
+        scheduleSubject: ScheduleSubject,
+        isOnlySubgroup: Boolean
+    ): ArrayList<ScheduleDay> {
+        for (day in scheduleDaysList) {
+            day.schedule.map { subject ->
+                if (subject.subject == scheduleSubject.subject &&
+                    ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
+                    subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev &&
+                    subject.dayNumber == scheduleSubject.dayNumber &&
+                    subject.weekNumber == scheduleSubject.weekNumber) {
+
+                    subject.edited = scheduleSubject.edited
+                }
+            }
         }
 
         return scheduleDaysList
@@ -184,7 +242,7 @@ class ScheduleSubjectUseCase(
 
     private fun getEditedSubjectSchedule(
         scheduleDaysList: ArrayList<ScheduleDay>,
-        scheduleSubject: ScheduleSubject
+        scheduleSubject: ScheduleSubject,
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             val index = day.schedule.indexOfFirst { it.id == scheduleSubject.id }

@@ -337,8 +337,14 @@
     <string name="delete_subject_dialog_all">Все занятия по %s</string>
     <string name="delete_subject_dialog_type">Все (%s) по %s</string>
     <string name="delete_subject_dialog_period">Все занятия по %s,\n(%s), %s</string>
+    <string name="delete_subject_dialog_subgroup">Только для %d подгруппы</string>
     <string name="also_delete">Удалить так же:</string>
     <string name="also_edit">Изменить так же:</string>
+    <string name="subgroup_label">Подгруппа</string>
+    <string name="note_label">Примечание</string>
+    <string name="audience_label">Аудитория</string>
+    <string name="full_title_label">Полное название</string>
+    <string name="short_title_label">Короткое название</string>
 
 </resources>
 

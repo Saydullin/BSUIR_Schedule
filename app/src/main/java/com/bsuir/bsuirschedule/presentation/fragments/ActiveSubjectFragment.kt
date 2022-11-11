@@ -35,12 +35,12 @@ class ActiveSubjectFragment : Fragment() {
             subjectView.subjectBreakTime.visibility = View.GONE
             subjectView.subjectStartLesson.text = activeSubject.startLessonTime ?: "--:--"
             subjectView.subjectEndLesson.text = activeSubject.endLessonTime ?: "--:--"
-            subjectView.subjectTitle.text = activeSubject.subject
+            subjectView.subjectTitle.text = activeSubject.getShortTitle()
             subjectView.subjectAudience.text = activeSubject.getAudienceInLine()
             subjectManager.setSubjectTypeView(subjectView.subjectType)
             if (!activeSubject.note.isNullOrEmpty()) {
                 subjectView.subjectAdditional.visibility = View.VISIBLE
-                subjectView.subjectNote.text = activeSubject.note
+                subjectView.subjectNote.text = activeSubject.getSubjectNote()
             }
 
             subjectView.subgroupInfo.visibility = View.VISIBLE

@@ -44,14 +44,14 @@ class ScheduleShortSubjectsAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(subject: ScheduleSubject) {
-            if (subject.numSubgroup != 0) {
+            if (subject.getNumSubgroup() != 0) {
                 binding.subgroupInfo.visibility = View.VISIBLE
-                binding.subjectSubgroup.text = subject.getNumSubgroupStr()
+                binding.subjectSubgroup.text = subject.getNumSubgroup().toString()
             }
             binding.subjectStartLesson.text = subject.startLessonTime
             binding.subjectEndLesson.text = subject.endLessonTime
             binding.subjectAudience.text = subject.getAudienceInLine()
-            binding.subjectTitle.text = subject.subject
+            binding.subjectTitle.text = subject.getShortTitle()
 
             if (subject.isActual == true) {
                 binding.actualSubjectIcon.visibility = View.VISIBLE

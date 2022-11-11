@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSubjectEditBinding
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubjectEdit
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -36,19 +37,25 @@ class ScheduleSubjectEditFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
         }
 
-        binding.cancel.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
-        }
-
         groupScheduleVM.activeSubjectStatus.observe(viewLifecycleOwner) { activeSubject ->
             val subjectManager = SubjectManager(activeSubject, requireContext())
+
+            if (activeSubject.getNumSubgroup() != 0) {
+                val deleteSubgroupSubjects = getString(
+                    R.string.delete_subject_dialog_subgroup,
+                    activeSubject.getNumSubgroup()
+                )
+                binding.editSubjectsSubgroup.text = deleteSubgroupSubjects
+            } else {
+                binding.editSubjectsSubgroup.visibility = View.GONE
+            }
 
             subjectManager.setSubjectTypeView(binding.nestedSubject.subjectType)
             binding.nestedSubject.subjectStartLesson.text = activeSubject.startLessonTime ?: "--:--"
             binding.nestedSubject.subjectEndLesson.text = activeSubject.endLessonTime ?: "--:--"
-            binding.shortNameEditText.setText(activeSubject.subject ?: "")
-            binding.fullNameEditText.setText(activeSubject.subjectFullName ?: "")
-            binding.noteEditText.setText(activeSubject.note ?: "")
+            binding.shortNameEditText.setText(activeSubject.getShortTitle())
+            binding.fullNameEditText.setText(activeSubject.getFullTitle())
+            binding.noteEditText.setText(activeSubject.getSubjectNote())
             binding.audienceEditText.setText(activeSubject.getAudienceInLine())
 
             if (activeSubject.employees != null) {
@@ -169,20 +176,41 @@ class ScheduleSubjectEditFragment : Fragment() {
 
             val editSubject = subject.copy()
 
-            editSubject.subject = binding.shortNameEditText.text.toString().trim()
-            editSubject.subjectFullName = binding.fullNameEditText.text.toString().trim()
-            editSubject.audience = arrayListOf(binding.audienceEditText.text.toString().trim())
-            editSubject.note = binding.noteEditText.text.toString().trim()
-            editSubject.numSubgroup = if (binding.nestedSubject.subjectSubgroup.text == allSubgroupsShortText) {
-                0
-            } else {
-                binding.nestedSubject.subjectSubgroup.text.toString().toInt()
-            } // FIXME
+            editSubject.edited = ScheduleSubjectEdit(
+                shortTitle = binding.shortNameEditText.text.toString().trim(),
+                fullTitle = binding.fullNameEditText.text.toString().trim(),
+                audience = binding.audienceEditText.text.toString().trim(),
+                note = binding.noteEditText.text.toString().trim(),
+                subgroup = if (binding.nestedSubject.subjectSubgroup.text == allSubgroupsShortText) {
+                    0
+                } else {
+                    binding.nestedSubject.subjectSubgroup.text.toString().toInt()
+                } // FIXME
+            )
 
             val changeSubjectSettings = ChangeSubjectSettings(
                 forAll = binding.editSubjectsAll.isChecked,
                 forOnlyType = binding.editSubjectsType.isChecked,
-                forOnlyPeriod = binding.editSubjectsPeriod.isChecked
+                forOnlyPeriod = binding.editSubjectsPeriod.isChecked,
+                forOnlySubgroup = binding.editSubjectsSubgroup.isChecked
+            )
+
+            groupScheduleVM.editSubject(editSubject, changeSubjectSettings)
+            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
+        }
+
+        binding.resetButton.setOnClickListener {
+            val subject = groupScheduleVM.getActiveSubject() ?: return@setOnClickListener
+
+            val editSubject = subject.copy()
+
+            editSubject.edited = null
+
+            val changeSubjectSettings = ChangeSubjectSettings(
+                forAll = binding.editSubjectsAll.isChecked,
+                forOnlyType = binding.editSubjectsType.isChecked,
+                forOnlyPeriod = binding.editSubjectsPeriod.isChecked,
+                forOnlySubgroup = false
             )
 
             groupScheduleVM.editSubject(editSubject, changeSubjectSettings)

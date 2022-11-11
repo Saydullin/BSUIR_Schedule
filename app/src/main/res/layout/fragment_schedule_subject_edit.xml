@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="2dp"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:text="Короткое название" />
+                    android:text="@string/short_title_label" />
 
                 <EditText
                     android:id="@+id/short_name_edit_text"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
                     android:paddingHorizontal="2dp"
-                    android:text="Полное название" />
+                    android:text="@string/full_title_label" />
 
                 <EditText
                     android:id="@+id/full_name_edit_text"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="2dp"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:text="Аудитория" />
+                    android:text="@string/audience_label" />
 
                 <EditText
                     android:id="@+id/audience_edit_text"
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
                     android:paddingHorizontal="2dp"
-                    android:text="Примечание" />
+                    android:text="@string/note_label" />
 
                 <EditText
                     android:id="@+id/note_edit_text"
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Theme.BSUIRSchedule.TextView.Hint"
                     android:paddingHorizontal="2dp"
-                    android:text="Подгруппа" />
+                    android:text="@string/subgroup_label" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -265,6 +265,14 @@
                         android:checked="false" />
 
                     <Switch
+                        android:id="@+id/edit_subjects_subgroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Все занятия 1 подгруппы"
+                        style="@style/Theme.BSUIRSchedule.Checkbox"
+                        android:checked="true" />
+
+                    <Switch
                         android:id="@+id/edit_subjects_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -295,11 +303,11 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/cancel"
+                    android:id="@+id/reset_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.Button.Hint"
-                    android:text="@string/cancel" />
+                    style="@style/Theme.BSUIRSchedule.Button.Danger"
+                    android:text="@string/reset" />
 
                 <Space
                     android:layout_width="0dp"

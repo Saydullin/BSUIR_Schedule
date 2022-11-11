@@ -102,18 +102,22 @@ class ScheduleShortSubjectsAdapter(
                 binding.root.alpha = .7f
             }
 
-            if (subject.note?.isNotEmpty() == true) {
+            if (subject.getSubjectNote().isNotEmpty()) {
                 binding.subjectAdditional.visibility = View.VISIBLE
-                binding.subjectNote.text = subject.note
+                binding.subjectNote.text = subject.getSubjectNote()
             }
 
-            binding.root.setOnLongClickListener {
-                onLongClick?.let { it(subject, binding.root) }
-                true
+            if (onLongClick != null) {
+                binding.root.setOnLongClickListener {
+                    onLongClick.invoke(subject, binding.root)
+                    true
+                }
             }
 
-            binding.root.setOnClickListener {
-                onClick?.let { it(subject) }
+            if (onClick != null) {
+                binding.root.setOnClickListener {
+                    onClick.invoke(subject)
+                }
             }
 
         }

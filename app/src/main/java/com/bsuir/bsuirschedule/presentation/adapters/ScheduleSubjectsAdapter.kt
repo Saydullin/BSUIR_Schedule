@@ -20,14 +20,14 @@ class ScheduleSubjectsAdapter(
     private val context: Context,
     private val data: ArrayList<ScheduleSubject>,
     private val isGroupSubject: Boolean,
-    private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
-    private val onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
+    private val onClick: ((subject: ScheduleSubject) -> Unit)?,
+    private val onLongClick: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
 ): RecyclerView.Adapter<ScheduleSubjectsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ScheduleSubjectBinding.inflate(LayoutInflater.from(context), parent, false)
 
-        return ViewHolder(context, isGroupSubject, showSubjectDialog, onLongPress, view)
+        return ViewHolder(context, isGroupSubject, onClick, onLongClick, view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -41,8 +41,8 @@ class ScheduleSubjectsAdapter(
     class ViewHolder(
         private val context: Context,
         private val isGroup: Boolean,
-        private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
-        private val onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)?,
+        private val onClick: ((subject: ScheduleSubject) -> Unit)?,
+        private val onLongClick: ((subject: ScheduleSubject, subjectView: View) -> Unit)?,
         private val binding: ScheduleSubjectBinding,
     ): RecyclerView.ViewHolder(binding.root) {
 
@@ -105,18 +105,22 @@ class ScheduleSubjectsAdapter(
                 binding.root.alpha = .7f
             }
 
-            if (subject.note?.isNotEmpty() == true) {
+            if (subject.getSubjectNote().isNotEmpty()) {
                 binding.subjectAdditional.visibility = View.VISIBLE
                 binding.subjectNote.text = subject.getSubjectNote()
             }
 
-            binding.root.setOnLongClickListener {
-                onLongPress?.let { it(subject, binding.root) }
-                true
+            if (onLongClick != null) {
+                binding.root.setOnLongClickListener {
+                    onLongClick.invoke(subject, binding.root)
+                    true
+                }
             }
 
-            binding.root.setOnClickListener {
-                showSubjectDialog?.let { it(subject) }
+            if (onClick != null) {
+                binding.root.setOnClickListener {
+                    onClick.invoke(subject)
+                }
             }
 
         }

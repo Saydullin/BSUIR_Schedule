@@ -7,7 +7,7 @@ import java.util.*
 class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int = 1) {
 
     private val inputDate = SimpleDateFormat("dd.MM.yyyy").parse(startDate)
-    private val calendar = Calendar.getInstance()
+    private val calendar = Calendar.getInstance(Locale("ru", "BY"))
 
     companion object {
         private val inputFormat = SimpleDateFormat("dd.MM.yyyy")
@@ -35,8 +35,8 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
 
     fun getWeekNumber(): Int {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-        val nowDate = Calendar.getInstance()
-        val calendarDate = Calendar.getInstance()
+        val nowDate = Calendar.getInstance(Locale("ru", "BY"))
+        val calendarDate = Calendar.getInstance(Locale("ru", "BY"))
         calendarDate.time = calendar.time
         nowDate.set(Calendar.DAY_OF_WEEK, 1) // now date
         calendarDate.set(Calendar.DAY_OF_WEEK, 1) // increment date
@@ -71,7 +71,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
 
     fun getDateStatus(): String {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-        val calendarNow = Calendar.getInstance()
+        val calendarNow = Calendar.getInstance(Locale("ru", "BY"))
         calendarNow.add(Calendar.DATE, -1)
         if (dateFormat.format(calendar.time) == dateFormat.format(calendarNow.time)) {
             return YESTERDAY
@@ -111,7 +111,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun isCurrentSubject(startTime: String, endTime: String): Boolean {
-        val currCalendar = Calendar.getInstance()
+        val currCalendar = Calendar.getInstance(Locale("ru", "BY"))
         val inputFormat = SimpleDateFormat("dd.MM.yyyy")
         val timeFormat = SimpleDateFormat("dd.MM.yyyy kk:mm")
         val startFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $startTime")

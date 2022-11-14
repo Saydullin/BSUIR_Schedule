@@ -20,8 +20,8 @@ class WeekManager {
     }
 
     fun isWeekPassed(initWeek: CurrentWeek): Boolean {
-        val initDate = Calendar.getInstance()
-        val currDate = Calendar.getInstance()
+        val initDate = Calendar.getInstance(Locale("ru", "BY"))
+        val currDate = Calendar.getInstance(Locale("ru", "BY"))
         initDate.time.time = initWeek.time
         initDate.add(Calendar.DATE, 1)
 
@@ -30,8 +30,8 @@ class WeekManager {
 
     private fun calculatePassedWeeks(initWeek: CurrentWeek): Int {
         val inputFormat = SimpleDateFormat("dd.MM.yyyy")
-        val initDate = Calendar.getInstance()
-        val currDate = Calendar.getInstance()
+        val initDate = Calendar.getInstance(Locale("ru", "BY"))
+        val currDate = Calendar.getInstance(Locale("ru", "BY"))
         initDate.timeInMillis = initWeek.time
         initDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
         currDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)

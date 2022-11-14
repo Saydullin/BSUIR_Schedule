@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.bsuir.bsuirschedule.receiver.AlarmReceiver
 
 class ScheduleService(
@@ -36,13 +37,23 @@ class ScheduleService(
 
     private fun getIntent(): Intent = Intent(context, AlarmReceiver::class.java)
 
-    private fun getPendingIntent(intent: Intent) =
-        PendingIntent.getBroadcast(
-            context,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT,
-        )
+    private fun getPendingIntent(intent: Intent): PendingIntent {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getBroadcast(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE,
+            )
+        } else {
+            PendingIntent.getBroadcast(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT,
+            )
+        }
+    }
 
 }
 

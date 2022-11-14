@@ -9,12 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentSplashScreenBinding
-import com.bsuir.bsuirschedule.domain.models.StateStatus
-import com.bsuir.bsuirschedule.domain.utils.Resource
-import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.*
 import org.koin.androidx.navigation.koinNavGraphViewModel
-import java.lang.Exception
 
 class SplashScreenFragment : Fragment() {
 
@@ -28,7 +24,7 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentSplashScreenBinding.inflate(inflater)
-        val prefs = SharedPrefsRepositoryImpl(context!!)
+        val prefs = SharedPrefsRepositoryImpl(requireContext())
 
         val isFirstTime = prefs.isFirstTime()
 

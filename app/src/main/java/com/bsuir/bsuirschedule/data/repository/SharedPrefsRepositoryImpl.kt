@@ -33,6 +33,23 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         )
     }
 
+    override fun isAutoUpdate(): Boolean {
+        return prefs.getBoolean(
+            context.getString(R.string.auto_update_schedule_id),
+            false
+        )
+    }
+
+    override fun setAutoUpdate(isAutoUpdate: Boolean) {
+        with(prefs.edit()) {
+            putBoolean(
+                context.getString(R.string.auto_update_schedule_id),
+                isAutoUpdate
+            )
+            apply()
+        }
+    }
+
     override fun setActiveScheduleId(scheduleId: Int) {
         with(prefs.edit()) {
             putInt(

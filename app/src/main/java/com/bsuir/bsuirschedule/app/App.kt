@@ -4,6 +4,7 @@ import android.app.Application
 import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
+import com.bsuir.bsuirschedule.presentation.utils.UpdateScheduleManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,6 +21,9 @@ class App : Application() {
             modules(listOf(appModule, dataModule, domainModule))
         }
 
+        val updateScheduleManager = UpdateScheduleManager(this)
+
+        updateScheduleManager.execute()
     }
 
 }

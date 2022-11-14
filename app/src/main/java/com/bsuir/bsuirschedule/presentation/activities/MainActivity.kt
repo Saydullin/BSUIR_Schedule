@@ -14,9 +14,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val scheduleAlarm = ScheduleService(this)
-        scheduleAlarm.setExactAlarm(Date().time + 3000)
     }
 
 }

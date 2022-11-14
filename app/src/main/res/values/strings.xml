@@ -192,6 +192,7 @@
     <string name="preference_is_first_time" translatable="false">is_first_time</string>
     <string name="preference_is_data_loading_trouble" translatable="false">is_data_loading_trouble</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
+    <string name="auto_update_schedule_id" translatable="false">auto_update_schedule_id</string>
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>

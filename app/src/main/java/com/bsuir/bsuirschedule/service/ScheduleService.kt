@@ -12,7 +12,7 @@ class ScheduleService(
 ) {
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    fun setExactAlarm(timeInMillis: Long) {
+    fun setRepeatAlarm(timeInMillis: Long) {
         setAlarm(
             timeInMillis = timeInMillis,
             getPendingIntent(

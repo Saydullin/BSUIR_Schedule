@@ -14,6 +14,14 @@ class SharedPrefsUseCase(
         sharedPrefsRepository.setFirstTime(isFirst)
     }
 
+    fun setAutoUpdate(isAutoUpdate: Boolean) {
+        sharedPrefsRepository.setAutoUpdate(isAutoUpdate)
+    }
+
+    fun isAutoUpdate(): Boolean {
+        return sharedPrefsRepository.isAutoUpdate()
+    }
+
     fun getActiveScheduleId(): Int {
         return sharedPrefsRepository.getActiveScheduleId()
     }

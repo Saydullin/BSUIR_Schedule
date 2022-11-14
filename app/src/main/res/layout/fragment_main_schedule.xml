@@ -33,10 +33,9 @@
             android:text="@string/test_header_title" />
 
         <ImageButton
-            style="@style/Theme.BSUIRSchedule.ImageButton"
             android:id="@+id/schedule_more_button"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
             android:src="@drawable/ic_more"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_schedule_list" />
 
     </LinearLayout>

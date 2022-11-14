@@ -1,13 +1,12 @@
 package com.bsuir.bsuirschedule.data.repository
 
 import android.database.sqlite.SQLiteException
-import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
-import com.bsuir.bsuirschedule.domain.models.ScheduleDay
+import com.bsuir.bsuirschedule.domain.models.ScheduleLastUpdatedDate
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -17,8 +16,9 @@ class ScheduleRepositoryImpl(
     override val scheduleDao: ScheduleDao,
 ) : ScheduleRepository {
 
+    private val groupScheduleService = RetrofitBuilder.getInstance().create(GetGroupScheduleService::class.java)
+
     override suspend fun getGroupScheduleAPI(groupName: String): Resource<GroupSchedule> {
-        val groupScheduleService = RetrofitBuilder.getInstance().create(GetGroupScheduleService::class.java)
 
         return try {
             val result = groupScheduleService.getGroupSchedule(groupName)
@@ -41,7 +41,6 @@ class ScheduleRepositoryImpl(
     }
 
     override suspend fun getEmployeeScheduleAPI(groupName: String): Resource<GroupSchedule> {
-        val groupScheduleService = RetrofitBuilder.getInstance().create(GetGroupScheduleService::class.java)
 
         return try {
             val result = groupScheduleService.getEmployeeSchedule(groupName)
@@ -54,6 +53,42 @@ class ScheduleRepositoryImpl(
                     message = result.message()
                 )
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(
+                errorType = Resource.CONNECTION_ERROR,
+                message = e.message
+            )
+        }
+    }
+
+    override suspend fun getEmployeeLastUpdatedDate(scheduleId: Int): Resource<ScheduleLastUpdatedDate> {
+
+        return try {
+            val result = groupScheduleService.getGroupLastUpdateDate(scheduleId)
+            val data = result.body()
+                ?: return Resource.Error(
+                    errorType = Resource.SERVER_ERROR
+                )
+            return Resource.Success(data)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(
+                errorType = Resource.CONNECTION_ERROR,
+                message = e.message
+            )
+        }
+    }
+
+    override suspend fun getGroupLastUpdatedDate(scheduleId: Int): Resource<ScheduleLastUpdatedDate> {
+
+        return try {
+            val result = groupScheduleService.getGroupLastUpdateDate(scheduleId)
+            val data = result.body()
+                ?: return Resource.Error(
+                    errorType = Resource.SERVER_ERROR
+                )
+            return Resource.Success(data)
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(

@@ -5,6 +5,10 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+#-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+#-keep,allowobfuscation,allowshrinking class retrofit2.Response
+#
+#-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:

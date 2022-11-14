@@ -34,8 +34,8 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
         return savedScheduleRepository.saveSchedule(schedule)
     }
 
-    suspend fun getSavedScheduleById(scheduleId: Int): Resource<SavedSchedule> {
-        return savedScheduleRepository.getSavedScheduleById(scheduleId)
+    suspend fun saveSchedulesList(schedulesList: ArrayList<SavedSchedule>): Resource<Unit> {
+        return savedScheduleRepository.saveSchedulesList(schedulesList)
     }
 
     suspend fun filterByKeywordASC(title: String): Resource<ArrayList<SavedSchedule>> {

@@ -12,6 +12,8 @@ interface SavedScheduleRepository {
 
     suspend fun saveSchedule(schedule: SavedSchedule): Resource<Unit>
 
+    suspend fun saveSchedulesList(schedulesList: ArrayList<SavedSchedule>): Resource<Unit>
+
     suspend fun getSavedScheduleById(scheduleId: Int): Resource<SavedSchedule>
 
     suspend fun filterByKeywordASC(title: String): Resource<ArrayList<SavedSchedule>>

@@ -2,16 +2,22 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "bb76c87a2da77d930ce4a61da114532e",
+    "identityHash": "3056c52d77829e0b54748dca3e0fa25d",
     "entities": [
       {
         "tableName": "GroupTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `facultyId` INTEGER NOT NULL, `specialityId` INTEGER NOT NULL, `course` INTEGER NOT NULL, `calendarId` TEXT NOT NULL, `isSaved` INTEGER NOT NULL, `faculty_id` INTEGER NOT NULL, `faculty_name` TEXT NOT NULL, `faculty_abbr` TEXT NOT NULL, `speciality_id` INTEGER NOT NULL, `speciality_name` TEXT NOT NULL, `speciality_abbrev` TEXT NOT NULL, `speciality_facultyId` INTEGER NOT NULL, `speciality_code` TEXT NOT NULL, `speciality_education_form_efId` INTEGER NOT NULL, `speciality_education_form_id` INTEGER NOT NULL, `speciality_education_form_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `name` TEXT NOT NULL, `facultyId` INTEGER NOT NULL, `specialityId` INTEGER NOT NULL, `course` INTEGER NOT NULL, `calendarId` TEXT NOT NULL, `isSaved` INTEGER NOT NULL, `faculty_id` INTEGER NOT NULL, `faculty_name` TEXT NOT NULL, `faculty_abbr` TEXT NOT NULL, `speciality_id` INTEGER NOT NULL, `speciality_name` TEXT NOT NULL, `speciality_abbrev` TEXT NOT NULL, `speciality_facultyId` INTEGER NOT NULL, `speciality_code` TEXT NOT NULL, `speciality_education_form_efId` INTEGER NOT NULL, `speciality_education_form_id` INTEGER NOT NULL, `speciality_education_form_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -128,12 +134,18 @@
       },
       {
         "tableName": "EmployeeTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `middleName` TEXT NOT NULL, `fullName` TEXT NOT NULL, `degree` TEXT NOT NULL, `degreeAbbrev` TEXT NOT NULL, `rank` TEXT NOT NULL, `email` TEXT NOT NULL, `photoLink` TEXT NOT NULL, `calendarId` TEXT NOT NULL, `jobPosition` TEXT NOT NULL, `academicDepartment` TEXT NOT NULL, `departments` TEXT NOT NULL, `isSaved` INTEGER, `urlId` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `middleName` TEXT NOT NULL, `fullName` TEXT NOT NULL, `degree` TEXT NOT NULL, `degreeAbbrev` TEXT NOT NULL, `rank` TEXT NOT NULL, `email` TEXT NOT NULL, `photoLink` TEXT NOT NULL, `calendarId` TEXT NOT NULL, `jobPosition` TEXT NOT NULL, `academicDepartment` TEXT NOT NULL, `departments` TEXT NOT NULL, `isSaved` INTEGER, `urlId` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -238,7 +250,7 @@
       },
       {
         "tableName": "ScheduleTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startExamsDate` TEXT NOT NULL, `endExamsDate` TEXT NOT NULL, `subgroups` TEXT NOT NULL, `isGroup` INTEGER, `subjectListId` INTEGER NOT NULL, `exams` TEXT NOT NULL, `examsSchedule` TEXT NOT NULL, `schedules` TEXT NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `settings` TEXT NOT NULL, `group_id` INTEGER NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startExamsDate` TEXT NOT NULL, `endExamsDate` TEXT NOT NULL, `subgroups` TEXT NOT NULL, `isGroup` INTEGER, `exams` TEXT NOT NULL, `examsSchedule` TEXT NOT NULL, `schedules` TEXT NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `lastUpdateDate` TEXT NOT NULL, `settings` TEXT NOT NULL, `group_id` INTEGER NOT NULL, `group_title` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_title` TEXT NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -283,12 +295,6 @@
             "notNull": false
           },
           {
-            "fieldPath": "subjectListId",
-            "columnName": "subjectListId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "exams",
             "columnName": "exams",
             "affinity": "TEXT",
@@ -313,6 +319,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "lastUpdateDate",
+            "columnName": "lastUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "settings",
             "columnName": "settings",
             "affinity": "TEXT",
@@ -322,6 +334,12 @@
             "fieldPath": "group.id",
             "columnName": "group_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "group.title",
+            "columnName": "group_title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -430,6 +448,12 @@
             "fieldPath": "employee.id",
             "columnName": "employee_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employee.title",
+            "columnName": "employee_title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -534,7 +558,7 @@
       },
       {
         "tableName": "SavedScheduleTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isGroup` INTEGER NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `isExistExams` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isGroup` INTEGER NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `lastUpdateDate` TEXT NOT NULL, `isUpdatedSuccessfully` INTEGER NOT NULL, `isExistExams` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_title` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_title` TEXT NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -555,6 +579,18 @@
             "notNull": true
           },
           {
+            "fieldPath": "lastUpdateDate",
+            "columnName": "lastUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isUpdatedSuccessfully",
+            "columnName": "isUpdatedSuccessfully",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "isExistExams",
             "columnName": "isExistExams",
             "affinity": "INTEGER",
@@ -564,6 +600,12 @@
             "fieldPath": "group.id",
             "columnName": "group_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "group.title",
+            "columnName": "group_title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -672,6 +714,12 @@
             "fieldPath": "employee.id",
             "columnName": "employee_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employee.title",
+            "columnName": "employee_title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -807,68 +855,6 @@
         "foreignKeys": []
       },
       {
-        "tableName": "ScheduleDaysTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dayId` INTEGER NOT NULL, `date` TEXT NOT NULL, `dateUnixTime` INTEGER NOT NULL, `weekDayTitle` TEXT NOT NULL, `weekDayNumber` INTEGER NOT NULL, `weekNumber` INTEGER NOT NULL, `subjectsList` TEXT NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "dayId",
-            "columnName": "dayId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "date",
-            "columnName": "date",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "dateUnixTime",
-            "columnName": "dateUnixTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "weekDayTitle",
-            "columnName": "weekDayTitle",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "weekDayNumber",
-            "columnName": "weekDayNumber",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "weekNumber",
-            "columnName": "weekNumber",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "subjectsList",
-            "columnName": "subjectsList",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "SpecialityTable",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `abbrev` TEXT NOT NULL, `facultyId` INTEGER NOT NULL, `code` TEXT NOT NULL, `education_form_efId` INTEGER NOT NULL, `education_form_id` INTEGER NOT NULL, `education_form_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
@@ -998,7 +984,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bb76c87a2da77d930ce4a61da114532e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3056c52d77829e0b54748dca3e0fa25d')"
     ]
   }
 }

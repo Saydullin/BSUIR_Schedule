@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Theme.BSUIRSchedule.TextView.Medium"
                 android:layout_weight="1"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:ellipsize="end"
                 android:text="@string/test_subject_subtitle" />
 

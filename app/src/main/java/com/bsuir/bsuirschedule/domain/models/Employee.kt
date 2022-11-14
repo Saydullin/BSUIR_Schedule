@@ -90,6 +90,8 @@ data class Employee (
         employee = this,
         isGroup = false,
         lastUpdateTime = Date().time,
+        lastUpdateDate = "",
+        isUpdatedSuccessfully = false,
         isExistExams = isExams
     )
 

@@ -14,18 +14,19 @@ object RetrofitBuilder {
             .connectTimeout(1, TimeUnit.MINUTES)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("User-Agent", "BSUIRScheduleApp")
-                    .addHeader("Keep-Alive", "50")
-                    .addHeader("Connection", "keep-alive")
-                    .addHeader("Content-Language", "ru-RU")
-                    .build()
-                chain.proceed(request)
-            }
+//            .addInterceptor { chain ->
+//                val request = chain.request().newBuilder()
+//                    .addHeader("Host", "bsuir.by")
+//                    .addHeader("User-Agent", "PostmanRuntime/7.29.2")
+//                    .addHeader("Accept", "*/*")
+//                    .addHeader("Connection", "keep-alive")
+//                    .addHeader("Content-Language", "ru-RU")
+//                    .build()
+//                chain.proceed(request)
+//            }
             .build()
 
-        return  Retrofit.Builder().baseUrl(baseUrl)
+        return Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

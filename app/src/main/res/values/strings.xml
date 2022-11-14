@@ -9,6 +9,7 @@
     <string name="consultation">Консультация</string>
     <string name="lecture">Лекция</string>
     <string name="practise">Практика</string>
+    <string name="found">найдено %s</string>
     <string name="laboratory">Лабораторная</string>
     <string name="unknown">Неизвестно</string>
     <string name="info_dialog_title">Внимание</string>
@@ -17,6 +18,11 @@
     <string name="and">и</string>
     <string name="after">через</string>
     <string name="delete">Удалить</string>
+    <string name="schedule_updated_notification">Обновлено %s</string>
+    <string name="schedule_updated">Расписание обновлено</string>
+    <string name="group_schedule_updated">Обновлено расписание группы</string>
+    <string name="employee_schedule_updated">Обновлено расписание преподавателя</string>
+    <string name="new_notifications_amount">%d новых уведомлений.</string>
     <string name="last_update">Было обновлено %s</string>
     <string name="subject_now">Сейчас %s</string>
     <string name="subject_status_now">Сейчас %s</string>
@@ -253,12 +259,12 @@
     </plurals>
 
     <plurals name="plural_schedules">
-        <item quantity="zero">найдено %d расписаний</item>
-        <item quantity="one">найдено %d расписание</item>
-        <item quantity="two">найдено %d расписания</item>
-        <item quantity="few">найдено %d расписания</item>
-        <item quantity="many">найдено %d расписаний</item>
-        <item quantity="other">найдено %d расписания</item>
+        <item quantity="zero">%d расписаний</item>
+        <item quantity="one">%d расписание</item>
+        <item quantity="two">%d расписания</item>
+        <item quantity="few">%d расписания</item>
+        <item quantity="many">%d расписаний</item>
+        <item quantity="other">%d расписания</item>
     </plurals>
 
     <plurals name="plural_employees">
@@ -345,6 +351,7 @@
     <string name="audience_label">Аудитория</string>
     <string name="full_title_label">Полное название</string>
     <string name="short_title_label">Короткое название</string>
+    <string name="see">Посмотреть</string>
 
 </resources>
 

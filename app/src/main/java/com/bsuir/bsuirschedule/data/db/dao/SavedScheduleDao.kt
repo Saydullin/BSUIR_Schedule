@@ -49,6 +49,9 @@ interface SavedScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSchedule(schedule: SavedScheduleTable)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveSchedulesList(schedulesList: List<SavedScheduleTable>)
+
     @Delete
     fun deleteSchedule(schedule: SavedScheduleTable)
 

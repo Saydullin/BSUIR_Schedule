@@ -258,9 +258,9 @@
     <string name="done">Done</string>
     <string name="schedule_success_updated_caption">Schedule updated</string>
     <string name="schedule_success_updated">Schedule updated successfully</string>
-    <string name="upload_schedule_dialog_title">Would you like to see %s\' schedule?</string>
+    <string name="upload_schedule_dialog_title">Would you like to see %s schedule?</string>
     <string name="upload_schedule_dialog_title_holder">Would you like to see this schedule?</string>
-    <string name="upload_schedule_dialog_caption">Schedule uploaded and simulated successfully</string>
+    <string name="upload_schedule_dialog_caption">If this schedule has not been uploaded by you, it will be uploaded automatically</string>
     <string name="schedule_subject_deleted_caption">Lesson has been successfully removed from this schedule</string>
     <string name="schedule_subject_deleted">Lesson deleted</string>
     <string name="delete_subject">Delete one %s lesson?</string>
@@ -288,6 +288,13 @@
     <string name="audience_label">Audience</string>
     <string name="full_title_label">Full title</string>
     <string name="short_title_label">Short title</string>
+    <string name="schedule_updated_notification">Updated %s</string>
+    <string name="new_notifications_amount">%d new notifications.</string>
+    <string name="found">found</string>
+    <string name="schedule_updated">Schedule updated</string>
+    <string name="group_schedule_updated">Group schedule updaded</string>
+    <string name="employee_schedule_updated">Teacher schedule uploaded</string>
+    <string name="see">Open</string>
 </resources>
 
 

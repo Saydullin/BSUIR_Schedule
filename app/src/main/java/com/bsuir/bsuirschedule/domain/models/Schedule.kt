@@ -20,7 +20,8 @@ data class Schedule (
     var examsSchedule: ArrayList<ScheduleDay>,
     var subjectNow: ScheduleSubject?,
     var schedules: ArrayList<ScheduleDay>,
-    val lastUpdateTime: Long,
+    var lastUpdateTime: Long,
+    var lastUpdateDate: String?,
     var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
     var settings: ScheduleSettings = ScheduleSettings.empty
 ) {
@@ -42,6 +43,7 @@ data class Schedule (
             schedules = ArrayList(),
             lastUpdateTime = 0,
             selectedSubgroup = 0,
+            lastUpdateDate = "",
             settings = ScheduleSettings.empty
         )
     }
@@ -97,6 +99,8 @@ data class Schedule (
         group = group,
         isGroup = isGroup(),
         lastUpdateTime = lastUpdateTime,
+        lastUpdateDate = lastUpdateDate ?: "",
+        isUpdatedSuccessfully = false,
         isExistExams = exams.isNotEmpty()
     )
 
@@ -114,6 +118,7 @@ data class Schedule (
         examsSchedule = examsSchedule,
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
+        lastUpdateDate = lastUpdateDate ?: "",
         settings = settings,
     )
 

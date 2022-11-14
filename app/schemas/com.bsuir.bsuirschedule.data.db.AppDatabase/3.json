@@ -2,16 +2,22 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "2ab6ecd8523e3435b8f9b50014503d5b",
+    "identityHash": "3056c52d77829e0b54748dca3e0fa25d",
     "entities": [
       {
         "tableName": "GroupTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `facultyId` INTEGER NOT NULL, `specialityId` INTEGER NOT NULL, `course` INTEGER NOT NULL, `calendarId` TEXT NOT NULL, `isSaved` INTEGER NOT NULL, `faculty_id` INTEGER NOT NULL, `faculty_name` TEXT NOT NULL, `faculty_abbr` TEXT NOT NULL, `speciality_id` INTEGER NOT NULL, `speciality_name` TEXT NOT NULL, `speciality_abbrev` TEXT NOT NULL, `speciality_facultyId` INTEGER NOT NULL, `speciality_code` TEXT NOT NULL, `speciality_education_form_efId` INTEGER NOT NULL, `speciality_education_form_id` INTEGER NOT NULL, `speciality_education_form_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `name` TEXT NOT NULL, `facultyId` INTEGER NOT NULL, `specialityId` INTEGER NOT NULL, `course` INTEGER NOT NULL, `calendarId` TEXT NOT NULL, `isSaved` INTEGER NOT NULL, `faculty_id` INTEGER NOT NULL, `faculty_name` TEXT NOT NULL, `faculty_abbr` TEXT NOT NULL, `speciality_id` INTEGER NOT NULL, `speciality_name` TEXT NOT NULL, `speciality_abbrev` TEXT NOT NULL, `speciality_facultyId` INTEGER NOT NULL, `speciality_code` TEXT NOT NULL, `speciality_education_form_efId` INTEGER NOT NULL, `speciality_education_form_id` INTEGER NOT NULL, `speciality_education_form_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -128,12 +134,18 @@
       },
       {
         "tableName": "EmployeeTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `middleName` TEXT NOT NULL, `fullName` TEXT NOT NULL, `degree` TEXT NOT NULL, `degreeAbbrev` TEXT NOT NULL, `rank` TEXT NOT NULL, `email` TEXT NOT NULL, `photoLink` TEXT NOT NULL, `calendarId` TEXT NOT NULL, `jobPosition` TEXT NOT NULL, `academicDepartment` TEXT NOT NULL, `departments` TEXT NOT NULL, `isSaved` INTEGER NOT NULL, `urlId` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `middleName` TEXT NOT NULL, `fullName` TEXT NOT NULL, `degree` TEXT NOT NULL, `degreeAbbrev` TEXT NOT NULL, `rank` TEXT NOT NULL, `email` TEXT NOT NULL, `photoLink` TEXT NOT NULL, `calendarId` TEXT NOT NULL, `jobPosition` TEXT NOT NULL, `academicDepartment` TEXT NOT NULL, `departments` TEXT NOT NULL, `isSaved` INTEGER, `urlId` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -218,7 +230,7 @@
             "fieldPath": "isSaved",
             "columnName": "isSaved",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "urlId",
@@ -237,200 +249,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "ActiveGroupTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `groupId` INTEGER NOT NULL, `groupScheduleId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "groupId",
-            "columnName": "groupId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "groupScheduleId",
-            "columnName": "groupScheduleId",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "ScheduleSettingsTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isAutoUpdate` INTEGER NOT NULL, `isShowEmptyDays` INTEGER NOT NULL, `isShowPastDays` INTEGER NOT NULL, `isShowEmptyExamDays` INTEGER NOT NULL, `isShowPastExamDays` INTEGER NOT NULL, `alarm_id` INTEGER NOT NULL, `alarm_createDate` INTEGER NOT NULL, `alarm_isTurnOn` INTEGER NOT NULL, `alarm_wakeUpTime` INTEGER NOT NULL, `alarm_weekNumbers` TEXT NOT NULL, `alarm_weekDayNumbers` TEXT NOT NULL, `alarm_isOneTime` INTEGER NOT NULL, `alarm_music` TEXT NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isAutoUpdate",
-            "columnName": "isAutoUpdate",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isShowEmptyDays",
-            "columnName": "isShowEmptyDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isShowPastDays",
-            "columnName": "isShowPastDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isShowEmptyExamDays",
-            "columnName": "isShowEmptyExamDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isShowPastExamDays",
-            "columnName": "isShowPastExamDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.id",
-            "columnName": "alarm_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.createDate",
-            "columnName": "alarm_createDate",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.isTurnOn",
-            "columnName": "alarm_isTurnOn",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.wakeUpTime",
-            "columnName": "alarm_wakeUpTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.weekNumbers",
-            "columnName": "alarm_weekNumbers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.weekDayNumbers",
-            "columnName": "alarm_weekDayNumbers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.isOneTime",
-            "columnName": "alarm_isOneTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarmSettings.music",
-            "columnName": "alarm_music",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "ScheduleAlarmTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createDate` INTEGER NOT NULL, `isTurnOn` INTEGER NOT NULL, `wakeUpTime` INTEGER NOT NULL, `weekNumbers` TEXT NOT NULL, `weekDayNumbers` TEXT NOT NULL, `isOneTime` INTEGER NOT NULL, `music` TEXT NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "createDate",
-            "columnName": "createDate",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isTurnOn",
-            "columnName": "isTurnOn",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "wakeUpTime",
-            "columnName": "wakeUpTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "weekNumbers",
-            "columnName": "weekNumbers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "weekDayNumbers",
-            "columnName": "weekDayNumbers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isOneTime",
-            "columnName": "isOneTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "music",
-            "columnName": "music",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "ScheduleTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startExamsDate` TEXT NOT NULL, `endExamsDate` TEXT NOT NULL, `subgroups` TEXT NOT NULL, `isGroup` INTEGER, `exams` TEXT NOT NULL, `examsSchedule` TEXT NOT NULL, `schedules` TEXT NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `selectedSubgroup` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER NOT NULL, `employee_urlId` TEXT NOT NULL, `settings_id` INTEGER NOT NULL, `settings_isAutoUpdate` INTEGER NOT NULL, `settings_isShowEmptyDays` INTEGER NOT NULL, `settings_isShowPastDays` INTEGER NOT NULL, `settings_isShowEmptyExamDays` INTEGER NOT NULL, `settings_isShowPastExamDays` INTEGER NOT NULL, `settings_alarm_id` INTEGER NOT NULL, `settings_alarm_createDate` INTEGER NOT NULL, `settings_alarm_isTurnOn` INTEGER NOT NULL, `settings_alarm_wakeUpTime` INTEGER NOT NULL, `settings_alarm_weekNumbers` TEXT NOT NULL, `settings_alarm_weekDayNumbers` TEXT NOT NULL, `settings_alarm_isOneTime` INTEGER NOT NULL, `settings_alarm_music` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startExamsDate` TEXT NOT NULL, `endExamsDate` TEXT NOT NULL, `subgroups` TEXT NOT NULL, `isGroup` INTEGER, `exams` TEXT NOT NULL, `examsSchedule` TEXT NOT NULL, `schedules` TEXT NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `lastUpdateDate` TEXT NOT NULL, `settings` TEXT NOT NULL, `group_id` INTEGER NOT NULL, `group_title` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_title` TEXT NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -499,15 +319,27 @@
             "notNull": true
           },
           {
-            "fieldPath": "selectedSubgroup",
-            "columnName": "selectedSubgroup",
-            "affinity": "INTEGER",
+            "fieldPath": "lastUpdateDate",
+            "columnName": "lastUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "settings",
+            "columnName": "settings",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "group.id",
             "columnName": "group_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "group.title",
+            "columnName": "group_title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -619,6 +451,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "employee.title",
+            "columnName": "employee_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "employee.firstName",
             "columnName": "employee_firstName",
             "affinity": "TEXT",
@@ -700,95 +538,11 @@
             "fieldPath": "employee.isSaved",
             "columnName": "employee_isSaved",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "employee.urlId",
             "columnName": "employee_urlId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.id",
-            "columnName": "settings_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.isAutoUpdate",
-            "columnName": "settings_isAutoUpdate",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.isShowEmptyDays",
-            "columnName": "settings_isShowEmptyDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.isShowPastDays",
-            "columnName": "settings_isShowPastDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.isShowEmptyExamDays",
-            "columnName": "settings_isShowEmptyExamDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.isShowPastExamDays",
-            "columnName": "settings_isShowPastExamDays",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.id",
-            "columnName": "settings_alarm_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.createDate",
-            "columnName": "settings_alarm_createDate",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.isTurnOn",
-            "columnName": "settings_alarm_isTurnOn",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.wakeUpTime",
-            "columnName": "settings_alarm_wakeUpTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.weekNumbers",
-            "columnName": "settings_alarm_weekNumbers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.weekDayNumbers",
-            "columnName": "settings_alarm_weekDayNumbers",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.isOneTime",
-            "columnName": "settings_alarm_isOneTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "settings.alarmSettings.music",
-            "columnName": "settings_alarm_music",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -804,7 +558,7 @@
       },
       {
         "tableName": "SavedScheduleTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isGroup` INTEGER NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `isExistExams` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER NOT NULL, `employee_urlId` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isGroup` INTEGER NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `lastUpdateDate` TEXT NOT NULL, `isUpdatedSuccessfully` INTEGER NOT NULL, `isExistExams` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_title` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_title` TEXT NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -825,6 +579,18 @@
             "notNull": true
           },
           {
+            "fieldPath": "lastUpdateDate",
+            "columnName": "lastUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isUpdatedSuccessfully",
+            "columnName": "isUpdatedSuccessfully",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "isExistExams",
             "columnName": "isExistExams",
             "affinity": "INTEGER",
@@ -834,6 +600,12 @@
             "fieldPath": "group.id",
             "columnName": "group_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "group.title",
+            "columnName": "group_title",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -945,6 +717,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "employee.title",
+            "columnName": "employee_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "employee.firstName",
             "columnName": "employee_firstName",
             "affinity": "TEXT",
@@ -1026,7 +804,7 @@
             "fieldPath": "employee.isSaved",
             "columnName": "employee_isSaved",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "employee.urlId",
@@ -1206,7 +984,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2ab6ecd8523e3435b8f9b50014503d5b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3056c52d77829e0b54748dca3e0fa25d')"
     ]
   }
 }

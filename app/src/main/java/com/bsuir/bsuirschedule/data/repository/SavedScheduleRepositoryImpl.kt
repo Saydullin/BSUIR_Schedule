@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.repository
 
+import android.util.Log
 import com.bsuir.bsuirschedule.data.db.dao.SavedScheduleDao
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
@@ -22,6 +23,19 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
     override suspend fun saveSchedule(schedule: SavedSchedule): Resource<Unit> {
         return try {
             savedScheduleDao.saveSchedule(schedule.toSavedScheduleTable())
+            Resource.Success(null)
+        } catch (e: Exception) {
+            Resource.Error(
+                errorType = Resource.DATABASE_ERROR,
+                message = e.message
+            )
+        }
+    }
+
+    override suspend fun saveSchedulesList(schedulesList: ArrayList<SavedSchedule>): Resource<Unit> {
+        return try {
+            savedScheduleDao.saveSchedulesList(schedulesList.map { it.toSavedScheduleTable() })
+            Log.e("sady", "saved List $schedulesList")
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(

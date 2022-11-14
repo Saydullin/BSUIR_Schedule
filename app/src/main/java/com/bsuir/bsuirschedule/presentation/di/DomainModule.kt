@@ -16,7 +16,19 @@ val domainModule = module {
     }
 
     factory {
+        GetScheduleLastUpdateUseCase(
+            scheduleRepository = get()
+        )
+    }
+
+    factory {
         ScheduleSubjectUseCase(
+            scheduleRepository = get()
+        )
+    }
+
+    factory {
+        SaveScheduleLastUpdateDateUseCase(
             scheduleRepository = get()
         )
     }

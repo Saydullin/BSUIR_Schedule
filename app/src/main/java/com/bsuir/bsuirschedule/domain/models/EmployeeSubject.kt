@@ -48,6 +48,8 @@ data class EmployeeSubject(
         group = Group.empty,
         isGroup = false,
         lastUpdateTime = Date().time,
+        lastUpdateDate = "",
+        isUpdatedSuccessfully = false,
         isExistExams = false
     )
 

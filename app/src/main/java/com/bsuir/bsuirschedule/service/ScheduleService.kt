@@ -20,8 +20,8 @@ class ScheduleService(
     private fun setAlarm(alarmIntent: PendingIntent) {
         alarmManager.setInexactRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime(),
-            AlarmManager.INTERVAL_HALF_HOUR,
+            SystemClock.elapsedRealtime() + 86400000,
+            AlarmManager.INTERVAL_DAY,
             alarmIntent
         )
     }

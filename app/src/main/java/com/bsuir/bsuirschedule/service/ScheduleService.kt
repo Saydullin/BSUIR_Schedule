@@ -1,11 +1,11 @@
 package com.bsuir.bsuirschedule.service
 
 import android.app.AlarmManager
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.os.SystemClock
+import android.util.Log
 import com.bsuir.bsuirschedule.receiver.AlarmReceiver
 
 class ScheduleService(
@@ -13,45 +13,22 @@ class ScheduleService(
 ) {
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    fun setRepeatAlarm(timeInMillis: Long) {
-        setAlarm(
-            timeInMillis = timeInMillis,
-            getPendingIntent(
-                getIntent().apply {
-//                    action = "ACTION_SET_EXACT_ALARM",
-//                    putExtra("ACTION_SET_EXACT_ALARM", timeInMillis),
-                    action = "ACTION_SET_REPETITIVE_EXACT"
-                    putExtra("EXTRA_EXACT_ALARM_TIME", timeInMillis)
-                }
-            )
+    fun setRepeatAlarm() {
+        setAlarm(alarmIntent = getAlarmIntent())
+    }
+
+    private fun setAlarm(alarmIntent: PendingIntent) {
+        alarmManager.setInexactRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(),
+            AlarmManager.INTERVAL_HALF_HOUR,
+            alarmIntent
         )
     }
 
-    private fun setAlarm(timeInMillis: Long, pendingIntent: PendingIntent) {
-        alarmManager.setExact(
-            AlarmManager.RTC_WAKEUP,
-            timeInMillis,
-            pendingIntent
-        )
-    }
-
-    private fun getIntent(): Intent = Intent(context, AlarmReceiver::class.java)
-
-    private fun getPendingIntent(intent: Intent): PendingIntent {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE,
-            )
-        } else {
-            PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT,
-            )
+    private fun getAlarmIntent(): PendingIntent {
+        return Intent(context, AlarmReceiver::class.java).let { intent ->
+            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE)
         }
     }
 

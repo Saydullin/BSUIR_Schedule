@@ -14,7 +14,6 @@ class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         val scheduleUpdater = ScheduleUpdater()
         val updatedSchedules = scheduleUpdater.execute()
-        Log.e("sady", "updatedSchedules $updatedSchedules")
         if (updatedSchedules.isEmpty()) return
         if (updatedSchedules.size == 1) {
             val updatedSchedule = updatedSchedules[0]

@@ -54,7 +54,6 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
             when (initWeek) {
                 is Resource.Success -> {
                     val gotWeek = weekManager.getCurrentWeek(initWeek.data!!)
-                    Log.e("sady", "current week is ")
                     Resource.Success(gotWeek)
                 }
                 is Resource.Error -> {

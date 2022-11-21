@@ -19,7 +19,7 @@
     <li>Automatically update schedule</li>
     <li>Show passed days</li>
     <li>Show empty days (have no lesssons)</li>
-    <li>Alarm</li>
+    <li>Dynamic alarm</li>
   </ul>
   <hr />
   <li>Full information about teachers and student groups (faculty, speciality, department, course, education type and etc) (#)</li>

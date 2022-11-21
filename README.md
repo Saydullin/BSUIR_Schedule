@@ -4,7 +4,7 @@
 <span>Schedule of students and teachers of BSUIR University</span>
 
 <div style="border-radius: 10px; overflow: hidden;">
-![image](https://user-images.githubusercontent.com/66932545/202943357-8c641915-9beb-48b0-9df5-e5dfd7ea59dc.png)
+<img src="readme-source/image_2022-11-21_04-44-25.png" alt="google play screen" />
 </div>
 
 <h4>Features:</h4>

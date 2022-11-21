@@ -4,7 +4,7 @@
 <span>Schedule of students and teachers of BSUIR University</span>
 
 <div style="border-radius: 10px; overflow: hidden;">
-<img src="readme-source/app_preview.png" style="border-radius: 10px; overflow: hidden;" alt="google play screen" />
+<img src="readme-source/application_preview.png" style="border-radius: 10px; overflow: hidden;" alt="google play screen" />
 </div>
 
 <h4>Features:</h4>

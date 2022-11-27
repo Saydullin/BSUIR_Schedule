@@ -3,6 +3,10 @@
 
 <span>Schedule of students and teachers of BSUIR University</span>
 
+<div style="border-radius: 10px; overflow: hidden;">
+<img src="readme-source/application_preview.png" style="border-radius: 10px; overflow: hidden;" alt="google play screen" />
+</div>
+
 <h4>Features:</h4>
 <ul>
   <li>Teachers Schedule</li>
@@ -15,6 +19,7 @@
     <li>Automatically update schedule</li>
     <li>Show passed days</li>
     <li>Show empty days (have no lesssons)</li>
+    <li>Dynamic alarm</li>
   </ul>
   <hr />
   <li>Full information about teachers and student groups (faculty, speciality, department, course, education type and etc) (#)</li>

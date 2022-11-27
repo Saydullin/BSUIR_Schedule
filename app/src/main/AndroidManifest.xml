@@ -56,9 +56,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <receiver
-            android:name=".receiver.AlarmReceiver"
-            android:process=":remote" />
+<!--        <receiver-->
+<!--            android:name=".receiver.AlarmReceiver"-->
+<!--            android:process=":remote" />-->
+<!--        <service android:name=".service.JobSchedulerTest"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+
     </application>
 
 </manifest>

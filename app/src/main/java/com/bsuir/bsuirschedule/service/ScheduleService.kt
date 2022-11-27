@@ -5,7 +5,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
+import android.provider.AlarmClock
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.bsuir.bsuirschedule.receiver.AlarmReceiver
 
 class ScheduleService(
@@ -18,10 +20,16 @@ class ScheduleService(
     }
 
     private fun setAlarm(alarmIntent: PendingIntent) {
-        alarmManager.setInexactRepeating(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + 86400000,
-            AlarmManager.INTERVAL_DAY,
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            SystemClock.elapsedRealtime(),
+//            AlarmManager.INTERVAL_HALF_HOUR,
+//            alarmIntent
+//        )
+
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            SystemClock.elapsedRealtime() + 1000 * 3,
             alarmIntent
         )
     }

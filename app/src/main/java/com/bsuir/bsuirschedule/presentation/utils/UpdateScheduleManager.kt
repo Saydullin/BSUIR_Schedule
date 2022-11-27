@@ -14,11 +14,13 @@ class UpdateScheduleManager(
     private val sharedPrefsUseCase: SharedPrefsUseCase by inject()
 
     fun execute() {
-        if (!sharedPrefsUseCase.isAutoUpdate()) {
-            val scheduleAlarm = ScheduleService(context)
-            scheduleAlarm.setRepeatAlarm()
-            sharedPrefsUseCase.setAutoUpdate(true)
-        }
+//        if (!sharedPrefsUseCase.isAutoUpdate()) {
+//            val scheduleAlarm = ScheduleService(context)
+//            scheduleAlarm.setRepeatAlarm()
+//            sharedPrefsUseCase.setAutoUpdate(true)
+//        }
+        val scheduleAlarm = ScheduleService(context)
+        scheduleAlarm.setRepeatAlarm()
     }
 
 }

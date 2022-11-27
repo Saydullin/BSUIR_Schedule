@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/primary</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="colorError">@color/danger</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="colorOnBackground">@color/dark</item>
+        <item name="colorOnError">@color/white</item>
         <item name="colorSecondaryVariant">@color/text_dark_hint</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:windowMinWidthMajor">90%</item>

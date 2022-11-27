@@ -5,7 +5,7 @@
     <attr name="primaryOnHintColor">@color/white_hint</attr>
     <attr name="primaryTextColor">@color/white</attr>
     <attr name="dialogBg">@color/dark_dialog</attr>
-    <attr name="secondaryColor">@color/primary_holder</attr>
+    <attr name="secondaryColor">@color/secondary_new</attr>
     <attr name="secondaryOnHintColor">@color/secondary_hint</attr>
     <attr name="secondaryTextColor">@color/text</attr>
     <attr name="textColor">@color/text</attr>

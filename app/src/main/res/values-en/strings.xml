@@ -80,6 +80,15 @@
         <item quantity="other">found %d groups</item>
     </plurals>
 
+    <plurals name="plural_exams">
+        <item quantity="zero">%d exams</item>
+        <item quantity="one">%d exam</item>
+        <item quantity="two">%d exam</item>
+        <item quantity="few">%d exam</item>
+        <item quantity="many">%d exam</item>
+        <item quantity="other">%d exam</item>
+    </plurals>
+
     <plurals name="plural_schedules">
         <item quantity="zero">found %d schedules</item>
         <item quantity="one">found %d schedule</item>

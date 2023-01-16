@@ -46,7 +46,7 @@
     <string name="exams_empty_date_period">Экзаменов нет</string>
     <string name="more">ещё</string>
     <string name="cancel">Назад</string>
-    <string name="delete_schedule">Удалить расписание\n «%s»?</string>
+    <string name="delete_schedule">Удалить расписание  «%s»?</string>
     <string name="delete_subject">Удалить одно занятие по %s?</string>
     <string name="agree">Да</string>
     <string name="active_schedule_no_departments">Кафедра отсутствует</string>
@@ -179,11 +179,11 @@
     <string name="welcome_title_search">Удобный поиск</string>
     <string name="welcome_caption_search">Поиск расписаний по кафедре, специальности, курсу, факультету и другим характеристикам.</string>
     <string name="welcome_title_info">Информативность</string>
-    <string name="welcome_caption_info">Расшифровка всех аббревиатур.\nИнформация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
+    <string name="welcome_caption_info">Расшифровка всех аббревиатур. Информация о том, в какой аудитории находится группа или преподаватель в данный момент времени.</string>
     <string name="welcome_title_functionality">Функциональность</string>
-    <string name="welcome_caption_functionality">Индивидуальные настройки для каждого расписания.\nАвтоматическое обновление расписаний.</string>
+    <string name="welcome_caption_functionality">Индивидуальные настройки для каждого расписания. Автоматическое обновление расписаний.</string>
     <string name="welcome_title_localization">Локализация</string>
-    <string name="welcome_caption_localization">Поддержка 3 языков.\nРусский, английский и белорусский</string>
+    <string name="welcome_caption_localization">Поддержка 3 языков. Русский, английский и белорусский</string>
     <string name="welcome_title_etc">Что еще?</string>
     <string name="welcome_caption_etc">Начните, чтобы узнать другие возможности приложения</string>
 
@@ -192,12 +192,14 @@
     <string name="preference_is_first_time" translatable="false">is_first_time</string>
     <string name="preference_is_data_loading_trouble" translatable="false">is_data_loading_trouble</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
+    <string name="active_language_code" translatable="false">active_language_code</string>
+    <string name="active_theme_code" translatable="false">active_theme_code</string>
     <string name="auto_update_schedule_id" translatable="false">auto_update_schedule_id</string>
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
-    <string name="no_items_placeholder">Расписания не загрузились (\nПотяните вниз, чтобы обновить</string>
+    <string name="no_items_placeholder">Расписания не загрузились ( Потяните вниз, чтобы обновить</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>
     <string name="settings_lang_caption">Выберите локализацию для этого приложения</string>
@@ -220,14 +222,22 @@
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
     <string name="settings_schedule_subgroup_caption">Отфильтруйте занятия по подгруппам</string>
     <string name="settings_lang_chosen">Выбран %s язык</string>
+    <string name="settings_theme_chosen">Выбрана %s тема</string>
     <string name="settings_lang_ru" translatable="false">Русский</string>
     <string name="settings_lang_en" translatable="false">English</string>
     <string name="settings_lang_be" translatable="false">Беларускі</string>
+    <string name="settings_lang_zh" translatable="false">中国人</string>
+    <string name="settings_lang_ru_code" translatable="false">ru</string>
+    <string name="settings_lang_en_code" translatable="false">en</string>
+    <string name="settings_lang_be_code" translatable="false">be</string>
+    <string name="settings_lang_zh_code" translatable="false">zh</string>
     <string name="settings_light_theme">Светлая</string>
     <string name="settings_all_subgroups">Все подгруппы</string>
     <string name="settings_thin_font_size">Маленький</string>
     <string name="settings_medium_font_size">Нормальный</string>
     <string name="settings_big_font_size">Огромный</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Темная</string>
     <string name="settings_item_subgroup">%d подгруппа</string>
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
@@ -237,6 +247,7 @@
         <item>Русский</item>
         <item>English</item>
         <item>Беларускі</item>
+        <item>中国人</item>
     </string-array>
 
     <string-array name="font_size">
@@ -330,7 +341,7 @@
         <item quantity="many">%d минут</item>
         <item quantity="other">%d минут</item>
     </plurals>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text" translatable="false">EXAMPLE</string>
     <string name="add_widget" translatable="false">Add widget</string>
     <string name="app_widget_description" translatable="false">This is an app widget description</string>
     <string name="schedule_settings_schedule_past_days_hint_text">Сколько прошедших дней показывать?</string>
@@ -343,7 +354,7 @@
     <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
     <string name="delete_subject_dialog_all">Все занятия по %s</string>
     <string name="delete_subject_dialog_type">Все (%s) по %s</string>
-    <string name="delete_subject_dialog_period">Все занятия по %s,\n(%s), %s</string>
+    <string name="delete_subject_dialog_period">Все занятия по %s, (%s), %s</string>
     <string name="delete_subject_dialog_subgroup">Только для %d подгруппы</string>
     <string name="also_delete">Удалить так же:</string>
     <string name="also_edit">Изменить так же:</string>

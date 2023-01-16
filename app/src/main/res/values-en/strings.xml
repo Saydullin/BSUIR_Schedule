@@ -239,7 +239,6 @@
     <string name="delete_schedule_dialog_caption">Schedule settings will also be deleted</string>
     <string name="reset_schedule_settings">Settings reset</string>
     <string name="save_schedule_settings">Settings saved</string>
-    <string name="appwidget_text">EXAMPLE</string>
     <string name="schedule_settings_schedule_past_days_hint_text">How many past days to show?</string>
     <string name="yesterday">Yesterday</string>
     <string name="subject_next_time_left_days">after %s</string>
@@ -304,6 +303,9 @@
     <string name="group_schedule_updated">Group schedule updaded</string>
     <string name="employee_schedule_updated">Teacher schedule uploaded</string>
     <string name="see">Open</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_chosen">Choosen %s theme</string>
 </resources>
 
 

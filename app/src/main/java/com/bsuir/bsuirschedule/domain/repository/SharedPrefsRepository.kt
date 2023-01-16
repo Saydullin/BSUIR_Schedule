@@ -18,4 +18,12 @@ interface SharedPrefsRepository {
 
     fun setActiveScheduleId(scheduleId: Int)
 
+    fun getLanguage(): String
+
+    fun setLanguage(lang: String)
+
+    fun getThemeIsDark(): Boolean
+
+    fun setTheme(isDark: Boolean)
+
 }

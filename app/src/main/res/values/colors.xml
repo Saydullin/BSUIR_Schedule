@@ -30,6 +30,7 @@
     <color name="success">#00b894</color>
 
     <color name="primaryOnColorDarkTheme">#2a2f32</color>
+    <color name="primaryOnColorButtonDarkTheme">#393E42</color>
     <color name="textColorDarkTheme">#d5dfe1</color>
     <color name="textHintColorDarkTheme">#939ea2</color>
 

@@ -6,15 +6,21 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.work.*
 import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
 import com.bsuir.bsuirschedule.presentation.utils.UpdateScheduleManager
+import com.bsuir.bsuirschedule.service.ExpeditedWorker
 import com.bsuir.bsuirschedule.service.JobSchedulerTest
+import com.bsuir.bsuirschedule.service.WorkManagerService
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import java.time.Duration
+import java.util.concurrent.TimeUnit
 
 class App : Application() {
 
@@ -31,6 +37,8 @@ class App : Application() {
 
 //        updateScheduleManager.execute()
 //        startSchedule()
+
+//        startWorkSchedule()
     }
 
     private fun startSchedule() {
@@ -47,6 +55,14 @@ class App : Application() {
         val scheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
         val resCode = scheduler.schedule(jobInfo.build())
         Log.e("sady", "result of code is $resCode")
+    }
+
+    private fun startWorkSchedule() {
+        val saveRequest = PeriodicWorkRequestBuilder<ExpeditedWorker>(15, TimeUnit.MINUTES)
+            .addTag("Sady")
+            .build()
+
+        WorkManager.getInstance(this).enqueue(saveRequest)
     }
 
 }

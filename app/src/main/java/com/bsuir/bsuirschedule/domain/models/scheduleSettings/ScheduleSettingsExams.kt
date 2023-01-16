@@ -7,7 +7,7 @@ data class ScheduleSettingsExams (
 
     companion object {
         val empty = ScheduleSettingsExams(
-            isShowEmptyDays = true,
+            isShowEmptyDays = false,
             isShowPastDays = true
         )
     }

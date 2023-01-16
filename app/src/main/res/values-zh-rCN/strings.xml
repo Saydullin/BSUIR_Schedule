@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BSUIR Schedule</string>
+    <string name="course">出色地</string>
+    <string name="week">一周</string>
+    <string name="lecture">演讲</string>
+    <string name="practise">演说</string>
+    <string name="laboratory">实验室</string>
+    <string name="info_dialog_title">注意力</string>
+    <string name="update">刷新</string>
+    <string name="delete">删除</string>
+    <string name="last_update">%s 已更新</string>
+    <string name="controls_settings">日程设置</string>
+    <string name="schedules_list_title">我的日程</string>
+    <string name="no_teacher_title">未列出教师</string>
+    <string name="no_group_title">未指定组</string>
+    <string name="schedules_all_list_title">所有时间表</string>
+    <string name="schedules_no_lessons">没有课</string>
+    <string name="tab_item_group">团体</string>
+    <string name="tab_item_employee">教师</string>
+    <string name="no_data_field">未注明</string>
+    <string name="subject_break_time_or">或者</string>
+    <string name="search_placeholder">搜索</string>
+    <string name="loading_dots">加载中...</string>
+    <string name="popup_update">刷新</string>
+    <string name="popup_more">此外</string>
+    <string name="popup_delete">删除</string>
+    <string name="all_subgroups">对于所有子组</string>
+    <string name="subgroup">对于 %d 个子组</string>
+    <string name="subject_time">从 %s 到 %s</string>
+    <string name="subject_weeks">%s 周</string>
+    <string name="subject_note">笔记：</string>
+    <string name="data_error">数据处理错误</string>
+    <string name="data_error_caption">尝试更新您的数据</string>
+    <string name="server_error">服务器错误</string>
+    <string name="server_error_caption">等会再试</string>
+    <string name="connection_error">连接错误</string>
+    <string name="connection_error_caption">检查您的互联网连接</string>
+    <string name="update_error">找不到数据</string>
+    <string name="update_error_caption">重新下载数据或连接到互联网让数据自动下载</string>
+    <string name="database_not_found_error">找不到数据</string>
+    <string name="database_not_found_error_caption">尝试重新下载它们</string>
+    <string name="database_error">数据库错误</string>
+    <string name="database_error_caption">尝试在设置中清除应用数据</string>
+    <string name="system_error">系统错误</string>
+    <string name="system_error_caption">重新安装应用程序</string>
+    <string name="no_error">没有错误</string>
+    <string name="no_error_caption">操作成功完成</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="unknown_error_caption">出色地 ...</string>
+    <string name="success_dialog_title">成功地</string>
+    <string name="no_content">无内容</string>
+    <string name="success_dialog_caption">操作成功完成</string>
+    <string name="load">加载中</string>
+    <string name="load_caption">请稍等</string>
+    <string name="load_schedule">预约下载</string>
+    <string name="load_schedule_caption">请稍等</string>
+    <string name="exams">考试</string>
+    <string name="consultation">咨询</string>
+    <string name="schedules_settings_title">设置（进行中）</string>
+    <string name="tab_item_schedule">教训</string>
+    <string name="tab_item_exams">考试</string>
+    <string name="tab_item_schedule_control">控制</string>
+    <string name="popup_settings">设置</string>
+    <string name="popup_about">关于申请</string>
+    <string name="no_schedule_placeholder">没有时间表</string>
+    <string name="settings_lang_title">应用语言</string>
+    <string name="settings_theme_title">色彩主题</string>
+    <string name="settings_feedback_title">反馈</string>
+    <string name="settings_font_title">字体大小</string>
+    <string name="settings_auto_update">自动更新</string>
+    <string name="settings_show_empty_day">显示空天</string>
+    <string name="settings_show_past_days">显示过去的日子</string>
+    <string name="settings_schedule_title">时间表</string>
+    <string name="exam">考试</string>
+    <string name="tomorrow">明天</string>
+    <string name="today">今天</string>
+    <string name="more">更多的</string>
+    <string name="tab_item_calendar">日历</string>
+    <string name="tab_item_settings">设置</string>
+    <string name="welcome_caption_bsuir_schedule">BSUIR大学学生和老师的时间表</string>
+    <string name="welcome_title_search">方便搜索</string>
+    <string name="welcome_caption_search">按部门、专业、课程、教师和其他特征搜索时间表</string>
+    <string name="welcome_title_info">翔实的</string>
+    <string name="welcome_caption_info">所有缩写的解释。有关小组或教师当前所在教室的信息</string>
+    <string name="welcome_title_functionality">功能性</string>
+    <string name="welcome_caption_functionality">每个时间表的单独设置。自动更新时间表。</string>
+    <string name="welcome_title_localization">本土化</string>
+    <string name="welcome_caption_localization">支持3种语言。俄语、英语和白俄罗斯语</string>
+    <string name="welcome_title_etc">还有什么？</string>
+    <string name="welcome_caption_etc">开始发现其他应用程序功能</string>
+    <string name="no_saved_schedule">没有保存的时间表</string>
+    <string name="no_schedule_choose">未选择时间表</string>
+    <string name="no_calendar_placeholder">将在下一次更新中提供</string>
+    <string name="no_exams_placeholder">没有考试</string>
+    <string name="settings_schedule_subgroup_title">亚群</string>
+    <string name="get_started">开始</string>
+    <string name="settings_alarm_on">启用警报</string>
+    <string name="settings_alarm_title">警报</string>
+    <string name="settings_all_subgroups">所有子组</string>
+    <string name="settings_item_subgroup">%d 个子组</string>
+    <string name="all_subgroups_short">*</string>
+    <string name="subgroup_selected">选择了 %d 个子组</string>
+    <string name="schedule_week_number">" %d 周"</string>
+    <string name="no_items_placeholder">时间表未加载（下拉刷新</string>
+    <string name="okay">可以理解</string>
+    <string name="schedules_first_add_all_list_title">选择时间表</string>
+    <string name="selected_subgroup">选择了 %d 个子组</string>
+    <string name="selected_all_subgroups">已选择所有子组</string>
+    <string name="schedule_date_period">安排从 %s 到 %s</string>
+    <string name="welcome_load_schedule">下载任何时间表</string>
+    <string name="exams_date_period">从 %s 到 %s 的考试</string>
+    <string name="schedule_empty_date_period">没有课程表</string>
+    <string name="exams_empty_date_period">没有考试</string>
+    <string name="settings_lang_caption">为此应用选择本地化</string>
+    <string name="settings_theme_caption">选择深色或浅色主题</string>
+    <string name="settings_font_caption">尺寸可以缩小或放大</string>
+    <string name="settings_schedule_caption">您可以更改日程设置</string>
+    <string name="settings_exams_title">考试</string>
+    <string name="settings_exams_caption">考试设置</string>
+    <string name="settings_alarm_caption">闹钟决定明天你需要哪对情侣，并在开始前 N 小时响起。在开发阶段</string>
+    <string name="settings_schedule_subgroup_caption">按子组筛选类别</string>
+    <string name="settings_light_theme">光</string>
+    <string name="settings_thin_font_size">小的</string>
+    <string name="settings_medium_font_size">普通的</string>
+    <string name="settings_big_font_size">巨大的</string>
+    <string name="no_subject_now">目前没有课程</string>
+    <string name="audience_now">在 %s</string>
+    <string name="subject_now">现在 %s</string>
+    <string name="subject_status_now">现在 %s</string>
+    <string name="subject_status_now_in">现在 %s，在 %s</string>
+    <string name="subject_status_today">%s 到 %s (%s)</string>
+    <string name="subject_status_tomorrow">明天 %s (%s)</string>
+    <string name="subject_status_days_left">通过 %s %s 到 %s</string>
+    <string name="active_schedule_no_departments">部门不见了</string>
+    <string name="settings_lang_chosen">选择了 %s 种语言</string>
+    <string name="subject_status_today_no_audience">%s 到 %s</string>
+    <string name="cancel">后退</string>
+    <string name="delete_schedule">删除计划“%s”？</string>
+    <string name="agree">是的</string>
+    <string name="delete_schedule_dialog_title">确定要删除日程吗？</string>
+    <string name="delete_schedule_dialog_caption">日程设置也将被删除</string>
+    <string name="reset_schedule_settings">设置重置</string>
+    <string name="save_schedule_settings">设置已保存</string>
+    <string name="schedule_settings_schedule_past_days_hint_text">显示过去多少天？</string>
+    <string name="yesterday">昨天</string>
+    <string name="subject_next_time_left_days">通过 %s</string>
+    <string name="subject_next_time_in_week_day">在 %s</string>
+    <string name="subject_next_time_current_week">%s 将在同一周 (%s)</string>
+    <string name="subject_next_time">下一个%s 将是 %s</string>
+    <string name="subject_next_time_undefined">此项目将不再可用</string>
+    <string name="and">和</string>
+    <string name="after">通过</string>
+    <string name="not_available">在开发阶段</string>
+    <string name="settings_show_short_version">以简短形式显示</string>
+    <string name="reset">"重置 "</string>
+    <string name="save">救</string>
+    <string name="schedule_success_loaded">" 计划已加载"</string>
+    <string name="schedule_success_loaded_caption">计划上传并模拟成功</string>
+    <string name="schedule_success_deleted">时间表已删除</string>
+    <string name="schedule_success_deleted_caption">计划删除成功</string>
+    <string name="schedule_week_loaded_error">现在是星期几？</string>
+    <string name="schedule_week_loaded_error_caption">无法加载当前周数</string>
+    <string name="test_header_title">0周</string>
+    <string name="popup_rename">改名</string>
+    <string name="rename_schedule_dialog_caption">新名称将被标记在括号中</string>
+    <string name="rename_schedule_dialog_title">输入标题</string>
+    <string name="schedule_title_placeholder">输入任何内容</string>
+    <string name="done">准备好</string>
+    <string name="schedule_success_updated_caption">排程更新成功</string>
+    <string name="schedule_success_updated">时间表已更新</string>
+    <string name="upload_schedule_dialog_title">你想看看 %s 的日程安排吗？</string>
+    <string name="upload_schedule_dialog_title_holder">你想看看这个时间表吗？</string>
+    <string name="upload_schedule_dialog_caption">如果您尚未上传此时间表，它将自动上传</string>
+    <string name="schedule_subject_deleted_caption">活动已成功从此计划中删除</string>
+    <string name="schedule_subject_deleted">活动已删除</string>
+    <string name="delete_subject">删除 %s 的一项活动？</string>
+    <string name="delete_subject_dialog_caption">您只需更新时间表即可返回课程！</string>
+    <string name="delete_subject_dialog_title">您确定要删除该活动吗？</string>
+    <string name="schedule_subject_ignored">该活动将被忽略</string>
+    <string name="schedule_subject_ignored_caption">日程状态将不再包括此类</string>
+    <string name="schedule_subject_not_ignored">职业会被考虑</string>
+    <string name="schedule_subject_not_ignored_caption">此活动现在将计入计划状态</string>
+    <string name="popup_deactivate">不会去</string>
+    <string name="popup_activate">我会去</string>
+    <string name="popup_edit">改变</string>
+    <string name="schedules_subject_edit_title">更改活动</string>
+    <string name="delete_subject_dialog_all">%s 的所有课程</string>
+    <string name="delete_subject_dialog_type">全部 (%s) 由 %s</string>
+    <string name="delete_subject_dialog_period">%s，（%s），%s 的所有课程</string>
+    <string name="unknown">未知</string>
+    <string name="also_delete">删除方法相同：</string>
+    <string name="schedule_subject_edited">职业变了</string>
+    <string name="schedule_subject_edited_caption">活动已成功修改并保存到日程中</string>
+    <string name="also_edit">同样编辑：</string>
+    <string name="delete_subject_dialog_subgroup">仅适用于 %d 个子组</string>
+    <string name="subgroup_label">亚群</string>
+    <string name="note_label">笔记</string>
+    <string name="audience_label">观众</string>
+    <string name="full_title_label">完整标题</string>
+    <string name="short_title_label">简称</string>
+    <string name="schedule_updated_notification">由 %s 更新</string>
+    <string name="new_notifications_amount">%d 个新通知</string>
+    <string name="found">找到 %s</string>
+    <string name="schedule_updated">时间表已更新</string>
+    <string name="group_schedule_updated">小组日程已更新</string>
+    <string name="employee_schedule_updated">教师时间表已更新</string>
+    <string name="see">看</string>
+
+    <string-array name="subgroups">
+        <item>所有子组</item>
+    </string-array>
+
+    <string-array name="font_size">
+        <item>小的</item>
+        <item>中间</item>
+        <item>巨大的</item>
+    </string-array>
+
+    <string-array name="app_theme">
+        <item>浅色</item>
+        <item>黑暗的</item>
+    </string-array>
+
+    <plurals name="plural_groups">
+        <item quantity="zero">找到 %d 组</item>
+        <item quantity="one">找到 %d 组</item>
+        <item quantity="two">找到 %d 组</item>
+        <item quantity="few">找到 %d 组</item>
+        <item quantity="many">找到 %d 组</item>
+        <item quantity="other">找到 %d 组</item>
+    </plurals>
+
+    <plurals name="plural_exams">
+        <item quantity="zero">%d 考试</item>
+        <item quantity="one">%d 考试</item>
+        <item quantity="two">%d 考试</item>
+        <item quantity="few">%d 考试</item>
+        <item quantity="many">%d 考试</item>
+        <item quantity="other">%d 考试</item>
+    </plurals>
+
+    <plurals name="plural_schedules">
+        <item quantity="zero">找到 %d 个时间表</item>
+        <item quantity="one">找到 %d 个时间表</item>
+        <item quantity="two">找到 %d 个时间表</item>
+        <item quantity="few">找到 %d 个时间表</item>
+        <item quantity="many">找到 %d 个时间表</item>
+        <item quantity="other">找到 %d 个时间表</item>
+    </plurals>
+
+    <plurals name="plural_employees">
+        <item quantity="zero">找到 %d 位老师</item>
+        <item quantity="one">找到 %d 位老师</item>
+        <item quantity="two">找到 %d 位老师</item>
+        <item quantity="few">找到 %d 位老师</item>
+        <item quantity="many">找到 %d 位老师</item>
+        <item quantity="other">找到 %d 位老师</item>
+    </plurals>
+
+    <plurals name="plural_lessons">
+        <item quantity="zero">%d 节课</item>
+        <item quantity="one">%d 节课</item>
+        <item quantity="two">%d 节课</item>
+        <item quantity="few">%d 节课</item>
+        <item quantity="many">%d 节课</item>
+        <item quantity="other">%d 节课</item>
+    </plurals>
+
+    <plurals name="plural_weeks_left">
+        <item quantity="zero">%d 周</item>
+        <item quantity="one">%d 周</item>
+        <item quantity="two">%d 周</item>
+        <item quantity="few">%d 周</item>
+        <item quantity="many">%d 周</item>
+        <item quantity="other">%d 周</item>
+    </plurals>
+
+    <plurals name="plural_days_left">
+        <item quantity="zero">%d 天</item>
+        <item quantity="one">%d 天</item>
+        <item quantity="two">%d 天</item>
+        <item quantity="few">%d 天</item>
+        <item quantity="many">%d 天</item>
+        <item quantity="other">%d 天</item>
+    </plurals>
+
+    <plurals name="plural_hours">
+        <item quantity="zero">%d 小时</item>
+        <item quantity="one">%d 小时</item>
+        <item quantity="two">%d 小时</item>
+        <item quantity="few">%d 小时</item>
+        <item quantity="many">%d 小时</item>
+        <item quantity="other">%d 小时</item>
+    </plurals>
+
+    <plurals name="plural_minutes">
+        <item quantity="zero">%d 分钟</item>
+        <item quantity="one">%d 分钟</item>
+        <item quantity="two">%d 分钟</item>
+        <item quantity="few">%d 分钟</item>
+        <item quantity="many">%d 分钟</item>
+        <item quantity="other">%d 分钟</item>
+    </plurals>
+    <string name="settings_theme_light">光</string>
+    <string name="settings_theme_dark">黑暗的</string>
+    <string name="settings_theme_chosen">选择了 %s 个主题</string>
+
+</resources>

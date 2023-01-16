@@ -1,14 +1,17 @@
 package com.bsuir.bsuirschedule.service
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
 import io.karn.notify.Notify
+
 
 class JobSchedulerTest : JobService() {
 
@@ -16,11 +19,31 @@ class JobSchedulerTest : JobService() {
         Log.e("sady", "Job Started")
 
         doBackgroundWork()
-        return true
+        doForegroundWork()
+        return false
     }
 
     private fun doBackgroundWork() {
         Log.e("sady", "Job Executed")
+//        buildNotification(applicationContext, "Test Title", "test description")
+    }
+
+    private fun doForegroundWork() {
+        val notificationIntent = Intent(this, MainActivity::class.java)
+
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0,
+            notificationIntent, 0
+        )
+
+        val notification: Notification = NotificationCompat.Builder(this)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentTitle("Hi Saydullin!")
+            .setContentText("Doing some work...")
+            .setContentIntent(pendingIntent).build()
+
+        startForeground(1337, notification)
+
         buildNotification(applicationContext, "Test Title", "test description")
     }
 
@@ -59,9 +82,12 @@ class JobSchedulerTest : JobService() {
 
     override fun onStopJob(p0: JobParameters?): Boolean {
         Log.e("sady", "Job is stopped")
+        Log.e("sady", "$p0")
 
+        jobFinished(p0, true);
         return false
     }
+
 }
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bsuir.bsuirschedule">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -59,9 +60,11 @@
 <!--        <receiver-->
 <!--            android:name=".receiver.AlarmReceiver"-->
 <!--            android:process=":remote" />-->
-<!--        <service android:name=".service.JobSchedulerTest"-->
-<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+        <service android:name=".service.JobSchedulerTest"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
     </application>
 
 </manifest>
+
+

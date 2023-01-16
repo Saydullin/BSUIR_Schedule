@@ -60,6 +60,40 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
+    override fun getLanguage(): String {
+        return prefs.getString(
+            context.getString(R.string.active_language_code),
+            "ru"
+        ) ?: "ru"
+    }
+
+    override fun setLanguage(lang: String) {
+        with(prefs.edit()) {
+            putString(
+                context.getString(R.string.active_language_code),
+                lang
+            )
+            apply()
+        }
+    }
+
+    override fun getThemeIsDark(): Boolean {
+        return prefs.getBoolean(
+            context.getString(R.string.active_theme_code),
+            false
+        )
+    }
+
+    override fun setTheme(isDark: Boolean) {
+        with(prefs.edit()) {
+            putBoolean(
+                context.getString(R.string.active_theme_code),
+                isDark
+            )
+            apply()
+        }
+    }
+
 }
 
 

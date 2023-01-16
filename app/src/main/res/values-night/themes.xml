@@ -12,7 +12,7 @@
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSecondary">@color/text_light</item>
         <item name="colorOnSecondary">@color/primary</item>
-        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="colorSecondaryVariant">@color/text_hint</item>
         <item name="colorSecondaryVariant">@color/primary</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
@@ -34,6 +34,7 @@
         <item name="secondaryTextColor">@color/textColorDarkTheme</item>
         <item name="primaryTextColor">@color/white</item>
         <item name="textColor">@color/white</item>
+        <item name="secondaryOnHintButtonColor">@color/primaryOnColorButtonDarkTheme</item>
         <item name="textHintColor">@color/textHintColorDarkTheme</item>
     </style>
 

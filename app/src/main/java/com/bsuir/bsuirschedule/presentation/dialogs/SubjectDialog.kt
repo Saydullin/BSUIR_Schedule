@@ -2,9 +2,11 @@ package com.bsuir.bsuirschedule.presentation.dialogs
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
@@ -105,7 +107,7 @@ class SubjectDialog(
             binding.sourceRecycler.adapter = adapter
         }
 
-        if (subject.groups != null && subject.groups!!.isNotEmpty()) {
+        if (subject.groups != null && !subject.groups.isNullOrEmpty()) { // TODO: Make here dynamic boolean for exams
             val scheduleItems = subject.groups!!.map { it.toSavedSchedule(false) } as ArrayList<SavedSchedule>
             val adapter = SubjectItemsAdapter(context!!, scheduleItems, onClickSource)
             binding.sourceRecycler.adapter = adapter

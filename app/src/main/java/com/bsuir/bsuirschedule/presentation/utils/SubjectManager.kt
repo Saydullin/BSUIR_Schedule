@@ -169,7 +169,7 @@ class SubjectManager(
                 context.getString(R.string.exam)
             }
             else -> {
-                context.getString(R.string.unknown)
+                subject.lessonTypeAbbrev ?: context.getString(R.string.unknown)
             }
         }
     }

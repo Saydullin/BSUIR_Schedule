@@ -60,11 +60,10 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
-    override fun getLanguage(): String {
+    override fun getLanguage(): String? {
         return prefs.getString(
-            context.getString(R.string.active_language_code),
-            "ru"
-        ) ?: "ru"
+            context.getString(R.string.active_language_code), null
+        )
     }
 
     override fun setLanguage(lang: String) {

@@ -17,6 +17,8 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             style="@style/Theme.BSUIRSchedule.ImageButton"
             android:id="@+id/schedule_list_button"
             android:src="@drawable/ic_list"
@@ -34,6 +36,8 @@
 
         <ImageButton
             android:id="@+id/schedule_more_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             style="@style/Theme.BSUIRSchedule.ImageButton"
             android:src="@drawable/ic_more"
             android:contentDescription="@string/cd_schedule_list" />
@@ -60,20 +64,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/active_schedule_fragment"
-            tools:layout="@layout/fragment_active_schedule"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
-            android:name="com.bsuir.bsuirschedule.presentation.fragments.ActiveScheduleFragment"
+        <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
+            android:id="@+id/test"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:titleText="Hello"
+            app:subTitle="My name is Saydullin" />
+
+<!--        <androidx.fragment.app.FragmentContainerView-->
+<!--            android:id="@+id/active_schedule_fragment"-->
+<!--            tools:layout="@layout/fragment_active_schedule"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_marginVertical="10dp"-->
+<!--            android:name="com.bsuir.bsuirschedule.presentation.fragments.ActiveScheduleFragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/schedule_items_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="2dp"
+            android:contentDescription="Tabs"
             android:background="?attr/colorSecondary" />
 
         <androidx.viewpager2.widget.ViewPager2

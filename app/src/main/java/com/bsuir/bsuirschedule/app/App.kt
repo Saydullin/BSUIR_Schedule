@@ -4,10 +4,15 @@ import android.app.Application
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
+import android.content.res.Configuration
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.work.*
+import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
+import com.bsuir.bsuirschedule.presentation.activities.BaseActivity
 import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
@@ -20,12 +25,19 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import java.time.Duration
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        val prefs = SharedPrefsRepositoryImpl(this)
+        val lang = prefs.getLanguage()
+        if (lang != null) {
+            val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
+            AppCompatDelegate.setApplicationLocales(appLocale)
+        }
 
         startKoin {
             androidLogger(Level.DEBUG)

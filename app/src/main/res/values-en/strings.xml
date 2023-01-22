@@ -217,6 +217,7 @@
     <string name="settings_exams_caption">Exams settings</string>
     <string name="settings_alarm_caption">The alarm clock determines on which lesson you need tomorrow and rings N hours before it starts. On development stage.</string>
     <string name="settings_schedule_subgroup_caption">Filter lessons by subgroups</string>
+    <string name="current_lang">English</string>
     <string name="settings_light_theme">Light</string>
     <string name="settings_thin_font_size">Thin</string>
     <string name="settings_medium_font_size">Normal</string>
@@ -298,7 +299,7 @@
     <string name="short_title_label">Short title</string>
     <string name="schedule_updated_notification">Updated %s</string>
     <string name="new_notifications_amount">%d new notifications.</string>
-    <string name="found">found</string>
+    <string name="found">found %s</string>
     <string name="schedule_updated">Schedule updated</string>
     <string name="group_schedule_updated">Group schedule updaded</string>
     <string name="employee_schedule_updated">Teacher schedule uploaded</string>

@@ -124,11 +124,11 @@
         <ImageButton
             android:id="@+id/moreButton"
             style="@style/Theme.BSUIRSchedule.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:contentDescription="ded"
             android:src="@drawable/ic_more_hint"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="TouchTargetSizeCheck"
             tools:layout_editor_absoluteY="10dp" />
 
     </LinearLayout>

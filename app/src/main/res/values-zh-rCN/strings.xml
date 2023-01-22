@@ -120,6 +120,7 @@
     <string name="settings_exams_caption">考试设置</string>
     <string name="settings_alarm_caption">闹钟决定明天你需要哪对情侣，并在开始前 N 小时响起。在开发阶段</string>
     <string name="settings_schedule_subgroup_caption">按子组筛选类别</string>
+    <string name="current_lang">中国人</string>
     <string name="settings_light_theme">光</string>
     <string name="settings_thin_font_size">小的</string>
     <string name="settings_medium_font_size">普通的</string>

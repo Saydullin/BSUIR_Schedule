@@ -175,8 +175,7 @@ class ScheduleSavedItemsFragment : Fragment() {
         savedScheduleVM.activeScheduleStatusCount.observe(viewLifecycleOwner) { savedSchedulesCount ->
             if (savedSchedulesCount == null) return@observe
             val pluralSchedules = resources.getQuantityString(R.plurals.plural_schedules, savedSchedulesCount, savedSchedulesCount)
-            val foundText = resources.getString(R.string.found, pluralSchedules)
-            binding.nestedFilter.filterAmount.text = foundText
+            binding.nestedFilter.filterAmount.text = pluralSchedules
         }
 
         savedScheduleVM.savedSchedulesStatus.observe(viewLifecycleOwner) { savedSchedules ->

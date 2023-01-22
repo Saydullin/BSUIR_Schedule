@@ -11,8 +11,16 @@
     <attr name="secondaryTextColor">@color/text</attr>
     <attr name="textColor">@color/text</attr>
     <attr name="textHintColor">@color/text_dark_hint</attr>
+
+    <declare-styleable name="ScheduleHeaderView">
+        <attr name="profileImage" format="string" />
+        <attr name="titleText" format="string" />
+        <attr name="subTitle" format="string" />
+        <attr name="subgroup" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="AppWidgetAttrs">
-        <attr name="appWidgetPadding" format="dimension" />
+        <attr name="appWidgetPadding" format="dimension"  />
         <attr name="appWidgetInnerRadius" format="dimension" />
         <attr name="appWidgetRadius" format="dimension" />
     </declare-styleable>

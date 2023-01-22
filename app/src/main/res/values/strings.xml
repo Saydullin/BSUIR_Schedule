@@ -227,10 +227,11 @@
     <string name="settings_lang_en" translatable="false">English</string>
     <string name="settings_lang_be" translatable="false">Беларускі</string>
     <string name="settings_lang_zh" translatable="false">中国人</string>
-    <string name="settings_lang_ru_code" translatable="false">ru</string>
-    <string name="settings_lang_en_code" translatable="false">en</string>
-    <string name="settings_lang_be_code" translatable="false">be</string>
-    <string name="settings_lang_zh_code" translatable="false">zh</string>
+    <string name="settings_lang_ru_code" translatable="false">ru-RU</string>
+    <string name="settings_lang_en_code" translatable="false">en-EN</string>
+    <string name="settings_lang_be_code" translatable="false">be-BE</string>
+    <string name="settings_lang_zh_code" translatable="false">zh-CN</string>
+    <string name="current_lang">Русский</string>
     <string name="settings_light_theme">Светлая</string>
     <string name="settings_all_subgroups">Все подгруппы</string>
     <string name="settings_thin_font_size">Маленький</string>

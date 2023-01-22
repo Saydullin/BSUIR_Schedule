@@ -177,6 +177,7 @@
     <string name="settings_schedule_subgroup_title">Падгрупа</string>
     <string name="settings_schedule_subgroup_caption">Адфільтруйце заняткі па падгрупах</string>
     <string name="settings_lang_chosen">Абрана %s мова</string>
+    <string name="current_lang">Беларускi</string>
     <string name="settings_light_theme">Светлая</string>
     <string name="settings_all_subgroups">Усе падгрупы</string>
     <string name="settings_thin_font_size">Маленькі</string>

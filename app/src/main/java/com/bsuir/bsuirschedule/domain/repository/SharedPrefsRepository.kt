@@ -18,7 +18,7 @@ interface SharedPrefsRepository {
 
     fun setActiveScheduleId(scheduleId: Int)
 
-    fun getLanguage(): String
+    fun getLanguage(): String?
 
     fun setLanguage(lang: String)
 

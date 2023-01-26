@@ -10,118 +10,13 @@
     android:layout_marginVertical="10dp"
     tools:context=".presentation.fragments.ActiveScheduleFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/active_schedule_container"
+    <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
+        android:id="@+id/scheduleHeaderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="?attr/secondaryColor"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:shape="ring"
-                    app:cardElevation="0dp"
-                    app:cardCornerRadius="25dp">
-
-                    <ImageView
-                        android:id="@+id/schedule_image"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_no_teacher_placeholder"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="@string/app_name" />
-
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/active_schedule_title"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:layout_marginEnd="10dp"
-                            tools:text="@tools:sample/lorem/random" />
-
-                        <LinearLayout
-                            android:id="@+id/subgroup_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_subgroup_hint"
-                                android:contentDescription="@string/cd_schedule_subgroup" />
-
-                            <Space
-                                android:layout_width="2dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:id="@+id/subgroup"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                                android:text="*" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/schedule_course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            style="@style/Theme.BSUIRSchedule.TextView" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/current_subject_info"
-                            style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="2" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        app:titleText="151003"
+        app:subTitle="ФКСИС ПОИТ"
+        app:subgroup="3" />
 
 </LinearLayout>
 

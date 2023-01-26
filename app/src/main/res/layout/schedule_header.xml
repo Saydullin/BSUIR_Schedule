@@ -11,16 +11,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             android:backgroundTint="?attr/secondaryColor"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
+                android:id="@+id/scheduleHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -42,7 +45,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/titleText"
+                        android:id="@+id/headerTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Theme.BSUIRSchedule.TextView.Medium"
@@ -64,11 +67,10 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/moreButton"
                     style="@style/Theme.BSUIRSchedule.ImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="ded"
+                    android:contentDescription="deds"
                     android:src="@drawable/ic_more_hint"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="TouchTargetSizeCheck"
@@ -89,8 +91,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_location" />
 
             <Space
@@ -98,12 +100,11 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                tools:text="Сейчас ИТПЭУ, в 213-1к." />
-
-            <!--    Location Custom View    -->
+                android:text="Сейчас ИТПЭУ, в 213-1к." />
 
             <Space
                 android:layout_width="0dp"
@@ -111,7 +112,6 @@
                 android:layout_height="wrap_content" />
 
             <ImageButton
-                android:id="@+id/subgroupButton"
                 style="@style/Theme.BSUIRSchedule.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,12 +122,11 @@
                 tools:layout_editor_absoluteY="10dp" />
 
             <TextView
+                android:id="@+id/subgroupText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Theme.BSUIRSchedule.TextView.Hint"
                 tools:text="2" />
-
-            <!--    Subgroup Custom View    -->
 
         </LinearLayout>
 

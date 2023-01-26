@@ -5,9 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.dialogs.SavedScheduleDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
@@ -19,6 +16,7 @@ import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
+import com.bsuir.bsuirschedule.presentation.views.ScheduleAction
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import java.util.*
 
@@ -39,30 +37,29 @@ class ActiveScheduleFragment : Fragment() {
             if (schedule == null) return@observe
             val selectedSubgroup = schedule.settings.subgroup.selectedNum
 
-            if (schedule.isGroup()) {
-                val group = schedule.group
-                val courseText = getString(R.string.course)
-                Glide.with(binding.scheduleImage)
-                    .load(R.drawable.ic_group_placeholder)
-                    .into(binding.scheduleImage)
-                binding.scheduleCourse.text = "${group.course} $courseText"
-                binding.activeScheduleTitle.text = group.getTitleOrName()
-            } else {
-                val employee = schedule.employee
-                binding.scheduleCourse.text = ""
-                Glide.with(binding.scheduleImage)
-                    .load(employee.photoLink)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.scheduleImage)
-                binding.activeScheduleTitle.text = employee.getTitleOrFullName()
-            }
+            with (binding.scheduleHeaderView) {
+                if (schedule.isGroup()) {
+                    val group = schedule.group
+                    val courseText = getString(R.string.course)
+                    setTitle(group.getTitleOrName())
+                    setImageDrawable(R.drawable.ic_group_placeholder)
+                    setDescription(group.getFacultyAndSpecialityAbbr())
+//                    binding.scheduleCourse.text = "${group.course} $courseText"
+                } else {
+                    val employee = schedule.employee
+                    setTitle(employee.getTitleOrFullName())
+                    setImage(employee.photoLink)
+                    setDescription(employee.getRankAndDegree())
+                    binding.scheduleHeaderView.setDescription(employee.getRankAndDegree())
+                }
 
-            setCurrentSubject(binding.currentSubjectInfo, schedule.subjectNow)
+                setLocationText(getCurrentSubject(schedule.subjectNow))
 
-            if (selectedSubgroup == 0) {
-                binding.subgroup.text = resources.getString(R.string.all_subgroups_short)
-            } else {
-                binding.subgroup.text = selectedSubgroup.toString()
+                if (selectedSubgroup == 0) {
+                    setSubgroupText(resources.getString(R.string.all_subgroups_short))
+                } else {
+                    setSubgroupText(selectedSubgroup.toString())
+                }
             }
         }
 
@@ -93,26 +90,44 @@ class ActiveScheduleFragment : Fragment() {
             }
         }
 
-        binding.root.setOnClickListener {
-            val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setOnClickListener
-            val savedScheduleDialog = SavedScheduleDialog(
-                schedule = activeSchedule,
-                delete = deleteWarning,
-                update = updateSchedule)
-            savedScheduleDialog.isCancelable = true
-            savedScheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
+        binding.scheduleHeaderView.setMenuListener {
+            when (it) {
+                ScheduleAction.DIALOG_OPEN -> {
+                    val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setMenuListener
+                    val savedScheduleDialog = SavedScheduleDialog(
+                        schedule = activeSchedule,
+                        delete = deleteWarning,
+                        update = updateSchedule)
+                    savedScheduleDialog.isCancelable = true
+                    savedScheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
+                }
+                ScheduleAction.SETTINGS -> {
+
+                }
+                ScheduleAction.UPDATE -> {
+
+                }
+                ScheduleAction.EDIT -> {
+
+                }
+                ScheduleAction.EXAMS -> {
+
+                }
+                ScheduleAction.DELETE -> {
+
+                }
+            }
         }
 
         return binding.root
     }
 
-    private fun setCurrentSubject(currentSubjectInfo: TextView, subject: ScheduleSubject?) {
-        if (subject != null) {
+    private fun getCurrentSubject(subject: ScheduleSubject?): String {
+        return if (subject != null) {
             val subjectManager = SubjectManager(subject, context!!)
-            currentSubjectInfo.text = subjectManager.getSubjectDate()
+            subjectManager.getSubjectDate()
         } else {
-            val subjectNowText = resources.getString(R.string.no_subject_now)
-            currentSubjectInfo.text = subjectNowText
+            resources.getString(R.string.no_subject_now)
         }
     }
 

@@ -19,9 +19,9 @@ class ScheduleHeaderView(
     attrs: AttributeSet? = null,
     defStyleAttr: Int,
     defStyleRes: Int
-) : LinearLayout(context, attrs) {
+) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val binding: ScheduleHeaderBinding
+    private val binding = ScheduleHeaderBinding.inflate(LayoutInflater.from(context),this)
 
     private var menuListener: OnScheduleActionListener? = null
 
@@ -30,9 +30,6 @@ class ScheduleHeaderView(
     constructor(context: Context) : this(context, null)
 
     init {
-        val inflater = LayoutInflater.from(context)
-        inflater.inflate(R.layout.schedule_header, this, true)
-        binding = ScheduleHeaderBinding.bind(this)
         initAttrs(attrs, defStyleAttr, defStyleRes)
         initListeners()
     }
@@ -53,21 +50,52 @@ class ScheduleHeaderView(
                     .placeholder(R.drawable.ic_person_placeholder)
                     .into(profileImage)
             }
-            titleText.text = title ?: "(empty)"
+            headerTitle.text = title ?: "(empty)"
             subTitle.text = subtitleText ?: "(empty)"
+            // Set static text
         }
 
         typedArray.recycle()
     }
 
     private fun initListeners() {
-        binding.root.setOnClickListener { 
+        binding.scheduleHeader.setOnClickListener {
             this.menuListener?.invoke(ScheduleAction.DIALOG_OPEN)
         }
     }
 
     fun setMenuListener(listener: OnScheduleActionListener) {
         this.menuListener = listener
+    }
+
+    fun setTitle(title: String) {
+        binding.headerTitle.text = title
+    }
+
+    fun setDescription(desc: String) {
+        binding.subTitle.text = desc
+    }
+
+    fun setImage(image: String) {
+        Glide.with(context)
+            .load(image)
+            .placeholder(R.drawable.ic_person_placeholder)
+            .into(binding.profileImage)
+    }
+
+    fun setImageDrawable(imageDrawable: Int) {
+        Glide.with(context)
+            .load(imageDrawable)
+            .placeholder(R.drawable.ic_person_placeholder)
+            .into(binding.profileImage)
+    }
+
+    fun setSubgroupText(subgroupText: String) {
+        binding.subgroupText.text = subgroupText
+    }
+
+    fun setLocationText(locationText: String) {
+        binding.location.text = locationText;
     }
 
 }

@@ -55,8 +55,9 @@ class ScheduleSubgroupView(
 
         popupMenu.setOnMenuItemClickListener {
             binding.subgroupNumber.text = it.title
-            if (it.title == context.getString(R.string.all_subgroups_short)) {
+            if (it.title == context.getString(R.string.all_subgroups_select)) {
                 subgroupListener?.invoke(0)
+                binding.subgroupNumber.text = context.getString(R.string.all_subgroups_short)
             } else {
                 subgroupListener?.invoke(it.title.toString().toInt())
             }
@@ -72,7 +73,7 @@ class ScheduleSubgroupView(
         popupMenu.menu.clear()
         subgroups.forEach {
             if (it == 0) {
-                popupMenu.menu.add(context.getString(R.string.all_subgroups_short))
+                popupMenu.menu.add(context.getString(R.string.all_subgroups_select))
             } else {
                 popupMenu.menu.add(it.toString())
             }

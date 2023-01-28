@@ -96,7 +96,7 @@
     <string name="schedules_all_list_title">Все расписания</string>
     <string name="schedules_subject_edit_title">Изменить занятие</string>
     <string name="schedules_first_add_all_list_title">Выберите расписания</string>
-    <string name="schedules_settings_title">Настройки (в процессе разр.)</string>
+    <string name="schedules_settings_title">Настройки</string>
     <string name="schedules_no_lessons">Нет занятий</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>
@@ -121,6 +121,7 @@
     <string name="popup_delete">Удалить</string>
     <string name="all_subgroups">Для всех подгрупп</string>
     <string name="all_subgroups_short">Все</string>
+    <string name="coming_soon">В стадии разработки</string>
     <string name="all_subgroups_select">Все подгруппы</string>
     <string name="subgroup">Для %d подгруппы</string>
     <string name="subgroup_selected">%d подгруппа выбрана</string>
@@ -186,7 +187,7 @@
     <string name="welcome_title_functionality">Функциональность</string>
     <string name="welcome_caption_functionality">Индивидуальные настройки для каждого расписания. Автоматическое обновление расписаний.</string>
     <string name="welcome_title_localization">Локализация</string>
-    <string name="welcome_caption_localization">Поддержка 3 языков. Русский, английский и белорусский</string>
+    <string name="welcome_caption_localization">Поддержка 4 языков. Русский, английский, белорусский и китайский</string>
     <string name="welcome_title_etc">Что еще?</string>
     <string name="welcome_caption_etc">Начните, чтобы узнать другие возможности приложения</string>
 
@@ -246,6 +247,7 @@
     <string name="settings_item_subgroup">%d подгруппа</string>
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
+    <string name="get_started_skip">Пропустить</string>
     <string name="not_available">В процессе разработки</string>
 
     <string-array name="languages">

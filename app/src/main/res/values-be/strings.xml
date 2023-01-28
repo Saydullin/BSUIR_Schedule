@@ -68,7 +68,7 @@
     <string name="schedules_all_list_title">" Усе расклады"</string>
     <string name="schedules_subject_edit_title">Змяніць занятак</string>
     <string name="schedules_first_add_all_list_title">Абярыце раскладу</string>
-    <string name="schedules_settings_title">Налады (у працэсе разр.)</string>
+    <string name="schedules_settings_title">Налады</string>
     <string name="schedules_no_lessons">Няма заняткаў</string>
     <string name="tab_item_group">Групы</string>
     <string name="tab_item_employee">Выкладчыкі</string>
@@ -150,7 +150,7 @@
     <string name="welcome_title_functionality">Функцыянальнасць</string>
     <string name="welcome_caption_functionality">Індывідуальныя наладкі для кожнага раскладу. Аўтаматычнае абнаўленне раскладаў.</string>
     <string name="welcome_title_localization">Лакалізацыя</string>
-    <string name="welcome_caption_localization">Падтрымка 3 моў. Руская, англійская і беларуская</string>
+    <string name="welcome_caption_localization">Падтрымка 4 моў. Руская, англійская, беларуская i кітайскі</string>
     <string name="welcome_title_etc">Што яшчэ?</string>
     <string name="welcome_caption_etc">Пачніце, каб даведацца іншыя магчымасці прыкладання</string>
     <string name="no_content">Няма кантэнту</string>
@@ -189,6 +189,7 @@
     <string name="settings_item_subgroup">%d падгрупа</string>
     <string name="no_calendar_placeholder">Будзе даступна ў наступным абнаўленні</string>
     <string name="get_started">Пачаць</string>
+    <string name="get_started_skip">Прапусціць</string>
     <string name="not_available">У працэсе распрацоўкі</string>
     <string name="schedule_settings_schedule_past_days_hint_text">Колькі мінулых дзён паказваць?</string>
     <string name="reset">Скінуць</string>
@@ -318,5 +319,6 @@
     <string name="schedule_header_menu_share">Падзяліцца</string>
     <string name="schedule_header_menu_more">Дадаткова</string>
     <string name="schedule_header_menu_delete">Выдаліць</string>
+    <string name="coming_soon">У стадыі распрацоўкі</string>
     <string name="all_subgroups_select">Усе падгрупы</string>
 </resources>

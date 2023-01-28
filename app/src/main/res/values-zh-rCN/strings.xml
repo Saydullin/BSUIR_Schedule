@@ -58,7 +58,7 @@
     <string name="load_schedule_caption">请稍等</string>
     <string name="exams">考试</string>
     <string name="consultation">咨询</string>
-    <string name="schedules_settings_title">设置（进行中）</string>
+    <string name="schedules_settings_title">设置</string>
     <string name="tab_item_schedule">教训</string>
     <string name="tab_item_exams">考试</string>
     <string name="tab_item_schedule_control">控制</string>
@@ -87,7 +87,7 @@
     <string name="welcome_title_functionality">功能性</string>
     <string name="welcome_caption_functionality">每个时间表的单独设置。自动更新时间表。</string>
     <string name="welcome_title_localization">本土化</string>
-    <string name="welcome_caption_localization">支持3种语言。俄语、英语和白俄罗斯语</string>
+    <string name="welcome_caption_localization">支持4种语言。 俄语、英语、白俄罗斯语和中文</string>
     <string name="welcome_title_etc">还有什么？</string>
     <string name="welcome_caption_etc">开始发现其他应用程序功能</string>
     <string name="no_saved_schedule">没有保存的时间表</string>
@@ -153,6 +153,7 @@
     <string name="subject_next_time_undefined">此项目将不再可用</string>
     <string name="and">和</string>
     <string name="after">通过</string>
+    <string name="get_started_skip">跳过</string>
     <string name="not_available">在开发阶段</string>
     <string name="settings_show_short_version">以简短形式显示</string>
     <string name="reset">"重置 "</string>
@@ -315,6 +316,7 @@
     <string name="schedule_header_menu_share">分享</string>
     <string name="schedule_header_menu_more">此外</string>
     <string name="schedule_header_menu_delete">删除</string>
+    <string name="coming_soon">正在开发中</string>
     <string name="all_subgroups_select">所有子组</string>
 
 </resources>

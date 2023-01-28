@@ -56,7 +56,6 @@ class ScheduleHeaderView(
             }
             headerTitle.text = title ?: "(empty)"
             subTitle.text = subtitleText ?: "(empty)"
-            // Set static text
         }
 
         typedArray.recycle()

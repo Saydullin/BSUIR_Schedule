@@ -155,7 +155,7 @@
 
     <string name="exams">Exams</string>
     <string name="consultation">Consultation</string>
-    <string name="schedules_settings_title">Settings (on dev process)</string>
+    <string name="schedules_settings_title">Settings</string>
     <string name="tab_item_schedule">Schedule</string>
     <string name="tab_item_exams">Exams</string>
     <string name="tab_item_schedule_control">Control</string>
@@ -184,7 +184,7 @@
     <string name="welcome_title_functionality">Functionality</string>
     <string name="welcome_caption_functionality">Individual settings for each schedule.\nAutomatic updating of schedules.</string>
     <string name="welcome_title_localization">Localization</string>
-    <string name="welcome_caption_localization">Support 3 languages.\nRussian, English and Belarusian</string>
+    <string name="welcome_caption_localization">Support 4 languages.\nRussian, English, Belarusian and Chinese</string>
     <string name="welcome_title_etc">What else?</string>
     <string name="welcome_caption_etc">Get started to discover other app features</string>
     <string name="no_saved_schedule">No saved schedules</string>
@@ -250,6 +250,7 @@
     <string name="subject_next_time_undefined">This lesson will no longer be held</string>
     <string name="and">and</string>
     <string name="after">after</string>
+    <string name="get_started_skip">Skip</string>
     <string name="not_available">On development stage</string>
     <string name="settings_show_short_version">Show in short form</string>
     <string name="reset">Reset</string>
@@ -316,6 +317,7 @@
     <string name="schedule_header_menu_share">Share</string>
     <string name="schedule_header_menu_more">Additionally</string>
     <string name="schedule_header_menu_delete">Delete</string>
+    <string name="coming_soon">Under development</string>
     <string name="all_subgroups_select">All subgroups</string>
 </resources>
 

@@ -24,16 +24,27 @@
         android:layout_marginHorizontal="20dp"/>
 
     <Button
+        android:id="@+id/skip_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="10dp"
+        android:layout_margin="20dp"
+        android:text="@string/get_started_skip"
+        style="@style/Theme.BSUIRSchedule.Button"
+        android:textColor="?attr/secondaryTextColor"
+        android:backgroundTint="?attr/secondaryColor" />
+
+    <Button
         android:id="@+id/get_started_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
         android:paddingHorizontal="10dp"
-        android:visibility="invisible"
         android:layout_margin="20dp"
-        android:alpha="0"
+        android:visibility="gone"
         android:text="@string/get_started"
-        style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
+        style="@style/Theme.BSUIRSchedule.Button"
         android:textColor="?attr/primaryTextColor"
         android:backgroundTint="?attr/primaryColor" />
 

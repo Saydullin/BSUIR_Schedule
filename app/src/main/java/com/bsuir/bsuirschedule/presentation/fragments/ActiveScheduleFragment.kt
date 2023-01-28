@@ -1,10 +1,12 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.dialogs.SavedScheduleDialog
@@ -112,22 +114,22 @@ class ActiveScheduleFragment : Fragment() {
                     savedScheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
                 }
                 ScheduleAction.SETTINGS -> {
-
+                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
                 }
                 ScheduleAction.UPDATE -> {
                     updateSchedule(activeSchedule.toSavedSchedule())
                 }
                 ScheduleAction.EDIT -> {
-
+                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
                 }
                 ScheduleAction.SHARE -> {
-
+                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
                 }
                 ScheduleAction.MORE -> {
-
+                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
                 }
                 ScheduleAction.EXAMS -> {
-
+                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
                 }
                 ScheduleAction.DELETE -> {
                     deleteWarning(activeSchedule.toSavedSchedule())

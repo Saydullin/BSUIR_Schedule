@@ -9,14 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
-import com.bsuir.bsuirschedule.databinding.TabViewsBinding
-import com.bsuir.bsuirschedule.domain.models.ScheduleTabs
-import com.bsuir.bsuirschedule.presentation.adapters.ScheduleVPAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
-import com.bsuir.bsuirschedule.presentation.popupMenu.MainPopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.*
-import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class MainScheduleFragment : Fragment() {
@@ -62,22 +57,8 @@ class MainScheduleFragment : Fragment() {
             binding.titleWeekNumber.text = "$currentWeek $weekText"
         }
 
-        val settingsClick = {
+        binding.settingsButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_settingsFragment)
-        }
-
-        val aboutClick = {
-            Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.scheduleMoreButton.setOnClickListener {
-            val popupMenu = MainPopupMenu(
-                context = context!!,
-                onSettingsClick = settingsClick,
-                onAboutClick = aboutClick
-            ).initPopupMenu(binding.scheduleMoreButton)
-
-            popupMenu.show()
         }
 
         binding.scheduleListButton.setOnClickListener {

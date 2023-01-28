@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import androidx.navigation.navOptions
 import androidx.viewpager2.widget.ViewPager2
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentWelcomeBinding
@@ -74,6 +72,11 @@ class WelcomeFragment : Fragment() {
             Toast.makeText(context, getString(R.string.welcome_load_schedule), Toast.LENGTH_SHORT).show()
         }
 
+        binding.skipButton.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_firstScheduleAddFragment)
+            Toast.makeText(context, getString(R.string.welcome_load_schedule), Toast.LENGTH_SHORT).show()
+        }
+
         binding.viewPager.adapter = WelcomeAdapter(context!!, welcomeTextList)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -93,8 +96,8 @@ class WelcomeFragment : Fragment() {
                 }
                 prevPosition = position
                 if (position == welcomeTextList.size - 1) {
+                    binding.skipButton.visibility = View.GONE
                     binding.getStartedButton.visibility = View.VISIBLE
-                    binding.getStartedButton.animate().setStartDelay(300).alpha(1f)
                 }
             }
         })

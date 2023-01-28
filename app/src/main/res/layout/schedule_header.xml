@@ -67,9 +67,8 @@
                 </LinearLayout>
 
                 <ImageButton
-                    style="@style/Theme.BSUIRSchedule.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/optionsButton"
+                    style="@style/Theme.BSUIRSchedule.ImageButton.Medium"
                     android:contentDescription="deds"
                     android:src="@drawable/ic_more_hint"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -111,22 +110,12 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
 
-            <ImageButton
-                style="@style/Theme.BSUIRSchedule.ImageButton"
+            <com.bsuir.bsuirschedule.presentation.views.ScheduleSubgroupView
+                android:id="@+id/scheduleSubgroupView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="ded"
-                android:src="@drawable/ic_subgroup"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="TouchTargetSizeCheck"
-                tools:layout_editor_absoluteY="10dp" />
-
-            <TextView
-                android:id="@+id/subgroupText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                tools:text="2" />
+                android:layout_marginVertical="10dp"
+                app:subgroupNum="1" />
 
         </LinearLayout>
 

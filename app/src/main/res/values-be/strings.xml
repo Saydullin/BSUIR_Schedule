@@ -100,6 +100,7 @@
     <string name="subject_note">Заўвага:</string>
     <string name="schedule_week_number">%d тыдзень</string>
     <string name="exams">Экзамены</string>
+    <string name="subject_date_range">З %s па %s</string>
     <string name="data_error">Памылка апрацоўкі дадзеных</string>
     <string name="data_error_caption">Паспрабуйце абнавіць дадзеныя</string>
     <string name="server_error">Памылка сервера</string>
@@ -125,6 +126,8 @@
     <string name="schedule_subject_ignored">Занятак будзе ігнаравацца</string>
     <string name="schedule_subject_ignored_caption">У статусе раскладу больш не будзе ўлічвацца гэты занятак</string>
     <string name="schedule_subject_not_ignored">Заняткі будуць улічвацца</string>
+    <string name="all_schedules_updated_success">Усе расклады абноўлены</string>
+    <string name="all_schedules_updated_success_caption">Была зменена структура даных, расклады прыйшлося абнавіць.</string>
     <string name="schedule_subject_not_ignored_caption">Гэты занятак зараз будзе ўлічвацца ў статусе раскладу.</string>
     <string name="schedule_subject_deleted_caption">Заняткі паспяхова выдалены з гэтага раскладу.</string>
     <string name="schedule_week_loaded_error_caption">Не ўдалося загрузіць нумар бягучага тыдня</string>
@@ -309,4 +312,11 @@
     <string name="settings_theme_light">" Светлая"</string>
     <string name="settings_theme_dark">" Цёмная"</string>
     <string name="settings_theme_chosen">" Абраная %s тэма"</string>
+    <string name="schedule_header_menu_edit">Змяніць</string>
+    <string name="schedule_header_menu_update">Абнавіць</string>
+    <string name="schedule_header_menu_settings">Налады</string>
+    <string name="schedule_header_menu_share">Падзяліцца</string>
+    <string name="schedule_header_menu_more">Дадаткова</string>
+    <string name="schedule_header_menu_delete">Выдаліць</string>
+    <string name="all_subgroups_select">Усе падгрупы</string>
 </resources>

@@ -72,7 +72,6 @@
     <string name="cd_logo_icon" translatable="false">logo icon</string>
     <string name="cd_error_icon" translatable="false">error icon</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="test_schedule_title" translatable="false">Степанова Татьяна Сергеевна</string>
     <string name="test_schedule_subtitle" translatable="false">к.ф.-м.н. доцент</string>
@@ -121,7 +120,8 @@
     <string name="popup_activate">Пойду</string>
     <string name="popup_delete">Удалить</string>
     <string name="all_subgroups">Для всех подгрупп</string>
-    <string name="all_subgroups_short">*</string>
+    <string name="all_subgroups_short">Все</string>
+    <string name="all_subgroups_select">Все подгруппы</string>
     <string name="subgroup">Для %d подгруппы</string>
     <string name="subgroup_selected">%d подгруппа выбрана</string>
     <string name="subject_time">с %s до %s</string>
@@ -129,6 +129,7 @@
     <string name="subject_note">Примечание:</string>
     <string name="schedule_week_number">%d неделя</string>
     <string name="exams">Экзамены</string>
+    <string name="subject_date_range">C %s по %s</string>
 
     <!--  Errors  -->
     <string name="data_error">Ошибка обработки данных</string>
@@ -156,6 +157,8 @@
     <string name="schedule_subject_ignored">Занятие будет игнорироваться</string>
     <string name="schedule_subject_ignored_caption">В статусе расписания больше не будет учитываться это занятие</string>
     <string name="schedule_subject_not_ignored">Занятие будет учитываться</string>
+    <string name="all_schedules_updated_success">Все расписания обновлены</string>
+    <string name="all_schedules_updated_success_caption">Была изменена структура данных, расписания пришлось обновить</string>
     <string name="schedule_subject_not_ignored_caption">Это занятие теперь будет учитываться в статусе расписания</string>
     <string name="schedule_subject_deleted_caption">Занятие успешно удалено с этого расписания</string>
     <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
@@ -194,6 +197,7 @@
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="active_language_code" translatable="false">active_language_code</string>
     <string name="active_theme_code" translatable="false">active_theme_code</string>
+    <string name="schedule_update_counter" translatable="false">schedule_update_counter</string>
     <string name="auto_update_schedule_id" translatable="false">auto_update_schedule_id</string>
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
@@ -365,6 +369,12 @@
     <string name="full_title_label">Полное название</string>
     <string name="short_title_label">Короткое название</string>
     <string name="see">Посмотреть</string>
+    <string name="schedule_header_menu_edit">Изменить</string>
+    <string name="schedule_header_menu_update">Обновить</string>
+    <string name="schedule_header_menu_settings">Настройки</string>
+    <string name="schedule_header_menu_share">Поделиться</string>
+    <string name="schedule_header_menu_more">Дополнительно</string>
+    <string name="schedule_header_menu_delete">Удалить</string>
 
 </resources>
 

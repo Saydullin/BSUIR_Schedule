@@ -26,4 +26,10 @@ interface SharedPrefsRepository {
 
     fun setTheme(isDark: Boolean)
 
+    fun getScheduleUpdateCounter(): Int
+
+    fun setScheduleUpdateCounter(counter: Int)
+
 }
+
+

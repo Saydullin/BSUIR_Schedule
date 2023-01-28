@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -74,8 +75,8 @@ class ScheduleController {
             calendarDate.incDate(index)
             day.schedule.map { subject ->
                 if (!subject.startLessonTime.isNullOrEmpty() && !subject.endLessonTime.isNullOrEmpty()) {
-                    val startMillis = calendarDate.getTimeMillis(subject.startLessonTime)
-                    val endMillis = calendarDate.getTimeMillis(subject.endLessonTime)
+                    val startMillis = calendarDate.getTimeInMillis(subject.startLessonTime)
+                    val endMillis = calendarDate.getTimeInMillis(subject.endLessonTime)
                     subject.startMillis = startMillis
                     subject.endMillis = endMillis
                 }
@@ -106,6 +107,12 @@ class ScheduleController {
         return actualSubject
     }
 
+    /**
+     * Function that expands schedule for all weeks, by schedule.startDate and schedule.endDate
+     * @param schedule - Schedule class
+     * @param currentWeekNumber - Current week number
+     * @return Same Schedule class with multiplied days and subjects
+     */
     private fun getMultipliedSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
         val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
         var daysCounter = 0
@@ -113,6 +120,7 @@ class ScheduleController {
 
         while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
             calendarDate.incDate(daysCounter)
+            val currentTimeInMillis = calendarDate.getDateUnixTime();
             val weekNumber = calendarDate.getWeekNumber()
             val weekDayNumber = calendarDate.getWeekDayNumber()
             val weekNumberDays = schedule.schedules.filter { it.weekDayNumber == weekDayNumber }
@@ -130,7 +138,15 @@ class ScheduleController {
             }
             weekNumberDaysCopy.map { scheduleDay ->
                 val subjects = scheduleDay.schedule.filter { subject ->
-                    weekNumber in (subject.weekNumber ?: ArrayList())
+                    if (subject.startLessonDate.isNullOrEmpty() || subject.endLessonDate.isNullOrEmpty()) {
+                        weekNumber in (subject.weekNumber ?: ArrayList())
+                    } else {
+                        val startMillis = calendarDate.getDateInMillis(subject.startLessonDate)
+                        val endMillis = calendarDate.getDateInMillis(subject.endLessonDate)
+                        weekNumber in (subject.weekNumber ?: ArrayList()) &&
+                                currentTimeInMillis >= calendarDate.resetMillisTime(startMillis) &&
+                                currentTimeInMillis <= calendarDate.resetMillisTime(endMillis)
+                    }
                 } as ArrayList<ScheduleSubject>
                 val subjectsCopy = subjects.map { it.copy() }
                 scheduleDays.add(

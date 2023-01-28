@@ -106,6 +106,12 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.schedule_subject_not_ignored_caption)
                 )
             }
+            Resource.ALL_SCHEDULES_UPDATED_SUCCESS -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.all_schedules_updated_success),
+                    caption = resources.getString(R.string.all_schedules_updated_success_caption)
+                )
+            }
             else -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.unknown_error),

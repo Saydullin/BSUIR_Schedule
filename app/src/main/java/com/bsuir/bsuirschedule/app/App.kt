@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.work.*
+import com.bsuir.bsuirschedule.BuildConfig
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.presentation.activities.BaseActivity
 import com.bsuir.bsuirschedule.presentation.di.appModule

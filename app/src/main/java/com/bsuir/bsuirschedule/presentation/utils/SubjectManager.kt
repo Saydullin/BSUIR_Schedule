@@ -199,6 +199,18 @@ class SubjectManager(
         }
     }
 
+    fun getSubjectTextDate(datePattern: String?): String? {
+        if (datePattern.isNullOrEmpty()) return null
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val dateTextFormat = SimpleDateFormat("d MMMM")
+        val datePatternTime = dateFormat.parse(datePattern)
+        if (datePatternTime != null) {
+            return dateTextFormat.format(datePatternTime.time)
+        }
+
+        return null
+    }
+
 }
 
 

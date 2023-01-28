@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.bsuir.bsuirschedule.BuildConfig
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentSplashScreenBinding
@@ -30,6 +31,7 @@ class SplashScreenFragment : Fragment() {
 
         if (isFirstTime) {
             prefs.setFirstTime(false)
+            prefs.setScheduleUpdateCounter(BuildConfig.SCHEDULES_UPDATE_COUNTER)
             groupItemsVM.updateInitDataAndGroups()
             employeeItemsVM.updateDepartmentsAndEmployeeItems()
             currentWeekVM.getCurrentWeekAPI()

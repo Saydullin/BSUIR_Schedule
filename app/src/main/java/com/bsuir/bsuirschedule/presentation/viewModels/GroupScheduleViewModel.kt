@@ -3,9 +3,11 @@ package com.bsuir.bsuirschedule.presentation.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bsuir.bsuirschedule.BuildConfig
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
+import com.bsuir.bsuirschedule.domain.usecase.GetSavedScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.*
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -16,6 +18,7 @@ class GroupScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase,
     private val scheduleSubjectUseCase: ScheduleSubjectUseCase,
     private val updateScheduleSettingsUseCase: UpdateScheduleSettingsUseCase,
+    private val savedScheduleUseCase: GetSavedScheduleUseCase,
     private val saveScheduleUseCase: SaveScheduleUseCase,
     private val deleteScheduleUseCase: DeleteScheduleUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
@@ -49,6 +52,13 @@ class GroupScheduleViewModel(
     val dataLoadingStatus = dataLoading
     val groupLoadingStatus = groupLoading
     val employeeLoadingStatus = employeeLoading
+
+    init {
+        if (sharedPrefsUseCase.getScheduleCounter() < BuildConfig.SCHEDULES_UPDATE_COUNTER) {
+            sharedPrefsUseCase.setScheduleCounter(BuildConfig.SCHEDULES_UPDATE_COUNTER)
+            updateAllSchedules()
+        }
+    }
 
     fun setScheduleLoadedNull() {
         scheduleLoaded.value = null
@@ -290,7 +300,7 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun getGroupScheduleAPI(group: Group, isUpdate: Boolean = false) {
+    fun getGroupScheduleAPI(group: Group, isUpdate: Boolean = false, toNotify: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
             groupLoading.postValue(true)
@@ -308,10 +318,12 @@ class GroupScheduleViewModel(
                     val groupSchedule = groupScheduleResponse.data!!
                     saveGroupSchedule(groupSchedule)
                     scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isNotExistExams()))
-                    if (isUpdate) {
-                        success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
-                    } else {
-                        success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                    if (toNotify) {
+                        if (isUpdate) {
+                            success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
+                        } else {
+                            success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                        }
                     }
                 }
                 is Resource.Error -> {
@@ -327,7 +339,7 @@ class GroupScheduleViewModel(
         }
     }
 
-    fun getEmployeeScheduleAPI(employee: Employee, isUpdate: Boolean = false) {
+    fun getEmployeeScheduleAPI(employee: Employee, isUpdate: Boolean = false, toNotify: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
             loading.postValue(true)
             employeeLoading.postValue(true)
@@ -338,10 +350,12 @@ class GroupScheduleViewModel(
                     val data = groupSchedule.data!!
                     saveGroupSchedule(data)
                     scheduleLoaded.postValue(employee.toSavedSchedule(!data.isNotExistExams()))
-                    if (isUpdate) {
-                        success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
-                    } else {
-                        success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                    if (toNotify) {
+                        if (isUpdate) {
+                            success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
+                        } else {
+                            success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                        }
                     }
                 }
                 is Resource.Error -> {
@@ -485,6 +499,42 @@ class GroupScheduleViewModel(
                     ))
                 }
             }
+        }
+    }
+
+    private fun updateAllSchedules() {
+        viewModelScope.launch(Dispatchers.IO) {
+            loading.postValue(true)
+            when (
+                val savedSchedules = savedScheduleUseCase.getSavedSchedules()
+            ) {
+                is Resource.Success -> {
+                    val savedSchedulesList = savedSchedules.data ?: arrayListOf()
+                    val updateAllSchedulesIO = launch(Dispatchers.IO) {
+                        savedSchedulesList.forEach { savedSchedule ->
+                            if (savedSchedule.isGroup) {
+                                getGroupScheduleAPI(savedSchedule.group, isUpdate = true, toNotify = false)
+                            } else {
+                                getEmployeeScheduleAPI(savedSchedule.employee, isUpdate = true, toNotify = false)
+                            }
+                        }
+                    }
+                    updateAllSchedulesIO.join()
+                    if (updateAllSchedulesIO.isCancelled) {
+                        success.postValue(Resource.UPDATE_ERROR)
+                    } else {
+                        success.postValue(Resource.ALL_SCHEDULES_UPDATED_SUCCESS)
+                    }
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = savedSchedules.errorType,
+                        message = savedSchedules.message
+                    ))
+                }
+            }
+            loading.postValue(false)
         }
     }
 

@@ -45,11 +45,7 @@ class MainScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScheduleBinding.inflate(inflater)
-        val tabViews = TabViewsBinding.inflate(inflater)
         val weekText = getString(R.string.week)
-
-//        binding.scheduleViewPager.adapter = ScheduleVPAdapter(activity!!)
-//        binding.scheduleItemsTabLayout.visibility = View.VISIBLE
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) {
@@ -59,16 +55,6 @@ class MainScheduleFragment : Fragment() {
             }
             binding.hiddenPlaceholder.visibility = View.GONE
             binding.mainScheduleContent.visibility = View.VISIBLE
-
-//            TabLayoutMediator(binding.scheduleItemsTabLayout, binding.scheduleViewPager) { tab, position ->
-//                when (position) {
-//                    ScheduleTabs.SCHEDULE -> tab.customView = tabViews.schedule
-//                    ScheduleTabs.EXAMS -> tab.customView = tabViews.exams
-//                    ScheduleTabs.CALENDAR -> tab.customView = tabViews.calendar
-//                    ScheduleTabs.CONTROL -> tab.customView = tabViews.scheduleControl
-//                    else -> tab.customView = tabViews.schedule
-//                }
-//            }.attach()
         }
 
         currentWeekVM.getCurrentWeek()

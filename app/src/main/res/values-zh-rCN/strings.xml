@@ -30,6 +30,7 @@
     <string name="subject_time">从 %s 到 %s</string>
     <string name="subject_weeks">%s 周</string>
     <string name="subject_note">笔记：</string>
+    <string name="subject_date_range">从 %s 到 %s</string>
     <string name="data_error">数据处理错误</string>
     <string name="data_error_caption">尝试更新您的数据</string>
     <string name="server_error">服务器错误</string>
@@ -181,6 +182,8 @@
     <string name="schedule_subject_ignored">该活动将被忽略</string>
     <string name="schedule_subject_ignored_caption">日程状态将不再包括此类</string>
     <string name="schedule_subject_not_ignored">职业会被考虑</string>
+    <string name="all_schedules_updated_success">所有时间表已更新</string>
+    <string name="all_schedules_updated_success_caption">数据结构已更改，必须更新时间表</string>
     <string name="schedule_subject_not_ignored_caption">此活动现在将计入计划状态</string>
     <string name="popup_deactivate">不会去</string>
     <string name="popup_activate">我会去</string>
@@ -306,5 +309,12 @@
     <string name="settings_theme_light">光</string>
     <string name="settings_theme_dark">黑暗的</string>
     <string name="settings_theme_chosen">选择了 %s 个主题</string>
+    <string name="schedule_header_menu_edit">改变</string>
+    <string name="schedule_header_menu_update">刷新</string>
+    <string name="schedule_header_menu_settings">设置</string>
+    <string name="schedule_header_menu_share">分享</string>
+    <string name="schedule_header_menu_more">此外</string>
+    <string name="schedule_header_menu_delete">删除</string>
+    <string name="all_subgroups_select">所有子组</string>
 
 </resources>

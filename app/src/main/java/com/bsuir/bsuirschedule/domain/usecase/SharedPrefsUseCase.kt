@@ -30,4 +30,12 @@ class SharedPrefsUseCase(
         sharedPrefsRepository.setActiveScheduleId(scheduleId)
     }
 
+    fun getScheduleCounter(): Int {
+        return sharedPrefsRepository.getScheduleUpdateCounter()
+    }
+
+    fun setScheduleCounter(counter: Int) {
+        sharedPrefsRepository.setScheduleUpdateCounter(counter)
+    }
+
 }

@@ -25,7 +25,7 @@ sealed class Resource<T>(
         const val SCHEDULE_SUBJECT_EDITED = 14
         const val SCHEDULE_SUBJECT_IGNORED = 15
         const val SCHEDULE_SUBJECT_NOT_IGNORED = 16
-
+        const val ALL_SCHEDULES_UPDATED_SUCCESS = 17
     }
 
     class Success<T>(data: T?): Resource<T>(data)

@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleHeaderBinding
+import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleHeaderMenu
 import com.bumptech.glide.Glide
 
 enum class ScheduleAction {
-    DIALOG_OPEN, UPDATE, EDIT, SETTINGS, EXAMS, DELETE
+    DIALOG_OPEN, UPDATE, SHARE, EDIT, SETTINGS, EXAMS, MORE, DELETE
 }
 
 typealias OnScheduleActionListener = (ScheduleAction) -> Unit
+
+typealias OnScheduleSubgroupListener = (Int) -> Unit
 
 class ScheduleHeaderView(
     context: Context,
@@ -24,6 +27,7 @@ class ScheduleHeaderView(
     private val binding = ScheduleHeaderBinding.inflate(LayoutInflater.from(context),this)
 
     private var menuListener: OnScheduleActionListener? = null
+    private var subgroupListener: OnScheduleSubgroupListener? = null
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -62,10 +66,30 @@ class ScheduleHeaderView(
         binding.scheduleHeader.setOnClickListener {
             this.menuListener?.invoke(ScheduleAction.DIALOG_OPEN)
         }
+        binding.optionsButton.setOnClickListener {
+            val scheduleHeaderMenu = ScheduleHeaderMenu(
+                context = context!!,
+                onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
+                onEditClick = { this.menuListener?.invoke(ScheduleAction.EDIT) },
+                onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
+                onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
+                onMoreClick = { this.menuListener?.invoke(ScheduleAction.MORE) },
+                onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
+            ).initPopupMenu(binding.optionsButton)
+
+            scheduleHeaderMenu.show()
+        }
+        binding.scheduleSubgroupView.setSubgroupListener {
+            subgroupListener?.invoke(it)
+        }
     }
 
     fun setMenuListener(listener: OnScheduleActionListener) {
         this.menuListener = listener
+    }
+
+    fun setSubgroupListener(listener: OnScheduleSubgroupListener) {
+        this.subgroupListener = listener
     }
 
     fun setTitle(title: String) {
@@ -91,11 +115,15 @@ class ScheduleHeaderView(
     }
 
     fun setSubgroupText(subgroupText: String) {
-        binding.subgroupText.text = subgroupText
+        binding.scheduleSubgroupView.setSubgroupText(subgroupText)
+    }
+
+    fun setSubgroupItems(subgroups: List<Int>) {
+        binding.scheduleSubgroupView.setSubgroups(subgroups)
     }
 
     fun setLocationText(locationText: String) {
-        binding.location.text = locationText;
+        binding.location.text = locationText
     }
 
 }

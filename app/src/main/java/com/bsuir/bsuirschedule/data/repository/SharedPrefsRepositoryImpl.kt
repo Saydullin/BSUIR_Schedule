@@ -93,6 +93,23 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
+    override fun getScheduleUpdateCounter(): Int {
+        return prefs.getInt(
+            context.getString(R.string.schedule_update_counter),
+            -1
+        )
+    }
+
+    override fun setScheduleUpdateCounter(counter: Int) {
+        with(prefs.edit()) {
+            putInt(
+                context.getString(R.string.schedule_update_counter),
+                counter
+            )
+            apply()
+        }
+    }
+
 }
 
 

@@ -85,6 +85,11 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="Theme.BSUIRSchedule.ImageButton.Medium" parent="Theme.BSUIRSchedule.ImageButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
     <style name="Theme.BSUIRSchedule.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

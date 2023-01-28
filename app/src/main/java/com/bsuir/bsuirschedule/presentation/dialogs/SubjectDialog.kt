@@ -39,6 +39,16 @@ class SubjectDialog(
         binding.subjectTypeName.text = subjectManager.getSubjectType()
         subjectManager.setSubjectTypeView(binding.subjectType)
 
+        if (subject.startLessonDate.isNullOrEmpty() || subject.endLessonDate.isNullOrEmpty()) {
+            binding.subjectDateRangeContainer.visibility = View.GONE
+        } else {
+            binding.subjectDateRangeContainer.visibility = View.VISIBLE
+            val subjectStartDateText = subjectManager.getSubjectTextDate(subject.startLessonDate)
+            val subjectEndDateText = subjectManager.getSubjectTextDate(subject.endLessonDate)
+            val subjectDateRangeText = getString(R.string.subject_date_range, subjectStartDateText, subjectEndDateText)
+            binding.subjectDateRange.text = subjectDateRangeText
+        }
+
         binding.subjectSubgroup.text = subjectManager.getSubjectSubgroup()
 
         if (subject.note != null && subject.note!!.isNotEmpty()) {

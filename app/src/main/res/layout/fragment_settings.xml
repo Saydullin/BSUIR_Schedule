@@ -69,14 +69,6 @@
                 android:id="@+id/nested_theme_settings"
                 layout="@layout/settings_theme" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
-
-            <include
-                android:id="@+id/nested_schedule_settings"
-                layout="@layout/settings_schedule" />
-
         </LinearLayout>
 
     </ScrollView>

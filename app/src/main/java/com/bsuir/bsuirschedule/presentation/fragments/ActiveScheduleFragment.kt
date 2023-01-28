@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.dialogs.SavedScheduleDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
@@ -38,6 +39,8 @@ class ActiveScheduleFragment : Fragment() {
             val selectedSubgroup = schedule.settings.subgroup.selectedNum
 
             with (binding.scheduleHeaderView) {
+                setSubgroupItems(schedule.subgroups)
+
                 if (schedule.isGroup()) {
                     val group = schedule.group
                     val courseText = getString(R.string.course)
@@ -52,13 +55,20 @@ class ActiveScheduleFragment : Fragment() {
                     setDescription(employee.getRankAndDegree())
                     binding.scheduleHeaderView.setDescription(employee.getRankAndDegree())
                 }
-
                 setLocationText(getCurrentSubject(schedule.subjectNow))
 
                 if (selectedSubgroup == 0) {
                     setSubgroupText(resources.getString(R.string.all_subgroups_short))
                 } else {
                     setSubgroupText(selectedSubgroup.toString())
+                }
+
+                setSubgroupListener { subgroupNum ->
+                    val scheduleSettings = schedule.settings
+                    if (scheduleSettings.subgroup.selectedNum != subgroupNum) {
+                        scheduleSettings.subgroup.selectedNum = subgroupNum
+                        groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
+                    }
                 }
             }
         }
@@ -91,9 +101,9 @@ class ActiveScheduleFragment : Fragment() {
         }
 
         binding.scheduleHeaderView.setMenuListener {
+            val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setMenuListener
             when (it) {
                 ScheduleAction.DIALOG_OPEN -> {
-                    val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setMenuListener
                     val savedScheduleDialog = SavedScheduleDialog(
                         schedule = activeSchedule,
                         delete = deleteWarning,
@@ -105,16 +115,22 @@ class ActiveScheduleFragment : Fragment() {
 
                 }
                 ScheduleAction.UPDATE -> {
-
+                    updateSchedule(activeSchedule.toSavedSchedule())
                 }
                 ScheduleAction.EDIT -> {
+
+                }
+                ScheduleAction.SHARE -> {
+
+                }
+                ScheduleAction.MORE -> {
 
                 }
                 ScheduleAction.EXAMS -> {
 
                 }
                 ScheduleAction.DELETE -> {
-
+                    deleteWarning(activeSchedule.toSavedSchedule())
                 }
             }
         }

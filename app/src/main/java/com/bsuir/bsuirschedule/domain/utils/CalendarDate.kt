@@ -88,7 +88,25 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return getDate()
     }
 
-    fun getTimeMillis(timePattern: String): Long {
+    fun resetMillisTime(millisTime: Long): Long {
+        val calMillis = Calendar.getInstance()
+        calMillis.timeInMillis = millisTime
+        calMillis.set(Calendar.HOUR, 0)
+        calMillis.set(Calendar.HOUR_OF_DAY, 0)
+        calMillis.set(Calendar.MINUTE, 0)
+        calMillis.set(Calendar.SECOND, 0)
+        calMillis.set(Calendar.MILLISECOND, 0)
+
+        return calMillis.timeInMillis
+    }
+
+    fun getDateInMillis(datePattern: String): Long {
+        val inputFormat = SimpleDateFormat("dd.MM.yyyy")
+
+        return inputFormat.parse(datePattern)?.time ?: 0
+    }
+
+    fun getTimeInMillis(timePattern: String): Long {
         val inputFormat = SimpleDateFormat("dd.MM.yyyy")
         val timeFormat = SimpleDateFormat("dd.MM.yyyy kk:mm")
         val resultFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $timePattern")

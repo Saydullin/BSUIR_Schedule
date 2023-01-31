@@ -5,11 +5,11 @@
         android:icon="@drawable/ic_update"
         android:iconTint="?attr/colorPrimary"
         android:title="@string/schedule_header_menu_update" />
-    <item
-        android:id="@+id/edit"
-        android:icon="@drawable/ic_edit"
-        android:iconTint="?attr/colorPrimary"
-        android:title="@string/schedule_header_menu_edit" />
+<!--    <item-->
+<!--        android:id="@+id/edit"-->
+<!--        android:icon="@drawable/ic_edit"-->
+<!--        android:iconTint="?attr/colorPrimary"-->
+<!--        android:title="@string/schedule_header_menu_edit" />-->
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings_primary"

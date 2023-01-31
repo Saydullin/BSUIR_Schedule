@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="?attr/primaryOnColor"
+    tools:context=".presentation.fragments.EditScheduleFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/primaryColor"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="15dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/cancel_button"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_schedule_list" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/schedule_edit_title"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/text_primary"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/add_schedule_button"
+            android:src="@drawable/ic_restart"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_schedule_list" />
+
+    </LinearLayout>
+
+    <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
+        android:id="@+id/scheduleHeaderView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="151003"
+        app:subTitle="ФКСИС ПОИТ"
+        app:subgroup="3"
+        app:isPreview="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/schedule_daily_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/schedule_day" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.Button.Hint"
+            android:text="@string/reset" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.BSUIRSchedule.Button"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

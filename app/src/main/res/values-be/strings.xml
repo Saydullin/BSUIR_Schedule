@@ -68,7 +68,7 @@
     <string name="schedules_all_list_title">" Усе расклады"</string>
     <string name="schedules_subject_edit_title">Змяніць занятак</string>
     <string name="schedules_first_add_all_list_title">Абярыце раскладу</string>
-    <string name="schedules_settings_title">Налады</string>
+    <string name="settings_title">Налады</string>
     <string name="schedules_no_lessons">Няма заняткаў</string>
     <string name="tab_item_group">Групы</string>
     <string name="tab_item_employee">Выкладчыкі</string>

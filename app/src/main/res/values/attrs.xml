@@ -17,6 +17,7 @@
         <attr name="titleText" format="string" />
         <attr name="subTitle" format="string" />
         <attr name="subgroup" format="string" />
+        <attr name="isPreview" format="boolean">false</attr>
     </declare-styleable>
 
     <declare-styleable name="ScheduleSubgroupView">

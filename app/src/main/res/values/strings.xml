@@ -91,12 +91,14 @@
     <string name="test_header_title">0 неделя</string>
     <string name="controls_settings">Настройки расписание</string>
     <string name="schedules_list_title">Мои расписания</string>
+    <string name="schedule_edit_title">Изменить расписание</string>
     <string name="no_teacher_title">Преподаватель не указан</string>
     <string name="no_group_title">Группа не указана</string>
     <string name="schedules_all_list_title">Все расписания</string>
     <string name="schedules_subject_edit_title">Изменить занятие</string>
     <string name="schedules_first_add_all_list_title">Выберите расписания</string>
-    <string name="schedules_settings_title">Настройки</string>
+    <string name="settings_title">Настройки</string>
+    <string name="schedules_settings_title">Настройки расписания</string>
     <string name="schedules_no_lessons">Нет занятий</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>

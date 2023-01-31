@@ -114,13 +114,13 @@ class ActiveScheduleFragment : Fragment() {
                     savedScheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
                 }
                 ScheduleAction.SETTINGS -> {
-                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
+                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSettingsFragment)
                 }
                 ScheduleAction.UPDATE -> {
                     updateSchedule(activeSchedule.toSavedSchedule())
                 }
                 ScheduleAction.EDIT -> {
-                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
+                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_editScheduleFragment)
                 }
                 ScheduleAction.SHARE -> {
                     Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()

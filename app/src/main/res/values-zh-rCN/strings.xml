@@ -58,7 +58,7 @@
     <string name="load_schedule_caption">请稍等</string>
     <string name="exams">考试</string>
     <string name="consultation">咨询</string>
-    <string name="schedules_settings_title">设置</string>
+    <string name="settings_title">设置</string>
     <string name="tab_item_schedule">教训</string>
     <string name="tab_item_exams">考试</string>
     <string name="tab_item_schedule_control">控制</string>

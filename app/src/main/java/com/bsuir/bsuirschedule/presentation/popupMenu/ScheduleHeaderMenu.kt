@@ -26,10 +26,6 @@ class ScheduleHeaderMenu(
                     onUpdateClick()
                     true
                 }
-                R.id.edit -> {
-                    onEditClick()
-                    true
-                }
                 R.id.settings -> {
                     onSettingsClick()
                     true

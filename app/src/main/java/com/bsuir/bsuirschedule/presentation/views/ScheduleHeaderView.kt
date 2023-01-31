@@ -3,6 +3,7 @@ package com.bsuir.bsuirschedule.presentation.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleHeaderBinding
@@ -28,6 +29,7 @@ class ScheduleHeaderView(
 
     private var menuListener: OnScheduleActionListener? = null
     private var subgroupListener: OnScheduleSubgroupListener? = null
+    private var isPreview = false
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -47,15 +49,20 @@ class ScheduleHeaderView(
             val title = typedArray.getString(R.styleable.ScheduleHeaderView_titleText)
             val subtitleText = typedArray.getString(R.styleable.ScheduleHeaderView_subTitle)
             val subgroupText = typedArray.getString(R.styleable.ScheduleHeaderView_subgroup)
+            isPreview = typedArray.getBoolean(R.styleable.ScheduleHeaderView_isPreview, false)
 
-            if (!imageRes.isNullOrEmpty()) {
-                Glide.with(context)
-                    .load(imageRes)
-                    .placeholder(R.drawable.ic_person_placeholder)
-                    .into(profileImage)
+            Glide.with(context)
+                .load(imageRes)
+                .placeholder(R.drawable.ic_person_placeholder)
+                .into(profileImage)
+            setTitle(title ?: "(empty)")
+            setDescription(subtitleText ?: "(empty)")
+            setSubgroupText(subgroupText ?: "(empty)")
+
+            if (isPreview) {
+                optionsButton.visibility = View.GONE
+                controls.visibility = View.GONE
             }
-            headerTitle.text = title ?: "(empty)"
-            subTitle.text = subtitleText ?: "(empty)"
         }
 
         typedArray.recycle()
@@ -65,18 +72,20 @@ class ScheduleHeaderView(
         binding.scheduleHeader.setOnClickListener {
             this.menuListener?.invoke(ScheduleAction.DIALOG_OPEN)
         }
-        binding.optionsButton.setOnClickListener {
-            val scheduleHeaderMenu = ScheduleHeaderMenu(
-                context = context!!,
-                onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
-                onEditClick = { this.menuListener?.invoke(ScheduleAction.EDIT) },
-                onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
-                onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
-                onMoreClick = { this.menuListener?.invoke(ScheduleAction.MORE) },
-                onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
-            ).initPopupMenu(binding.optionsButton)
+        if (!isPreview) {
+            binding.optionsButton.setOnClickListener {
+                val scheduleHeaderMenu = ScheduleHeaderMenu(
+                    context = context!!,
+                    onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
+                    onEditClick = { this.menuListener?.invoke(ScheduleAction.EDIT) },
+                    onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
+                    onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
+                    onMoreClick = { this.menuListener?.invoke(ScheduleAction.MORE) },
+                    onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
+                ).initPopupMenu(binding.optionsButton)
 
-            scheduleHeaderMenu.show()
+                scheduleHeaderMenu.show()
+            }
         }
         binding.scheduleSubgroupView.setSubgroupListener {
             subgroupListener?.invoke(it)

@@ -39,15 +39,6 @@
 
     </LinearLayout>
 
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/active_subject_fragment"-->
-<!--        tools:layout="@layout/fragment_active_subject"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:layout_marginVertical="10dp"-->
-<!--        android:name="com.bsuir.bsuirschedule.presentation.fragments.ActiveSubjectFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -12,9 +12,11 @@
     <string name="last_update">%s 已更新</string>
     <string name="controls_settings">日程设置</string>
     <string name="schedules_list_title">我的日程</string>
+    <string name="schedule_edit_title">更改时间表</string>
     <string name="no_teacher_title">未列出教师</string>
     <string name="no_group_title">未指定组</string>
     <string name="schedules_all_list_title">所有时间表</string>
+    <string name="schedules_settings_title">日程设置</string>
     <string name="schedules_no_lessons">没有课</string>
     <string name="tab_item_group">团体</string>
     <string name="tab_item_employee">教师</string>
@@ -113,7 +115,7 @@
     <string name="exams_date_period">从 %s 到 %s 的考试</string>
     <string name="schedule_empty_date_period">没有课程表</string>
     <string name="exams_empty_date_period">没有考试</string>
-    <string name="settings_lang_caption">为此应用选择本地化</string>
+    <string name="settings_lang_caption">应用程序的本地化是部分的\n时间表将始终使用俄语。</string>
     <string name="settings_theme_caption">选择深色或浅色主题</string>
     <string name="settings_font_caption">尺寸可以缩小或放大</string>
     <string name="settings_schedule_caption">您可以更改日程设置</string>
@@ -307,7 +309,8 @@
         <item quantity="many">%d 分钟</item>
         <item quantity="other">%d 分钟</item>
     </plurals>
-    <string name="settings_theme_light">光</string>
+
+    <string name="settings_theme_light">浅色</string>
     <string name="settings_theme_dark">黑暗的</string>
     <string name="settings_theme_chosen">选择了 %s 个主题</string>
     <string name="schedule_header_menu_edit">改变</string>
@@ -320,3 +323,5 @@
     <string name="all_subgroups_select">所有子组</string>
 
 </resources>
+
+

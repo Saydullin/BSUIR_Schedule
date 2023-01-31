@@ -209,7 +209,7 @@
     <string name="no_items_placeholder">Расписания не загрузились ( Потяните вниз, чтобы обновить</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>
-    <string name="settings_lang_caption">Выберите локализацию для этого приложения</string>
+    <string name="settings_lang_caption">Локализация приложения частична.\nРасписания будут всегда на русском.</string>
     <string name="settings_theme_title">Цветовая тема</string>
     <string name="settings_theme_caption">Выберите темную или светлую тему</string>
     <string name="settings_feedback_title">Обратная связь</string>

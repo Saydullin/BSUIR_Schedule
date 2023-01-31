@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.res.Configuration
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -34,10 +35,17 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         val prefs = SharedPrefsRepositoryImpl(this)
+        val isDarkTheme = prefs.getThemeIsDark()
         val lang = prefs.getLanguage()
         if (lang != null) {
             val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
             AppCompatDelegate.setApplicationLocales(appLocale)
+        }
+
+        if (isDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         startKoin {

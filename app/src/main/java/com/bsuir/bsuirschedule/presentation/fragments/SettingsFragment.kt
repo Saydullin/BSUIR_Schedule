@@ -47,35 +47,31 @@ class SettingsFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_settingsFragment_to_mainScheduleFragment)
         }
 
-        val locales = AppCompatDelegate.getApplicationLocales()
-
-        Log.e("sady", locales.toLanguageTags())
-
         binding.nestedLangSettings.autoCompleteLangTextView.setOnItemClickListener { _, _, i, _ ->
             when (getLangList()[i].lowercase()) {
                 resources.getString(R.string.settings_lang_en).lowercase() -> {
-                    Locale.setDefault(Locale("en-EN"))
                     prefs.setLanguage("en-EN")
                     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-EN")
                     AppCompatDelegate.setApplicationLocales(appLocale)
+                    Locale.setDefault(Locale("en"))
                 }
                 resources.getString(R.string.settings_lang_ru).lowercase() -> {
-                    Locale.setDefault(Locale("ru-RU"))
                     prefs.setLanguage("ru-RU")
                     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ru-RU")
                     AppCompatDelegate.setApplicationLocales(appLocale)
+                    Locale.setDefault(Locale("ru"))
                 }
                 resources.getString(R.string.settings_lang_be).lowercase() -> {
-                    Locale.setDefault(Locale("be-BE"))
                     prefs.setLanguage("be-BE")
                     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("be-BE")
                     AppCompatDelegate.setApplicationLocales(appLocale)
+                    Locale.setDefault(Locale("be"))
                 }
                 resources.getString(R.string.settings_lang_zh).lowercase() -> {
-                    Locale.setDefault(Locale("zh"))
                     prefs.setLanguage("zh-CN")
-                    val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("zh")
+                    val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("zh-CN")
                     AppCompatDelegate.setApplicationLocales(appLocale)
+                    Locale.setDefault(Locale("zh"))
                 }
             }
             val chosenLangText = resources.getString(R.string.settings_lang_chosen, getLangList()[i])

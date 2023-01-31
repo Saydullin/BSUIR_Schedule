@@ -63,12 +63,14 @@
     <string name="test_header_title">0 тыдзень</string>
     <string name="controls_settings">Налады расклад</string>
     <string name="schedules_list_title">Мае расклады</string>
+    <string name="schedule_edit_title">Змяніць расклад</string>
     <string name="no_teacher_title">Выкладчык не пазначаны</string>
     <string name="no_group_title">Група не пазначана</string>
     <string name="schedules_all_list_title">" Усе расклады"</string>
     <string name="schedules_subject_edit_title">Змяніць занятак</string>
     <string name="schedules_first_add_all_list_title">Абярыце раскладу</string>
     <string name="settings_title">Налады</string>
+    <string name="schedules_settings_title">Налады раскладу</string>
     <string name="schedules_no_lessons">Няма заняткаў</string>
     <string name="tab_item_group">Групы</string>
     <string name="tab_item_employee">Выкладчыкі</string>
@@ -160,7 +162,7 @@
     <string name="no_items_placeholder">Расклады не загрузіліся ( Пацягніце ўніз, каб абнавіць</string>
     <string name="no_exams_placeholder">Няма экзаменаў</string>
     <string name="settings_lang_title">Мова прыкладання</string>
-    <string name="settings_lang_caption">Выберыце лакалізацыю для гэтага прыкладання</string>
+    <string name="settings_lang_caption">Лакалізацыя прыкладання частковая.\nРасклады будуць заўсёды на рускай.</string>
     <string name="settings_theme_title">Каляровая тэма</string>
     <string name="settings_theme_caption">Абярыце цёмную або светлую тэму</string>
     <string name="settings_feedback_title">зваротная сувязь</string>
@@ -310,9 +312,9 @@
         <item quantity="many">%d хвілін</item>
         <item quantity="other">%d хвілін</item>
     </plurals>
-    <string name="settings_theme_light">" Светлая"</string>
-    <string name="settings_theme_dark">" Цёмная"</string>
-    <string name="settings_theme_chosen">" Абраная %s тэма"</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Цёмная</string>
+    <string name="settings_theme_chosen">Абраная %s тэма</string>
     <string name="schedule_header_menu_edit">Змяніць</string>
     <string name="schedule_header_menu_update">Абнавіць</string>
     <string name="schedule_header_menu_settings">Налады</string>

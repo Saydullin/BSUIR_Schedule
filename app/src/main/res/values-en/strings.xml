@@ -12,9 +12,11 @@
     <string name="last_update">Was updated at %s</string>
     <string name="controls_settings">Schedule settings</string>
     <string name="schedules_list_title">My schedules</string>
+    <string name="schedule_edit_title">Change schedule</string>
     <string name="no_teacher_title">Teacher not listed</string>
     <string name="no_group_title">Group not listed</string>
     <string name="schedules_all_list_title">All schedules</string>
+    <string name="schedules_settings_title">Schedule settings</string>
     <string name="schedules_no_lessons">No lessons</string>
     <string name="tab_item_group">Groups</string>
     <string name="tab_item_employee">Teachers</string>
@@ -210,7 +212,7 @@
     <string name="exams_date_period">Exams from %s to %s</string>
     <string name="schedule_empty_date_period">No lessons schedule</string>
     <string name="exams_empty_date_period">No exams schedule</string>
-    <string name="settings_lang_caption">Choose a localization for this app</string>
+    <string name="settings_lang_caption">Localization of the application is partial.\nSchedules will always be in Russian.</string>
     <string name="settings_theme_caption">Choose a dark or light theme</string>
     <string name="settings_font_caption">Size can be reduced or enlarged</string>
     <string name="settings_schedule_caption">You can change schedule settings</string>

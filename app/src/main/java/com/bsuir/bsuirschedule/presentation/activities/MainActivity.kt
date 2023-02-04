@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.os.LocaleList
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.ActivityMainBinding
 import java.util.*
-
 
 class MainActivity : AppCompatActivity() {
 

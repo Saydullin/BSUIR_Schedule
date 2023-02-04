@@ -3,6 +3,7 @@
     <string name="course">курс</string>
     <string name="week">неделя</string>
     <string name="exam">Экзамен</string>
+    <string name="pretest">Зачет</string>
     <string name="tomorrow">Завтра</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
@@ -19,6 +20,8 @@
     <string name="after">через</string>
     <string name="delete">Удалить</string>
     <string name="schedule_updated_notification">Обновлено %s</string>
+    <string name="group_schedule_updated_notification">Группа %s</string>
+    <string name="employee_schedule_updated_notification">Преподаватель %s</string>
     <string name="schedule_updated">Расписание обновлено</string>
     <string name="group_schedule_updated">Обновлено расписание группы</string>
     <string name="employee_schedule_updated">Обновлено расписание преподавателя</string>
@@ -205,6 +208,7 @@
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>
+    <string name="no_schedule">%s (нет занятий)</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
     <string name="no_items_placeholder">Расписания не загрузились ( Потяните вниз, чтобы обновить</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
@@ -350,6 +354,7 @@
         <item quantity="many">%d минут</item>
         <item quantity="other">%d минут</item>
     </plurals>
+    <string name="schedule_widget_description">Расписание выбранной группы или преподавателя в приложении</string>
     <string name="appwidget_text" translatable="false">EXAMPLE</string>
     <string name="add_widget" translatable="false">Add widget</string>
     <string name="app_widget_description" translatable="false">This is an app widget description</string>

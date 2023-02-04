@@ -59,21 +59,32 @@ class ScheduleShortSubjectsAdapter(
                 binding.actualSubjectIcon.visibility = View.GONE
             }
 
+            val imageView = binding.subjectType
+
             when (subject.lessonTypeAbbrev) {
                 ScheduleSubject.LABORATORY -> {
-                    binding.subjectType.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
                 }
                 ScheduleSubject.PRACTISE -> {
-                    binding.subjectType.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
                 }
                 ScheduleSubject.LECTURE -> {
-                    binding.subjectType.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
                 }
                 ScheduleSubject.CONSULTATION -> {
-                    binding.subjectType.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
+                    imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
+                }
+                ScheduleSubject.PRETEST -> {
+                    imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_pretest))
                 }
                 ScheduleSubject.EXAM -> {
-                    binding.subjectType.setColorFilter(ContextCompat.getColor(context, R.color.subject_exam))
+                    imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_exam))
+                }
+                else -> {
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_unknown))
                 }
             }
 

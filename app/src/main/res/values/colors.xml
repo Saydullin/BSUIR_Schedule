@@ -34,8 +34,10 @@
     <color name="textColorDarkTheme">#d5dfe1</color>
     <color name="textHintColorDarkTheme">#939ea2</color>
 
-    <color name="subject_exam">#FF000000</color>
-    <color name="subject_consultation">#0984e3</color>
+    <color name="subject_unknown">#FF000000</color>
+    <color name="subject_pretest">#FFF600</color>
+    <color name="subject_exam">#d63031</color>
+    <color name="subject_consultation">#0D6EFD</color>
     <color name="subject_lecture">#00b894</color>
     <color name="subject_practise">#fdcb6e</color>
     <color name="subject_lab">#d63031</color>
@@ -45,3 +47,5 @@
     <color name="light_blue_900">#FF01579B</color>
 
 </resources>
+
+

@@ -1,5 +1,8 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +27,7 @@ import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
+import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 // Saved items

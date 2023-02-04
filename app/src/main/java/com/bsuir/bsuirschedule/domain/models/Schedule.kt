@@ -104,6 +104,14 @@ data class Schedule (
         isExistExams = exams.isNotEmpty()
     )
 
+    fun getTitle(): String {
+        return if (isGroup()) {
+            group.name
+        } else {
+            employee.getName()
+        }
+    }
+
     fun toScheduleTable() = ScheduleTable(
         id = id,
         startDate = startDate,

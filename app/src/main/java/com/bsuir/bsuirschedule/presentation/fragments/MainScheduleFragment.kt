@@ -1,6 +1,10 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +16,11 @@ import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.*
+import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class MainScheduleFragment : Fragment() {
@@ -50,6 +59,12 @@ class MainScheduleFragment : Fragment() {
             }
             binding.hiddenPlaceholder.visibility = View.GONE
             binding.mainScheduleContent.visibility = View.VISIBLE
+
+            val widgetIntent = Intent(context, ScheduleWidget::class.java)
+            widgetIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), ScheduleWidget::class.java))
+            widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            requireContext().sendBroadcast(widgetIntent)
         }
 
         currentWeekVM.getCurrentWeek()

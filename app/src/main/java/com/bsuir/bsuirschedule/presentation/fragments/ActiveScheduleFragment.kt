@@ -49,7 +49,6 @@ class ActiveScheduleFragment : Fragment() {
                     setTitle(group.getTitleOrName())
                     setImageDrawable(R.drawable.ic_group_placeholder)
                     setDescription(group.getFacultyAndSpecialityAbbr())
-//                    binding.scheduleCourse.text = "${group.course} $courseText"
                 } else {
                     val employee = schedule.employee
                     setTitle(employee.getTitleOrFullName())

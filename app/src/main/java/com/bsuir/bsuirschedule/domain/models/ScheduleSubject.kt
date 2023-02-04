@@ -59,8 +59,9 @@ data class ScheduleSubject (
             edited = ScheduleSubjectEdit.empty
         )
 
-        const val CONSULTATION = "УЗк"
-        const val EXAM = "УЛк"
+        const val CONSULTATION = "Консультация"
+        const val EXAM = "Экзамен"
+        const val PRETEST = "Зачёт"
         const val LECTURE = "ЛК"
         const val PRACTISE = "ПЗ"
         const val LABORATORY = "ЛР"

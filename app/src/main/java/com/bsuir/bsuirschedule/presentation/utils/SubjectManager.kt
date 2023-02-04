@@ -142,10 +142,19 @@ class SubjectManager(
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
             }
             ScheduleSubject.CONSULTATION -> {
+                imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
             }
+            ScheduleSubject.PRETEST -> {
+                imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_pretest))
+            }
             ScheduleSubject.EXAM -> {
+                imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_exam))
+            }
+            else -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_unknown))
             }
         }
     }
@@ -167,6 +176,9 @@ class SubjectManager(
             }
             ScheduleSubject.EXAM -> {
                 context.getString(R.string.exam)
+            }
+            ScheduleSubject.PRETEST -> {
+                context.getString(R.string.pretest)
             }
             else -> {
                 subject.lessonTypeAbbrev ?: context.getString(R.string.unknown)

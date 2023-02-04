@@ -16,6 +16,13 @@ val domainModule = module {
     }
 
     factory {
+        GetActualScheduleDayUseCase(
+            getScheduleUseCase = get(),
+            sharedPrefsUseCase = get()
+        )
+    }
+
+    factory {
         GetScheduleLastUpdateUseCase(
             scheduleRepository = get()
         )

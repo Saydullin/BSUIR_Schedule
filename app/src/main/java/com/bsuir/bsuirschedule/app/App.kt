@@ -3,7 +3,9 @@ package com.bsuir.bsuirschedule.app
 import android.app.Application
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
+import android.appwidget.AppWidgetManager
 import android.content.ComponentName
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.util.Log
@@ -19,6 +21,8 @@ import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
 import com.bsuir.bsuirschedule.presentation.utils.UpdateScheduleManager
+import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
+import com.bsuir.bsuirschedule.receiver.ScheduleUpdater
 import com.bsuir.bsuirschedule.service.ExpeditedWorker
 import com.bsuir.bsuirschedule.service.JobSchedulerTest
 import com.bsuir.bsuirschedule.service.WorkManagerService
@@ -47,6 +51,10 @@ class App : Application() {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+
+        val intent = Intent(this, ScheduleUpdater::class.java)
+        intent.action = "com.bsuir.bsuirschedule.action.scheduleUpdater"
+        sendBroadcast(intent)
 
         startKoin {
             androidLogger(Level.DEBUG)

@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bsuir.bsuirschedule">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-    <uses-permission android:name="android.permission.SET_ALARM"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name="com.bsuir.bsuirschedule.app.App"
@@ -19,11 +20,45 @@
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:localeConfig="@xml/locales_config"
         android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BSUIRSchedule">
+
+        <service
+            android:name=".presentation.widgets.MainWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".receiver.ScheduleUpdater"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.bsuir.bsuirschedule.action.scheduleUpdater" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".presentation.widgets.ScheduleWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/today_schedule_widget_info" />
+        </receiver>
+
+        <receiver
+            android:name=".service.ScheduleUpdateService"
+            android:enabled="true" />
+
+        <receiver
+            android:name=".service.ScheduleWidgetService"
+            android:enabled="true" />
+
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
@@ -32,28 +67,11 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
-<!--        <service-->
-<!--            android:name=".presentation.widgets.MainWidgetService"-->
-<!--            android:exported="false"-->
-<!--            android:permission="android.permission.BIND_REMOTEVIEWS" />-->
-
-<!--        <receiver-->
-<!--            android:name=".presentation.widgets.MainWidget"-->
-<!--            android:exported="false"-->
-<!--            android:label="@string/app_name">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
-<!--            </intent-filter>-->
-
-<!--            <meta-data-->
-<!--                android:name="android.appwidget.provider"-->
-<!--                android:resource="@xml/main_widget_info" />-->
-<!--        </receiver>-->
-
         <activity
             android:name="com.bsuir.bsuirschedule.presentation.activities.MainActivity"
             android:configChanges="screenSize|orientation"
             android:exported="true"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,14 +83,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-<!--        <receiver-->
-<!--            android:name=".receiver.AlarmReceiver"-->
-<!--            android:process=":remote" />-->
-        <service android:name=".service.JobSchedulerTest"
+        <service
+            android:name=".service.JobSchedulerTest"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
     </application>
 
 </manifest>
-
-

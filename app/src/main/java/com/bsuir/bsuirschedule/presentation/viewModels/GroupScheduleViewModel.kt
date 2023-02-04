@@ -1,5 +1,8 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +14,7 @@ import com.bsuir.bsuirschedule.domain.usecase.GetSavedScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.*
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -5,7 +5,7 @@
     android:initialLayout="@layout/today_schedule_widget"
     android:minWidth="250dp"
     android:minHeight="180dp"
-    android:previewImage="@layout/today_schedule_widget"
+    android:previewImage="@drawable/widget_placeholder"
     android:previewLayout="@layout/today_schedule_widget"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"

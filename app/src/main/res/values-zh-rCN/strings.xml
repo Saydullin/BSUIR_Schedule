@@ -66,6 +66,7 @@
     <string name="tab_item_schedule_control">控制</string>
     <string name="popup_settings">设置</string>
     <string name="popup_about">关于申请</string>
+    <string name="no_schedule">%s（无课程）</string>
     <string name="no_schedule_placeholder">没有时间表</string>
     <string name="settings_lang_title">应用语言</string>
     <string name="settings_theme_title">色彩主题</string>
@@ -76,6 +77,7 @@
     <string name="settings_show_past_days">显示过去的日子</string>
     <string name="settings_schedule_title">时间表</string>
     <string name="exam">考试</string>
+    <string name="pretest">抵消</string>
     <string name="tomorrow">明天</string>
     <string name="today">今天</string>
     <string name="more">更多的</string>
@@ -146,6 +148,7 @@
     <string name="delete_schedule_dialog_caption">日程设置也将被删除</string>
     <string name="reset_schedule_settings">设置重置</string>
     <string name="save_schedule_settings">设置已保存</string>
+    <string name="schedule_widget_description">申请中所选小组或教师的时间表</string>
     <string name="schedule_settings_schedule_past_days_hint_text">显示过去多少天？</string>
     <string name="yesterday">昨天</string>
     <string name="subject_next_time_left_days">通过 %s</string>
@@ -209,6 +212,8 @@
     <string name="schedule_updated_notification">由 %s 更新</string>
     <string name="new_notifications_amount">%d 个新通知</string>
     <string name="found">找到 %s</string>
+    <string name="group_schedule_updated_notification">团体 ％s</string>
+    <string name="employee_schedule_updated_notification">老师 %s</string>
     <string name="schedule_updated">时间表已更新</string>
     <string name="group_schedule_updated">小组日程已更新</string>
     <string name="employee_schedule_updated">教师时间表已更新</string>

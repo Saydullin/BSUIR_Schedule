@@ -4,6 +4,7 @@
     <string name="course">курс</string>
     <string name="week">тыдзень</string>
     <string name="exam">Экзамен</string>
+    <string name="pretest">Залік</string>
     <string name="tomorrow">Заўтра</string>
     <string name="today">Сёння</string>
     <string name="yesterday">Учора</string>
@@ -20,6 +21,8 @@
     <string name="after">праз</string>
     <string name="delete">Выдаліць</string>
     <string name="schedule_updated_notification">Абноўлена %s</string>
+    <string name="group_schedule_updated_notification">Група %s</string>
+    <string name="employee_schedule_updated_notification">Выкладчык %s</string>
     <string name="schedule_updated">Расклад абноўлены</string>
     <string name="group_schedule_updated">Абноўлена расклад групы</string>
     <string name="employee_schedule_updated">Абноўлены расклад выкладчыка</string>
@@ -158,6 +161,7 @@
     <string name="no_content">Няма кантэнту</string>
     <string name="no_saved_schedule">Захаваных раскладаў няма</string>
     <string name="no_schedule_choose">Расклад не выбрана</string>
+    <string name="no_schedule">%s (няма заняткаў)</string>
     <string name="no_schedule_placeholder">Няма раскладу</string>
     <string name="no_items_placeholder">Расклады не загрузіліся ( Пацягніце ўніз, каб абнавіць</string>
     <string name="no_exams_placeholder">Няма экзаменаў</string>
@@ -193,6 +197,7 @@
     <string name="get_started">Пачаць</string>
     <string name="get_started_skip">Прапусціць</string>
     <string name="not_available">У працэсе распрацоўкі</string>
+    <string name="schedule_widget_description">Расклад абранай групы або выкладчыка ў дадатку</string>
     <string name="schedule_settings_schedule_past_days_hint_text">Колькі мінулых дзён паказваць?</string>
     <string name="reset">Скінуць</string>
     <string name="save">Захаваць</string>

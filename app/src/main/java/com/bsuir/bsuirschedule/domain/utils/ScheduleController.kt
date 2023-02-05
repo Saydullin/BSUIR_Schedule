@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -119,7 +120,7 @@ class ScheduleController {
 
         while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
             calendarDate.incDate(daysCounter)
-            val currentTimeInMillis = calendarDate.getDateUnixTime();
+            val currentTimeInMillis = calendarDate.getDateInMillis();
             val weekNumber = calendarDate.getWeekNumber()
             val weekDayNumber = calendarDate.getWeekDayNumber()
             val weekNumberDays = schedule.schedules.filter { it.weekDayNumber == weekDayNumber }
@@ -128,7 +129,7 @@ class ScheduleController {
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
-                        dateUnixTime = calendarDate.getDateUnixTime(),
+                        dateUnixTime = calendarDate.getDateInMillis(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
@@ -151,7 +152,7 @@ class ScheduleController {
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
-                        dateUnixTime = calendarDate.getDateUnixTime(),
+                        dateUnixTime = calendarDate.getDateInMillis(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
@@ -173,18 +174,20 @@ class ScheduleController {
         fromDatePattern: String,
         untilDatePattern: String
     ) {
-        val calendarScheduleDate = CalendarDate(startDate = fromDatePattern, currentWeekNumber)
-        var daysCounter = 0
+        val calendarFromDate = CalendarDate(startDate = fromDatePattern, currentWeekNumber)
+        val calendarUntilDate = CalendarDate(startDate = untilDatePattern, currentWeekNumber)
+        calendarUntilDate.minusDays(1)
+        var daysCounter = 1
 
-        while (!calendarScheduleDate.isEqualDate(untilDatePattern) && daysCounter < DAYS_LIMIT) {
-            calendarScheduleDate.incDate(daysCounter)
-            val weekDayNumber = calendarScheduleDate.getWeekDayNumber()
-            val weekNumber = calendarScheduleDate.getWeekNumber()
+        while (calendarFromDate.getDateInMillis() < calendarUntilDate.getDateInMillis() && daysCounter < DAYS_LIMIT) {
+            calendarFromDate.incDate(daysCounter)
+            val weekDayNumber = calendarFromDate.getWeekDayNumber()
+            val weekNumber = calendarFromDate.getWeekNumber()
             schedule.schedules.add(
                 ScheduleDay(
-                    date = calendarScheduleDate.getDateStatus(),
-                    dateUnixTime = calendarScheduleDate.getDateUnixTime(),
-                    weekDayTitle = calendarScheduleDate.getWeekDayTitle(),
+                    date = calendarFromDate.getDateStatus(),
+                    dateUnixTime = calendarFromDate.getDateInMillis(),
+                    weekDayTitle = calendarFromDate.getWeekDayTitle(),
                     weekDayNumber = weekDayNumber,
                     weekNumber = weekNumber,
                     schedule = ArrayList()
@@ -195,6 +198,7 @@ class ScheduleController {
 
     private fun mergeExamsSchedule(schedule: Schedule, currentWeekNumber: Int) {
         // get exams schedule
+        if (schedule.isExamsNotExist()) return
         val calendarExamsDate = CalendarDate(startDate = schedule.startExamsDate, currentWeekNumber)
 
         if (calendarExamsDate.getDateInMillis(schedule.endDate) < calendarExamsDate.getDateInMillis(schedule.startExamsDate)) {
@@ -257,7 +261,7 @@ class ScheduleController {
         newSchedule.schedules.mapIndexed { index, day ->
             calendarDate.incDate(index)
             day.date = calendarDate.getDate()
-            day.dateUnixTime = calendarDate.getDateUnixTime()
+            day.dateUnixTime = calendarDate.getDateInMillis()
             day.weekDayTitle = calendarDate.getWeekDayTitle()
             day.weekDayNumber = calendarDate.getWeekDayNumber()
             day.weekNumber = calendarDate.getWeekNumber()
@@ -430,7 +434,7 @@ class ScheduleController {
     private fun setActualDateStatuses(schedule: ArrayList<ScheduleDay>, isShowPastDays: Boolean): ArrayList<ScheduleDay> {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
 
-        val todayStartIndex = schedule.indexOfFirst { it.dateUnixTime == calendarDate.getDateUnixTime() }
+        val todayStartIndex = schedule.indexOfFirst { it.dateUnixTime == calendarDate.getDateInMillis() }
         if (todayStartIndex == -1) return schedule
 
         if (isShowPastDays && todayStartIndex > 0) {
@@ -458,7 +462,7 @@ class ScheduleController {
         }
 
         val scheduleDays = schedule.filter { day ->
-            day.dateUnixTime >= calendarDate.getDateUnixTime()
+            day.dateUnixTime >= calendarDate.getDateInMillis()
         }
 
         return scheduleDays as ArrayList<ScheduleDay>
@@ -480,7 +484,7 @@ class ScheduleController {
             }
             scheduleDays.add(ScheduleDay(
                 date = calendarDate.getDate(),
-                dateUnixTime = calendarDate.getDateUnixTime(),
+                dateUnixTime = calendarDate.getDateInMillis(),
                 weekDayTitle = calendarDate.getWeekDayTitle(),
                 weekDayNumber = calendarDate.getWeekDayNumber(),
                 weekNumber = calendarDate.getWeekNumber(),

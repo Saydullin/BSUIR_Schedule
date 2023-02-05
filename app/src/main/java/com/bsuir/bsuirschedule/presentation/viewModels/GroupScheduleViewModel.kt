@@ -321,7 +321,7 @@ class GroupScheduleViewModel(
                 is Resource.Success -> {
                     val groupSchedule = groupScheduleResponse.data!!
                     saveGroupSchedule(groupSchedule)
-                    scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isNotExistExams()))
+                    scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isExamsNotExist()))
                     if (toNotify) {
                         if (isUpdate) {
                             success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
@@ -353,7 +353,7 @@ class GroupScheduleViewModel(
                 is Resource.Success -> {
                     val data = groupSchedule.data!!
                     saveGroupSchedule(data)
-                    scheduleLoaded.postValue(employee.toSavedSchedule(!data.isNotExistExams()))
+                    scheduleLoaded.postValue(employee.toSavedSchedule(!data.isExamsNotExist()))
                     if (toNotify) {
                         if (isUpdate) {
                             success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)

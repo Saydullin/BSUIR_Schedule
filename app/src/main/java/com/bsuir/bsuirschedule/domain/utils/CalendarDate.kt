@@ -55,11 +55,11 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun minusDays(num: Int) {
-        // FIXME Check if got number bigger than passed days from startDate
+        // FIXME Check if got number bigger than passed days from startDate (num < startDate)
         calendar.add(Calendar.DATE, num * -1)
     }
 
-    fun getDateUnixTime(): Long {
+    fun getDateInMillis(): Long {
         return calendar.timeInMillis
     }
 

@@ -48,12 +48,6 @@ data class Schedule (
         )
     }
 
-    fun isNotExistExams(): Boolean {
-        return startExamsDate.isEmpty() ||
-                endExamsDate.isEmpty() ||
-                exams.isEmpty()
-    }
-
     fun isNotExistSchedule(): Boolean {
         return startDate.isEmpty() ||
                 endDate.isEmpty() ||

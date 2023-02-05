@@ -47,14 +47,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '3'
+            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '4'
         }
 
         debug {
             applicationIdSuffix ".debug"
             debuggable true
 
-            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '3'
+            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '4'
         }
     }
     compileOptions {

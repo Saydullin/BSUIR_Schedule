@@ -110,6 +110,22 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
+    override fun getScheduleAutoUpdateDate(): String {
+        return prefs.getString(
+            context.getString(R.string.schedule_auto_update_date), ""
+        ) ?: ""
+    }
+
+    override fun setScheduleAutoUpdateDate(autoUpdateDate: String) {
+        with(prefs.edit()) {
+            putString(
+                context.getString(R.string.schedule_auto_update_date),
+                autoUpdateDate
+            )
+            apply()
+        }
+    }
+
 }
 
 

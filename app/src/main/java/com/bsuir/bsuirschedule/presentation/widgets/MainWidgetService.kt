@@ -8,12 +8,17 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
+import com.bsuir.bsuirschedule.domain.models.Group
+import com.bsuir.bsuirschedule.domain.models.GroupSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetActualScheduleDayUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -38,12 +43,16 @@ class StackRemoteViewsFactory(
     private val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, 0)
     private val getActualScheduleDayUseCase: GetActualScheduleDayUseCase by inject()
     private val scheduleSubjectsList = ArrayList<ScheduleSubject>()
+    private var isGroupSchedule = false
 
     override fun onCreate() {
         // Get schedule here
         runBlocking {
             launch(Dispatchers.IO) {
                 val widgetSchedule = getActualScheduleDayUseCase.execute()
+                if (widgetSchedule.schedule != null) {
+                    isGroupSchedule = widgetSchedule.schedule.isGroup()
+                }
                 if (widgetSchedule.activeScheduleDay != null) {
                     scheduleSubjectsList.addAll(widgetSchedule.activeScheduleDay.schedule)
                 }
@@ -65,6 +74,7 @@ class StackRemoteViewsFactory(
     override fun getViewAt(position: Int): RemoteViews {
         val subject = scheduleSubjectsList[position]
         val remoteViews = RemoteViews(context.packageName, R.layout.main_widget_list_item)
+        val subjectSubgroup = subject.getNumSubgroup()
         remoteViews.setOnClickPendingIntent(R.id.list_item_root, pendingIntent)
         remoteViews.setTextViewText(R.id.startLessonTime, subject.startLessonTime)
         remoteViews.setTextViewText(R.id.endLessonTime, subject.endLessonTime)
@@ -73,6 +83,18 @@ class StackRemoteViewsFactory(
             remoteViews.setViewVisibility(R.id.subject_current_icon, View.VISIBLE)
         }
         remoteViews.setTextViewText(R.id.lesson_audience, subject.getAudienceInLine())
+        if (subjectSubgroup == 0) {
+            remoteViews.setViewVisibility(R.id.subgroup_container, View.GONE)
+        } else {
+            remoteViews.setTextViewText(R.id.lesson_subgroup, subject.getNumSubgroup().toString())
+        }
+        if (isGroupSchedule) {
+            val employeeTitle = getSubjectEmployeeText(subject.employees ?: ArrayList())
+            remoteViews.setTextViewText(R.id.lesson_teacher_name, employeeTitle)
+        } else {
+            val groupTitle = getSubjectGroupText(subject.subjectGroups ?: ArrayList())
+            remoteViews.setTextViewText(R.id.lesson_teacher_name, groupTitle)
+        }
 
         when (subject.lessonTypeAbbrev) {
             ScheduleSubject.LABORATORY -> {
@@ -115,6 +137,29 @@ class StackRemoteViewsFactory(
 
     override fun hasStableIds(): Boolean {
         return false
+    }
+
+    private fun getSubjectEmployeeText(employees: ArrayList<EmployeeSubject>): String {
+        return if (employees.isNotEmpty()) {
+            employees[0].getName() + if (employees.size > 1) {
+                val moreText = context.getString(R.string.more)
+                ", $moreText ${employees.size - 1}"
+            } else ""
+        } else {
+            context.getString(R.string.no_teacher_title)
+        }
+    }
+
+    private fun getSubjectGroupText(subjectGroupList: ArrayList<GroupSubject>): String {
+        val courseText = context.getString(R.string.course)
+        return if (subjectGroupList.isNotEmpty()) {
+            subjectGroupList[0].name + if (subjectGroupList.size > 1) {
+                val moreText = context.getString(R.string.more)
+                ", $moreText ${subjectGroupList.size - 1}"
+            } else ""
+        } else {
+            context.getString(R.string.no_group_title)
+        }
     }
 
 }

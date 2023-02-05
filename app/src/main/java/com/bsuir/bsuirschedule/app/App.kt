@@ -30,6 +30,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -52,9 +53,14 @@ class App : Application() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        val intent = Intent(this, ScheduleUpdater::class.java)
-        intent.action = "com.bsuir.bsuirschedule.action.scheduleUpdater"
-        sendBroadcast(intent)
+        val todayDateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val todayDate = todayDateFormat.format(Date().time)
+        if (prefs.getScheduleAutoUpdateDate() != todayDate) {
+            val intent = Intent(this, ScheduleUpdater::class.java)
+            intent.action = "com.bsuir.bsuirschedule.action.scheduleUpdater"
+            sendBroadcast(intent)
+            prefs.setScheduleAutoUpdateDate(todayDate)
+        }
 
         startKoin {
             androidLogger(Level.DEBUG)

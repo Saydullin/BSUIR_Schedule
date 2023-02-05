@@ -30,6 +30,10 @@ interface SharedPrefsRepository {
 
     fun setScheduleUpdateCounter(counter: Int)
 
+    fun getScheduleAutoUpdateDate(): String
+
+    fun setScheduleAutoUpdateDate(autoUpdateDate: String)
+
 }
 
 

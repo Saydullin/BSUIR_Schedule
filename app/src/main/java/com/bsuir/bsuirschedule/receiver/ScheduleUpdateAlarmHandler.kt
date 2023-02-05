@@ -25,13 +25,8 @@ class ScheduleUpdateAlarmHandler(
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val calendar = Calendar.getInstance()
-        val hours = calendar.get(Calendar.HOUR_OF_DAY)
-        if (hours < 18) {
-            calendar.set(Calendar.HOUR_OF_DAY, 18)
-        } else {
-            calendar.add(Calendar.DATE, 1)
-            calendar.set(Calendar.HOUR_OF_DAY, 18)
-        }
+        calendar.add(Calendar.DATE, 1)
+        calendar.set(Calendar.HOUR_OF_DAY, 18)
         val timeInMillis = calendar.timeInMillis
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

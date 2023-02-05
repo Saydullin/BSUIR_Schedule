@@ -204,6 +204,7 @@
     <string name="active_language_code" translatable="false">active_language_code</string>
     <string name="active_theme_code" translatable="false">active_theme_code</string>
     <string name="schedule_update_counter" translatable="false">schedule_update_counter</string>
+    <string name="schedule_auto_update_date" translatable="false">schedule_auto_update_date</string>
     <string name="auto_update_schedule_id" translatable="false">auto_update_schedule_id</string>
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>

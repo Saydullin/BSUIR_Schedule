@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -163,7 +162,46 @@ class ScheduleController {
         }
         schedule.schedules = scheduleDays
 
+        mergeExamsSchedule(schedule, currentWeekNumber)
+
         return schedule
+    }
+
+    private fun fillEmptyDays(
+        schedule: Schedule,
+        currentWeekNumber: Int,
+        fromDatePattern: String,
+        untilDatePattern: String
+    ) {
+        val calendarScheduleDate = CalendarDate(startDate = fromDatePattern, currentWeekNumber)
+        var daysCounter = 0
+
+        while (!calendarScheduleDate.isEqualDate(untilDatePattern) && daysCounter < DAYS_LIMIT) {
+            calendarScheduleDate.incDate(daysCounter)
+            val weekDayNumber = calendarScheduleDate.getWeekDayNumber()
+            val weekNumber = calendarScheduleDate.getWeekNumber()
+            schedule.schedules.add(
+                ScheduleDay(
+                    date = calendarScheduleDate.getDateStatus(),
+                    dateUnixTime = calendarScheduleDate.getDateUnixTime(),
+                    weekDayTitle = calendarScheduleDate.getWeekDayTitle(),
+                    weekDayNumber = weekDayNumber,
+                    weekNumber = weekNumber,
+                    schedule = ArrayList()
+                ))
+            daysCounter++
+        }
+    }
+
+    private fun mergeExamsSchedule(schedule: Schedule, currentWeekNumber: Int) {
+        // get exams schedule
+        val calendarExamsDate = CalendarDate(startDate = schedule.startExamsDate, currentWeekNumber)
+
+        if (calendarExamsDate.getDateInMillis(schedule.endDate) < calendarExamsDate.getDateInMillis(schedule.startExamsDate)) {
+            fillEmptyDays(schedule, currentWeekNumber, schedule.endDate, schedule.startExamsDate)
+        }
+
+        schedule.schedules.addAll(schedule.examsSchedule)
     }
 
     private fun getSubjectsBreakTime(scheduleDays: ArrayList<ScheduleDay>): ArrayList<ScheduleDay> {

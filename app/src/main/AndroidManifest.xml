@@ -25,6 +25,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BSUIRSchedule">
+        <activity
+            android:name=".presentation.activities.WidgetAddActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".presentation.widgets.MainWidgetService"
@@ -38,7 +45,6 @@
                 <action android:name="com.bsuir.bsuirschedule.action.scheduleUpdater" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".presentation.widgets.ScheduleWidget"
             android:exported="true">
@@ -50,11 +56,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/today_schedule_widget_info" />
         </receiver>
-
         <receiver
             android:name=".service.ScheduleUpdateService"
             android:enabled="true" />
-
         <receiver
             android:name=".service.ScheduleWidgetService"
             android:enabled="true" />
@@ -67,8 +71,9 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
+
         <activity
-            android:name="com.bsuir.bsuirschedule.presentation.activities.MainActivity"
+            android:name=".presentation.activities.MainActivity"
             android:configChanges="screenSize|orientation"
             android:exported="true"
             android:launchMode="singleInstance"
@@ -83,6 +88,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service
             android:name=".service.JobSchedulerTest"
             android:permission="android.permission.BIND_JOB_SERVICE" />

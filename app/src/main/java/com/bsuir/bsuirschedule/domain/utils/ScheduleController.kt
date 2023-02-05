@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -197,7 +196,6 @@ class ScheduleController {
     }
 
     private fun mergeExamsSchedule(schedule: Schedule, currentWeekNumber: Int) {
-        // get exams schedule
         if (schedule.isExamsNotExist()) return
         val calendarExamsDate = CalendarDate(startDate = schedule.startExamsDate, currentWeekNumber)
 

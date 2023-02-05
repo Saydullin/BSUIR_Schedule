@@ -139,6 +139,7 @@
     <style name="Theme.BSUIRSchedule.AppWidgetContainer" parent="Theme.BSUIRSchedule.AppWidgetContainerParent">
         <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
         <item name="appWidgetPadding">10dp</item>
+        <item name="android:colorBackground">@color/on_primary</item>
     </style>
 
 </resources>

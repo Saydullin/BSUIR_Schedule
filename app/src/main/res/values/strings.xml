@@ -385,6 +385,10 @@
     <string name="schedule_header_menu_share">Поделиться</string>
     <string name="schedule_header_menu_more">Дополнительно</string>
     <string name="schedule_header_menu_delete">Удалить</string>
+    <string name="widget_text_fake_3">9 февраля</string>
+    <string name="widget_text_fake_1">151003</string>
+    <string name="widget_text_fake_4">Суббота</string>
+    <string name="widget_text_fake_5">3 пары</string>
 
 </resources>
 

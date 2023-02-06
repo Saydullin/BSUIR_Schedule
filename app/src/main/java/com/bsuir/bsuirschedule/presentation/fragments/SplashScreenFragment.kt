@@ -15,7 +15,7 @@ import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class SplashScreenFragment : Fragment() {
 
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val currentWeekVM: CurrentWeekViewModel by koinNavGraphViewModel(R.id.navigation)

@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSettingsExamsBinding
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class ScheduleSettingsExams : Fragment() {
 
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

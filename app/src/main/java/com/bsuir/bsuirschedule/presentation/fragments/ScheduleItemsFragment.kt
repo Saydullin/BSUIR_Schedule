@@ -13,12 +13,12 @@ import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class ScheduleItemsFragment : Fragment() {
 
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
 

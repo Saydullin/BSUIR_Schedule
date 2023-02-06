@@ -8,7 +8,7 @@ class SaveScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
 ) {
 
-    suspend fun invoke(schedule: Schedule): Resource<Unit> {
+    suspend fun execute(schedule: Schedule): Resource<Unit> {
         return scheduleRepository.saveSchedule(schedule)
     }
 

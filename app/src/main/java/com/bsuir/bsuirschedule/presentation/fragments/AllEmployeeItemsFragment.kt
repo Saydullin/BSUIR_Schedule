@@ -15,13 +15,13 @@ import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class AllEmployeeItemsFragment : Fragment() {
 
-    private val groupSchedule: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupSchedule: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
 

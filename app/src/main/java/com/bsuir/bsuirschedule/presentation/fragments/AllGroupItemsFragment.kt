@@ -15,7 +15,7 @@ import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -23,7 +23,7 @@ class AllGroupItemsFragment : Fragment() {
 
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

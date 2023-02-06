@@ -14,12 +14,12 @@ import com.bsuir.bsuirschedule.databinding.FragmentScheduleSubjectEditBinding
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubjectEdit
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class ScheduleSubjectEditFragment : Fragment() {
 
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.dialogs.SavedScheduleDialog
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentActiveScheduleBinding
@@ -28,7 +27,7 @@ class ActiveScheduleFragment : Fragment() {
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val savedScheduleVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +44,6 @@ class ActiveScheduleFragment : Fragment() {
 
                 if (schedule.isGroup()) {
                     val group = schedule.group
-                    val courseText = getString(R.string.course)
                     setTitle(group.getTitleOrName())
                     setImageDrawable(R.drawable.ic_group_placeholder)
                     setDescription(group.getFacultyAndSpecialityAbbr())
@@ -102,7 +100,7 @@ class ActiveScheduleFragment : Fragment() {
         }
 
         binding.scheduleHeaderView.setMenuListener {
-            val activeSchedule = groupScheduleVM.scheduleStatus.value ?: return@setMenuListener
+            val activeSchedule = groupScheduleVM.getActiveSchedule() ?: return@setMenuListener
             when (it) {
                 ScheduleAction.DIALOG_OPEN -> {
                     val savedScheduleDialog = SavedScheduleDialog(

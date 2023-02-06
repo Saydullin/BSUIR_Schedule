@@ -7,19 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentActiveSubjectBinding
-import com.bsuir.bsuirschedule.databinding.ScheduleSubjectBinding
-import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
-import com.bsuir.bsuirschedule.domain.models.Group
-import com.bsuir.bsuirschedule.domain.models.GroupSubject
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
-import com.bsuir.bsuirschedule.presentation.viewModels.GroupScheduleViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class ActiveSubjectFragment : Fragment() {
 
-    private val groupScheduleVM: GroupScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

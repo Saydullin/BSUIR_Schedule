@@ -3,14 +3,12 @@ package com.bsuir.bsuirschedule.presentation.di
 import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateManager
 import com.bsuir.bsuirschedule.presentation.viewModels.*
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {
 
     viewModel {
-        GroupScheduleViewModel(
+        ScheduleViewModel(
             sharedPrefsUseCase = get(),
             scheduleSubjectUseCase = get(),
             getCurrentWeekUseCase = get(),

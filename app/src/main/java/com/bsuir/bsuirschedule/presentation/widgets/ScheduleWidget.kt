@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import com.bsuir.bsuirschedule.R
@@ -43,12 +42,13 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
             val widgetSchedule = getActualScheduleDayUseCase.execute()
             val currentSchedule = widgetSchedule.schedule ?: return@runBlocking
             val actualScheduleDay = widgetSchedule.activeScheduleDay
+            val scheduleSubgroup = currentSchedule.settings.subgroup.selectedNum
 
-            if (currentSchedule.selectedSubgroup == 0) {
+            if (scheduleSubgroup == 0) {
                 val allSubgroupsText = context.getString(R.string.all_subgroups_short)
                 remoteViews.setTextViewText(R.id.subgroup_number, allSubgroupsText)
             } else {
-                remoteViews.setTextViewText(R.id.subgroup_number, currentSchedule.selectedSubgroup.toString())
+                remoteViews.setTextViewText(R.id.subgroup_number, scheduleSubgroup.toString())
             }
             if (!widgetSchedule.isScheduleEmpty) {
                 val noScheduleText = context.getString(R.string.no_schedule, currentSchedule.getTitle())
@@ -84,7 +84,7 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
             val intent = Intent(context, MainWidgetService::class.java)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.putExtra("unique", Date().time)
-            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME));
+            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
             remoteViews.setRemoteAdapter(R.id.schedule_listView, intent)
         }
 
@@ -93,8 +93,6 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
         val alarmHandler = AlarmHandler(context)
         alarmHandler.cancelAlarmManager()
         alarmHandler.setAlarmManager()
-
-        Log.e("sady", "WIDGET updated!")
     }
 
     override fun onUpdate(
@@ -110,8 +108,6 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
     override fun onDisabled(context: Context) {
         val alarmHandler = AlarmHandler(context)
         alarmHandler.cancelAlarmManager()
-
-        Log.e("sady", "WIDGET disabled!")
     }
 
 }

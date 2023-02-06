@@ -98,21 +98,20 @@
 
             <TextView
                 android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                android:text="Сейчас ИТПЭУ, в 213-1к." />
-
-            <Space
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:maxLines="2"
+                android:ellipsize="end"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                tools:text="Сейчас ИТПЭУ, в 213-1к." />
 
             <com.bsuir.bsuirschedule.presentation.views.ScheduleSubgroupView
                 android:id="@+id/scheduleSubgroupView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
                 app:subgroupNum="1" />
 
         </LinearLayout>

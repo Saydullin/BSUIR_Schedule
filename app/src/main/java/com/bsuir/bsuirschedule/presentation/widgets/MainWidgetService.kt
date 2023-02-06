@@ -3,28 +3,20 @@ package com.bsuir.bsuirschedule.presentation.widgets
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
-import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.GroupSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
-import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetActualScheduleDayUseCase
-import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
-import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainWidgetService : RemoteViewsService() {
@@ -38,7 +30,6 @@ class StackRemoteViewsFactory(
     val intent: Intent
 ) : RemoteViewsService.RemoteViewsFactory, KoinComponent {
 
-    private val scheduleId = intent.getIntExtra("schedule_id", -1)
     private val mainActivityIntent = Intent(context, MainActivity::class.java)
     private val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, 0)
     private val getActualScheduleDayUseCase: GetActualScheduleDayUseCase by inject()
@@ -124,7 +115,14 @@ class StackRemoteViewsFactory(
     }
 
     override fun getLoadingView(): RemoteViews {
-        return RemoteViews(context.packageName, R.layout.main_widget_list_item)
+        val remoteViews = RemoteViews(context.packageName, R.layout.main_widget_list_item)
+        remoteViews.setTextViewText(R.id.lesson_title, context.getString(R.string.load))
+        remoteViews.setTextViewText(R.id.startLessonTime, "00:00")
+        remoteViews.setTextViewText(R.id.endLessonTime, "00:00")
+        remoteViews.setTextViewText(R.id.lesson_audience, "000-0 к.")
+        remoteViews.setTextViewText(R.id.lesson_teacher_name, context.getString(R.string.unknown))
+
+        return remoteViews
     }
 
     override fun getViewTypeCount(): Int {
@@ -151,7 +149,6 @@ class StackRemoteViewsFactory(
     }
 
     private fun getSubjectGroupText(subjectGroupList: ArrayList<GroupSubject>): String {
-        val courseText = context.getString(R.string.course)
         return if (subjectGroupList.isNotEmpty()) {
             subjectGroupList[0].name + if (subjectGroupList.size > 1) {
                 val moreText = context.getString(R.string.more)

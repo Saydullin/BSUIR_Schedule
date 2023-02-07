@@ -326,6 +326,10 @@
     <string name="schedule_header_menu_delete">Delete</string>
     <string name="coming_soon">Under development</string>
     <string name="all_subgroups_select">All subgroups</string>
+    <string name="widget_text_fake_3">February 9th</string>
+    <string name="widget_text_fake_1">151003</string>
+    <string name="widget_text_fake_4">Saturday</string>
+    <string name="widget_text_fake_5">3 pairs</string>
 </resources>
 
 

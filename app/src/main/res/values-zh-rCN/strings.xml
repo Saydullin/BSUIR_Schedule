@@ -326,6 +326,10 @@
     <string name="schedule_header_menu_delete">删除</string>
     <string name="coming_soon">正在开发中</string>
     <string name="all_subgroups_select">所有子组</string>
+    <string name="widget_text_fake_3">2月9日</string>
+    <string name="widget_text_fake_1">151003</string>
+    <string name="widget_text_fake_4">周六</string>
+    <string name="widget_text_fake_5">3对</string>
 
 </resources>
 

@@ -328,4 +328,8 @@
     <string name="schedule_header_menu_delete">Выдаліць</string>
     <string name="coming_soon">У стадыі распрацоўкі</string>
     <string name="all_subgroups_select">Усе падгрупы</string>
+    <string name="widget_text_fake_3">9 лютага</string>
+    <string name="widget_text_fake_1">151003</string>
+    <string name="widget_text_fake_4">Субота</string>
+    <string name="widget_text_fake_5">3 пары</string>
 </resources>

@@ -9,10 +9,11 @@ import android.net.Uri
 import android.view.View
 import android.widget.RemoteViews
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetActualScheduleDayUseCase
 import com.bsuir.bsuirschedule.domain.utils.CalendarDate
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
-import com.bsuir.bsuirschedule.receiver.AlarmHandler
+import com.bsuir.bsuirschedule.receiver.ScheduleAlarmHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
@@ -22,6 +23,7 @@ import java.util.*
 class ScheduleWidget : AppWidgetProvider(), KoinComponent {
 
     private val getActualScheduleDayUseCase: GetActualScheduleDayUseCase by inject()
+    private var currentSchedule: Schedule = Schedule.empty
 
     private fun updateAppWidget(
         context: Context,
@@ -32,15 +34,15 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
         val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, 0)
 
         val remoteViews = RemoteViews(context.packageName, R.layout.today_schedule_widget)
-        val calendar = Calendar.getInstance()
-        val widgetText = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
+//        val calendar = Calendar.getInstance()
+//        val widgetText = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
+//        remoteViews.setTextViewText(R.id.appwidget_text, widgetText)
 
         remoteViews.setOnClickPendingIntent(R.id.schedule_widget_root, pendingIntent)
-        remoteViews.setTextViewText(R.id.appwidget_text, widgetText)
 
         runBlocking(Dispatchers.IO) {
             val widgetSchedule = getActualScheduleDayUseCase.execute()
-            val currentSchedule = widgetSchedule.schedule ?: return@runBlocking
+            currentSchedule = widgetSchedule.schedule ?: return@runBlocking
             val actualScheduleDay = widgetSchedule.activeScheduleDay
             val scheduleSubgroup = currentSchedule.settings.subgroup.selectedNum
 
@@ -90,9 +92,9 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
 
-        val alarmHandler = AlarmHandler(context)
-        alarmHandler.cancelAlarmManager()
-        alarmHandler.setAlarmManager()
+        val scheduleAlarmHandler = ScheduleAlarmHandler(context, currentSchedule)
+        scheduleAlarmHandler.cancelAlarmManager()
+        scheduleAlarmHandler.setAlarmManager()
     }
 
     override fun onUpdate(
@@ -106,8 +108,8 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
     }
 
     override fun onDisabled(context: Context) {
-        val alarmHandler = AlarmHandler(context)
-        alarmHandler.cancelAlarmManager()
+        val scheduleAlarmHandler = ScheduleAlarmHandler(context, currentSchedule)
+        scheduleAlarmHandler.cancelAlarmManager()
     }
 
 }

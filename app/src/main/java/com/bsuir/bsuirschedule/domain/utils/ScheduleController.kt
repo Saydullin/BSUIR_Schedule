@@ -87,7 +87,7 @@ class ScheduleController {
 
     private fun getActualSubject(schedule: Schedule): ScheduleSubject? {
         val dateUnixTime = Date().time
-        val actualDays = schedule.schedules.filter { it.dateUnixTime >= dateUnixTime - 86400000 }
+        val actualDays = schedule.schedules.filter { it.dateInMillis >= dateUnixTime - 86400000 }
 
         var actualSubject: ScheduleSubject? = null
         var actualSubjectIndex: Int
@@ -128,7 +128,7 @@ class ScheduleController {
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
-                        dateUnixTime = calendarDate.getDateInMillis(),
+                        dateInMillis = calendarDate.getDateInMillis(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
@@ -151,7 +151,7 @@ class ScheduleController {
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
-                        dateUnixTime = calendarDate.getDateInMillis(),
+                        dateInMillis = calendarDate.getDateInMillis(),
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
@@ -185,7 +185,7 @@ class ScheduleController {
             schedule.schedules.add(
                 ScheduleDay(
                     date = calendarFromDate.getDateStatus(),
-                    dateUnixTime = calendarFromDate.getDateInMillis(),
+                    dateInMillis = calendarFromDate.getDateInMillis(),
                     weekDayTitle = calendarFromDate.getWeekDayTitle(),
                     weekDayNumber = weekDayNumber,
                     weekNumber = weekNumber,
@@ -259,7 +259,7 @@ class ScheduleController {
         newSchedule.schedules.mapIndexed { index, day ->
             calendarDate.incDate(index)
             day.date = calendarDate.getDate()
-            day.dateUnixTime = calendarDate.getDateInMillis()
+            day.dateInMillis = calendarDate.getDateInMillis()
             day.weekDayTitle = calendarDate.getWeekDayTitle()
             day.weekDayNumber = calendarDate.getWeekDayNumber()
             day.weekNumber = calendarDate.getWeekNumber()
@@ -432,7 +432,7 @@ class ScheduleController {
     private fun setActualDateStatuses(schedule: ArrayList<ScheduleDay>, isShowPastDays: Boolean): ArrayList<ScheduleDay> {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
 
-        val todayStartIndex = schedule.indexOfFirst { it.dateUnixTime == calendarDate.getDateInMillis() }
+        val todayStartIndex = schedule.indexOfFirst { it.dateInMillis == calendarDate.getDateInMillis() }
         if (todayStartIndex == -1) return schedule
 
         if (isShowPastDays && todayStartIndex > 0) {
@@ -460,7 +460,7 @@ class ScheduleController {
         }
 
         val scheduleDays = schedule.filter { day ->
-            day.dateUnixTime >= calendarDate.getDateInMillis()
+            day.dateInMillis >= calendarDate.getDateInMillis()
         }
 
         return scheduleDays as ArrayList<ScheduleDay>
@@ -482,7 +482,7 @@ class ScheduleController {
             }
             scheduleDays.add(ScheduleDay(
                 date = calendarDate.getDate(),
-                dateUnixTime = calendarDate.getDateInMillis(),
+                dateInMillis = calendarDate.getDateInMillis(),
                 weekDayTitle = calendarDate.getWeekDayTitle(),
                 weekDayNumber = calendarDate.getWeekDayNumber(),
                 weekNumber = calendarDate.getWeekNumber(),

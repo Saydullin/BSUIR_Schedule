@@ -3,7 +3,7 @@ package com.bsuir.bsuirschedule.domain.models
 data class ScheduleDay (
     val id: Int = -1,
     var date: String,
-    var dateUnixTime: Long,
+    var dateInMillis: Long,
     var weekDayTitle: String,
     var weekDayNumber: Int,
     var weekNumber: Int,
@@ -14,7 +14,7 @@ data class ScheduleDay (
         val empty = ScheduleDay(
             id = -1,
             date = "",
-            dateUnixTime = 0,
+            dateInMillis = 0,
             weekDayTitle = "",
             weekDayNumber = 0,
             weekNumber = 0,

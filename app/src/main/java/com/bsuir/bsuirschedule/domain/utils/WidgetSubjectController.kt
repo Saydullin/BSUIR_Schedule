@@ -66,6 +66,24 @@ class WidgetSubjectController (
         return schedule.schedules.filter { it.dateInMillis >= todayWithZeroTime }
     }
 
+    fun getActualScheduleDay(): ScheduleDay? {
+        val actualScheduleDays = getActualScheduleDays()
+        val currentMillis = Date().time
+
+        val actualScheduleDayIndex = actualScheduleDays.indexOfFirst { scheduleDay ->
+            val notIgnoredSubjects = scheduleDay.schedule.filter {
+                it.isIgnored != true && it.endMillis > currentMillis
+            }
+            notIgnoredSubjects.isNotEmpty()
+        }
+
+        if (actualScheduleDayIndex != -1) {
+            return actualScheduleDays[actualScheduleDayIndex]
+        }
+
+        return null
+    }
+
 }
 
 

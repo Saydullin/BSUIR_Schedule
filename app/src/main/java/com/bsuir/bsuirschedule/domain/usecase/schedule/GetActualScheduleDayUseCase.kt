@@ -5,6 +5,7 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.WidgetSchedule
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.WidgetSubjectController
 
 class GetActualScheduleDayUseCase(
     private val sharedPrefsUseCase: SharedPrefsUseCase,
@@ -31,13 +32,9 @@ class GetActualScheduleDayUseCase(
 
     private fun getActualDay(schedule: Schedule?): ScheduleDay? {
         if (schedule == null) return null
-        val scheduleDayIndex = schedule.schedules.indexOfFirst { it.schedule.size > 0 }
+        val widgetSubjectController = WidgetSubjectController(schedule)
 
-        if (scheduleDayIndex == -1) {
-            return null
-        }
-
-        return schedule.schedules[scheduleDayIndex]
+        return widgetSubjectController.getActualScheduleDay()
     }
 
 }

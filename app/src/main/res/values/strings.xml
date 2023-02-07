@@ -230,7 +230,7 @@
     <string name="settings_exams_title">Экзамены</string>
     <string name="settings_exams_caption">Настройки экзаменов</string>
     <string name="settings_alarm_title">Будильник</string>
-    <string name="settings_alarm_caption">Будильник определяет, к какой завтра паре нужно и звонит за N часов до ее начала. В процессе разработки.</string>
+    <string name="settings_alarm_caption">Будильник определяет, к какой завтра паре нужно и звонит за N часов до ее начала.</string>
     <string name="settings_schedule_subgroup_title">Подгруппа</string>
     <string name="settings_schedule_subgroup_caption">Отфильтруйте занятия по подгруппам</string>
     <string name="settings_lang_chosen">Выбран %s язык</string>

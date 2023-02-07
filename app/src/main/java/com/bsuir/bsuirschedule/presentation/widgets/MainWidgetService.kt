@@ -37,7 +37,6 @@ class StackRemoteViewsFactory(
     private var isGroupSchedule = false
 
     override fun onCreate() {
-        // Get schedule here
         runBlocking {
             launch(Dispatchers.IO) {
                 val widgetSchedule = getActualScheduleDayUseCase.execute()

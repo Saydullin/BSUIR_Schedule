@@ -31,7 +31,7 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
         appWidgetId: Int) {
 
         val mainActivityIntent = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, 0)
+        val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val remoteViews = RemoteViews(context.packageName, R.layout.today_schedule_widget)
 //        val calendar = Calendar.getInstance()

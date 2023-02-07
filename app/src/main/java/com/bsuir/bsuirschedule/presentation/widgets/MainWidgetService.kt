@@ -31,7 +31,7 @@ class StackRemoteViewsFactory(
 ) : RemoteViewsService.RemoteViewsFactory, KoinComponent {
 
     private val mainActivityIntent = Intent(context, MainActivity::class.java)
-    private val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, 0)
+    private val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
     private val getActualScheduleDayUseCase: GetActualScheduleDayUseCase by inject()
     private val scheduleSubjectsList = ArrayList<ScheduleSubject>()
     private var isGroupSchedule = false

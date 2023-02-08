@@ -13,7 +13,6 @@ import com.bsuir.bsuirschedule.domain.usecase.schedule.*
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class ScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase,
@@ -47,7 +46,6 @@ class ScheduleViewModel(
     val examsScheduleStatus = examsSchedule
     val errorStatus = error
     val successStatus = success
-    val updateStatus = update
     val scheduleLoadedStatus = scheduleLoaded
     val loadingStatus = loading
     val dataLoadingStatus = dataLoading
@@ -82,7 +80,7 @@ class ScheduleViewModel(
     }
 
     fun updateSchedule() {
-        if (updateStatus.value == true) {
+        if (update.value == true) {
             val scheduleId = schedule.value?.id ?: return
             settingsUpdated.value = false
             getScheduleById(scheduleId, false)
@@ -502,6 +500,7 @@ class ScheduleViewModel(
                     message = e.message
                 ))
             }
+            settingsUpdated.postValue(false)
             dataLoading.postValue(false)
         }
     }

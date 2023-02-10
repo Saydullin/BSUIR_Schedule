@@ -4,21 +4,18 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.bsuir.bsuirschedule.presentation.widgets.WakeLocker
-import com.bsuir.bsuirschedule.receiver.ScheduleUpdater
+import com.bsuir.bsuirschedule.receiver.AlarmReceiver
 
-class ScheduleUpdateService : BroadcastReceiver() {
+class AlarmUpdateService : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-
         WakeLocker.acquire(context)
 
-        val widgetIntent = Intent(context, ScheduleUpdater::class.java)
-        widgetIntent.action = "com.bsuir.bsuirschedule.action.scheduleUpdater"
-        context.sendBroadcast(widgetIntent)
+        val alarmIntent = Intent(context, AlarmReceiver::class.java)
+        alarmIntent.action = "com.bsuir.bsuirschedule.action.ALARM_UPDATE"
+        context.sendBroadcast(alarmIntent)
 
         WakeLocker.release()
     }
 
 }
-
-

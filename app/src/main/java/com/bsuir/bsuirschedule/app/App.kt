@@ -8,6 +8,7 @@ import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
+import com.bsuir.bsuirschedule.receiver.AlarmReceiver
 import com.bsuir.bsuirschedule.receiver.ScheduleUpdater
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

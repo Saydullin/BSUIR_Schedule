@@ -16,6 +16,11 @@
         android:iconTint="?attr/colorPrimary"
         android:title="@string/schedule_header_menu_settings" />
     <item
+        android:id="@+id/update_history"
+        android:icon="@drawable/ic_timeline"
+        android:iconTint="?attr/colorPrimary"
+        android:title="@string/schedule_header_menu_update_history" />
+    <item
         android:id="@+id/share"
         android:icon="@drawable/ic_share"
         android:iconTint="?attr/colorPrimary"

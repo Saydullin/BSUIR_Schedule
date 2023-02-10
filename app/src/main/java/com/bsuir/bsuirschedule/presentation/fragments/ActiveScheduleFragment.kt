@@ -113,6 +113,9 @@ class ActiveScheduleFragment : Fragment() {
                 ScheduleAction.SETTINGS -> {
                     Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSettingsFragment)
                 }
+                ScheduleAction.UPDATE_HISTORY -> {
+                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
+                }
                 ScheduleAction.UPDATE -> {
                     updateSchedule(activeSchedule.toSavedSchedule())
                 }

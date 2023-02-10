@@ -323,6 +323,7 @@
     <string name="schedule_header_menu_edit">Змяніць</string>
     <string name="schedule_header_menu_update">Абнавіць</string>
     <string name="schedule_header_menu_settings">Налады</string>
+    <string name="schedule_header_menu_update_history">Гісторыя абнаўленняў</string>
     <string name="schedule_header_menu_share">Падзяліцца</string>
     <string name="schedule_header_menu_more">Дадаткова</string>
     <string name="schedule_header_menu_delete">Выдаліць</string>

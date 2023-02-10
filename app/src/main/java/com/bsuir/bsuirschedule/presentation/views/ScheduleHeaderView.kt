@@ -11,7 +11,7 @@ import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleHeaderMenu
 import com.bumptech.glide.Glide
 
 enum class ScheduleAction {
-    DIALOG_OPEN, UPDATE, SHARE, EDIT, SETTINGS, EXAMS, MORE, DELETE
+    DIALOG_OPEN, UPDATE, SHARE, EDIT, SETTINGS, UPDATE_HISTORY, EXAMS, MORE, DELETE
 }
 
 typealias OnScheduleActionListener = (ScheduleAction) -> Unit
@@ -79,6 +79,7 @@ class ScheduleHeaderView(
                     onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
                     onEditClick = { this.menuListener?.invoke(ScheduleAction.EDIT) },
                     onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
+                    onUpdateHistoryClick = { this.menuListener?.invoke(ScheduleAction.UPDATE_HISTORY) },
                     onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
                     onMoreClick = { this.menuListener?.invoke(ScheduleAction.MORE) },
                     onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },

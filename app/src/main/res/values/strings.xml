@@ -382,6 +382,7 @@
     <string name="schedule_header_menu_edit">Изменить</string>
     <string name="schedule_header_menu_update">Обновить</string>
     <string name="schedule_header_menu_settings">Настройки</string>
+    <string name="schedule_header_menu_update_history">История обновлений</string>
     <string name="schedule_header_menu_share">Поделиться</string>
     <string name="schedule_header_menu_more">Дополнительно</string>
     <string name="schedule_header_menu_delete">Удалить</string>

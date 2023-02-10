@@ -321,6 +321,7 @@
     <string name="schedule_header_menu_edit">改变</string>
     <string name="schedule_header_menu_update">刷新</string>
     <string name="schedule_header_menu_settings">设置</string>
+    <string name="schedule_header_menu_update_history">更新历史</string>
     <string name="schedule_header_menu_share">分享</string>
     <string name="schedule_header_menu_more">此外</string>
     <string name="schedule_header_menu_delete">删除</string>

@@ -321,6 +321,7 @@
     <string name="schedule_header_menu_edit">Change</string>
     <string name="schedule_header_menu_update">Update</string>
     <string name="schedule_header_menu_settings">Settings</string>
+    <string name="schedule_header_menu_update_history">Update history</string>
     <string name="schedule_header_menu_share">Share</string>
     <string name="schedule_header_menu_more">Additionally</string>
     <string name="schedule_header_menu_delete">Delete</string>

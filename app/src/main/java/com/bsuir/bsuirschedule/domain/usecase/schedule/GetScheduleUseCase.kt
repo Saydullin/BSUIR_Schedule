@@ -78,6 +78,7 @@ class GetScheduleUseCase(
                                 )
                             }
                             val schedule = getNormalSchedule(data, currentWeek.data!!)
+                            setActualSettings(schedule)
                             mergeGroupsSubjects(schedule, groupItems.data!!)
                             val isMergedDepartments = mergeDepartments(schedule)
                             if (isMergedDepartments is Resource.Error) {

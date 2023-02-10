@@ -10,6 +10,7 @@ class ScheduleHeaderMenu(
     private val onUpdateClick: () -> Unit,
     private val onEditClick: () -> Unit,
     private val onSettingsClick: () -> Unit,
+    private val onUpdateHistoryClick: () -> Unit,
     private val onShareClick: () -> Unit,
     private val onMoreClick: () -> Unit,
     private val onDeleteClick: () -> Unit
@@ -28,6 +29,10 @@ class ScheduleHeaderMenu(
                 }
                 R.id.settings -> {
                     onSettingsClick()
+                    true
+                }
+                R.id.update_history -> {
+                    onUpdateHistoryClick()
                     true
                 }
                 R.id.share -> {

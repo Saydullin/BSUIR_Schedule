@@ -62,24 +62,24 @@ class ScheduleShortSubjectsAdapter(
             val imageView = binding.subjectType
 
             when (subject.lessonTypeAbbrev) {
-                ScheduleSubject.LABORATORY -> {
+                ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
                 }
-                ScheduleSubject.PRACTISE -> {
+                ScheduleSubject.LESSON_TYPE_PRACTISE -> {
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
                 }
-                ScheduleSubject.LECTURE -> {
+                ScheduleSubject.LESSON_TYPE_LECTURE -> {
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
                 }
-                ScheduleSubject.CONSULTATION -> {
+                ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                     imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
                 }
-                ScheduleSubject.PRETEST -> {
+                ScheduleSubject.LESSON_TYPE_PRETEST -> {
                     imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_pretest))
                 }
-                ScheduleSubject.EXAM -> {
+                ScheduleSubject.LESSON_TYPE_EXAM -> {
                     imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_exam))
                 }

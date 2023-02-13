@@ -87,22 +87,22 @@ class StackRemoteViewsFactory(
         }
 
         when (subject.lessonTypeAbbrev) {
-            ScheduleSubject.LABORATORY -> {
+            ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_labaroty)
             }
-            ScheduleSubject.PRACTISE -> {
+            ScheduleSubject.LESSON_TYPE_PRACTISE -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_practise)
             }
-            ScheduleSubject.LECTURE -> {
+            ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
             }
-            ScheduleSubject.CONSULTATION -> {
+            ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
             }
-            ScheduleSubject.PRETEST -> {
+            ScheduleSubject.LESSON_TYPE_PRETEST -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
             }
-            ScheduleSubject.EXAM -> {
+            ScheduleSubject.LESSON_TYPE_EXAM -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
             }
             else -> {

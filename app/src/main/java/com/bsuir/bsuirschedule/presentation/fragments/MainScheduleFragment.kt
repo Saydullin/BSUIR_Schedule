@@ -55,6 +55,48 @@ class MainScheduleFragment : Fragment() {
             binding.hiddenPlaceholder.visibility = View.GONE
             binding.mainScheduleContent.visibility = View.VISIBLE
 
+//            val changedSchedule = Schedule(
+//                -1,
+//                schedule.startDate,
+//                schedule.endDate,
+//                schedule.startExamsDate,
+//                schedule.endExamsDate,
+//                schedule.group,
+//                schedule.employee,
+//                schedule.subgroups,
+//                schedule.isGroup,
+//                schedule.exams,
+//                schedule.examsSchedule,
+//                schedule.subjectNow,
+//                ArrayList(),
+//                schedule.lastUpdateTime,
+//                schedule.lastUpdateDate,
+//                schedule.selectedSubgroup,
+//                schedule.settings
+//            )
+//            changedSchedule.schedules.addAll(schedule.schedules)
+//            changedSchedule.schedules.add(schedule.schedules[0])
+//            changedSchedule.schedules[0].schedule = changedSchedule.schedules[0].schedule.toMutableList() as ArrayList<ScheduleSubject>
+//            changedSchedule.schedules[0].schedule.removeAt(0)
+//            Log.e("sady", "changedSchedule: ${changedSchedule.schedules[0].schedule.size}")
+//            Log.e("sady", "schedule: ${schedule.schedules[0].schedule.size}")
+
+//            val scheduleUpdateHistoryManager = ScheduleUpdateHistoryManager(
+//                ScheduleUpdate(
+//                    0L,
+//                    changedSchedule,
+//                    schedule,
+//                    listOf(),
+//                    0
+//               )
+//            )
+//
+//            val changedDays = scheduleUpdateHistoryManager.getChangedDays()
+//
+//            schedule.schedules = changedDays
+//            Log.e("sady", "changedDays: $changedDays")
+//            Toast.makeText(context, "changedDays: ${changedDays.size}", Toast.LENGTH_SHORT).show()
+
             val widgetIntent = Intent(context, ScheduleWidget::class.java)
             widgetIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), ScheduleWidget::class.java))

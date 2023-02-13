@@ -59,12 +59,14 @@ data class ScheduleSubject (
             edited = ScheduleSubjectEdit.empty
         )
 
-        const val CONSULTATION = "Консультация"
-        const val EXAM = "Экзамен"
-        const val PRETEST = "Зачёт"
-        const val LECTURE = "ЛК"
-        const val PRACTISE = "ПЗ"
-        const val LABORATORY = "ЛР"
+        const val LESSON_TYPE_CONSULTATION = "Консультация"
+        const val LESSON_TYPE_EXAM = "Экзамен"
+        const val LESSON_TYPE_PRETEST = "Зачёт"
+        const val LESSON_TYPE_LECTURE = "ЛК"
+        const val LESSON_TYPE_PRACTISE = "ПЗ"
+        const val LESSON_TYPE_LABORATORY = "ЛР"
+        const val LESSON_TYPE_DELETED = "subject_deleted"
+        const val LESSON_TYPE_ADDED = "subject_added"
     }
 
     fun getShortTitle(): String {

@@ -132,24 +132,24 @@ class SubjectManager(
 
     fun setSubjectTypeView(imageView: ImageView) {
         when (subject.lessonTypeAbbrev) {
-            ScheduleSubject.LABORATORY -> {
+            ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
             }
-            ScheduleSubject.PRACTISE -> {
+            ScheduleSubject.LESSON_TYPE_PRACTISE -> {
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
             }
-            ScheduleSubject.LECTURE -> {
+            ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
             }
-            ScheduleSubject.CONSULTATION -> {
+            ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                 imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
             }
-            ScheduleSubject.PRETEST -> {
+            ScheduleSubject.LESSON_TYPE_PRETEST -> {
                 imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_pretest))
             }
-            ScheduleSubject.EXAM -> {
+            ScheduleSubject.LESSON_TYPE_EXAM -> {
                 imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_exam))
             }
@@ -162,22 +162,22 @@ class SubjectManager(
     fun getSubjectType(): String {
 
         return when (subject.lessonTypeAbbrev) {
-            ScheduleSubject.LABORATORY -> {
+            ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                 context.getString(R.string.laboratory)
             }
-            ScheduleSubject.PRACTISE -> {
+            ScheduleSubject.LESSON_TYPE_PRACTISE -> {
                 context.getString(R.string.practise)
             }
-            ScheduleSubject.LECTURE -> {
+            ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 context.getString(R.string.lecture)
             }
-            ScheduleSubject.CONSULTATION -> {
+            ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                 context.getString(R.string.consultation)
             }
-            ScheduleSubject.EXAM -> {
+            ScheduleSubject.LESSON_TYPE_EXAM -> {
                 context.getString(R.string.exam)
             }
-            ScheduleSubject.PRETEST -> {
+            ScheduleSubject.LESSON_TYPE_PRETEST -> {
                 context.getString(R.string.pretest)
             }
             else -> {

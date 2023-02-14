@@ -1,10 +1,11 @@
 package com.bsuir.bsuirschedule.domain.models
 
+import androidx.annotation.Keep
 import com.bsuir.bsuirschedule.data.db.entities.GroupTable
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class Group (
+@Keep data class Group (
     val id: Int,
     var title: String?,
     val name: String,

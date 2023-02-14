@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.data.repository
 
-import android.util.Log
 import androidx.core.text.isDigitsOnly
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupItemsService
@@ -19,17 +18,14 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
             val result = groupItemsService.getGroupItems()
             val data = result.body()
             return if (result.isSuccessful && data != null) {
-                Log.e("sady", "isSuccessful $data")
                 Resource.Success(data)
             } else {
-                Log.e("sady", "Not isSuccessful error $data")
                 Resource.Error(
                     errorType = Resource.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
-            Log.e("sady", "Server error ${e.message}")
             e.printStackTrace()
             Resource.Error(
                 errorType = Resource.CONNECTION_ERROR,

@@ -13,6 +13,7 @@ class ScheduleHeaderMenu(
     private val onUpdateHistoryClick: () -> Unit,
     private val onShareClick: () -> Unit,
     private val onMoreClick: () -> Unit,
+    private val onWidgetAddClick: () -> Unit,
     private val onDeleteClick: () -> Unit
 ) {
 
@@ -39,12 +40,12 @@ class ScheduleHeaderMenu(
                     onShareClick()
                     true
                 }
-                R.id.more -> {
-                    onMoreClick()
-                    true
-                }
                 R.id.delete -> {
                     onDeleteClick()
+                    true
+                }
+                R.id.add_widget -> {
+                    onWidgetAddClick()
                     true
                 }
                 else -> {

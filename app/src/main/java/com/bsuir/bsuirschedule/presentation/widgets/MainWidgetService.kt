@@ -1,19 +1,22 @@
 package com.bsuir.bsuirschedule.presentation.widgets
 
 import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.core.content.ContextCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.GroupSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.WidgetSettings
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetActualScheduleDayUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.WidgetManagerUseCase
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -30,22 +33,26 @@ class StackRemoteViewsFactory(
     val intent: Intent
 ) : RemoteViewsService.RemoteViewsFactory, KoinComponent {
 
+    private val widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
+    private val scheduleId = intent.getIntExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, -1)
     private val mainActivityIntent = Intent(context, MainActivity::class.java)
     private val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
     private val getActualScheduleDayUseCase: GetActualScheduleDayUseCase by inject()
+    private val widgetManagerUseCase: WidgetManagerUseCase by inject()
     private val scheduleSubjectsList = ArrayList<ScheduleSubject>()
     private var isGroupSchedule = false
+    private var isDarkTheme = true
 
     override fun onCreate() {
-        runBlocking {
-            launch(Dispatchers.IO) {
-                val widgetSchedule = getActualScheduleDayUseCase.execute()
-                if (widgetSchedule.schedule != null) {
-                    isGroupSchedule = widgetSchedule.schedule.isGroup()
-                }
-                if (widgetSchedule.activeScheduleDay != null) {
-                    scheduleSubjectsList.addAll(widgetSchedule.activeScheduleDay.schedule)
-                }
+        runBlocking(Dispatchers.IO) {
+            val widgetSettings = widgetManagerUseCase.getWidgetSettings(widgetId)
+            isDarkTheme = widgetSettings?.isDarkTheme ?: true
+            val widgetSchedule = getActualScheduleDayUseCase.execute(scheduleId)
+            if (widgetSchedule.schedule != null) {
+                isGroupSchedule = widgetSchedule.schedule.isGroup()
+            }
+            if (widgetSchedule.activeScheduleDay != null) {
+                scheduleSubjectsList.addAll(widgetSchedule.activeScheduleDay.schedule)
             }
         }
     }
@@ -65,6 +72,9 @@ class StackRemoteViewsFactory(
         val subject = scheduleSubjectsList[position]
         val remoteViews = RemoteViews(context.packageName, R.layout.main_widget_list_item)
         val subjectSubgroup = subject.getNumSubgroup()
+
+        setWidgetThemeViews(context, remoteViews, isDarkTheme)
+
         remoteViews.setOnClickPendingIntent(R.id.list_item_root, pendingIntent)
         remoteViews.setTextViewText(R.id.startLessonTime, subject.startLessonTime)
         remoteViews.setTextViewText(R.id.endLessonTime, subject.endLessonTime)
@@ -111,6 +121,28 @@ class StackRemoteViewsFactory(
         }
 
         return remoteViews
+    }
+
+    private fun setWidgetThemeViews(context: Context, remoteViews: RemoteViews, isDarkTheme: Boolean) {
+        if (isDarkTheme) {
+            remoteViews.setInt(R.id.list_item_root, "setBackgroundColor", ContextCompat.getColor(context, R.color.grey))
+            remoteViews.setInt(R.id.subject_subgroup_icon, "setBackgroundResource", R.drawable.widget_subgroup)
+            remoteViews.setInt(R.id.lesson_title, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.lesson_audience, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.lesson_subgroup, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.lesson_teacher_name, "setTextColor", ContextCompat.getColor(context, R.color.text_hint))
+            remoteViews.setInt(R.id.startLessonTime, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.endLessonTime, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+        } else {
+            remoteViews.setInt(R.id.list_item_root, "setBackgroundColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.subject_subgroup_icon, "setBackgroundResource", R.drawable.widget_dark_subgroup)
+            remoteViews.setInt(R.id.lesson_title, "setTextColor", ContextCompat.getColor(context, R.color.grey))
+            remoteViews.setInt(R.id.lesson_audience, "setTextColor", ContextCompat.getColor(context, R.color.grey))
+            remoteViews.setInt(R.id.lesson_subgroup, "setTextColor", ContextCompat.getColor(context, R.color.grey))
+            remoteViews.setInt(R.id.lesson_teacher_name, "setTextColor", ContextCompat.getColor(context, R.color.text_dark_hint))
+            remoteViews.setInt(R.id.startLessonTime, "setTextColor", ContextCompat.getColor(context, R.color.grey))
+            remoteViews.setInt(R.id.endLessonTime, "setTextColor", ContextCompat.getColor(context, R.color.grey))
+        }
     }
 
     override fun getLoadingView(): RemoteViews {

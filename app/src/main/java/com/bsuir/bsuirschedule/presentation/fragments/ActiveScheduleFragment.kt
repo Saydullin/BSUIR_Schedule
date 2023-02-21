@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentActiveScheduleBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.WidgetSettings
+import com.bsuir.bsuirschedule.presentation.activities.WidgetAddActivity
 import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
@@ -124,6 +127,13 @@ class ActiveScheduleFragment : Fragment() {
                 }
                 ScheduleAction.SHARE -> {
                     Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
+                }
+                ScheduleAction.WIDGET_ADD -> {
+                    val intent = Intent(requireActivity(), WidgetAddActivity::class.java)
+                    intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_TITLE, activeSchedule.getTitle())
+                    intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, activeSchedule.id)
+                    intent.putExtra(WidgetSettings.EXTRA_HAVE_TO_ADD_APPWIDGET, true)
+                    startActivity(intent)
                 }
                 ScheduleAction.MORE -> {
                     Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()

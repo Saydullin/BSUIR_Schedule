@@ -114,7 +114,8 @@ class ScheduleRecyclerFragment : Fragment() {
             if (groupSchedule == null) return@observe
             if (groupSchedule.schedules.size > 0) {
                 val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
-                binding.placeholder.visibility = View.GONE
+                binding.noSubjectsPlaceholder.visibility = View.GONE
+                binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 adapter.setShortSchedule(groupSchedule.settings.schedule.isShowShortSchedule)
                 adapter.updateSchedule(groupSchedule.schedules, groupSchedule.isGroup(), showSubjectDialog, onLongPressSubject)
@@ -122,7 +123,8 @@ class ScheduleRecyclerFragment : Fragment() {
                 binding.scheduleDailyRecycler.adapter = adapter
             } else {
                 adapter.updateSchedule(ArrayList(), false, null, null)
-                binding.placeholder.visibility = View.VISIBLE
+                binding.noSubjectsPlaceholder.visibility = View.VISIBLE
+                binding.scheduleDailyRecycler.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.GONE
             }
         }

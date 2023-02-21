@@ -7,13 +7,15 @@
     tools:context=".presentation.fragments.ScheduleRecyclerFragment">
 
     <LinearLayout
-        android:id="@+id/placeholder"
+        android:id="@+id/no_subjects_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         android:gravity="center">
 
         <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/no_schedule_placeholder"
             layout="@layout/no_schedule_placeholder" />
 

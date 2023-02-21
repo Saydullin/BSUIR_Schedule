@@ -42,16 +42,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/schedule_settings_alarm"
-            tools:layout="@layout/fragment_schedule_settings_alarm"
-            android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsAlarm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+<!--        <androidx.fragment.app.FragmentContainerView-->
+<!--            android:id="@+id/schedule_settings_alarm"-->
+<!--            tools:layout="@layout/fragment_schedule_settings_alarm"-->
+<!--            android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsAlarm"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
 
     </LinearLayout>
 

@@ -3,12 +3,10 @@ package com.bsuir.bsuirschedule.app
 import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
-import com.bsuir.bsuirschedule.receiver.AlarmReceiver
 import com.bsuir.bsuirschedule.receiver.ScheduleUpdater
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,11 +21,11 @@ class App : Application() {
         super.onCreate()
         val prefs = SharedPrefsRepositoryImpl(this)
         val isDarkTheme = prefs.getThemeIsDark()
-        val lang = prefs.getLanguage()
-        if (lang != null) {
-            val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
-            AppCompatDelegate.setApplicationLocales(appLocale)
-        }
+//        val lang = prefs.getLanguage()
+//        if (lang != null) {
+//            val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
+//            AppCompatDelegate.setApplicationLocales(appLocale)
+//        }
 
         if (isDarkTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

@@ -49,25 +49,37 @@
             android:padding="20dp"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/nested_lang_settings"
-                layout="@layout/settings_lang" />
+<!--            <include-->
+<!--                android:id="@+id/nested_lang_settings"-->
+<!--                layout="@layout/settings_lang" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="20dp" />-->
 
-            <include
-                android:id="@+id/nested_font_settings"
-                layout="@layout/settings_font" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+<!--            <include-->
+<!--                android:id="@+id/nested_font_settings"-->
+<!--                layout="@layout/settings_font" />-->
 
             <include
                 android:id="@+id/nested_theme_settings"
                 layout="@layout/settings_theme" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <include
+                android:id="@+id/nested_notification"
+                layout="@layout/settings_notification" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <include
+                android:id="@+id/nested_rate"
+                layout="@layout/settings_rate" />
 
         </LinearLayout>
 

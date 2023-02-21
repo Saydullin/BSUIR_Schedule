@@ -34,6 +34,14 @@ interface SharedPrefsRepository {
 
     fun setScheduleAutoUpdateDate(autoUpdateDate: String)
 
+    fun isNotificationsEnabled(): Boolean
+
+    fun setNotificationsEnabled(isNotificationsEnabled: Boolean)
+
+    fun getDefaultScheduleTitle(): String?
+
+    fun setDefaultScheduleTitle(scheduleTitle: String)
+
 }
 
 

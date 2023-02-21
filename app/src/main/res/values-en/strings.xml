@@ -167,6 +167,10 @@
     <string name="no_schedule_placeholder">No schedule</string>
     <string name="settings_lang_title">Language</string>
     <string name="settings_theme_title">Color theme</string>
+    <string name="settings_notifications_title">Notifications</string>
+    <string name="settings_notifications_caption">Notifications only work when schedules are automatically updated</string>
+    <string name="settings_rate_title">Estimate</string>
+    <string name="settings_rate_caption">Report a problem, maybe you have encountered a bug or know what can be fixed/added?</string>
     <string name="settings_feedback_title">Feedback</string>
     <string name="settings_font_title">Text size</string>
     <string name="settings_auto_update">Autoupdate</string>
@@ -197,6 +201,7 @@
     <string name="no_exams_placeholder">No exams</string>
     <string name="settings_schedule_subgroup_title">Subgroup</string>
     <string name="get_started">Get Started</string>
+    <string name="settings_notification">Notify on update</string>
     <string name="settings_alarm_on">Turn on</string>
     <string name="settings_alarm_title">Alarm</string>
     <string name="settings_all_subgroups">All subgroups</string>
@@ -222,6 +227,8 @@
     <string name="settings_exams_caption">Exams settings</string>
     <string name="settings_alarm_caption">The alarm clock determines on which lesson you need tomorrow and rings N hours before it starts. On development stage.</string>
     <string name="settings_schedule_subgroup_caption">Filter lessons by subgroups</string>
+    <string name="settings_notifications_enabled">Notifications enabled</string>
+    <string name="settings_notifications_disabled">Notifications disabled</string>
     <string name="current_lang">English</string>
     <string name="settings_light_theme">Light</string>
     <string name="settings_thin_font_size">Thin</string>
@@ -324,6 +331,7 @@
     <string name="schedule_header_menu_update_history">Update history</string>
     <string name="schedule_header_menu_share">Share</string>
     <string name="schedule_header_menu_more">Additionally</string>
+    <string name="schedule_header_menu_add_widget">Add Widget</string>
     <string name="schedule_header_menu_delete">Delete</string>
     <string name="coming_soon">Under development</string>
     <string name="all_subgroups_select">All subgroups</string>
@@ -331,6 +339,7 @@
     <string name="widget_text_fake_1">151003</string>
     <string name="widget_text_fake_4">Saturday</string>
     <string name="widget_text_fake_5">3 pairs</string>
+    <string name="widget_successfully_added">Widget added successfully</string>
 </resources>
 
 

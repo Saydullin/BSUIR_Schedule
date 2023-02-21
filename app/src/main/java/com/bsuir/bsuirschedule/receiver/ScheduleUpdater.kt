@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateManager
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
 import io.karn.notify.Notify
@@ -13,6 +15,7 @@ import org.koin.core.component.inject
 
 class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
 
+    private val sharedPrefsUseCase: SharedPrefsUseCase by inject()
     private val scheduleUpdateManager: ScheduleUpdateManager by inject()
 
     private fun buildScheduleUpdateNotification(context: Context, titleText: String, messageText: String) {
@@ -23,7 +26,7 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
                     context,
                     0,
                     Intent(context, MainActivity::class.java),
-                    0
+                    PendingIntent.FLAG_IMMUTABLE
                 )
             }
             .content {
@@ -35,7 +38,7 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
                     context,
                     0,
                     Intent(context, MainActivity::class.java),
-                    0
+                    PendingIntent.FLAG_IMMUTABLE
                 )
                 key = "schedule_notification_update_key"
                 summaryContent = messageText
@@ -48,11 +51,11 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
             .show()
     }
 
-    override fun onReceive(context: Context, intent: Intent) {
+    private fun notifyAboutUpdates(updatedSchedules: ArrayList<SavedSchedule>, context: Context?) {
 
-        val updatedSchedules = scheduleUpdateManager.updatedSchedules()
         updatedSchedules.forEach { updatedSchedule ->
             if (updatedSchedule.isUpdatedSuccessfully) {
+                if (context == null) return@forEach
                 if (updatedSchedule.isGroup) {
                     buildScheduleUpdateNotification(
                         context,
@@ -68,12 +71,22 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
                 }
             }
         }
-
-        val scheduleUpdateAlarmHandler = ScheduleUpdateAlarmHandler(context)
-        scheduleUpdateAlarmHandler.cancelAlarmManager()
-        scheduleUpdateAlarmHandler.setAlarmManager()
     }
 
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val isNotificationsEnable = sharedPrefsUseCase.isNotificationsEnabled()
+
+        val updatedSchedules = scheduleUpdateManager.updatedSchedules()
+        if (isNotificationsEnable) {
+            notifyAboutUpdates(updatedSchedules, context)
+        }
+
+        if (context != null) {
+            val scheduleUpdateAlarmHandler = ScheduleUpdateAlarmHandler(context)
+            scheduleUpdateAlarmHandler.cancelAlarmManager()
+            scheduleUpdateAlarmHandler.setAlarmManager()
+        }
+    }
 }
 
 

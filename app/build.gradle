@@ -10,8 +10,8 @@ android {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 21
         targetSdk 32
-        versionCode 52
-        versionName "1.5.2"
+        versionCode 54
+        versionName "1.5.4"
         resConfigs "en", "ru", "be", "zh"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -67,7 +67,7 @@ android {
 }
 
 dependencies {
-    def appcompat_version = "1.6.0"
+    def appcompat_version = "1.6.0-beta01"
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
 

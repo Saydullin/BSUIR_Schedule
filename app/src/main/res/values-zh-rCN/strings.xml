@@ -70,6 +70,10 @@
     <string name="no_schedule_placeholder">没有时间表</string>
     <string name="settings_lang_title">应用语言</string>
     <string name="settings_theme_title">色彩主题</string>
+    <string name="settings_notifications_title">通知</string>
+    <string name="settings_notifications_caption">通知仅在时间表自动更新时有效</string>
+    <string name="settings_rate_title">估计</string>
+    <string name="settings_rate_caption">报告问题，也许您遇到了错误或知道可以修复/添加什么？</string>
     <string name="settings_feedback_title">反馈</string>
     <string name="settings_font_title">字体大小</string>
     <string name="settings_auto_update">自动更新</string>
@@ -100,6 +104,7 @@
     <string name="no_exams_placeholder">没有考试</string>
     <string name="settings_schedule_subgroup_title">亚群</string>
     <string name="get_started">开始</string>
+    <string name="settings_notification">更新时通知</string>
     <string name="settings_alarm_on">启用警报</string>
     <string name="settings_alarm_title">警报</string>
     <string name="settings_all_subgroups">所有子组</string>
@@ -125,6 +130,8 @@
     <string name="settings_exams_caption">考试设置</string>
     <string name="settings_alarm_caption">闹钟决定明天你需要哪对情侣，并在开始前 N 小时响起。在开发阶段</string>
     <string name="settings_schedule_subgroup_caption">按子组筛选类别</string>
+    <string name="settings_notifications_enabled">已启用通知</string>
+    <string name="settings_notifications_disabled">通知已禁用</string>
     <string name="current_lang">中国人</string>
     <string name="settings_light_theme">光</string>
     <string name="settings_thin_font_size">小的</string>
@@ -324,6 +331,7 @@
     <string name="schedule_header_menu_update_history">更新历史</string>
     <string name="schedule_header_menu_share">分享</string>
     <string name="schedule_header_menu_more">此外</string>
+    <string name="schedule_header_menu_add_widget">添加小部件</string>
     <string name="schedule_header_menu_delete">删除</string>
     <string name="coming_soon">正在开发中</string>
     <string name="all_subgroups_select">所有子组</string>
@@ -331,6 +339,7 @@
     <string name="widget_text_fake_1">151003</string>
     <string name="widget_text_fake_4">周六</string>
     <string name="widget_text_fake_5">3对</string>
+    <string name="widget_successfully_added">插件添加成功</string>
 
 </resources>
 

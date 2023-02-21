@@ -13,6 +13,7 @@
     <string name="found">найдено %s</string>
     <string name="laboratory">Лабораторная</string>
     <string name="unknown">Неизвестно</string>
+    <string name="widget_successfully_added">Виджет успешно добавлен</string>
     <string name="info_dialog_title">Внимание</string>
     <string name="update">Обновить</string>
     <string name="okay">Понятно</string>
@@ -43,7 +44,7 @@
     <string name="audience_now">в %s</string>
     <string name="selected_subgroup">Выбрана %d подгруппа</string>
     <string name="selected_all_subgroups">Выбраны все подгруппы</string>
-    <string name="schedule_empty_date_period">Расписание занятий нет</string>
+    <string name="schedule_empty_date_period">Занятий нет</string>
     <string name="schedule_date_period">Расписание с %s по %s</string>
     <string name="exams_date_period">Экзамены с %s по %s</string>
     <string name="exams_empty_date_period">Экзаменов нет</string>
@@ -203,6 +204,8 @@
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="active_language_code" translatable="false">active_language_code</string>
     <string name="active_theme_code" translatable="false">active_theme_code</string>
+    <string name="preference_is_notify_enabled" translatable="false">preference_is_notify_enabled</string>
+    <string name="preference_default_schedule_title" translatable="false">preference_default_schedule_title</string>
     <string name="schedule_update_counter" translatable="false">schedule_update_counter</string>
     <string name="schedule_auto_update_date" translatable="false">schedule_auto_update_date</string>
     <string name="auto_update_schedule_id" translatable="false">auto_update_schedule_id</string>
@@ -217,10 +220,15 @@
     <string name="settings_lang_caption">Локализация приложения частична.\nРасписания будут всегда на русском.</string>
     <string name="settings_theme_title">Цветовая тема</string>
     <string name="settings_theme_caption">Выберите темную или светлую тему</string>
+    <string name="settings_notifications_title">Уведомления</string>
+    <string name="settings_notifications_caption">Уведомления работают только при автообновлении расписаний</string>
+    <string name="settings_rate_title">Оценить</string>
+    <string name="settings_rate_caption">Сообщите о проблеме, возможно вы сталкнулись с багом или знаете, что можно исправить/добавить?</string>
     <string name="settings_feedback_title">Обратная связь</string>
     <string name="settings_font_title">Размер шрифта</string>
     <string name="settings_font_caption">Размер можно уменьшить или увеличить</string>
     <string name="settings_auto_update">Автоматическое обновление</string>
+    <string name="settings_notification">Уведомлять при обновлении</string>
     <string name="settings_alarm_on">Включить будильник</string>
     <string name="settings_show_empty_day">Показывать пустые дни</string>
     <string name="settings_show_short_version">Показывать в коротком виде</string>
@@ -235,6 +243,8 @@
     <string name="settings_schedule_subgroup_caption">Отфильтруйте занятия по подгруппам</string>
     <string name="settings_lang_chosen">Выбран %s язык</string>
     <string name="settings_theme_chosen">Выбрана %s тема</string>
+    <string name="settings_notifications_enabled">Уведомления включены</string>
+    <string name="settings_notifications_disabled">Уведомления отключены</string>
     <string name="settings_lang_ru" translatable="false">Русский</string>
     <string name="settings_lang_en" translatable="false">English</string>
     <string name="settings_lang_be" translatable="false">Беларускі</string>
@@ -385,6 +395,7 @@
     <string name="schedule_header_menu_update_history">История обновлений</string>
     <string name="schedule_header_menu_share">Поделиться</string>
     <string name="schedule_header_menu_more">Дополнительно</string>
+    <string name="schedule_header_menu_add_widget">Добавить виджет</string>
     <string name="schedule_header_menu_delete">Удалить</string>
     <string name="widget_text_fake_3">9 февраля</string>
     <string name="widget_text_fake_1">151003</string>

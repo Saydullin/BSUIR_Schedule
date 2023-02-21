@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="?attr/primaryOnColor"
     tools:context=".presentation.fragments.MainScheduleFragment">
@@ -44,6 +43,7 @@
         android:id="@+id/hidden_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/subject_lab"
         android:visibility="gone">
 
         <include
@@ -72,7 +72,7 @@
             tools:layout="@layout/fragment_schedule_recycler"
             android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleRecyclerFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -42,6 +42,8 @@ val dataModule = module {
 
     fun currentWeekDao(db: AppDatabase) = db.currentWeekDao()
 
+    fun widgetSettingsDao(db: AppDatabase) = db.widgetSettingsDao()
+
     single { groupDao(get()) }
 
     single { specialityDao(get()) }
@@ -57,6 +59,8 @@ val dataModule = module {
     single { savedScheduleDao(get()) }
 
     single { currentWeekDao(get()) }
+
+    single { widgetSettingsDao(get()) }
 
     single {
         provideDatabase(androidApplication())
@@ -92,6 +96,10 @@ val dataModule = module {
 
     single<SpecialityRepository> {
         SpecialityRepositoryImpl(get())
+    }
+
+    single<WidgetSettingsRepository> {
+        WidgetSettingsRepositoryImpl(get())
     }
 
     single<DepartmentRepository> {

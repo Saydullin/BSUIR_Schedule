@@ -4,7 +4,6 @@
 	android:height="24dp"
 	android:viewportWidth="24"
 	android:viewportHeight="24">
-
 	<group>
 		<path
 			android:fillColor="#DFE6E9"

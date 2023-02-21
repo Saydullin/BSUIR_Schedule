@@ -8,30 +8,32 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bsuir.bsuirschedule.BuildConfig
 import com.bsuir.bsuirschedule.R
-import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentSplashScreenBinding
+import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.presentation.viewModels.*
 import org.koin.androidx.navigation.koinNavGraphViewModel
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class SplashScreenFragment : Fragment() {
+class SplashScreenFragment : Fragment(), KoinComponent {
 
     private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val currentWeekVM: CurrentWeekViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val sharedPrefsUseCase: SharedPrefsUseCase by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentSplashScreenBinding.inflate(inflater)
-        val prefs = SharedPrefsRepositoryImpl(requireContext())
 
-        val isFirstTime = prefs.isFirstTime()
+        val isFirstTime = sharedPrefsUseCase.isFirstTime()
 
         if (isFirstTime) {
-            prefs.setFirstTime(false)
-            prefs.setScheduleUpdateCounter(BuildConfig.SCHEDULES_UPDATE_COUNTER)
+            sharedPrefsUseCase.setFirstTime(false)
+            sharedPrefsUseCase.setScheduleCounter(BuildConfig.SCHEDULES_UPDATE_COUNTER)
             groupItemsVM.updateInitDataAndGroups()
             employeeItemsVM.updateDepartmentsAndEmployeeItems()
             currentWeekVM.getCurrentWeekAPI()

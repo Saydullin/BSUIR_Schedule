@@ -169,10 +169,15 @@
     <string name="settings_lang_caption">Лакалізацыя прыкладання частковая.\nРасклады будуць заўсёды на рускай.</string>
     <string name="settings_theme_title">Каляровая тэма</string>
     <string name="settings_theme_caption">Абярыце цёмную або светлую тэму</string>
+    <string name="settings_notifications_title">Апавяшчэнні</string>
+    <string name="settings_notifications_caption">Апавяшчэнні працуюць толькі пры аўтаабнаўленні раскладаў</string>
+    <string name="settings_rate_title">Ацаніць</string>
+    <string name="settings_rate_caption">Паведаміце аб праблеме, магчыма вы сутыкнуліся з багам ці ведаеце, што можна выправіць/дадаць?</string>
     <string name="settings_feedback_title">зваротная сувязь</string>
     <string name="settings_font_title">Памер шрыфта</string>
     <string name="settings_font_caption">Памер можна паменшыць ці павялічыць</string>
     <string name="settings_auto_update">Аўтаматычнае абнаўленне</string>
+    <string name="settings_notification">Апавяшчаць пры абнаўленні</string>
     <string name="settings_alarm_on">Уключыць будзільнік</string>
     <string name="settings_show_empty_day">Паказваць пустыя дні</string>
     <string name="settings_show_short_version">Паказваць у кароткім выглядзе</string>
@@ -186,6 +191,8 @@
     <string name="settings_schedule_subgroup_title">Падгрупа</string>
     <string name="settings_schedule_subgroup_caption">Адфільтруйце заняткі па падгрупах</string>
     <string name="settings_lang_chosen">Абрана %s мова</string>
+    <string name="settings_notifications_enabled">Апавяшчэнні ўключаны</string>
+    <string name="settings_notifications_disabled">Апавяшчэнні адключаныя</string>
     <string name="current_lang">Беларускi</string>
     <string name="settings_light_theme">Светлая</string>
     <string name="settings_all_subgroups">Усе падгрупы</string>
@@ -326,6 +333,7 @@
     <string name="schedule_header_menu_update_history">Гісторыя абнаўленняў</string>
     <string name="schedule_header_menu_share">Падзяліцца</string>
     <string name="schedule_header_menu_more">Дадаткова</string>
+    <string name="schedule_header_menu_add_widget">Дадаць віджэт</string>
     <string name="schedule_header_menu_delete">Выдаліць</string>
     <string name="coming_soon">У стадыі распрацоўкі</string>
     <string name="all_subgroups_select">Усе падгрупы</string>
@@ -333,4 +341,5 @@
     <string name="widget_text_fake_1">151003</string>
     <string name="widget_text_fake_4">Субота</string>
     <string name="widget_text_fake_5">3 пары</string>
+    <string name="widget_successfully_added">Віджэт паспяхова дададзены</string>
 </resources>

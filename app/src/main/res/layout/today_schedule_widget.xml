@@ -5,107 +5,118 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="#303030"
+    android:backgroundTint="@color/transparent"
     android:theme="@style/Theme.BSUIRSchedule.AppWidgetContainer">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@mipmap/ic_launcher_round" />
-
-        <TextView
-            android:id="@+id/appwidget_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="schedule title"
-            android:layout_marginHorizontal="10dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/widget_text_fake_1"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#d5dfe1" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/subgroup" />
-
-        <TextView
-            android:id="@+id/subgroup_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/appwidget_text"
-            android:layout_marginHorizontal="5dp"
-            android:text="2"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#d5dfe1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/schedule_day_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/subject_holder"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/schedule_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/widget_text_fake_3"
-            android:text="@string/widget_text_fake_3"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textSize="14sp"
-            android:textColor="#fff" />
-
-        <TextView
-            android:id="@+id/schedule_day_of_week"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/widget_text_fake_4"
-            tools:text="@string/widget_text_fake_4"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:textColor="#fff" />
-
-        <TextView
-            android:id="@+id/schedule_lessons_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/widget_text_fake_5"
-            tools:text="@string/widget_text_fake_5"
-            android:gravity="end"
-            android:textSize="14sp"
-            android:textColor="#fff" />
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/schedule_listView"
+        android:id="@+id/schedule_widget_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/main_widget_list_item"
-        android:layout_marginTop="10dp"/>
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/appwidget_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="schedule title"
+                android:layout_marginHorizontal="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/widget_text_fake_1"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#d5dfe1" />
+
+            <ImageView
+                android:id="@+id/subgroup_number_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/subgroup_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/appwidget_text"
+                android:layout_marginHorizontal="5dp"
+                android:text="2"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#d5dfe1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_day_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/subject_holder"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/schedule_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/widget_text_fake_3"
+                android:text="@string/widget_text_fake_3"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/schedule_day_of_week"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/widget_text_fake_4"
+                android:text="@string/widget_text_fake_4"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/schedule_lessons_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/widget_text_fake_5"
+                android:text="@string/widget_text_fake_5"
+                android:gravity="end"
+                android:textSize="14sp"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/schedule_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#777A7C"
+            android:dividerHeight="1px"
+            tools:listitem="@layout/main_widget_list_item"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
 

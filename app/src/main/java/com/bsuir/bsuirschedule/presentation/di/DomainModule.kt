@@ -53,6 +53,12 @@ val domainModule = module {
     }
 
     factory {
+        WidgetManagerUseCase(
+            widgetSettingsRepository = get()
+        )
+    }
+
+    factory {
         SaveScheduleUseCase(
             scheduleRepository = get()
         )

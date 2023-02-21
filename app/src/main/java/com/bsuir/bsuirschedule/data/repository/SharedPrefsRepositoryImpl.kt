@@ -126,6 +126,40 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
+    override fun isNotificationsEnabled(): Boolean {
+        return prefs.getBoolean(
+            context.getString(R.string.preference_is_notify_enabled),
+            true
+        )
+    }
+
+    override fun setNotificationsEnabled(isNotificationsEnabled: Boolean) {
+        with(prefs.edit()) {
+            putBoolean(
+                context.getString(R.string.preference_is_notify_enabled),
+                isNotificationsEnabled
+            )
+            apply()
+        }
+    }
+
+    override fun getDefaultScheduleTitle(): String? {
+        return prefs.getString(
+            context.getString(R.string.preference_default_schedule_title),
+            null
+        )
+    }
+
+    override fun setDefaultScheduleTitle(scheduleTitle: String) {
+        with(prefs.edit()) {
+            putString(
+                context.getString(R.string.preference_default_schedule_title),
+                scheduleTitle
+            )
+            apply()
+        }
+    }
+
 }
 
 

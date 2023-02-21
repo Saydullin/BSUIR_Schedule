@@ -12,19 +12,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
+import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.*
 import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
 import org.koin.androidx.navigation.koinNavGraphViewModel
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class MainScheduleFragment : Fragment() {
+class MainScheduleFragment : Fragment(), KoinComponent {
 
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupItemsVM: GroupItemsViewModel by koinNavGraphViewModel(R.id.navigation)
     private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val currentWeekVM: CurrentWeekViewModel by koinNavGraphViewModel(R.id.navigation)
     private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val sharedPrefsUseCase: SharedPrefsUseCase by inject()
     private lateinit var binding: FragmentMainScheduleBinding
 
     override fun onResume() {
@@ -55,48 +59,7 @@ class MainScheduleFragment : Fragment() {
             binding.hiddenPlaceholder.visibility = View.GONE
             binding.mainScheduleContent.visibility = View.VISIBLE
 
-//            val changedSchedule = Schedule(
-//                -1,
-//                schedule.startDate,
-//                schedule.endDate,
-//                schedule.startExamsDate,
-//                schedule.endExamsDate,
-//                schedule.group,
-//                schedule.employee,
-//                schedule.subgroups,
-//                schedule.isGroup,
-//                schedule.exams,
-//                schedule.examsSchedule,
-//                schedule.subjectNow,
-//                ArrayList(),
-//                schedule.lastUpdateTime,
-//                schedule.lastUpdateDate,
-//                schedule.selectedSubgroup,
-//                schedule.settings
-//            )
-//            changedSchedule.schedules.addAll(schedule.schedules)
-//            changedSchedule.schedules.add(schedule.schedules[0])
-//            changedSchedule.schedules[0].schedule = changedSchedule.schedules[0].schedule.toMutableList() as ArrayList<ScheduleSubject>
-//            changedSchedule.schedules[0].schedule.removeAt(0)
-//            Log.e("sady", "changedSchedule: ${changedSchedule.schedules[0].schedule.size}")
-//            Log.e("sady", "schedule: ${schedule.schedules[0].schedule.size}")
-
-//            val scheduleUpdateHistoryManager = ScheduleUpdateHistoryManager(
-//                ScheduleUpdate(
-//                    0L,
-//                    changedSchedule,
-//                    schedule,
-//                    listOf(),
-//                    0
-//               )
-//            )
-//
-//            val changedDays = scheduleUpdateHistoryManager.getChangedDays()
-//
-//            schedule.schedules = changedDays
-//            Log.e("sady", "changedDays: $changedDays")
-//            Toast.makeText(context, "changedDays: ${changedDays.size}", Toast.LENGTH_SHORT).show()
-
+            sharedPrefsUseCase.setDefaultScheduleTitle(schedule.getTitle())
             val widgetIntent = Intent(context, ScheduleWidget::class.java)
             widgetIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), ScheduleWidget::class.java))
@@ -128,7 +91,7 @@ class MainScheduleFragment : Fragment() {
 
         groupScheduleVM.successStatus.observe(viewLifecycleOwner) { successCode ->
             if (successCode != null) {
-                val messageManager = ErrorMessage(context!!).get(successCode)
+                val messageManager = ErrorMessage(requireContext()).get(successCode)
                 groupScheduleVM.setSuccessNull()
                 Toast.makeText(context, messageManager.title, Toast.LENGTH_SHORT).show()
             }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bsuir.bsuirschedule">
+    package="com.bsuir.bsuirschedule" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -26,9 +26,9 @@
         android:theme="@style/Theme.BSUIRSchedule">
         <activity
             android:name=".presentation.activities.WidgetAddActivity"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
@@ -37,23 +37,24 @@
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-<!--        <receiver-->
-<!--            android:name=".receiver.AlarmReceiver"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.bsuir.bsuirschedule.action.ALARM_UPDATE" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <receiver
+            android:name=".receiver.WidgetAddReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".receiver.ScheduleUpdater"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.bsuir.bsuirschedule.action.scheduleUpdater" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".presentation.widgets.ScheduleWidget"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -62,9 +63,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/today_schedule_widget_info" />
         </receiver>
-<!--        <receiver-->
-<!--            android:name=".service.AlarmUpdateService"-->
-<!--            android:enabled="true" />-->
         <receiver
             android:name=".service.ScheduleUpdateService"
             android:enabled="true" />
@@ -75,7 +73,7 @@
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="autoStoreLocales"
                 android:value="true" />
@@ -86,7 +84,7 @@
             android:configChanges="screenSize|orientation"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -97,7 +95,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>
+
+

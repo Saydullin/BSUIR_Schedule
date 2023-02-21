@@ -26,10 +26,10 @@
         android:iconTint="?attr/colorPrimary"
         android:title="@string/schedule_header_menu_share" />
     <item
-        android:id="@+id/more"
-        android:icon="@drawable/ic_style"
+        android:id="@+id/add_widget"
+        android:icon="@drawable/ic_widget"
         android:iconTint="?attr/colorPrimary"
-        android:title="@string/schedule_header_menu_more" />
+        android:title="@string/schedule_header_menu_add_widget" />
     <item
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete"

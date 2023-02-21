@@ -8,9 +8,12 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.content.ContextCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.domain.models.WidgetSettings
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetActualScheduleDayUseCase
+import com.bsuir.bsuirschedule.domain.usecase.schedule.WidgetManagerUseCase
 import com.bsuir.bsuirschedule.domain.utils.CalendarDate
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
 import com.bsuir.bsuirschedule.receiver.ScheduleAlarmHandler
@@ -22,6 +25,7 @@ import java.util.*
 
 class ScheduleWidget : AppWidgetProvider(), KoinComponent {
 
+    private val widgetManagerUseCase: WidgetManagerUseCase by inject()
     private val getActualScheduleDayUseCase: GetActualScheduleDayUseCase by inject()
     private var currentSchedule: Schedule = Schedule.empty
 
@@ -34,14 +38,19 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
         val pendingIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val remoteViews = RemoteViews(context.packageName, R.layout.today_schedule_widget)
-//        val calendar = Calendar.getInstance()
-//        val widgetText = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
-//        remoteViews.setTextViewText(R.id.appwidget_text, widgetText)
 
         remoteViews.setOnClickPendingIntent(R.id.schedule_widget_root, pendingIntent)
 
         runBlocking(Dispatchers.IO) {
-            val widgetSchedule = getActualScheduleDayUseCase.execute()
+            /** widget configuration settings */
+            val widgetSettings = widgetManagerUseCase.getWidgetSettings(appWidgetId)
+            setWidgetThemeViews(context, remoteViews, true)
+            val scheduleId = widgetSettings?.scheduleId ?: -1
+            val isWidgetDarkTheme = widgetSettings?.isDarkTheme ?: true
+            setWidgetThemeViews(context, remoteViews, isWidgetDarkTheme)
+
+            /** widget configuration settings */
+            val widgetSchedule = getActualScheduleDayUseCase.execute(scheduleId)
             currentSchedule = widgetSchedule.schedule ?: return@runBlocking
             val actualScheduleDay = widgetSchedule.activeScheduleDay
             val scheduleSubgroup = currentSchedule.settings.subgroup.selectedNum
@@ -84,6 +93,7 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
                 remoteViews.setTextViewText(R.id.schedule_lessons_amount, scheduleLessonsText)
             }
             val intent = Intent(context, MainWidgetService::class.java)
+            intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, scheduleId)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.putExtra("unique", Date().time)
             intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
@@ -95,6 +105,28 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
         val scheduleAlarmHandler = ScheduleAlarmHandler(context, currentSchedule)
         scheduleAlarmHandler.cancelAlarmManager()
         scheduleAlarmHandler.setAlarmManager()
+    }
+
+    private fun setWidgetThemeViews(context: Context, remoteViews: RemoteViews, isDarkTheme: Boolean) {
+        if (isDarkTheme) {
+            remoteViews.setInt(R.id.schedule_widget_body, "setBackgroundResource", R.drawable.widget_dark_holder)
+            remoteViews.setInt(R.id.subgroup_number_icon, "setBackgroundResource", R.drawable.widget_subgroup)
+            remoteViews.setInt(R.id.appwidget_text, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.subgroup_number, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+        } else {
+            remoteViews.setInt(R.id.schedule_widget_body, "setBackgroundResource", R.drawable.widget_holder)
+            remoteViews.setInt(R.id.subgroup_number_icon, "setBackgroundResource", R.drawable.widget_dark_subgroup)
+            remoteViews.setInt(R.id.appwidget_text, "setTextColor", ContextCompat.getColor(context, R.color.dark))
+            remoteViews.setInt(R.id.subgroup_number, "setTextColor", ContextCompat.getColor(context, R.color.dark))
+        }
+    }
+
+    override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
+        runBlocking(Dispatchers.IO) {
+            appWidgetIds?.forEach { appWidgetId ->
+                widgetManagerUseCase.deleteWidgetSettings(appWidgetId)
+            }
+        }
     }
 
     override fun onUpdate(
@@ -113,3 +145,5 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
     }
 
 }
+
+

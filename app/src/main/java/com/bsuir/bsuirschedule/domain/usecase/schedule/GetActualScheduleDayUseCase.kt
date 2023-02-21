@@ -12,9 +12,13 @@ class GetActualScheduleDayUseCase(
     private val getScheduleUseCase: GetScheduleUseCase
 ) {
 
-    suspend fun execute(): WidgetSchedule {
-        val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
-        val activeScheduleResource = getScheduleUseCase.getById(activeScheduleId, 0, -1)
+    suspend fun execute(scheduleId: Int): WidgetSchedule {
+        val activeScheduleResource = if (scheduleId == -1) {
+            val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
+            getScheduleUseCase.getById(activeScheduleId, 0, -1)
+        } else {
+            getScheduleUseCase.getById(scheduleId, 0, -1)
+        }
 
         if (activeScheduleResource is Resource.Success) {
             val activeSchedule = activeScheduleResource.data

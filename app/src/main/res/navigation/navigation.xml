@@ -45,6 +45,13 @@
             app:exitAnim="@anim/rev_exit"
             app:popEnterAnim="@anim/rev_enter"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainScheduleFragment_to_scheduleUpdateHistoryFragment"
+            app:destination="@id/scheduleUpdateHistoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/rev_exit"
+            app:popEnterAnim="@anim/rev_enter"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/schedulesListFragment"
@@ -184,6 +191,20 @@
             app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/scheduleSettingsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleUpdateHistoryFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleUpdateHistoryFragment"
+        android:label="fragment_schedule_update_history"
+        tools:layout="@layout/fragment_schedule_update_history" >
+        <action
+            android:id="@+id/action_scheduleUpdateHistoryFragment_to_mainScheduleFragment"
+            app:destination="@id/mainScheduleFragment"
+            app:enterAnim="@anim/rev_enter"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/scheduleUpdateHistoryFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

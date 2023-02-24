@@ -107,11 +107,13 @@ class WidgetAddActivity : AppCompatActivity(), KoinComponent {
                 pinnedWidgetCallbackIntent.putExtra(WidgetSettings.EXTRA_APPWIDGET_IS_DARK_THEME, isDarkTheme)
                 pinnedWidgetCallbackIntent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, scheduleId)
                 pinnedWidgetCallbackIntent.action = "unique" + System.currentTimeMillis()
-                val successCallback = PendingIntent.getBroadcast(
-                    this, 0,
-                    pinnedWidgetCallbackIntent, PendingIntent.FLAG_MUTABLE
-                )
-                mAppWidgetManager.requestPinAppWidget(myProvider, null, successCallback)
+                val successCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    PendingIntent.getBroadcast(this, 4, pinnedWidgetCallbackIntent, PendingIntent.FLAG_MUTABLE)
+                } else {
+                    PendingIntent.getBroadcast(this, 4, pinnedWidgetCallbackIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                }
+                val bundle = Bundle()
+                mAppWidgetManager.requestPinAppWidget(myProvider, bundle, successCallback)
             } else {
                 Toast.makeText(this, "Not supported", Toast.LENGTH_SHORT).show()
             }

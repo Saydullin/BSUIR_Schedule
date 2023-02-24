@@ -8,43 +8,34 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleDayBinding
-import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
-import com.bsuir.bsuirschedule.domain.models.ScheduleDay
+import com.bsuir.bsuirschedule.domain.models.ScheduleDayUpdateHistory
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubjectHistory
 import com.bsuir.bsuirschedule.domain.utils.CalendarDate
 
-class MainScheduleAdapter(
+class ScheduleDaysUpdateHistoryAdapter(
     private val context: Context,
-): RecyclerView.Adapter<MainScheduleAdapter.ViewHolder>() {
+): RecyclerView.Adapter<ScheduleDaysUpdateHistoryAdapter.ViewHolder>() {
 
-    private var data = ArrayList<ScheduleDay>()
+    private var data = ArrayList<ScheduleDayUpdateHistory>()
     private var isGroupSchedule = false
-    private var isShortSchedule = false
-    private var showSubjectDialog: ((subject: ScheduleSubject) -> Unit)? = null
-    private var onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)? = null
+    private var showSubjectDialog: ((subject: ScheduleSubjectHistory) -> Unit)? = null
 
     fun updateSchedule(
-        newData: ArrayList<ScheduleDay>,
+        newData: ArrayList<ScheduleDayUpdateHistory>,
         isGroup: Boolean,
-        subjectDialog: ((subject: ScheduleSubject) -> Unit)?,
-        onLongPressFunc: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
+        subjectDialog: ((subject: ScheduleSubjectHistory) -> Unit)?,
     ) {
         isGroupSchedule = isGroup
         data.clear()
         data.addAll(newData)
         showSubjectDialog = subjectDialog
-        onLongPress = onLongPressFunc
-        notifyDataSetChanged()
-    }
-
-    fun setShortSchedule(isShort: Boolean) {
-        isShortSchedule = isShort
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ScheduleDayBinding.inflate(LayoutInflater.from(context), parent, false)
 
-        return ViewHolder(isGroupSchedule, isShortSchedule, showSubjectDialog, onLongPress, view)
+        return ViewHolder(isGroupSchedule, showSubjectDialog, view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -60,13 +51,12 @@ class MainScheduleAdapter(
 
     class ViewHolder(
         private val isGroupSchedule: Boolean,
-        private val isShortSchedule: Boolean,
-        private val showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
-        private val onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)?,
+        private val showSubjectDialog: ((subject: ScheduleSubjectHistory) -> Unit)?,
         private val binding: ScheduleDayBinding,
     ): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(scheduleDay: ScheduleDay, context: Context, position: Int) {
+        fun bind(scheduleDayHistory: ScheduleDayUpdateHistory, context: Context, position: Int) {
+            val scheduleDay = scheduleDayHistory.scheduleDay
             val lessonsText = context.resources.getQuantityString(
                 R.plurals.plural_lessons,
                 scheduleDay.schedule.size,
@@ -98,11 +88,12 @@ class MainScheduleAdapter(
                 binding.scheduleSubjectsRecycler.visibility = View.GONE
                 binding.scheduleNoLessons.visibility = View.VISIBLE
             } else {
-                val adapter = if (isShortSchedule) {
-                    ScheduleShortSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog, onLongPress)
-                } else {
-                    ScheduleSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog, onLongPress)
-                }
+                val adapter = ScheduleUpdateHistorySubjectsAdapter(
+                    context,
+                    scheduleDayHistory.scheduleSubjects,
+                    isGroupSchedule,
+                    showSubjectDialog,
+                )
                 binding.scheduleSubjectsRecycler.adapter = adapter
                 binding.scheduleSubjectsRecycler.layoutManager = LinearLayoutManager(context)
                 binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()

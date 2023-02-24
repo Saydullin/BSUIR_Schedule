@@ -106,11 +106,13 @@ class ScheduleRepositoryImpl(
                 )
             Resource.Success(data.toSchedule())
         } catch (e: SQLiteException) {
+            e.printStackTrace()
             Resource.Error(
                 errorType = Resource.DATABASE_ERROR,
                 message = e.message
             )
         } catch (e: Exception) {
+            e.printStackTrace()
             Resource.Error(
                 errorType = Resource.DATABASE_ERROR,
                 message = e.message

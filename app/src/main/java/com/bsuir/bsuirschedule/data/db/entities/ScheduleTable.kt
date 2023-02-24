@@ -1,10 +1,7 @@
 package com.bsuir.bsuirschedule.data.db.entities
 
 import androidx.room.*
-import com.bsuir.bsuirschedule.data.db.converters.IntListConverter
-import com.bsuir.bsuirschedule.data.db.converters.ScheduleDayListConverter
-import com.bsuir.bsuirschedule.data.db.converters.ScheduleSettingsConverter
-import com.bsuir.bsuirschedule.data.db.converters.ScheduleSubjectsListConverter
+import com.bsuir.bsuirschedule.data.db.converters.*
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 
@@ -21,6 +18,7 @@ data class ScheduleTable (
     @ColumnInfo val isGroup: Boolean?,
     @TypeConverters(ScheduleSubjectsListConverter::class) var exams: ArrayList<ScheduleSubject>,
     @TypeConverters(ScheduleDayListConverter::class) var examsSchedule: ArrayList<ScheduleDay>,
+    @ColumnInfo val updateHistorySchedule: ArrayList<ScheduleDayUpdateHistory>?,
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
     @ColumnInfo val lastUpdateTime: Long,
     @ColumnInfo val lastUpdateDate: String,
@@ -39,6 +37,7 @@ data class ScheduleTable (
         isGroup = isGroup,
         exams = exams,
         examsSchedule = examsSchedule,
+        updateHistorySchedule = updateHistorySchedule ?: ArrayList(),
         subjectNow = null,
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,

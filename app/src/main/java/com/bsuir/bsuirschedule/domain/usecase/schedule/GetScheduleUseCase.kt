@@ -7,6 +7,7 @@ import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.ScheduleController
+import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateHistoryManager
 
 class GetScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
@@ -33,6 +34,7 @@ class GetScheduleUseCase(
                     }
                     val schedule = getNormalSchedule(data, currentWeek.data!!)
                     setActualSettings(schedule)
+                    setUpdateHistory(schedule)
                     val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(schedule)
                     if (isMergedFacultyAndSpeciality is Resource.Error) {
                         return isMergedFacultyAndSpeciality
@@ -79,6 +81,7 @@ class GetScheduleUseCase(
                             }
                             val schedule = getNormalSchedule(data, currentWeek.data!!)
                             setActualSettings(schedule)
+                            setUpdateHistory(schedule)
                             mergeGroupsSubjects(schedule, groupItems.data!!)
                             val isMergedDepartments = mergeDepartments(schedule)
                             if (isMergedDepartments is Resource.Error) {
@@ -199,6 +202,19 @@ class GetScheduleUseCase(
         val scheduleController = ScheduleController()
 
         return scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
+    }
+
+    private suspend fun setUpdateHistory(currentSchedule: Schedule) {
+        val previousSchedule = getById(currentSchedule.id, 1, 1)
+        if (previousSchedule is Resource.Success) {
+            if (previousSchedule.data == null) return
+            val scheduleUpdateHistoryManager = ScheduleUpdateHistoryManager(
+                previousSchedule = previousSchedule.data,
+                currentSchedule = currentSchedule
+            )
+            currentSchedule.updateHistorySchedule.clear()
+            currentSchedule.updateHistorySchedule.addAll(scheduleUpdateHistoryManager.getChangedDays())
+        }
     }
 
     private suspend fun setActualSettings(schedule: Schedule) {

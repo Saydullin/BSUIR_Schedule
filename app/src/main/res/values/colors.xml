@@ -16,6 +16,7 @@
     <color name="primary_holder">#dfe6e9</color>
     <color name="secondary_hint">#CBD2D5</color>
     <color name="light_danger">#ff7675</color>
+    <color name="danger_background">#FCBFBE</color>
     <color name="danger">#d63031</color>
     <color name="text_hint">#dfe6e9</color>
     <color name="text_dark_hint">#636e72</color>
@@ -29,6 +30,7 @@
     <color name="grey">#303030</color>
 
     <color name="success">#00b894</color>
+    <color name="success_background">#D9FFD8</color>
 
     <color name="primaryOnColorDarkTheme">#2a2f32</color>
     <color name="primaryOnColorButtonDarkTheme">#393E42</color>

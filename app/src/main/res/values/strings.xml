@@ -150,7 +150,7 @@
     <string name="database_not_found_error">Данные не найдены</string>
     <string name="database_not_found_error_caption">Попробуйте загрузить их заново.</string>
     <string name="database_error">Ошибка базы данных</string>
-    <string name="database_error_caption">Попробуйте очистить данные приложения в настройках</string>
+    <string name="database_error_caption">Попробуйте очистить данные или переустановить приложение</string>
     <string name="system_error">Системная ошибка</string>
     <string name="system_error_caption">Переустановите приложение</string>
     <string name="schedule_success_updated">Расписание обновлено</string>
@@ -401,6 +401,8 @@
     <string name="widget_text_fake_1">151003</string>
     <string name="widget_text_fake_4">Суббота</string>
     <string name="widget_text_fake_5">3 пары</string>
+    <string name="deleted">Удалено</string>
+    <string name="added">Добавлено</string>
 
 </resources>
 

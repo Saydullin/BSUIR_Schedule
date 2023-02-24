@@ -119,7 +119,7 @@ class ScheduleController {
 
         while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
             calendarDate.incDate(daysCounter)
-            val currentTimeInMillis = calendarDate.getDateInMillis();
+            val currentTimeInMillis = calendarDate.getDateInMillis()
             val weekNumber = calendarDate.getWeekNumber()
             val weekDayNumber = calendarDate.getWeekDayNumber()
             val weekNumberDays = schedule.schedules.filter { it.weekDayNumber == weekDayNumber }
@@ -132,7 +132,7 @@ class ScheduleController {
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
-                        schedule = ArrayList()
+                        schedule = ArrayList(),
                     ))
             }
             weekNumberDaysCopy.map { scheduleDay ->
@@ -295,17 +295,17 @@ class ScheduleController {
         return getMillisTimeInSubjects(daysWithDatesSchedule)
     }
 
-    private fun getPagingLimit(schedule: ArrayList<ScheduleDay>, page: Int, pageSize: Int): ArrayList<ScheduleDay> {
-        val limitedScheduleDays = ArrayList<ScheduleDay>()
-
-        val loopUntil = if (schedule.size < pageSize) schedule.size else pageSize
-
-        for (i in 0 until loopUntil) {
-            limitedScheduleDays.add(schedule[i])
-        }
-
-        return limitedScheduleDays
-    }
+//    private fun getPagingLimit(schedule: ArrayList<ScheduleDay>, page: Int, pageSize: Int): ArrayList<ScheduleDay> {
+//        val limitedScheduleDays = ArrayList<ScheduleDay>()
+//
+//        val loopUntil = if (schedule.size < pageSize) schedule.size else pageSize
+//
+//        for (i in 0 until loopUntil) {
+//            limitedScheduleDays.add(schedule[i])
+//        }
+//
+//        return limitedScheduleDays
+//    }
 
     // This schedule will be shown on UI
     fun getRegularSchedule(schedule: Schedule, page: Int = 0, pageSize: Int = -1): Schedule {

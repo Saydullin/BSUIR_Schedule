@@ -26,7 +26,7 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
                     context,
                     0,
                     Intent(context, MainActivity::class.java),
-                    PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_MUTABLE
                 )
             }
             .content {
@@ -38,7 +38,7 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
                     context,
                     0,
                     Intent(context, MainActivity::class.java),
-                    PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_MUTABLE
                 )
                 key = "schedule_notification_update_key"
                 summaryContent = messageText

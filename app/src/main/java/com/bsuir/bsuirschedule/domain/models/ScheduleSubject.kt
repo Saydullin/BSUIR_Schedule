@@ -65,8 +65,6 @@ data class ScheduleSubject (
         const val LESSON_TYPE_LECTURE = "ЛК"
         const val LESSON_TYPE_PRACTISE = "ПЗ"
         const val LESSON_TYPE_LABORATORY = "ЛР"
-        const val LESSON_TYPE_DELETED = "subject_deleted"
-        const val LESSON_TYPE_ADDED = "subject_added"
     }
 
     fun getShortTitle(): String {
@@ -107,6 +105,12 @@ data class ScheduleSubject (
         }
         return (numSubgroup ?: 0)
     }
+
+    fun toSubjectHistory(status: SubjectHistoryStatus = SubjectHistoryStatus.NOTHING) = ScheduleSubjectHistory(
+        id = id ?: -1,
+        scheduleSubject = this,
+        status = status
+    )
 
 }
 

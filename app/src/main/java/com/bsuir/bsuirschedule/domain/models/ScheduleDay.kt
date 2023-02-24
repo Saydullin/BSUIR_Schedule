@@ -26,6 +26,15 @@ data class ScheduleDay (
 
     fun weekDayNameUpperFirstLetter() = weekDayTitle.replaceFirstChar { it.uppercase() }
 
+    fun toScheduleDayUpdatedHistory(
+        status: SubjectHistoryStatus = SubjectHistoryStatus.NOTHING,
+        scheduleSubjects: ArrayList<ScheduleSubjectHistory>? = null
+    ) = ScheduleDayUpdateHistory(
+        id = id,
+        scheduleDay = this,
+        scheduleSubjects = scheduleSubjects ?: schedule.map { it.toSubjectHistory(status) } as ArrayList<ScheduleSubjectHistory>,
+    )
+
 }
 
 

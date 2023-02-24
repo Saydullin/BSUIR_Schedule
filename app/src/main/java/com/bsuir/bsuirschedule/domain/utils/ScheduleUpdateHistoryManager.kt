@@ -1,56 +1,56 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
-import com.bsuir.bsuirschedule.domain.models.ScheduleDay
-import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
-import com.bsuir.bsuirschedule.domain.models.ScheduleUpdate
+import com.bsuir.bsuirschedule.domain.models.*
 
 class ScheduleUpdateHistoryManager (
-    private val scheduleUpdate: ScheduleUpdate
+    private val previousSchedule: Schedule,
+    private val currentSchedule: Schedule
 ) {
 
-    fun getChangedDays(): ArrayList<ScheduleDay> {
-        val scheduleChangedDays = ArrayList<ScheduleDay>()
-        val previousSchedules = scheduleUpdate.previousSchedule.schedules
-        val currentSchedules = scheduleUpdate.currentSchedule.schedules
+    fun getChangedDays(): ArrayList<ScheduleDayUpdateHistory> {
+        val scheduleChangedDays = ArrayList<ScheduleDayUpdateHistory>()
+        val previousSchedules = previousSchedule.schedules
+        val currentSchedules = currentSchedule.schedules
 
-        Log.e("sady", "17")
         if (previousSchedules == currentSchedules) return scheduleChangedDays
-        Log.e("sady", "19")
-        val changedDays = currentSchedules.minus(previousSchedules.toHashSet())
-        Log.e("sady", "21 (${changedDays.size})")
+        val changedDays = currentSchedules.minus(previousSchedules)
+
         changedDays.map { scheduleDay ->
             val dateInMillis = scheduleDay.dateInMillis
-            // ?
             val previousScheduleDay = previousSchedules.find { it.dateInMillis == dateInMillis }
-
-            val previousDaySubjects = ArrayList<ScheduleSubject>()
+            val previousDaySubjects = previousScheduleDay?.schedule ?: ArrayList()
+            val subjectsHistory = ArrayList<ScheduleSubjectHistory>()
 
             /** null = day was added in new schedule */
             if (previousScheduleDay?.schedule == null) {
-                scheduleChangedDays.add(scheduleDay)
-                Log.e("sady", "32")
+                scheduleChangedDays.add(scheduleDay.toScheduleDayUpdatedHistory(SubjectHistoryStatus.ADDED))
                 return@map
             }
-            /** true = schedules are the same */
-            Log.e("sady", "36")
+
+            /** true = schedule days are the same */
             if (previousDaySubjects == scheduleDay.schedule) return@map
 
-            val addedSubjects = scheduleDay.schedule.minus(previousDaySubjects.toHashSet())
+            val deletedSubjects = previousDaySubjects.minus(scheduleDay.schedule)
+            val addedSubjects = scheduleDay.schedule.minus(previousDaySubjects)
 
-            scheduleDay.schedule.map { subject ->
+            for (subject in scheduleDay.schedule) {
                 if (addedSubjects.contains(subject)) {
-                    subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_ADDED
-                } else {
-                    subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_DELETED
+                    subjectsHistory.add(subject.toSubjectHistory(status = SubjectHistoryStatus.ADDED))
+                    continue
                 }
+                if (deletedSubjects.contains(subject)) {
+                    subjectsHistory.add(subject.toSubjectHistory(status = SubjectHistoryStatus.DELETED))
+                    continue
+                }
+                subjectsHistory.add(subject.toSubjectHistory())
             }
 
-            scheduleChangedDays.add(scheduleDay)
+            scheduleChangedDays.add(scheduleDay.toScheduleDayUpdatedHistory(SubjectHistoryStatus.ADDED, scheduleSubjects = subjectsHistory))
         }
 
-        Log.e("sady", "44")
         return scheduleChangedDays
     }
 
 }
+
+

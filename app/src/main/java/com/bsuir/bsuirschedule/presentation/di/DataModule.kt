@@ -21,6 +21,7 @@ val dataModule = module {
             .addTypeConverter(IntListConverter())
             .addTypeConverter(StrListConverter())
             .addTypeConverter(ScheduleSettingsConverter())
+            .addTypeConverter(ScheduleDayHistoryUpdateConverter())
             .addTypeConverter(ScheduleDayListConverter())
             .addTypeConverter(ScheduleSubjectsListConverter())
             .build()

@@ -37,11 +37,6 @@ data class GroupSchedule (
         )
     }
 
-    fun isNotSuitable(): Boolean {
-        return startDate.isNullOrEmpty() ||
-                endDate.isNullOrEmpty()
-    }
-
     fun toSchedule() = Schedule(
         id = id,
         startDate = startDate ?: "",
@@ -54,6 +49,7 @@ data class GroupSchedule (
         subgroups = subgroups ?: listOf(),
         exams = exams ?: ArrayList(),
         examsSchedule = examsSchedule ?: ArrayList(),
+        updateHistorySchedule = ArrayList(),
         subjectNow = null,
         lastUpdateTime = lastUpdateTime ?: Date().time,
         lastUpdateDate = "",

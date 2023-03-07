@@ -17,6 +17,7 @@
     <string name="no_group_title">未指定组</string>
     <string name="schedules_all_list_title">所有时间表</string>
     <string name="schedules_settings_title">日程设置</string>
+    <string name="schedules_update_history_title">更新历史</string>
     <string name="schedules_no_lessons">没有课</string>
     <string name="tab_item_group">团体</string>
     <string name="tab_item_employee">教师</string>
@@ -66,6 +67,7 @@
     <string name="tab_item_schedule_control">控制</string>
     <string name="popup_settings">设置</string>
     <string name="popup_about">关于申请</string>
+    <string name="no_schedule_updated_history">没有保存的更新</string>
     <string name="no_schedule">%s（无课程）</string>
     <string name="no_schedule_placeholder">没有时间表</string>
     <string name="settings_lang_title">应用语言</string>
@@ -108,6 +110,7 @@
     <string name="settings_alarm_on">启用警报</string>
     <string name="settings_alarm_title">警报</string>
     <string name="settings_all_subgroups">所有子组</string>
+    <string name="settings_theme_system">系统的</string>
     <string name="settings_item_subgroup">%d 个子组</string>
     <string name="all_subgroups_short">*</string>
     <string name="subgroup_selected">选择了 %d 个子组</string>
@@ -340,6 +343,8 @@
     <string name="widget_text_fake_4">周六</string>
     <string name="widget_text_fake_5">3对</string>
     <string name="widget_successfully_added">插件添加成功</string>
+    <string name="deleted">删除</string>
+    <string name="added">添加</string>
 
 </resources>
 

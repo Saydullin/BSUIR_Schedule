@@ -74,6 +74,7 @@
     <string name="schedules_first_add_all_list_title">Абярыце раскладу</string>
     <string name="settings_title">Налады</string>
     <string name="schedules_settings_title">Налады раскладу</string>
+    <string name="schedules_update_history_title">Гісторыя абнаўлення</string>
     <string name="schedules_no_lessons">Няма заняткаў</string>
     <string name="tab_item_group">Групы</string>
     <string name="tab_item_employee">Выкладчыкі</string>
@@ -161,6 +162,7 @@
     <string name="no_content">Няма кантэнту</string>
     <string name="no_saved_schedule">Захаваных раскладаў няма</string>
     <string name="no_schedule_choose">Расклад не выбрана</string>
+    <string name="no_schedule_updated_history">Няма захаваных абнаўленняў</string>
     <string name="no_schedule">%s (няма заняткаў)</string>
     <string name="no_schedule_placeholder">Няма раскладу</string>
     <string name="no_items_placeholder">Расклады не загрузіліся ( Пацягніце ўніз, каб абнавіць</string>
@@ -199,6 +201,7 @@
     <string name="settings_thin_font_size">Маленькі</string>
     <string name="settings_medium_font_size">Нармальны</string>
     <string name="settings_big_font_size">Велізарны</string>
+    <string name="settings_theme_system">Сістэмная</string>
     <string name="settings_item_subgroup">%d падгрупа</string>
     <string name="no_calendar_placeholder">Будзе даступна ў наступным абнаўленні</string>
     <string name="get_started">Пачаць</string>
@@ -342,4 +345,6 @@
     <string name="widget_text_fake_4">Субота</string>
     <string name="widget_text_fake_5">3 пары</string>
     <string name="widget_successfully_added">Віджэт паспяхова дададзены</string>
+    <string name="deleted">Выдалена</string>
+    <string name="added">Паведамленні</string>
 </resources>

@@ -14,6 +14,8 @@ import com.bsuir.bsuirschedule.presentation.viewModels.*
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SplashScreenFragment : Fragment(), KoinComponent {
 
@@ -32,6 +34,9 @@ class SplashScreenFragment : Fragment(), KoinComponent {
         val isFirstTime = sharedPrefsUseCase.isFirstTime()
 
         if (isFirstTime) {
+            val todayDateFormat = SimpleDateFormat("dd.MM.yyyy")
+            val todayDate = todayDateFormat.format(Date().time)
+            sharedPrefsUseCase.setScheduleAutoUpdateDate(todayDate)
             sharedPrefsUseCase.setFirstTime(false)
             sharedPrefsUseCase.setScheduleCounter(BuildConfig.SCHEDULES_UPDATE_COUNTER)
             groupItemsVM.updateInitDataAndGroups()

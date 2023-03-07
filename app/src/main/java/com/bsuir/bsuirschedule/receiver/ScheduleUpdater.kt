@@ -10,6 +10,7 @@ import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateManager
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
 import io.karn.notify.Notify
+import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -73,19 +74,22 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onReceive(context: Context?, intent: Intent?) {
+        if (context == null) return
         val isNotificationsEnable = sharedPrefsUseCase.isNotificationsEnabled()
 
-        val updatedSchedules = scheduleUpdateManager.updatedSchedules()
-        if (isNotificationsEnable) {
-            notifyAboutUpdates(updatedSchedules, context)
+        GlobalScope.launch(Dispatchers.IO) {
+            val updatedSchedules = scheduleUpdateManager.updatedSchedules()
+            buildScheduleUpdateNotification(context, "Updated", "schedules updated")
+            if (isNotificationsEnable) {
+                notifyAboutUpdates(updatedSchedules, context)
+            }
         }
 
-        if (context != null) {
-            val scheduleUpdateAlarmHandler = ScheduleUpdateAlarmHandler(context)
-            scheduleUpdateAlarmHandler.cancelAlarmManager()
-            scheduleUpdateAlarmHandler.setAlarmManager()
-        }
+        val scheduleUpdateAlarmHandler = ScheduleUpdateAlarmHandler(context)
+        scheduleUpdateAlarmHandler.cancelAlarmManager()
+        scheduleUpdateAlarmHandler.setAlarmManager()
     }
 }
 

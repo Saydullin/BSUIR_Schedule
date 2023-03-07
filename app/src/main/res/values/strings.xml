@@ -103,6 +103,7 @@
     <string name="schedules_first_add_all_list_title">Выберите расписания</string>
     <string name="settings_title">Настройки</string>
     <string name="schedules_settings_title">Настройки расписания</string>
+    <string name="schedules_update_history_title">История обновления</string>
     <string name="schedules_no_lessons">Нет занятий</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>
@@ -203,7 +204,7 @@
     <string name="preference_is_data_loading_trouble" translatable="false">is_data_loading_trouble</string>
     <string name="active_schedule_id" translatable="false">active_schedule_id</string>
     <string name="active_language_code" translatable="false">active_language_code</string>
-    <string name="active_theme_code" translatable="false">active_theme_code</string>
+    <string name="active_theme_code" translatable="false">active_theme_type</string>
     <string name="preference_is_notify_enabled" translatable="false">preference_is_notify_enabled</string>
     <string name="preference_default_schedule_title" translatable="false">preference_default_schedule_title</string>
     <string name="schedule_update_counter" translatable="false">schedule_update_counter</string>
@@ -212,6 +213,7 @@
     <string name="no_content">Нет контента</string>
     <string name="no_saved_schedule">Сохраненных расписаний нет</string>
     <string name="no_schedule_choose">Расписание не выбрано</string>
+    <string name="no_schedule_updated_history">Нет сохранённых обновлений</string>
     <string name="no_schedule">%s (нет занятий)</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
     <string name="no_items_placeholder">Расписания не загрузились ( Потяните вниз, чтобы обновить</string>
@@ -261,6 +263,7 @@
     <string name="settings_big_font_size">Огромный</string>
     <string name="settings_theme_light">Светлая</string>
     <string name="settings_theme_dark">Темная</string>
+    <string name="settings_theme_system">Системная</string>
     <string name="settings_item_subgroup">%d подгруппа</string>
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
@@ -281,6 +284,7 @@
     </string-array>
 
     <string-array name="app_theme">
+        <item>Системная</item>
         <item>Светлая</item>
         <item>Темная</item>
     </string-array>

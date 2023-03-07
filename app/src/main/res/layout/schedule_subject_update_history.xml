@@ -57,8 +57,9 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 app:cardElevation="0dp"
                 android:backgroundTint="?attr/secondaryColor"
                 app:cardCornerRadius="10dp">
@@ -94,19 +95,6 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="@string/test_subject_title" />
-
-                        <TextView
-                            android:id="@+id/subject_update_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                            android:text="@string/deleted"
-                            android:background="@drawable/subject_update_deleted_holder"
-                            android:textColor="@color/danger"
-                            android:layout_marginHorizontal="10dp"
-                            android:visibility="gone"
-                            android:paddingHorizontal="7dp"
-                            android:paddingVertical="2dp" />
 
                         <LinearLayout
                             android:id="@+id/subgroup_info"
@@ -185,6 +173,14 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/subject_update_status"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_deleted_sign" />
 
         </LinearLayout>
 

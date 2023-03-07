@@ -8,7 +8,7 @@ data class SavedSchedule (
     val group: Group,
     val isGroup: Boolean,
     var lastUpdateTime: Long,
-    var lastUpdateDate: String,
+    var lastUpdateDate: String?,
     var isUpdatedSuccessfully: Boolean,
     var isExistExams: Boolean
 ) {

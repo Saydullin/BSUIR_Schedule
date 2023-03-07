@@ -23,7 +23,8 @@ class PagingSourceImpl(
         val pageSize = params.loadSize
 
         return when (
-            val result = getScheduleUseCase.getById(groupId, page, pageSize)
+//            val result = getScheduleUseCase.getById(groupId, page, pageSize)
+        val result = getScheduleUseCase.getById(groupId)
         ) {
             is Resource.Success -> {
                 val data = result.data!!

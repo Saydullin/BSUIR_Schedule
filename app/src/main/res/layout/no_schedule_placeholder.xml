@@ -7,20 +7,20 @@
     android:paddingBottom="50dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_paper_clip" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
         android:text="@string/no_schedule_placeholder" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_no_subjects_placeholder" />
 
 </LinearLayout>
 

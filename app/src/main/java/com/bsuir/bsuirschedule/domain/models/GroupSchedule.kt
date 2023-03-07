@@ -54,6 +54,7 @@ data class GroupSchedule (
         lastUpdateTime = lastUpdateTime ?: Date().time,
         lastUpdateDate = "",
         schedules = ArrayList(),
+        originalSchedule = ArrayList(),
         settings = ScheduleSettings.empty
     )
 

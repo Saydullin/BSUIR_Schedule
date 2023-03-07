@@ -17,12 +17,18 @@ data class ScheduleDay (
             dateInMillis = 0,
             weekDayTitle = "",
             weekDayNumber = 0,
-            weekNumber = 0,
+            weekNumber = -1,
             schedule = ArrayList()
         )
     }
 
-    fun weekNumberString() = weekNumber.toString()
+    fun weekNumberString(): String {
+        return if (weekNumber == -1) {
+            ""
+        } else {
+            weekNumber.toString()
+        }
+    }
 
     fun weekDayNameUpperFirstLetter() = weekDayTitle.replaceFirstChar { it.uppercase() }
 

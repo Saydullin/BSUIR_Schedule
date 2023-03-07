@@ -10,6 +10,10 @@ data class ScheduleSettingsExams (
             isShowEmptyDays = false,
             isShowPastDays = true
         )
+        val fullSchedule = ScheduleSettingsExams(
+            isShowEmptyDays = true,
+            isShowPastDays = true
+        )
     }
 
 }

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.data.repository.ThemeType
 import com.bsuir.bsuirschedule.databinding.FragmentSettingsBinding
 import com.bsuir.bsuirschedule.databinding.SettingsNotificationBinding
 import com.bsuir.bsuirschedule.databinding.SettingsThemeBinding
@@ -29,7 +30,7 @@ class SettingsFragment : Fragment(), KoinComponent {
     override fun onResume() {
         super.onResume()
 
-        setThemeUI(binding.nestedThemeSettings, sharedPrefsUseCase.getThemeIsDark())
+        setThemeUI(binding.nestedThemeSettings, sharedPrefsUseCase.getThemeType())
         setNotificationsUI(binding.nestedNotification, sharedPrefsUseCase.isNotificationsEnabled())
     }
 
@@ -46,12 +47,16 @@ class SettingsFragment : Fragment(), KoinComponent {
         binding.nestedThemeSettings.autoCompleteThemeTextView.setOnItemClickListener { _, _, i, _ ->
             when (getThemeList()[i].lowercase()) {
                 resources.getString(R.string.settings_theme_light).lowercase() -> {
-                    sharedPrefsUseCase.setThemeIsDark(isDark = false)
+                    sharedPrefsUseCase.setThemeType(themeType = ThemeType.LIGHT)
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }
                 resources.getString(R.string.settings_theme_dark).lowercase() -> {
-                    sharedPrefsUseCase.setThemeIsDark(isDark = true)
+                    sharedPrefsUseCase.setThemeType(themeType = ThemeType.DARK)
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                resources.getString(R.string.settings_theme_system).lowercase() -> {
+                    sharedPrefsUseCase.setThemeType(themeType = ThemeType.SYSTEM)
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 }
             }
 
@@ -88,14 +93,14 @@ class SettingsFragment : Fragment(), KoinComponent {
         notificationBinding.isNotificationsEnabled.isChecked = isNotificationsEnabled
     }
 
-    private fun setThemeUI(themeBinding: SettingsThemeBinding, isDarkTheme: Boolean) {
+    private fun setThemeUI(themeBinding: SettingsThemeBinding, themeType: Int) {
         val themesList = resources.getStringArray(R.array.app_theme)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, themesList)
         themeBinding.autoCompleteThemeTextView.setAdapter(arrayAdapter)
-        if (isDarkTheme) {
-            themeBinding.autoCompleteThemeTextView.setText(getString(R.string.settings_theme_dark), false)
-        } else {
-            themeBinding.autoCompleteThemeTextView.setText(getString(R.string.settings_theme_light), false)
+        when (themeType) {
+            ThemeType.SYSTEM -> themeBinding.autoCompleteThemeTextView.setText(getString(R.string.settings_theme_system), false)
+            ThemeType.DARK -> themeBinding.autoCompleteThemeTextView.setText(getString(R.string.settings_theme_dark), false)
+            ThemeType.LIGHT -> themeBinding.autoCompleteThemeTextView.setText(getString(R.string.settings_theme_light), false)
         }
     }
 

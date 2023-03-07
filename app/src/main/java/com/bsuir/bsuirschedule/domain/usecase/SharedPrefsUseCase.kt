@@ -34,12 +34,12 @@ class SharedPrefsUseCase(
         return sharedPrefsRepository.getScheduleUpdateCounter()
     }
 
-    fun getThemeIsDark(): Boolean {
-        return sharedPrefsRepository.getThemeIsDark()
+    fun getThemeType(): Int {
+        return sharedPrefsRepository.getThemeType()
     }
 
-    fun setThemeIsDark(isDark: Boolean) {
-        return sharedPrefsRepository.setTheme(isDark)
+    fun setThemeType(themeType: Int) {
+        return sharedPrefsRepository.setTheme(themeType)
     }
 
     fun setScheduleCounter(counter: Int) {
@@ -60,6 +60,14 @@ class SharedPrefsUseCase(
 
     fun setDefaultScheduleTitle(scheduleTitle: String) {
         sharedPrefsRepository.setDefaultScheduleTitle(scheduleTitle)
+    }
+
+    fun getScheduleAutoUpdateDate(): String {
+        return sharedPrefsRepository.getScheduleAutoUpdateDate()
+    }
+
+    fun setScheduleAutoUpdateDate(autoUpdateDate: String) {
+        sharedPrefsRepository.setScheduleAutoUpdateDate(autoUpdateDate)
     }
 
 }

@@ -1,10 +1,12 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleUpdateHistoryBinding
@@ -30,22 +32,33 @@ class ScheduleUpdateHistoryFragment : Fragment() {
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
 
-        // action_scheduleUpdateHistoryFragment_to_mainScheduleFragment
+        binding.cancelButton.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleUpdateHistoryFragment_to_mainScheduleFragment)
+        }
 
         val adapter = ScheduleDaysUpdateHistoryAdapter(context!!)
         binding.scheduleUpdateHistoryRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleUpdateHistoryRecycler.adapter = adapter
 
-        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { groupSchedule ->
-            if (groupSchedule == null) return@observe
-            if (groupSchedule.schedules.size > 0) {
-//                binding.noSubjectsPlaceholder.visibility = View.GONE
+        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+            if (schedule == null) return@observe
+
+            binding.scheduleHeaderView.setTitle(schedule.getTitle())
+            binding.scheduleHeaderView.setDescription(schedule.getDescription())
+            if (!schedule.isGroup()) {
+                binding.scheduleHeaderView.setImage(schedule.employee.photoLink)
+            } else {
+                binding.scheduleHeaderView.setImage(R.drawable.ic_group_placeholder)
+            }
+
+            if (schedule.updateHistorySchedule.size > 0) {
+                binding.noUpdatedPlaceholder.visibility = View.GONE
                 binding.scheduleUpdateHistoryRecycler.visibility = View.VISIBLE
-                adapter.updateSchedule(groupSchedule.updateHistorySchedule, groupSchedule.isGroup(), showSubjectDialog)
+                adapter.updateSchedule(schedule.updateHistorySchedule, schedule.isGroup(), showSubjectDialog)
                 binding.scheduleUpdateHistoryRecycler.adapter = adapter
             } else {
                 adapter.updateSchedule(ArrayList(), false, null)
-//                binding.noSubjectsPlaceholder.visibility = View.VISIBLE
+                binding.noUpdatedPlaceholder.visibility = View.VISIBLE
                 binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
             }
         }

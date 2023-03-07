@@ -4,6 +4,14 @@ import android.content.Context
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.repository.SharedPrefsRepository
 
+class ThemeType {
+    companion object {
+        const val SYSTEM = 0
+        const val DARK = 1
+        const val LIGHT = 2
+    }
+}
+
 class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepository {
 
     private val fileName = "BSUIRSchedulePrefs"
@@ -76,18 +84,18 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         }
     }
 
-    override fun getThemeIsDark(): Boolean {
-        return prefs.getBoolean(
+    override fun getThemeType(): Int {
+        return prefs.getInt(
             context.getString(R.string.active_theme_code),
-            false
+            0
         )
     }
 
-    override fun setTheme(isDark: Boolean) {
+    override fun setTheme(themeType: Int) {
         with(prefs.edit()) {
-            putBoolean(
+            putInt(
                 context.getString(R.string.active_theme_code),
-                isDark
+                themeType
             )
             apply()
         }

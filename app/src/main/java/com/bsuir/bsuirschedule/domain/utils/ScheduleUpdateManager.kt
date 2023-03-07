@@ -2,13 +2,12 @@ package com.bsuir.bsuirschedule.domain.utils
 
 import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleLastUpdatedDate
 import com.bsuir.bsuirschedule.domain.usecase.GetSavedScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GetScheduleLastUpdateUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.SaveScheduleLastUpdateDateUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,30 +19,40 @@ class ScheduleUpdateManager(
     private val saveScheduleLastUpdateDateUseCase: SaveScheduleLastUpdateDateUseCase
 ) {
 
-    fun updatedSchedules(): ArrayList<SavedSchedule> {
-        return runBlocking {
-            val updatedSchedules = ArrayList<SavedSchedule>()
-            launch(Dispatchers.IO) {
-                when (
-                    val result = getShouldUpdateSchedules()
-                ) {
-                    is Resource.Success -> {
-                        val shouldUpdateSchedules = result.data!!
-                        updatedSchedules.addAll(updateSchedules(shouldUpdateSchedules))
-                    }
-                    is Resource.Error -> {
-                        // Save in update schedule history table
-                        Log.e("sady", "Ops updated ${result.message}")
-                    }
-                }
+    suspend fun updatedSchedules(): ArrayList<SavedSchedule> = withContext(Dispatchers.IO) {
+        val updatedSchedules = ArrayList<SavedSchedule>()
+        when (
+            val result = getShouldUpdateSchedules()
+        ) {
+            is Resource.Success -> {
+                val shouldUpdateSchedules = result.data!!
+                updatedSchedules.addAll(updateSchedules(shouldUpdateSchedules))
             }
-            updatedSchedules
+            is Resource.Error -> {
+                // Save error in update schedule history table
+                Log.e("sady", "Ops updated ${result.message}")
+            }
+        }
+        updatedSchedules
+    }
+
+    private suspend fun getScheduleAutoUpdateStatus(savedSchedule: SavedSchedule): Boolean {
+        when (val scheduleDB = getScheduleUseCase.getById(savedSchedule.id)) {
+            is Resource.Success -> {
+                val schedule = scheduleDB.data ?: return false
+                return schedule.settings.schedule.isAutoUpdate
+            }
+            is Resource.Error -> {
+                return false
+            }
         }
     }
 
+    // FIXME Rewrite
     private suspend fun updateSchedules(schedules: ArrayList<SavedSchedule>): ArrayList<SavedSchedule> {
-        schedules.map { savedSchedule ->
-            if (savedSchedule.lastUpdateDate.isEmpty()) return@map
+        for (savedSchedule in schedules) {
+            val isScheduleAutoUpdate = getScheduleAutoUpdateStatus(savedSchedule)
+            if (!isScheduleAutoUpdate || savedSchedule.lastUpdateDate == null) continue
             when (
                 if (savedSchedule.isGroup) {
                     getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
@@ -65,6 +74,7 @@ class ScheduleUpdateManager(
                 }
             }
         }
+
         saveSavedScheduleUseCase.saveSchedulesList(schedules)
 
         return schedules
@@ -78,9 +88,6 @@ class ScheduleUpdateManager(
         ) {
             is Resource.Success -> {
                 val savedScheduleList = savedSchedules.data!!
-                if (savedScheduleList.isEmpty()) {
-                    Log.e("sady", "there is savedSchedules")
-                }
                 savedScheduleList.map { savedSchedule ->
                     when (
                         val lastUpdatedDate = if (savedSchedule.isGroup) {
@@ -90,13 +97,11 @@ class ScheduleUpdateManager(
                         }
                     ) {
                         is Resource.Success -> {
-                            val lastUpdate = lastUpdatedDate.data!!
-                            if ((lastUpdate.lastUpdateDate ?: "") != savedSchedule.lastUpdateDate) {
+                            val lastUpdate = lastUpdatedDate.data ?: ScheduleLastUpdatedDate.empty
+                            if (savedSchedule.lastUpdateDate != null
+                                && (lastUpdate.lastUpdateDate ?: "") != savedSchedule.lastUpdateDate) {
                                 savedSchedule.lastUpdateDate = lastUpdate.lastUpdateDate ?: ""
-                                Log.e("sady", "yes updated for ${savedSchedule.id}")
                                 shouldUpdateSavedSchedule.add(savedSchedule)
-                            } else {
-                                Log.e("sady", "no updated for ${savedSchedule.id}")
                             }
                         }
                         is Resource.Error -> {
@@ -107,7 +112,6 @@ class ScheduleUpdateManager(
                 }
             }
             is Resource.Error -> {
-                Log.e("sady", "error, u known lastUpdatedDate.message")
                 return Resource.Error(
                     errorType = Resource.SERVER_ERROR
                 )

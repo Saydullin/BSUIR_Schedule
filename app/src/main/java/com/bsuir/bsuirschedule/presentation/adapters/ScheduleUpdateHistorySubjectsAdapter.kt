@@ -87,14 +87,12 @@ class ScheduleUpdateHistorySubjectsAdapter(
 
             when (subjectHistory.status) {
                 SubjectHistoryStatus.ADDED -> {
-                    binding.subjectUpdateStatus.text = context.getString(R.string.added)
-                    binding.subjectUpdateStatus.setTextColor(ContextCompat.getColor(context, R.color.success))
-                    binding.subjectUpdateStatus.setBackgroundResource(R.drawable.subject_update_added_holder)
+                    binding.subjectUpdateStatus.visibility = View.VISIBLE
+                    binding.subjectUpdateStatus.setImageDrawable(context.getDrawable(R.drawable.ic_added_sign))
                 }
                 SubjectHistoryStatus.DELETED -> {
-                    binding.subjectUpdateStatus.text = context.getString(R.string.deleted)
-                    binding.subjectUpdateStatus.setTextColor(ContextCompat.getColor(context, R.color.danger))
-                    binding.subjectUpdateStatus.setBackgroundResource(R.drawable.subject_update_deleted_holder)
+                    binding.subjectUpdateStatus.visibility = View.VISIBLE
+                    binding.subjectUpdateStatus.setImageDrawable(context.getDrawable(R.drawable.ic_deleted_sign))
                 }
                 SubjectHistoryStatus.NOTHING -> {
                     binding.subjectUpdateStatus.visibility = View.GONE

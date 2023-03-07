@@ -43,7 +43,6 @@ class ScheduleViewModel(
     val activeSubjectStatus = activeSubject
     val settingsUpdatedStatus = settingsUpdated
     val deletedScheduleStatus = deletedSchedule
-    val examsScheduleStatus = examsSchedule
     val errorStatus = error
     val successStatus = success
     val scheduleLoadedStatus = scheduleLoaded
@@ -234,7 +233,7 @@ class ScheduleViewModel(
     fun getOrUploadSchedule(savedSchedule: SavedSchedule) {
         viewModelScope.launch(Dispatchers.IO) {
             when (
-                val result = getScheduleUseCase.getById(savedSchedule.id, 0, -1)
+                val result = getScheduleUseCase.getById(savedSchedule.id)
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
@@ -277,7 +276,7 @@ class ScheduleViewModel(
     fun renameSchedule(scheduleId: Int, newTitle: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (
-                val result = getScheduleUseCase.getById(scheduleId, 0, -1)
+                val result = getScheduleUseCase.getById(scheduleId)
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
@@ -477,7 +476,7 @@ class ScheduleViewModel(
             dataLoading.postValue(isNotUpdate)
             try {
                 when (
-                    val result = getScheduleUseCase.getById(scheduleId, 0, -1)
+                    val result = getScheduleUseCase.getById(scheduleId)
                 ) {
                     is Resource.Success -> {
                         val data = result.data!!

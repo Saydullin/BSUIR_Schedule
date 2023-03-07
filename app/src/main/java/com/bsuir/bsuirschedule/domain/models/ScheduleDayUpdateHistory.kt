@@ -3,7 +3,7 @@ package com.bsuir.bsuirschedule.domain.models
 data class ScheduleDayUpdateHistory(
     val id: Int,
     val scheduleDay: ScheduleDay,
-    val scheduleSubjects: ArrayList<ScheduleSubjectHistory>,
+    var scheduleSubjects: ArrayList<ScheduleSubjectHistory>,
 ) {
 
     companion object {

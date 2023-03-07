@@ -18,9 +18,10 @@ data class Schedule (
     val isGroup: Boolean?,
     var exams: ArrayList<ScheduleSubject>,
     var examsSchedule: ArrayList<ScheduleDay>,
-    val updateHistorySchedule: ArrayList<ScheduleDayUpdateHistory> = ArrayList(),
+    var updateHistorySchedule: ArrayList<ScheduleDayUpdateHistory> = ArrayList(),
     var subjectNow: ScheduleSubject?,
     var schedules: ArrayList<ScheduleDay>,
+    var originalSchedule: ArrayList<ScheduleDay>,
     var lastUpdateTime: Long,
     var lastUpdateDate: String?,
     var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
@@ -43,6 +44,7 @@ data class Schedule (
             updateHistorySchedule = ArrayList(),
             subjectNow = null,
             schedules = ArrayList(),
+            originalSchedule = ArrayList(),
             lastUpdateTime = 0,
             selectedSubgroup = 0,
             lastUpdateDate = "",
@@ -108,6 +110,14 @@ data class Schedule (
         }
     }
 
+    fun getDescription(): String {
+        return if (isGroup()) {
+            group.getFacultyAndSpecialityAbbr()
+        } else {
+            employee.getRankAndDegree()
+        }
+    }
+
     fun toScheduleTable() = ScheduleTable(
         id = id,
         startDate = startDate,
@@ -121,6 +131,7 @@ data class Schedule (
         exams = exams,
         examsSchedule = examsSchedule,
         updateHistorySchedule = updateHistorySchedule,
+        normalSchedules = originalSchedule,
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
         lastUpdateDate = lastUpdateDate ?: "",

@@ -16,6 +16,13 @@ data class ScheduleSettings (
             exams = ScheduleSettingsExams.empty,
             alarmSettings = ScheduleSettingsAlarm.empty
         )
+        val fullSchedule = ScheduleSettings(
+            id = -1,
+            subgroup = ScheduleSettingsSubgroup.empty,
+            schedule = ScheduleSettingsSchedule.fullSchedule,
+            exams = ScheduleSettingsExams.fullSchedule,
+            alarmSettings = ScheduleSettingsAlarm.empty
+        )
     }
 
 }

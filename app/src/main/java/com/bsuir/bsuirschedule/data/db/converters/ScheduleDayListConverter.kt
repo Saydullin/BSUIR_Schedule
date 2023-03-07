@@ -15,7 +15,7 @@ class ScheduleDayListConverter {
     }
 
     @TypeConverter
-    fun fromStringToSchedule(schedule: String): ArrayList<ScheduleDay>? {
+    fun fromStringToSchedule(schedule: String?): ArrayList<ScheduleDay>? {
         val listType = object: TypeToken<ArrayList<ScheduleDay>>(){}.type
         return Gson().fromJson(schedule, listType)
     }

@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="?attr/primaryOnColor"
     tools:context=".presentation.fragments.ScheduleUpdateHistoryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/primaryColor"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="15dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/cancel_button"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_schedule_list" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/schedules_update_history_title"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/text_primary"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="35dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
+        android:id="@+id/scheduleHeaderView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isPreview="true"
+        app:titleText="151003"
+        app:subTitle="ФКСИС ПОИТ"
+        app:subgroup="3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/schedule_update_history_recycler"
@@ -11,4 +56,19 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/schedule_day" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/noUpdatedPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/nested_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/schedule_updated_history_placeholder" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

@@ -1,16 +1,19 @@
 package com.bsuir.bsuirschedule.presentation.adapters
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleDayBinding
-import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.utils.CalendarDate
+
 
 class MainScheduleAdapter(
     private val context: Context,
@@ -97,6 +100,15 @@ class MainScheduleAdapter(
             if (scheduleDay.schedule.isEmpty()) {
                 binding.scheduleSubjectsRecycler.visibility = View.GONE
                 binding.scheduleNoLessons.visibility = View.VISIBLE
+                val typedValue = TypedValue()
+                val theme = context.theme
+                theme.resolveAttribute(R.attr.textColor, typedValue, true)
+                @ColorInt val color = typedValue.data
+                binding.scheduleDayHeader.setBackgroundResource(R.drawable.subject_empty_holder)
+                binding.scheduleDate.setTextColor(color)
+                binding.scheduleWeekDay.setTextColor(color)
+                binding.weekNumberDigit.setTextColor(color)
+                binding.scheduleLessonsAmount.setTextColor(color)
             } else {
                 val adapter = if (isShortSchedule) {
                     ScheduleShortSubjectsAdapter(context, scheduleDay.schedule, isGroupSchedule, showSubjectDialog, onLongPress)

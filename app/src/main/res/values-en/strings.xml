@@ -340,6 +340,8 @@
     <string name="widget_text_fake_4">Saturday</string>
     <string name="widget_text_fake_5">3 pairs</string>
     <string name="widget_successfully_added">Widget added successfully</string>
+    <string name="deleted">Deleted</string>
+    <string name="added">Added</string>
 </resources>
 
 

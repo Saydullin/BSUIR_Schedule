@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
+import com.bsuir.bsuirschedule.data.repository.ThemeType
 import com.bsuir.bsuirschedule.presentation.di.appModule
 import com.bsuir.bsuirschedule.presentation.di.dataModule
 import com.bsuir.bsuirschedule.presentation.di.domainModule
@@ -20,22 +21,17 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         val prefs = SharedPrefsRepositoryImpl(this)
-        val isDarkTheme = prefs.getThemeIsDark()
-//        val lang = prefs.getLanguage()
-//        if (lang != null) {
-//            val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
-//            AppCompatDelegate.setApplicationLocales(appLocale)
-//        }
 
-        if (isDarkTheme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        when (prefs.getThemeType()) {
+            ThemeType.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            ThemeType.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            ThemeType.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         val todayDateFormat = SimpleDateFormat("dd.MM.yyyy")
         val todayDate = todayDateFormat.format(Date().time)
-        if (prefs.getScheduleAutoUpdateDate() != todayDate) {
+        val scheduleAutoUpdateDate = prefs.getScheduleAutoUpdateDate()
+        if (scheduleAutoUpdateDate != "" && prefs.getScheduleAutoUpdateDate() != todayDate) {
             val intent = Intent(this, ScheduleUpdater::class.java)
             intent.action = "com.bsuir.bsuirschedule.action.scheduleUpdater"
             sendBroadcast(intent)

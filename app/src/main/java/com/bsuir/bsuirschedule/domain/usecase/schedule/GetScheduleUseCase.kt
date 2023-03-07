@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -24,7 +25,6 @@ class GetScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = apiSchedule.data!!
-                    data.id = data.group?.id ?: -1
                     val currentWeek = currentWeekUseCase.getCurrentWeek()
                     if (currentWeek is Resource.Error) {
                         return Resource.Error(
@@ -34,7 +34,6 @@ class GetScheduleUseCase(
                     }
                     val schedule = getNormalSchedule(data, currentWeek.data!!)
                     setActualSettings(schedule)
-                    setUpdateHistory(schedule)
                     val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(schedule)
                     if (isMergedFacultyAndSpeciality is Resource.Error) {
                         return isMergedFacultyAndSpeciality
@@ -43,6 +42,9 @@ class GetScheduleUseCase(
                     if (isMergedEmployees is Resource.Error) {
                         return isMergedEmployees
                     }
+                    val updatedHistoryScheduleDays = setUpdateHistory(schedule, currentWeek.data)
+                    Log.e("sady", "2 updateHistorySchedule return ${updatedHistoryScheduleDays.size}")
+                    schedule.updateHistorySchedule = updatedHistoryScheduleDays
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -81,12 +83,13 @@ class GetScheduleUseCase(
                             }
                             val schedule = getNormalSchedule(data, currentWeek.data!!)
                             setActualSettings(schedule)
-                            setUpdateHistory(schedule)
                             mergeGroupsSubjects(schedule, groupItems.data!!)
                             val isMergedDepartments = mergeDepartments(schedule)
                             if (isMergedDepartments is Resource.Error) {
                                 return isMergedDepartments
                             }
+                            val updatedScheduleHistoryDays = setUpdateHistory(schedule, currentWeek.data)
+                            schedule.updateHistorySchedule = updatedScheduleHistoryDays
                             return Resource.Success(schedule)
                         }
                         is Resource.Error -> {
@@ -200,31 +203,56 @@ class GetScheduleUseCase(
 
     private fun getNormalSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
         val scheduleController = ScheduleController()
+        val originalSchedule = scheduleController.getOriginalSchedule(groupSchedule)
 
-        return scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
+        Log.e("sady", "originalSchedule ${originalSchedule.size} $originalSchedule")
+
+        val normalSchedule = scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
+        normalSchedule.originalSchedule.clear()
+        normalSchedule.originalSchedule = originalSchedule
+
+        return normalSchedule
     }
 
-    private suspend fun setUpdateHistory(currentSchedule: Schedule) {
-        val previousSchedule = getById(currentSchedule.id, 1, 1)
+    private suspend fun setUpdateHistory(currentSchedule: Schedule, currentWeekNumber: Int): ArrayList<ScheduleDayUpdateHistory> {
+        val scheduleDayHistoryList = ArrayList<ScheduleDayUpdateHistory>()
+        val scheduleController = ScheduleController()
+
+        currentSchedule.originalSchedule = scheduleController.getMillisTimeInOriginalScheduleSubjects(currentSchedule)
+
+        val previousSchedule = getById(currentSchedule.id, ignoreSettings = true)
         if (previousSchedule is Resource.Success) {
-            if (previousSchedule.data == null) return
+            if (previousSchedule.data == null) return scheduleDayHistoryList
+
+//            currentSchedule.originalSchedule[0].schedule.removeAt(0)
+
             val scheduleUpdateHistoryManager = ScheduleUpdateHistoryManager(
                 previousSchedule = previousSchedule.data,
                 currentSchedule = currentSchedule
             )
-            currentSchedule.updateHistorySchedule.clear()
-            currentSchedule.updateHistorySchedule.addAll(scheduleUpdateHistoryManager.getChangedDays())
+            val changedDays = scheduleUpdateHistoryManager.getChangedDays()
+            Log.e("sady", "changedDays size ${changedDays.size}")
+            return if (changedDays.size > 0) {
+                currentSchedule.updateHistorySchedule = changedDays
+                val updateHistorySchedule = scheduleController.getMultipliedUpdatedHistorySchedule(currentSchedule, currentWeekNumber)
+                updateHistorySchedule.updateHistorySchedule = scheduleController.getSubjectsHistoryBreakTime(updateHistorySchedule.updateHistorySchedule)
+                updateHistorySchedule.updateHistorySchedule
+            } else {
+                previousSchedule.data.updateHistorySchedule
+            }
         }
+
+        return scheduleDayHistoryList
     }
 
     private suspend fun setActualSettings(schedule: Schedule) {
-        val foundSchedule = getById(schedule.id, 1, 1)
+        val foundSchedule = getById(schedule.id)
         if (foundSchedule is Resource.Success) {
             schedule.settings = foundSchedule.data!!.settings
         }
     }
 
-    suspend fun getById(groupId: Int, page: Int, pageSize: Int): Resource<Schedule> {
+    suspend fun getById(groupId: Int, ignoreSettings: Boolean = false): Resource<Schedule> {
         return try {
             when (
                 val result = scheduleRepository.getScheduleById(groupId)
@@ -232,7 +260,7 @@ class GetScheduleUseCase(
                 is Resource.Success -> {
                     val data = result.data!!
                     val scheduleController = ScheduleController()
-                    val schedule = scheduleController.getRegularSchedule(data, page, pageSize)
+                    val schedule = scheduleController.getRegularSchedule(data, ignoreSettings)
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {

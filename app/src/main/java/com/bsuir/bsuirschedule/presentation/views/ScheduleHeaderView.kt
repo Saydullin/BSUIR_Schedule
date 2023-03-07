@@ -117,7 +117,7 @@ class ScheduleHeaderView(
             .into(binding.profileImage)
     }
 
-    fun setImageDrawable(imageDrawable: Int) {
+    fun setImage(imageDrawable: Int) {
         Glide.with(context)
             .load(imageDrawable)
             .placeholder(R.drawable.ic_person_placeholder)

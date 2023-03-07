@@ -18,7 +18,7 @@ class ScheduleUpdateAlarmHandler(
         val sender: PendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.getBroadcast(context, 2, intent, PendingIntent.FLAG_IMMUTABLE)
         } else {
-            PendingIntent.getBroadcast(context, 2, intent, PendingIntent.FLAG_IMMUTABLE)
+            PendingIntent.getBroadcast(context, 2, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -26,6 +26,7 @@ class ScheduleUpdateAlarmHandler(
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DATE, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 18)
+        calendar.set(Calendar.MINUTE, 0)
         val timeInMillis = calendar.timeInMillis
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

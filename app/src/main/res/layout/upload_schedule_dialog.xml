@@ -19,10 +19,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="10dp" />
-
             <TextView
                 android:id="@+id/title"
                 style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"

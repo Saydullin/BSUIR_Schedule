@@ -48,7 +48,7 @@ class ActiveScheduleFragment : Fragment() {
                 if (schedule.isGroup()) {
                     val group = schedule.group
                     setTitle(group.getTitleOrName())
-                    setImageDrawable(R.drawable.ic_group_placeholder)
+                    setImage(R.drawable.ic_group_placeholder)
                     setDescription(group.getFacultyAndSpecialityAbbr())
                 } else {
                     val employee = schedule.employee

@@ -22,9 +22,9 @@ interface SharedPrefsRepository {
 
     fun setLanguage(lang: String)
 
-    fun getThemeIsDark(): Boolean
+    fun getThemeType(): Int
 
-    fun setTheme(isDark: Boolean)
+    fun setTheme(themeType: Int)
 
     fun getScheduleUpdateCounter(): Int
 

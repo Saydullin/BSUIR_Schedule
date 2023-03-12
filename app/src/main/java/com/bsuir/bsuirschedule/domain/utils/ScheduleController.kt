@@ -34,7 +34,20 @@ class ScheduleController {
 
         schedule.schedules = weekDays
 
+        val subjectTypes = listOf(
+            ScheduleSubject.LESSON_TYPE_LECTURE,
+            ScheduleSubject.LESSON_TYPE_PRACTISE,
+            ScheduleSubject.LESSON_TYPE_LABORATORY,
+        )
+        filterSubjectsByType(schedule.schedules, subjectTypes)
+
         return schedule
+    }
+
+    private fun filterSubjectsByType(scheduleDaysList: ArrayList<ScheduleDay>, typesList: List<String>) {
+        scheduleDaysList.map { scheduleDay ->
+            scheduleDay.schedule = scheduleDay.schedule.filter { typesList.contains(it.lessonTypeAbbrev) } as ArrayList<ScheduleSubject>
+        }
     }
 
     private fun setSubjectIds(schedule: Schedule) {
@@ -96,7 +109,7 @@ class ScheduleController {
         return newSchedule.originalSchedule
     }
 
-    fun getMillisTimeInSubjects(schedule: Schedule): Schedule {
+    private fun getMillisTimeInSubjects(schedule: Schedule): Schedule {
         val newSchedule = schedule.copy()
         val calendarDate = CalendarDate(startDate = schedule.startDate)
         newSchedule.schedules.mapIndexed { index, day ->

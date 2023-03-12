@@ -118,7 +118,7 @@ data class Schedule (
         }
     }
 
-    fun toScheduleTable() = ScheduleTable(
+    fun toScheduleTable() =  ScheduleTable(
         id = id,
         startDate = startDate,
         endDate = endDate,

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "461dccaa9bc58a2cd3cb3c2f8d66b0e0",
+    "identityHash": "2bbe9b8fd0cb9eaca333f4e1503eef8c",
     "entities": [
       {
         "tableName": "GroupTable",
@@ -558,7 +558,7 @@
       },
       {
         "tableName": "SavedScheduleTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isGroup` INTEGER NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `lastUpdateDate` TEXT NOT NULL, `isUpdatedSuccessfully` INTEGER NOT NULL, `isExistExams` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_title` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_title` TEXT NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isGroup` INTEGER NOT NULL, `lastUpdateTime` INTEGER NOT NULL, `lastUpdateDate` TEXT, `isUpdatedSuccessfully` INTEGER NOT NULL, `isExistExams` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, `group_title` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_facultyId` INTEGER NOT NULL, `group_specialityId` INTEGER NOT NULL, `group_course` INTEGER NOT NULL, `group_calendarId` TEXT NOT NULL, `group_isSaved` INTEGER NOT NULL, `group_faculty_id` INTEGER NOT NULL, `group_faculty_name` TEXT NOT NULL, `group_faculty_abbr` TEXT NOT NULL, `group_speciality_id` INTEGER NOT NULL, `group_speciality_name` TEXT NOT NULL, `group_speciality_abbrev` TEXT NOT NULL, `group_speciality_facultyId` INTEGER NOT NULL, `group_speciality_code` TEXT NOT NULL, `group_speciality_education_form_efId` INTEGER NOT NULL, `group_speciality_education_form_id` INTEGER NOT NULL, `group_speciality_education_form_name` TEXT NOT NULL, `employee_id` INTEGER NOT NULL, `employee_title` TEXT NOT NULL, `employee_firstName` TEXT NOT NULL, `employee_lastName` TEXT NOT NULL, `employee_middleName` TEXT NOT NULL, `employee_fullName` TEXT NOT NULL, `employee_degree` TEXT NOT NULL, `employee_degreeAbbrev` TEXT NOT NULL, `employee_rank` TEXT NOT NULL, `employee_email` TEXT NOT NULL, `employee_photoLink` TEXT NOT NULL, `employee_calendarId` TEXT NOT NULL, `employee_jobPosition` TEXT NOT NULL, `employee_academicDepartment` TEXT NOT NULL, `employee_departments` TEXT NOT NULL, `employee_isSaved` INTEGER, `employee_urlId` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -582,7 +582,7 @@
             "fieldPath": "lastUpdateDate",
             "columnName": "lastUpdateDate",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "isUpdatedSuccessfully",
@@ -1016,7 +1016,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '461dccaa9bc58a2cd3cb3c2f8d66b0e0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2bbe9b8fd0cb9eaca333f4e1503eef8c')"
     ]
   }
 }

@@ -38,10 +38,10 @@ data class ScheduleTable (
         isGroup = isGroup,
         exams = exams,
         examsSchedule = examsSchedule,
-        updateHistorySchedule = updateHistorySchedule ?: ArrayList(),
+        updateHistorySchedule = ArrayList(),
         subjectNow = null,
         schedules = schedules,
-        originalSchedule = normalSchedules ?: ArrayList(),
+        originalSchedule = ArrayList(),
         lastUpdateTime = lastUpdateTime,
         lastUpdateDate = lastUpdateDate,
         settings = settings

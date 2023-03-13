@@ -407,6 +407,7 @@
     <string name="widget_text_fake_5">3 пары</string>
     <string name="deleted">Удалено</string>
     <string name="added">Добавлено</string>
+    <string name="download">Загрузить</string>
 
 </resources>
 

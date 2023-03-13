@@ -345,6 +345,7 @@
     <string name="widget_successfully_added">插件添加成功</string>
     <string name="deleted">删除</string>
     <string name="added">添加</string>
+    <string name="download">下载</string>
 
 </resources>
 

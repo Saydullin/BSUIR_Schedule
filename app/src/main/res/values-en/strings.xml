@@ -345,6 +345,7 @@
     <string name="widget_successfully_added">Widget added successfully</string>
     <string name="deleted">Deleted</string>
     <string name="added">Added</string>
+    <string name="download">Download</string>
 </resources>
 
 

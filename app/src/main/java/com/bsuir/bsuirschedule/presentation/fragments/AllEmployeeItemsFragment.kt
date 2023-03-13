@@ -5,20 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllEmployeeItemsBinding
 import com.bsuir.bsuirschedule.domain.models.Employee
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
+import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.EmployeeItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleItemPreviewDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
-import kotlinx.coroutines.launch
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class AllEmployeeItemsFragment : Fragment() {
@@ -51,10 +51,20 @@ class AllEmployeeItemsFragment : Fragment() {
             binding.refreshScheduleItems.isRefreshing = isUpdated
         }
 
-        val saveEmployeeLambda = { employee: Employee ->
-            groupSchedule.getEmployeeScheduleAPI(employee)
+        val saveEmployeeLambda = { savedSchedule: SavedSchedule ->
+            if (!savedSchedule.isGroup) {
+                groupSchedule.getEmployeeScheduleAPI(savedSchedule.employee)
+            }
         }
-        val adapter = EmployeeItemsAdapter(context!!, ArrayList(), saveEmployeeLambda)
+        val selectEmployeeLambda = { employee: Employee ->
+            val stateDialog = ScheduleItemPreviewDialog(
+                employee.toSavedSchedule(false),
+                saveEmployeeLambda
+            )
+            stateDialog.isCancelable = true
+            stateDialog.show(parentFragmentManager, "employeePreview")
+        }
+        val adapter = EmployeeItemsAdapter(context!!, ArrayList(), selectEmployeeLambda)
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
 

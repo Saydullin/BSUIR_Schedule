@@ -205,8 +205,6 @@ class GetScheduleUseCase(
         val scheduleController = ScheduleController()
         val originalSchedule = scheduleController.getOriginalSchedule(groupSchedule)
 
-        Log.e("sady", "originalSchedule ${originalSchedule.size} $originalSchedule")
-
         val normalSchedule = scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
         normalSchedule.originalSchedule.clear()
         normalSchedule.originalSchedule = originalSchedule
@@ -230,8 +228,8 @@ class GetScheduleUseCase(
                 previousSchedule = previousSchedule.data,
                 currentSchedule = currentSchedule
             )
+
             val changedDays = scheduleUpdateHistoryManager.getChangedDays()
-            Log.e("sady", "changedDays size ${changedDays.size}")
             return if (changedDays.size > 0) {
                 currentSchedule.updateHistorySchedule = changedDays
                 val updateHistorySchedule = scheduleController.getMultipliedUpdatedHistorySchedule(currentSchedule, currentWeekNumber)

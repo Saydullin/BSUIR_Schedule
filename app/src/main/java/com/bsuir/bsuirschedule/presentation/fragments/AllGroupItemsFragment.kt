@@ -10,8 +10,10 @@ import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
 import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
+import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.adapters.GroupItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleItemPreviewDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
@@ -34,10 +36,20 @@ class AllGroupItemsFragment : Fragment() {
             groupItemsVM.filterByKeyword(s, isAsc)
         }
 
-        val saveGroupLambda = { group: Group ->
-            groupScheduleVM.getGroupScheduleAPI(group)
+        val saveGroupLambda = { savedSchedule: SavedSchedule ->
+            if (savedSchedule.isGroup) {
+                groupScheduleVM.getGroupScheduleAPI(savedSchedule.group)
+            }
         }
-        val adapter = GroupItemsAdapter(context!!, ArrayList(), saveGroupLambda)
+        val selectGroupLambda = { group: Group ->
+            val stateDialog = ScheduleItemPreviewDialog(
+                group.toSavedSchedule(false),
+                saveGroupLambda
+            )
+            stateDialog.isCancelable = true
+            stateDialog.show(parentFragmentManager, "employeePreview")
+        }
+        val adapter = GroupItemsAdapter(context!!, ArrayList(), selectGroupLambda)
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
 

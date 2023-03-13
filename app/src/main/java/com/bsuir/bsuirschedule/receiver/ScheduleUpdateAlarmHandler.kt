@@ -25,7 +25,8 @@ class ScheduleUpdateAlarmHandler(
 
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DATE, 1)
-        calendar.set(Calendar.HOUR_OF_DAY, 18)
+        calendar.set(Calendar.HOUR_OF_DAY, 20)
+        calendar.set(Calendar.AM_PM, Calendar.PM)
         calendar.set(Calendar.MINUTE, 0)
         val timeInMillis = calendar.timeInMillis
 

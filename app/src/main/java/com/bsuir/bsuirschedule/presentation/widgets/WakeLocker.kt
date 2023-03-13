@@ -18,7 +18,7 @@ abstract class WakeLocker {
             val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
             wakeLock = powerManager.newWakeLock(
                 PowerManager.PARTIAL_WAKE_LOCK or PowerManager.ON_AFTER_RELEASE, "WIDGET: Wake lock acquired!")
-            wakeLock?.acquire(2000)
+            wakeLock?.acquire(5000)
         }
 
         fun release() {

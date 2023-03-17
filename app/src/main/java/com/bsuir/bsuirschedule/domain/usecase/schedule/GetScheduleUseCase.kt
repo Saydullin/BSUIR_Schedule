@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -42,9 +41,10 @@ class GetScheduleUseCase(
                     if (isMergedEmployees is Resource.Error) {
                         return isMergedEmployees
                     }
-                    val updatedHistoryScheduleDays = setUpdateHistory(schedule, currentWeek.data)
-                    Log.e("sady", "2 updateHistorySchedule return ${updatedHistoryScheduleDays.size}")
-                    schedule.updateHistorySchedule = updatedHistoryScheduleDays
+                    if (!schedule.isNotExistSchedule()) {
+                        val updatedHistoryScheduleDays = setUpdateHistory(schedule, currentWeek.data)
+                        schedule.updateHistorySchedule = updatedHistoryScheduleDays
+                    }
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -88,8 +88,10 @@ class GetScheduleUseCase(
                             if (isMergedDepartments is Resource.Error) {
                                 return isMergedDepartments
                             }
-                            val updatedScheduleHistoryDays = setUpdateHistory(schedule, currentWeek.data)
-                            schedule.updateHistorySchedule = updatedScheduleHistoryDays
+                            if (!schedule.isNotExistSchedule()) {
+                                val updatedScheduleHistoryDays = setUpdateHistory(schedule, currentWeek.data)
+                                schedule.updateHistorySchedule = updatedScheduleHistoryDays
+                            }
                             return Resource.Success(schedule)
                         }
                         is Resource.Error -> {

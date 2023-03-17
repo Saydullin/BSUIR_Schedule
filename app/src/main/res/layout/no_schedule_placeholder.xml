@@ -20,6 +20,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:alpha=".7"
         android:src="@drawable/ic_no_subjects_placeholder" />
 
 </LinearLayout>

@@ -8,11 +8,10 @@ import com.bsuir.bsuirschedule.R
 class ScheduleHeaderMenu(
     private val context: Context,
     private val onUpdateClick: () -> Unit,
-    private val onEditClick: () -> Unit,
+    private val onSubjectAddClick: () -> Unit,
     private val onSettingsClick: () -> Unit,
     private val onUpdateHistoryClick: () -> Unit,
     private val onShareClick: () -> Unit,
-    private val onMoreClick: () -> Unit,
     private val onWidgetAddClick: () -> Unit,
     private val onDeleteClick: () -> Unit
 ) {
@@ -26,6 +25,10 @@ class ScheduleHeaderMenu(
             when(it.itemId) {
                 R.id.update -> {
                     onUpdateClick()
+                    true
+                }
+                R.id.add_subject -> {
+                    onSubjectAddClick()
                     true
                 }
                 R.id.settings -> {

@@ -396,6 +396,7 @@
     <string name="schedule_header_menu_edit">Изменить</string>
     <string name="schedule_header_menu_update">Обновить</string>
     <string name="schedule_header_menu_settings">Настройки</string>
+    <string name="schedule_header_menu_add_subject">Добавить занятие</string>
     <string name="schedule_header_menu_update_history">История обновлений</string>
     <string name="schedule_header_menu_share">Поделиться</string>
     <string name="schedule_header_menu_more">Дополнительно</string>
@@ -406,6 +407,7 @@
     <string name="widget_text_fake_4">Суббота</string>
     <string name="widget_text_fake_5">3 пары</string>
     <string name="deleted">Удалено</string>
+    <string name="no_changes">Без изменений</string>
     <string name="added">Добавлено</string>
     <string name="download">Загрузить</string>
 

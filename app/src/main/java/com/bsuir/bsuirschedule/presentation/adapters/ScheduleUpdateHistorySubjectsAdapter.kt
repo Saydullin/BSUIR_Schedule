@@ -87,22 +87,20 @@ class ScheduleUpdateHistorySubjectsAdapter(
 
             when (subjectHistory.status) {
                 SubjectHistoryStatus.ADDED -> {
-                    binding.subjectUpdateStatus.visibility = View.VISIBLE
-                    binding.subjectUpdateStatus.setImageDrawable(context.getDrawable(R.drawable.ic_added_sign))
+                    binding.subjectUpdateStatusText.text = context.getString(R.string.added)
+                    binding.subjectUpdateStatus.setBackgroundResource(R.drawable.subject_update_added_holder)
+                    binding.subjectUpdateStatusText.setTextColor(ContextCompat.getColor(context, R.color.success))
                 }
                 SubjectHistoryStatus.DELETED -> {
-                    binding.subjectUpdateStatus.visibility = View.VISIBLE
-                    binding.subjectUpdateStatus.setImageDrawable(context.getDrawable(R.drawable.ic_deleted_sign))
+                    binding.subjectUpdateStatusText.text = context.getString(R.string.deleted)
+                    binding.subjectUpdateStatus.setBackgroundResource(R.drawable.subject_update_deleted_holder)
+                    binding.subjectUpdateStatusText.setTextColor(ContextCompat.getColor(context, R.color.danger))
                 }
                 SubjectHistoryStatus.NOTHING -> {
-                    binding.subjectUpdateStatus.visibility = View.GONE
+                    binding.subjectUpdateStatusText.text = context.getString(R.string.no_changes)
+                    binding.subjectUpdateStatus.setBackgroundResource(R.drawable.subject_update_empty_holder)
+                    binding.subjectUpdateStatusText.setTextColor(ContextCompat.getColor(context, R.color.dark))
                 }
-            }
-
-            if (isGroup) {
-                setSubjectEmployee(subject.employees ?: ArrayList())
-            } else {
-                setSubjectGroup(subject.subjectGroups ?: ArrayList())
             }
 
             if (subject.breakTime?.isExist == true) {
@@ -129,28 +127,6 @@ class ScheduleUpdateHistorySubjectsAdapter(
                 binding.root.setOnClickListener {
                     onClick.invoke(subjectHistory)
                 }
-            }
-        }
-
-        private fun setSubjectEmployee(employees: ArrayList<EmployeeSubject>) {
-            if (employees.isNotEmpty()) {
-                binding.subjectEmployeeName.text = employees[0].getName() + if (employees.size > 1) {
-                    val moreText = context.getString(R.string.more)
-                    ", $moreText ${employees.size - 1}"
-                } else ""
-            } else {
-                binding.subjectEmployeeName.text = context.getString(R.string.no_teacher_title)
-            }
-        }
-
-        private fun setSubjectGroup(subjectGroupList: ArrayList<GroupSubject>) {
-            if (subjectGroupList.isNotEmpty()) {
-                binding.subjectEmployeeName.text = subjectGroupList[0].name + if (subjectGroupList.size > 1) {
-                    val moreText = context.getString(R.string.more)
-                    ", $moreText ${subjectGroupList.size - 1}"
-                } else ""
-            } else {
-                binding.subjectEmployeeName.text = context.getString(R.string.no_group_title)
             }
         }
 

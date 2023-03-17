@@ -122,7 +122,7 @@ class ActiveScheduleFragment : Fragment() {
                 ScheduleAction.UPDATE -> {
                     updateSchedule(activeSchedule.toSavedSchedule())
                 }
-                ScheduleAction.EDIT -> {
+                ScheduleAction.ADD_SUBJECT -> {
                     Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_editScheduleFragment)
                 }
                 ScheduleAction.SHARE -> {
@@ -134,9 +134,6 @@ class ActiveScheduleFragment : Fragment() {
                     intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, activeSchedule.id)
                     intent.putExtra(WidgetSettings.EXTRA_HAVE_TO_ADD_APPWIDGET, true)
                     startActivity(intent)
-                }
-                ScheduleAction.MORE -> {
-                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
                 }
                 ScheduleAction.EXAMS -> {
                     Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()

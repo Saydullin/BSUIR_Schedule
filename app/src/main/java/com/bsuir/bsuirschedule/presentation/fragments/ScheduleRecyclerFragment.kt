@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
@@ -78,8 +79,26 @@ class ScheduleRecyclerFragment : Fragment() {
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
         val adapter = MainScheduleAdapter(context!!)
-        binding.scheduleDailyRecycler.layoutManager = LinearLayoutManager(context)
+        val recyclerViewLayoutManager = LinearLayoutManager(context)
+        binding.scheduleDailyRecycler.layoutManager = recyclerViewLayoutManager
         binding.scheduleDailyRecycler.adapter = adapter
+
+        val scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                val recyclerViewHeight = recyclerViewLayoutManager.findFirstVisibleItemPosition()
+                if (recyclerViewHeight < 10) {
+                    binding.scrollUpButton.animate().translationY(300f).alpha(0f).duration = 200
+                }
+                if (recyclerViewHeight > 10) {
+                    binding.scrollUpButton.animate().translationY(0f).alpha(1f).duration = 200
+                }
+            }
+        }
+        binding.scheduleDailyRecycler.addOnScrollListener(scrollListener)
+
+        binding.scrollUpButton.setOnClickListener {
+            binding.scheduleDailyRecycler.smoothScrollToPosition(0)
+        }
 
         groupScheduleVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
@@ -116,6 +135,7 @@ class ScheduleRecyclerFragment : Fragment() {
                 val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 binding.noSubjectsPlaceholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
+                binding.scrollUpButton.visibility = View.VISIBLE
                 adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
                 adapter.updateSchedule(schedule.schedules, schedule.isGroup(), showSubjectDialog, onLongPressSubject)
                 (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
@@ -124,6 +144,7 @@ class ScheduleRecyclerFragment : Fragment() {
                 adapter.updateSchedule(ArrayList(), false, null, null)
                 binding.noSubjectsPlaceholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
+                binding.scrollUpButton.visibility = View.GONE
             }
         }
 

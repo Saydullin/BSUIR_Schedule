@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".presentation.fragments.ScheduleRecyclerFragment">
 
@@ -10,6 +11,10 @@
         android:id="@+id/no_subjects_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
         android:gravity="center">
 
@@ -25,6 +30,10 @@
         android:id="@+id/schedule_daily_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/schedule_day" />
 
     <LinearLayout
@@ -33,6 +42,10 @@
         android:layout_height="wrap_content"
         android:paddingVertical="50dp"
         android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:visibility="visible">
 
         <ProgressBar
@@ -42,6 +55,18 @@
 
     </LinearLayout>
 
-</FrameLayout>
+    <ImageButton
+        style="@style/Theme.BSUIRSchedule.ImageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/scroll_up_button"
+        android:src="@drawable/ic_arrow_up"
+        android:layout_margin="50dp"
+        android:translationY="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_daily_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/cd_schedule_list" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

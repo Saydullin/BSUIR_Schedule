@@ -11,7 +11,7 @@ import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleHeaderMenu
 import com.bumptech.glide.Glide
 
 enum class ScheduleAction {
-    DIALOG_OPEN, UPDATE, SHARE, EDIT, SETTINGS, UPDATE_HISTORY, EXAMS, WIDGET_ADD, MORE, DELETE
+    DIALOG_OPEN, UPDATE, ADD_SUBJECT, SHARE, SETTINGS, UPDATE_HISTORY, EXAMS, WIDGET_ADD, DELETE
 }
 
 typealias OnScheduleActionListener = (ScheduleAction) -> Unit
@@ -77,11 +77,10 @@ class ScheduleHeaderView(
                 val scheduleHeaderMenu = ScheduleHeaderMenu(
                     context = context!!,
                     onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
-                    onEditClick = { this.menuListener?.invoke(ScheduleAction.EDIT) },
+                    onSubjectAddClick = { this.menuListener?.invoke(ScheduleAction.ADD_SUBJECT) },
                     onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
                     onUpdateHistoryClick = { this.menuListener?.invoke(ScheduleAction.UPDATE_HISTORY) },
                     onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
-                    onMoreClick = { this.menuListener?.invoke(ScheduleAction.MORE) },
                     onWidgetAddClick = { this.menuListener?.invoke((ScheduleAction.WIDGET_ADD)) },
                     onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
                 ).initPopupMenu(binding.optionsButton)

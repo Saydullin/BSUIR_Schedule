@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:maxLines="2"
                 android:ellipsize="end"
-                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                style="@style/Theme.BSUIRSchedule.TextView"
                 tools:text="Сейчас ИТПЭУ, в 213-1к." />
 
             <com.bsuir.bsuirschedule.presentation.views.ScheduleSubgroupView

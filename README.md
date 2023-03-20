@@ -26,7 +26,7 @@
   <hr />
   <li>App settings:</li>
   <ul>
-    <li>Language (Russian, English, Belorussian, Chineese)</li>
+    <li>Language (Russian, English, Belorussian, Chinese)</li>
     <li>Dark/Light theme</li>
     <li>Global settings for schedule</li>
     <li>Support</li>

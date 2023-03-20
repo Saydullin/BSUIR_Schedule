@@ -13,12 +13,19 @@
   <li>Students Schedule</li>
   <li>Exams Schedule</li>
   <hr />
-  <li>Settings for each schedule:</li>
+  <li>Schedule model:</li>
   <ul>
-    <li>Filter by subgroup</li>
-    <li>Automatically update schedule</li>
-    <li>Show passed days</li>
-    <li>Show empty days (no lesssons days)</li>
+    <li>Settings:</li>
+    <ul>
+      <li>Filter by subgroup</li>
+      <li>Automatically update schedule</li>
+      <li>Show passed days</li>
+      <li>Show empty days (no lesssons days)</li>
+    </ul>
+    <li>Add custom subject</li>
+    <li>Show updates history</li>
+    <li>Share</li>
+    <li>Add app widget</li>
   </ul>
   <hr />
   <li>Full information about teachers and student groups (faculty, speciality, department, course, education type and etc)</li>

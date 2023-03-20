@@ -15,6 +15,10 @@
   <hr />
   <li>Schedule model:</li>
   <ul>
+    <li>Add custom subject</li>
+    <li>Show updates history</li>
+    <li>Share</li>
+    <li>Add app widget</li>
     <li>Settings:</li>
     <ul>
       <li>Filter by subgroup</li>
@@ -22,10 +26,6 @@
       <li>Show passed days</li>
       <li>Show empty days (no lesssons days)</li>
     </ul>
-    <li>Add custom subject</li>
-    <li>Show updates history</li>
-    <li>Share</li>
-    <li>Add app widget</li>
   </ul>
   <hr />
   <li>Full information about teachers and student groups (faculty, speciality, department, course, education type and etc)</li>

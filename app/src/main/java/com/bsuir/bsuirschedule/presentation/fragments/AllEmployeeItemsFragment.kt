@@ -39,7 +39,11 @@ class AllEmployeeItemsFragment : Fragment() {
         val filterCallback = { s: String, isAsc: Boolean ->
             employeeItemsVM.filterByKeyword(s, isAsc)
         }
-        val filterManager = FilterManager(binding.nestedFilter, filterCallback)
+        val filterManager = FilterManager(
+            requireContext(),
+            binding.nestedFilter,
+            filterCallback
+        )
         filterManager.init()
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)

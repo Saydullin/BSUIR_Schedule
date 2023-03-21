@@ -20,6 +20,12 @@
         <attr name="isPreview" format="boolean">false</attr>
     </declare-styleable>
 
+    <declare-styleable name="EditTextView">
+        <attr name="hint" format="string" />
+        <attr name="type" format="string" />
+        <attr name="caption" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="ScheduleSubgroupView">
         <attr name="subgroupNum" format="integer" />
     </declare-styleable>

@@ -123,7 +123,7 @@ class ActiveScheduleFragment : Fragment() {
                     updateSchedule(activeSchedule.toSavedSchedule())
                 }
                 ScheduleAction.ADD_SUBJECT -> {
-                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_editScheduleFragment)
+                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSubjectAddFragment)
                 }
                 ScheduleAction.SHARE -> {
                     Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()

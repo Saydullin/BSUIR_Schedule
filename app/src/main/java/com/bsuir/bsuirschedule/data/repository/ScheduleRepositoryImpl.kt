@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.data.repository
 
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
@@ -100,10 +101,12 @@ class ScheduleRepositoryImpl(
 
     override suspend fun getScheduleById(id: Int): Resource<Schedule> {
         return try {
-            val data = scheduleDao.getGroupScheduleById(id)
+            Log.e("sady", "Data found3.1: id = $id")
+            val data = scheduleDao.getScheduleById(id)
                 ?: return Resource.Error(
                     errorType = Resource.DATABASE_NOT_FOUND_ERROR
                 )
+            Log.e("sady", "Data found3.2: $data")
             Resource.Success(data.toSchedule())
         } catch (e: SQLiteException) {
             e.printStackTrace()
@@ -149,21 +152,9 @@ class ScheduleRepositoryImpl(
         }
     }
 
-    override suspend fun deleteGroupSchedule(groupName: String): Resource<Unit> {
+    override suspend fun deleteScheduleById(scheduleId: Int): Resource<Unit> {
         return try {
-            scheduleDao.deleteGroupSchedule(groupName)
-            Resource.Success(null)
-        } catch (e: Exception) {
-            Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
-                message = e.message
-            )
-        }
-    }
-
-    override suspend fun deleteEmployeeSchedule(employeeUrlId: String): Resource<Unit> {
-        return try {
-            scheduleDao.deleteEmployeeSchedule(employeeUrlId)
+            scheduleDao.deleteScheduleById(scheduleId)
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(

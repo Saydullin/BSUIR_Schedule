@@ -43,6 +43,7 @@ class ScheduleSavedItemsFragment : Fragment() {
             savedScheduleVM.filterByKeyword(s, isAsc)
         }
         val filterManager = FilterManager(
+            requireContext(),
             binding.nestedFilter,
             filterCallback,
             false

@@ -7,10 +7,10 @@ import com.bsuir.bsuirschedule.data.db.entities.ScheduleTable
 interface ScheduleDao {
 
     @Query("SELECT * FROM ScheduleTable WHERE id = :id LIMIT 1")
-    fun getGroupScheduleById(id: Int): ScheduleTable?
+    fun getScheduleById(id: Int): ScheduleTable?
 
     @Query("SELECT * FROM ScheduleTable")
-    fun getGroupSchedules(): List<ScheduleTable>
+    fun getSchedules(): List<ScheduleTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSchedule(schedule: ScheduleTable)
@@ -18,11 +18,8 @@ interface ScheduleDao {
     @Query("UPDATE ScheduleTable SET settings = :newSettingsJSON WHERE id = :id")
     fun updateScheduleSettings(id: Int, newSettingsJSON: String)
 
-    @Query("DELETE FROM ScheduleTable WHERE group_name = :groupName")
-    fun deleteGroupSchedule(groupName: String)
-
-    @Query("DELETE FROM ScheduleTable WHERE employee_urlId = :employeeUrlId")
-    fun deleteEmployeeSchedule(employeeUrlId: String)
+    @Query("DELETE FROM ScheduleTable WHERE id = :id")
+    fun deleteScheduleById(id: Int)
 
 }
 

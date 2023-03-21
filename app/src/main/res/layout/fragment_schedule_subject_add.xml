@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.ScheduleSubjectAddFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/primaryColor"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="15dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/cancel_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_schedule_list"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/schedule_subject_add_title"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/text_primary"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="35dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="?attr/primaryOnColor">
+
+            <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
+                android:id="@+id/scheduleHeaderView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleText="151003"
+                app:subTitle="ФКСИС ПОИТ"
+                app:isPreview="true" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/short_title_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:caption="@string/short_title_label" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/full_title_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:caption="@string/full_title_label" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/audience_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:caption="@string/audience_label" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="2dp"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:text="@string/week_label" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/week_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1 неделя" />
+
+                    <CheckBox
+                        android:id="@+id/week_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2 неделя" />
+
+                    <CheckBox
+                        android:id="@+id/week_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="3 неделя" />
+
+                    <CheckBox
+                        android:id="@+id/week_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4 неделя" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/note_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:caption="@string/note_label" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:paddingHorizontal="2dp"
+                    android:text="@string/subgroup_label" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/subgroupAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/text_hint"
+                        android:background="@color/text_hint"
+                        android:inputType="none"
+                        android:padding="10dp"
+                        android:text="@string/settings_all_subgroups" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

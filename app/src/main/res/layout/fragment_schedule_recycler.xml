@@ -63,6 +63,7 @@
         android:src="@drawable/ic_arrow_up"
         android:layout_margin="50dp"
         android:translationY="100dp"
+        android:alpha="0"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_daily_recycler"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/cd_schedule_list" />

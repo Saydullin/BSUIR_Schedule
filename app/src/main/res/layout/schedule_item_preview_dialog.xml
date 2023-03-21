@@ -78,12 +78,30 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/downloadButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Theme.BSUIRSchedule.Button"
-            android:text="@string/download" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.Button.Hint"
+                android:text="@string/cancel" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/downloadButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Theme.BSUIRSchedule.Button"
+                android:text="@string/download" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

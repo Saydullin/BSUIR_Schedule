@@ -52,6 +52,10 @@ class ScheduleItemPreviewDialog(
             dismiss()
         }
 
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
+
         return binding.root
     }
 

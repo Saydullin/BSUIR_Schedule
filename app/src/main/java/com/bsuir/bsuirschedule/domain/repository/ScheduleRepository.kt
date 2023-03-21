@@ -25,9 +25,7 @@ interface ScheduleRepository {
 
     suspend fun updateScheduleSettings(id: Int, newSettings: ScheduleSettings): Resource<Unit>
 
-    suspend fun deleteGroupSchedule(groupName: String): Resource<Unit>
-
-    suspend fun deleteEmployeeSchedule(employeeUrlId: String): Resource<Unit>
+    suspend fun deleteScheduleById(scheduleId: Int): Resource<Unit>
 
 }
 

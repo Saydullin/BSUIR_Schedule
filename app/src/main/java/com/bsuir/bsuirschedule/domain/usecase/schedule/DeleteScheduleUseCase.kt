@@ -9,7 +9,7 @@ class DeleteScheduleUseCase(
 ) {
 
     suspend fun invoke(savedSchedule: SavedSchedule): Resource<Unit> {
-        return scheduleRepository.deleteGroupSchedule(savedSchedule.group.name)
+        return scheduleRepository.deleteScheduleById(savedSchedule.id)
     }
 
 }

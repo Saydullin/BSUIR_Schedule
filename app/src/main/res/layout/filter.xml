@@ -27,18 +27,25 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <EditText
+        <com.bsuir.bsuirschedule.presentation.views.EditTextView
             android:id="@+id/edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/Theme.BSUIRSchedule.EditText"
-            android:paddingBottom="15dp"
-            android:inputType="text"
-            android:autofillHints="name"
             android:hint="@string/search_placeholder"
-            android:focusedByDefault="false"
-            android:labelFor="@+id/search_button" />
+            android:layout_weight="1" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/edit_text"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            style="@style/Theme.BSUIRSchedule.EditText"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:inputType="text"-->
+<!--            android:autofillHints="name"-->
+<!--            android:hint="@string/search_placeholder"-->
+<!--            android:focusedByDefault="false"-->
+<!--            android:labelFor="@+id/search_button" />-->
 
         <Space
             android:layout_width="10dp"

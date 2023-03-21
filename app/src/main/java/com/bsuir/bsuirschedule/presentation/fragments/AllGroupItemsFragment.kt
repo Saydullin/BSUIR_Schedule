@@ -53,7 +53,11 @@ class AllGroupItemsFragment : Fragment() {
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
 
-        val filterManager = FilterManager(binding.nestedFilter, filterCallback)
+        val filterManager = FilterManager(
+            requireContext(),
+            binding.nestedFilter,
+            filterCallback
+        )
         filterManager.init()
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)

@@ -52,6 +52,13 @@
             app:exitAnim="@anim/rev_exit"
             app:popEnterAnim="@anim/rev_enter"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainScheduleFragment_to_scheduleSubjectAddFragment"
+            app:destination="@id/scheduleSubjectAddFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/rev_exit"
+            app:popEnterAnim="@anim/rev_enter"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/schedulesListFragment"
@@ -205,6 +212,20 @@
             app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/scheduleUpdateHistoryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleSubjectAddFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.ScheduleSubjectAddFragment"
+        android:label="fragment_schedule_subject_add"
+        tools:layout="@layout/fragment_schedule_subject_add" >
+        <action
+            android:id="@+id/action_scheduleSubjectAddFragment_to_mainScheduleFragment"
+            app:destination="@id/mainScheduleFragment"
+            app:enterAnim="@anim/rev_enter"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/scheduleSubjectAddFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

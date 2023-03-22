@@ -3,81 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="20dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="?attr/primaryOnColor"
     android:layout_marginVertical="10dp">
 
-    <LinearLayout
+    <com.bsuir.bsuirschedule.presentation.views.EditTextView
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal">
+        app:hint="@string/search_placeholder" />
 
-        <ImageButton
-            android:id="@+id/search_button"
-            style="@style/Theme.BSUIRSchedule.ImageButton"
-            android:src="@drawable/ic_search"
-            android:contentDescription="@string/cd_filter_search" />
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <com.bsuir.bsuirschedule.presentation.views.EditTextView
-            android:id="@+id/edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/search_placeholder"
-            android:layout_weight="1" />
-
-<!--        <EditText-->
-<!--            android:id="@+id/edit_text"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            style="@style/Theme.BSUIRSchedule.EditText"-->
-<!--            android:paddingBottom="15dp"-->
-<!--            android:inputType="text"-->
-<!--            android:autofillHints="name"-->
-<!--            android:hint="@string/search_placeholder"-->
-<!--            android:focusedByDefault="false"-->
-<!--            android:labelFor="@+id/search_button" />-->
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            android:id="@+id/filter_sort"
-            style="@style/Theme.BSUIRSchedule.ImageButton"
-            android:src="@drawable/ic_filter"
-            android:contentDescription="@string/cd_filter" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/filter_amount"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
+        android:layout_marginTop="5dp"
+        android:textColor="?attr/textHintColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:id="@+id/filter_amount"
-            style="@style/Theme.BSUIRSchedule.TextView.Hint"
-            android:textColor="?attr/textHintColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="найдено 428 групп" />
-
-    </LinearLayout>
+        android:gravity="end"
+        tools:text="найдено 428 групп" />
 
 </LinearLayout>
 

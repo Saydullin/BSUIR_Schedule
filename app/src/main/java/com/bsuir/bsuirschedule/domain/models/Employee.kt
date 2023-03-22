@@ -82,6 +82,12 @@ data class Employee (
         }
     }
 
+    fun getShortDepartmentsAbbrList(separator: String): String {
+        if (departmentsAbbrList.isNullOrEmpty()) return ""
+
+        return departmentsAbbrList.joinToString(separator)
+    }
+
     fun getDegreeAndRank() = "${degreeAbbrev ?: ""} ${rank ?: ""}".trim()
 
     fun toSavedSchedule(isExams: Boolean) = SavedSchedule(

@@ -19,6 +19,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:alpha=".7"
         android:src="@drawable/ic_no_schedule_placeholder"
         android:contentDescription="@string/cd_no_content" />
 

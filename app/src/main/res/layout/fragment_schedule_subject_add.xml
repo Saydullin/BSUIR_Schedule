@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             android:background="?attr/primaryOnColor">
 
             <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
@@ -59,6 +60,10 @@
                 app:titleText="151003"
                 app:subTitle="ФКСИС ПОИТ"
                 app:isPreview="true" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
             <com.bsuir.bsuirschedule.presentation.views.EditTextView
                 android:id="@+id/short_title_edit_text"
@@ -82,12 +87,162 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                    android:id="@+id/start_time_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    app:caption="@string/start_time_label"
+                    app:action="time" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content" />
+
+                <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                    android:id="@+id/end_time_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    app:caption="@string/end_time_label"
+                    app:action="time" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
             <com.bsuir.bsuirschedule.presentation.views.EditTextView
                 android:id="@+id/audience_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 app:caption="@string/audience_label" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:paddingHorizontal="2dp"
+                    android:text="@string/lesson_type" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/lessonTypeAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/text_hint"
+                        android:background="@color/text_hint"
+                        android:inputType="none"
+                        android:padding="10dp"
+                        android:text="@string/lecture" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:paddingHorizontal="2dp"
+                    android:text="@string/week_day" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/weekDayAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/text_hint"
+                        android:background="@color/text_hint"
+                        android:inputType="none"
+                        android:padding="10dp"
+                        android:text="@string/monday" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:paddingHorizontal="2dp"
+                    android:text="@string/subgroup_label" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/subgroupAutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/text_hint"
+                        android:background="@color/text_hint"
+                        android:inputType="none"
+                        android:padding="10dp"
+                        android:text="@string/settings_all_subgroups" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
             <Space
                 android:layout_width="wrap_content"
@@ -142,6 +297,32 @@
 
             <Space
                 android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/employee_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:caption="@string/employee" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/group_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:caption="@string/group" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                style="@style/Theme.BSUIRSchedule.Button.Hint"
+                android:text="Выбрать из списка" />
+
+            <Space
+                android:layout_width="wrap_content"
                 android:layout_height="20dp" />
 
             <com.bsuir.bsuirschedule.presentation.views.EditTextView
@@ -153,41 +334,29 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="50dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="20dp">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:paddingHorizontal="2dp"
-                    android:text="@string/subgroup_label" />
+                    style="@style/Theme.BSUIRSchedule.Button.Hint"
+                    android:text="@string/cancel" />
 
                 <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp" />
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/subgroupAutoCompleteTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/text_hint"
-                        android:background="@color/text_hint"
-                        android:inputType="none"
-                        android:padding="10dp"
-                        android:text="@string/settings_all_subgroups" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/Theme.BSUIRSchedule.Button"
+                    android:text="@string/done" />
 
             </LinearLayout>
 

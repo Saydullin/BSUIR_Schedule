@@ -15,7 +15,6 @@ import com.bsuir.bsuirschedule.presentation.adapters.GroupItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleItemPreviewDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
-import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
@@ -32,9 +31,6 @@ class AllGroupItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentAllGroupItemsBinding.inflate(inflater)
-        val filterCallback = { s: String, isAsc: Boolean ->
-            groupItemsVM.filterByKeyword(s, isAsc)
-        }
 
         val saveGroupLambda = { savedSchedule: SavedSchedule ->
             if (savedSchedule.isGroup) {
@@ -49,16 +45,15 @@ class AllGroupItemsFragment : Fragment() {
             stateDialog.isCancelable = true
             stateDialog.show(parentFragmentManager, "employeePreview")
         }
+
+        binding.nestedFilter.editText.isSaveEnabled(false)
+        binding.nestedFilter.editText.setTextChangeListener {
+            groupItemsVM.filterByKeyword(it, true)
+        }
+
         val adapter = GroupItemsAdapter(context!!, ArrayList(), selectGroupLambda)
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
-
-        val filterManager = FilterManager(
-            requireContext(),
-            binding.nestedFilter,
-            filterCallback
-        )
-        filterManager.init()
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)
         binding.refreshScheduleItems.setOnRefreshListener {

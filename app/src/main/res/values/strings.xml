@@ -20,6 +20,9 @@
     <string name="and">и</string>
     <string name="after">через</string>
     <string name="delete">Удалить</string>
+    <string name="employee">Преподаватель</string>
+    <string name="group">Группа</string>
+    <string name="monday">Понедельник</string>
     <string name="schedule_updated_notification">Обновлено %s</string>
     <string name="group_schedule_updated_notification">Группа %s</string>
     <string name="employee_schedule_updated_notification">Преподаватель %s</string>
@@ -106,6 +109,7 @@
     <string name="schedules_settings_title">Настройки расписания</string>
     <string name="schedules_update_history_title">История обновления</string>
     <string name="schedules_no_lessons">Нет занятий</string>
+    <string name="lesson_type">Тип занятия</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>
     <string name="tab_item_schedule">Занятия</string>
@@ -217,7 +221,7 @@
     <string name="no_schedule_updated_history">Нет сохранённых обновлений</string>
     <string name="no_schedule">%s (нет занятий)</string>
     <string name="no_schedule_placeholder">Нет расписания</string>
-    <string name="no_items_placeholder">Расписания не загрузились ( Потяните вниз, чтобы обновить</string>
+    <string name="no_items_placeholder">Расписания не загрузились (\nПотяните вниз, чтобы обновить</string>
     <string name="no_exams_placeholder">Нет экзаменов</string>
     <string name="settings_lang_title">Язык приложения</string>
     <string name="settings_lang_caption">Локализация приложения частична.\nРасписания будут всегда на русском.</string>
@@ -389,9 +393,11 @@
     <string name="also_delete">Удалить так же:</string>
     <string name="also_edit">Изменить так же:</string>
     <string name="subgroup_label">Подгруппа</string>
+    <string name="week_day">День недели</string>
     <string name="note_label">Примечание</string>
     <string name="audience_label">Аудитория</string>
     <string name="start_time_label">Время начало</string>
+    <string name="end_time_label">Время конца</string>
     <string name="week_label">Неделя</string>
     <string name="full_title_label">Полное название</string>
     <string name="short_title_label">Короткое название</string>

@@ -298,7 +298,7 @@ class ScheduleController {
             fillEmptyDays(schedule, currentWeekNumber, schedule.endDate, schedule.startExamsDate)
         }
 
-        schedule.schedules.addAll(schedule.examsSchedule)
+        schedule.schedules.addAll(schedule.examsSchedule) // FIXME instead addAll insertAll
     }
 
     fun getSubjectsHistoryBreakTime(scheduleDays: ArrayList<ScheduleDayUpdateHistory>): ArrayList<ScheduleDayUpdateHistory> {

@@ -44,7 +44,7 @@ class ScheduleItemPreviewDialog(
             } else {
                 binding.scheduleDegreeAndRank.text = employee.getDegreeAndRank()
             }
-            binding.scheduleDepartments.text = employee.getShortDepartmentsAbbr()
+            binding.scheduleDepartments.text = employee.getShortDepartmentsAbbrList(", ")
         }
 
         binding.downloadButton.setOnClickListener {
@@ -60,3 +60,5 @@ class ScheduleItemPreviewDialog(
     }
 
 }
+
+

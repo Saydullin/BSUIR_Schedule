@@ -15,7 +15,6 @@ import com.bsuir.bsuirschedule.presentation.adapters.EmployeeItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleItemPreviewDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
-import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
@@ -36,15 +35,10 @@ class AllEmployeeItemsFragment : Fragment() {
         val dialog = LoadingDialog(loadingStatus)
         dialog.isCancelable = false
 
-        val filterCallback = { s: String, isAsc: Boolean ->
-            employeeItemsVM.filterByKeyword(s, isAsc)
+        binding.nestedFilter.editText.isSaveEnabled(false)
+        binding.nestedFilter.editText.setTextChangeListener {
+            employeeItemsVM.filterByKeyword(it, true)
         }
-        val filterManager = FilterManager(
-            requireContext(),
-            binding.nestedFilter,
-            filterCallback
-        )
-        filterManager.init()
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)
         binding.refreshScheduleItems.setOnRefreshListener {

@@ -19,7 +19,6 @@ import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
 import com.bsuir.bsuirschedule.presentation.popupMenu.SavedSchedulePopupMenu
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
-import com.bsuir.bsuirschedule.presentation.utils.FilterManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
@@ -39,16 +38,6 @@ class ScheduleSavedItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentScheduleSavedItemsBinding.inflate(inflater)
-        val filterCallback = { s: String, isAsc: Boolean ->
-            savedScheduleVM.filterByKeyword(s, isAsc)
-        }
-        val filterManager = FilterManager(
-            requireContext(),
-            binding.nestedFilter,
-            filterCallback,
-            false
-        )
-        filterManager.init()
 
         val loadingStatus = LoadingStatus(LoadingStatus.LOAD_SCHEDULE)
         val dialog = LoadingDialog(loadingStatus)
@@ -116,6 +105,11 @@ class ScheduleSavedItemsFragment : Fragment() {
             ).initPopupMenu(view)
 
             popupMenu.show()
+        }
+
+        binding.nestedFilter.editText.isSaveEnabled(false)
+        binding.nestedFilter.editText.setTextChangeListener {
+            savedScheduleVM.filterByKeyword(it, true)
         }
 
         binding.scheduleSavedItemsRecycler.layoutManager = LinearLayoutManager(context)

@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.EditTextViewBinding
@@ -44,11 +45,17 @@ class EditTextView(
 
         val hint = typedArray.getString(R.styleable.EditTextView_hint) ?: ""
         val caption = typedArray.getString(R.styleable.EditTextView_caption) ?: ""
-        val editTextType = typedArray.getString(R.styleable.EditTextView_type) ?: ""
+        val inputType = typedArray.getInt(R.styleable.EditTextView_android_inputType, EditorInfo.TYPE_NULL)
         val action = typedArray.getString(R.styleable.EditTextView_action) ?: ""
+
+        if (inputType != EditorInfo.TYPE_NULL) {
+            setInputType(inputType)
+        }
         setAction(action)
         setHint(hint)
         setCaption(caption)
+
+        typedArray.recycle()
     }
 
     private fun setListeners() {
@@ -77,6 +84,14 @@ class EditTextView(
         binding.editTextInput.setText(text)
     }
 
+    fun length(): Int {
+        return binding.editTextInput.length()
+    }
+
+    fun setSelection(index: Int) {
+        binding.editTextInput.setSelection(index)
+    }
+
     fun setCaption(caption: String) {
         binding.caption.text = caption
         if (caption.isNotEmpty()) {
@@ -100,6 +115,14 @@ class EditTextView(
                 setTimePickerMode()
             }
         }
+    }
+
+    fun setInputType(inputType: Int) {
+        binding.editTextInput.inputType = inputType
+    }
+
+    fun clearInputFocus() {
+        binding.editTextInput.clearFocus()
     }
 
     fun isSaveEnabled(isSaveEnabled: Boolean) {

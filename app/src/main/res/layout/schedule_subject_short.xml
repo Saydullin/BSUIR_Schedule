@@ -35,7 +35,7 @@
                     android:layout_marginBottom="5dp"
                     style="@style/Theme.BSUIRSchedule.TextView.Title"
                     android:textColor="?attr/textColor"
-                    tools:text="12:25" />
+                    android:text="00:00" />
 
                 <TextView
                     android:id="@+id/subject_end_lesson"
@@ -44,7 +44,7 @@
                     style="@style/Theme.BSUIRSchedule.TextView"
                     android:textColor="?attr/textColor"
                     android:gravity="end"
-                    tools:text="13:45" />
+                    android:text="00:00" />
 
                 <ImageView
                     android:id="@+id/actual_subject_icon"
@@ -93,7 +93,7 @@
                             android:layout_marginEnd="10dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@string/test_subject_title" />
+                            tools:text="@string/test_subject_title" />
 
                         <LinearLayout
                             android:id="@+id/subgroup_info"
@@ -121,7 +121,7 @@
                                 tools:text="2" />
 
                         </LinearLayout>
-
+s
                         <TextView
                             android:id="@+id/subject_audience"
                             android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
                             style="@style/Theme.BSUIRSchedule.TextView.Medium"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:text="214-4" />
+                            tools:text="214-4 к." />
 
                     </LinearLayout>
 
@@ -146,7 +146,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                            android:text="@string/test_subject_employee_name" />
+                            tools:text="@string/test_subject_employee_name" />
 
                     </LinearLayout>
 

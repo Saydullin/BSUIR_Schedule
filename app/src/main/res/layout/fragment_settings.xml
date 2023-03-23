@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/primaryOnColor"
     android:orientation="vertical"
     tools:context=".presentation.fragments.SettingsFragment">
@@ -69,9 +70,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp" />
 
-            <include
-                android:id="@+id/nested_notification"
-                layout="@layout/settings_notification" />
+            <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
+                android:id="@+id/notification_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:translationZ="2dp"
+                app:checkbox_icon="@drawable/ic_notifications"
+                app:checkbox_title="@string/settings_notifications_title"
+                app:checkbox_description="@string/settings_notifications_caption"
+                app:checkbox_caption="@string/settings_notification" />
 
             <Space
                 android:layout_width="wrap_content"

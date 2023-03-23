@@ -1,186 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="?attr/secondaryColor"
-    app:cardElevation="0dp"
-    app:cardCornerRadius="10dp">
+    android:orientation="vertical">
+
+    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
+        android:id="@+id/autoUpdateCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:checkbox_caption="@string/settings_auto_update"
+        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_icon="@drawable/ic_schedule"
+        app:checkbox_title="@string/settings_auto_update_title" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+
+    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
+        android:id="@+id/shortScheduleCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:checkbox_caption="@string/settings_show_short_version"
+        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_icon="@drawable/ic_view"
+        app:checkbox_title="@string/settings_short_schedule_title" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+
+    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
+        android:id="@+id/emptyDaysCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:checkbox_caption="@string/settings_show_empty_day"
+        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_icon="@drawable/ic_empty"
+        app:checkbox_title="@string/settings_empty_days_title" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+
+    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
+        android:id="@+id/pastDaysCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationZ="1dp"
+        app:checkbox_caption="@string/settings_show_past_days"
+        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_icon="@drawable/ic_past"
+        app:checkbox_title="@string/settings_past_days_title">
+
+        <com.bsuir.bsuirschedule.presentation.views.EditTextView
+            android:id="@+id/pastDaysAmountEditTexts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textSize="@dimen/font_medium_size"
+            app:caption="@string/schedule_settings_schedule_past_days_hint_text" />
+
+    </com.bsuir.bsuirschedule.presentation.views.CheckBoxView>
+
+    <LinearLayout
+        android:id="@+id/pastDaysShowAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+        <com.bsuir.bsuirschedule.presentation.views.EditTextView
+            android:id="@+id/pastDaysAmountEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textSize="@dimen/font_medium_size"
+            app:caption="@string/schedule_settings_schedule_past_days_hint_text" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/resetButton"
+            style="@style/Theme.BSUIRSchedule.Button.Hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_schedule" />
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                android:text="@string/settings_schedule_title" />
-
-        </LinearLayout>
+            android:text="@string/reset" />
 
         <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/Theme.BSUIRSchedule.Button"
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            style="@style/Theme.BSUIRSchedule.TextView.Hint"
-            android:text="@string/settings_schedule_caption" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="horizontal">
-
-            <Switch
-                android:id="@+id/autoUpdateCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_auto_update"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:checked="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="horizontal">
-
-            <Switch
-                android:id="@+id/shortScheduleCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_show_short_version"
-                android:labelFor="@+id/label_for_checkbox2"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:checked="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="horizontal">
-
-            <Switch
-                android:id="@+id/emptyDaysCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_show_empty_day"
-                android:labelFor="@+id/label_for_checkbox2"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:checked="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="horizontal">
-
-            <Switch
-                android:id="@+id/pastDaysCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:labelFor="@+id/label_for_checkbox3"
-                android:text="@string/settings_show_past_days"
-                style="@style/Theme.BSUIRSchedule.Checkbox"
-                android:textColorHint="@color/text_dark"
-                android:checked="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/pastDaysShowAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/schedule_settings_schedule_past_days_hint_text" />
-
-            <EditText
-                android:id="@+id/pastDaysAmountEditText"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/font_medium_size"
-                android:maxLength="3"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/resetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.Button.Hint"
-                android:text="@string/reset" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0"
-                style="@style/Theme.BSUIRSchedule.Button"
-                android:text="@string/save" />
-
-        </LinearLayout>
+            android:alpha="0"
+            android:text="@string/save" />
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>
 

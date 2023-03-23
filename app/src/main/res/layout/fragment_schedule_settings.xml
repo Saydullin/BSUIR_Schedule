@@ -39,13 +39,6 @@
             android:layout_width="35dp"
             android:layout_height="wrap_content" />
 
-<!--        <ImageButton-->
-<!--            style="@style/Theme.BSUIRSchedule.ImageButton"-->
-<!--            android:id="@+id/add_schedule_button"-->
-<!--            android:src="@drawable/ic_restart"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            android:contentDescription="@string/cd_schedule_list" />-->
-
     </LinearLayout>
 
     <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
@@ -62,7 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorSecondary"
-            android:padding="20dp"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp"
             android:orientation="vertical">
 
             <androidx.fragment.app.FragmentContainerView
@@ -82,28 +77,6 @@
                 android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsSchedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-<!--            <Space-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="20dp" />-->
-
-<!--            <androidx.fragment.app.FragmentContainerView-->
-<!--                android:id="@+id/schedule_settings_exams"-->
-<!--                tools:layout="@layout/fragment_schedule_settings_exams"-->
-<!--                android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsExams"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
-
-<!--            <Space-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="20dp" />-->
-
-<!--            <androidx.fragment.app.FragmentContainerView-->
-<!--                android:id="@+id/schedule_settings_alarm"-->
-<!--                tools:layout="@layout/fragment_schedule_settings_alarm"-->
-<!--                android:name="com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings.ScheduleSettingsAlarm"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
 
         </LinearLayout>
 

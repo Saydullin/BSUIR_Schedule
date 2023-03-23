@@ -20,9 +20,16 @@
         <attr name="isPreview" format="boolean">false</attr>
     </declare-styleable>
 
+    <declare-styleable name="CheckBoxView">
+        <attr name="checkbox_icon" format="integer" />
+        <attr name="checkbox_title" format="string" />
+        <attr name="checkbox_description" format="string" />
+        <attr name="checkbox_caption" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="EditTextView">
+        <attr name="android:inputType" />
         <attr name="hint" format="string" />
-        <attr name="type" format="string" />
         <attr name="caption" format="string" />
         <attr name="action" format="string" />
     </declare-styleable>

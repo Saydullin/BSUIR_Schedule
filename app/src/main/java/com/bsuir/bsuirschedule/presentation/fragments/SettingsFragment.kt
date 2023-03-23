@@ -14,7 +14,6 @@ import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.repository.ThemeType
 import com.bsuir.bsuirschedule.databinding.FragmentSettingsBinding
-import com.bsuir.bsuirschedule.databinding.SettingsNotificationBinding
 import com.bsuir.bsuirschedule.databinding.SettingsThemeBinding
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import org.koin.core.component.KoinComponent
@@ -31,7 +30,7 @@ class SettingsFragment : Fragment(), KoinComponent {
         super.onResume()
 
         setThemeUI(binding.nestedThemeSettings, sharedPrefsUseCase.getThemeType())
-        setNotificationsUI(binding.nestedNotification, sharedPrefsUseCase.isNotificationsEnabled())
+        binding.notificationCheckbox.setChecked(sharedPrefsUseCase.isNotificationsEnabled())
     }
 
     override fun onCreateView(
@@ -64,7 +63,7 @@ class SettingsFragment : Fragment(), KoinComponent {
             Toast.makeText(context, chosenThemeText, Toast.LENGTH_SHORT).show()
         }
 
-        binding.nestedNotification.isNotificationsEnabled.setOnCheckedChangeListener { _, isChecked ->
+        binding.notificationCheckbox.setOnCheckListener { isChecked ->
             val isNotificationsEnabled = sharedPrefsUseCase.isNotificationsEnabled()
 
             if (isNotificationsEnabled != isChecked) {
@@ -87,10 +86,6 @@ class SettingsFragment : Fragment(), KoinComponent {
 
     private fun getThemeList(): Array<out String> {
         return resources.getStringArray(R.array.app_theme)
-    }
-
-    private fun setNotificationsUI(notificationBinding: SettingsNotificationBinding, isNotificationsEnabled: Boolean) {
-        notificationBinding.isNotificationsEnabled.isChecked = isNotificationsEnabled
     }
 
     private fun setThemeUI(themeBinding: SettingsThemeBinding, themeType: Int) {

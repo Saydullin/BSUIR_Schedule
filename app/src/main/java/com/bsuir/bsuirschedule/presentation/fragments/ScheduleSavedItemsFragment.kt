@@ -44,8 +44,7 @@ class ScheduleSavedItemsFragment : Fragment() {
         dialog.isCancelable = false
 
         val onSelectSchedule = { savedSchedule: SavedSchedule ->
-            groupScheduleVM.setUpdateStatus(false)
-            groupScheduleVM.selectSchedule(savedSchedule)
+            groupScheduleVM.selectSchedule(savedSchedule.id)
             Navigation.findNavController(binding.root).navigate(R.id.action_to_main_schedules)
         }
 

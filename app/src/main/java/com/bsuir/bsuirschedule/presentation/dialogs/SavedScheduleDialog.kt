@@ -85,6 +85,12 @@ class SavedScheduleDialog(
                 binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
             }
             binding.lastUpdate.text = lastUpdateText
+
+            binding.schedule.image.setOnClickListener {
+                val imageViewDialog = ImageViewDialog(requireContext(), employee.photoLink)
+                imageViewDialog.show()
+                dismiss()
+            }
         }
 
         if (schedule.subjectNow != null) {

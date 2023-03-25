@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.EmployeeItemBinding
 import com.bsuir.bsuirschedule.domain.models.Employee
-import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 
 class EmployeeItemsAdapter(
     val context: Context,

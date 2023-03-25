@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 class ScheduleItemPreviewDialog(
     private val savedSchedule: SavedSchedule,
     private val downloadSchedule: (savedSchedule: SavedSchedule) -> Unit,
+    private val showSchedule: (savedSchedule: SavedSchedule) -> Unit,
+    private val isDownloaded: Boolean
 ) : DialogFragment() {
 
     override fun onCreateView(
@@ -45,6 +47,25 @@ class ScheduleItemPreviewDialog(
                 binding.scheduleDegreeAndRank.text = employee.getDegreeAndRank()
             }
             binding.scheduleDepartments.text = employee.getShortDepartmentsAbbrList(", ")
+
+            binding.employeeImage.setOnClickListener {
+                val imageViewDialog = ImageViewDialog(requireContext(), employee.photoLink)
+                imageViewDialog.show()
+                dismiss()
+            }
+        }
+
+        if (isDownloaded) {
+            binding.downloadButton.visibility = View.GONE
+            binding.openSchedule.visibility = View.VISIBLE
+        } else {
+            binding.downloadButton.visibility = View.VISIBLE
+            binding.openSchedule.visibility = View.GONE
+        }
+
+        binding.openSchedule.setOnClickListener {
+            showSchedule(savedSchedule)
+            dismiss()
         }
 
         binding.downloadButton.setOnClickListener {

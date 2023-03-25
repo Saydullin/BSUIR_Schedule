@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
@@ -32,15 +33,22 @@ class AllGroupItemsFragment : Fragment() {
     ): View {
         val binding = FragmentAllGroupItemsBinding.inflate(inflater)
 
-        val saveGroupLambda = { savedSchedule: SavedSchedule ->
+        val saveGroupCallback = { savedSchedule: SavedSchedule ->
             if (savedSchedule.isGroup) {
                 groupScheduleVM.getGroupScheduleAPI(savedSchedule.group)
             }
         }
+        val showScheduleCallback = { savedSchedule: SavedSchedule ->
+            Navigation.findNavController(binding.root).popBackStack()
+            Navigation.findNavController(binding.root).popBackStack()
+            groupScheduleVM.selectSchedule(savedSchedule.id)
+        }
         val selectGroupLambda = { group: Group ->
             val stateDialog = ScheduleItemPreviewDialog(
                 group.toSavedSchedule(false),
-                saveGroupLambda
+                saveGroupCallback,
+                showScheduleCallback,
+                group.isSaved
             )
             stateDialog.isCancelable = true
             stateDialog.show(parentFragmentManager, "employeePreview")

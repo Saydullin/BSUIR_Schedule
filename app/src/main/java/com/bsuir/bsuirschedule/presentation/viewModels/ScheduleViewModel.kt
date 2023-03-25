@@ -33,10 +33,9 @@ class ScheduleViewModel(
     private val groupLoading = MutableLiveData(false)
     private val settingsUpdated = MutableLiveData(false)
     private val employeeLoading = MutableLiveData(false)
-    private val activeSchedule = MutableLiveData<SavedSchedule>(null)
+    private val activeScheduleId = MutableLiveData<Int>(null)
     private val schedule = MutableLiveData<Schedule>(null)
     private val deletedSchedule = MutableLiveData<SavedSchedule>(null)
-    private val examsSchedule = MutableLiveData<Schedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
     private val success = MutableLiveData<Int>(null)
     val scheduleStatus = schedule
@@ -80,7 +79,7 @@ class ScheduleViewModel(
 
     fun updateSchedule() {
         if (update.value == true) {
-            val scheduleId = schedule.value?.id ?: return
+            val scheduleId = activeScheduleId.value ?: return
             settingsUpdated.value = false
             getScheduleById(scheduleId, false)
         }
@@ -250,14 +249,8 @@ class ScheduleViewModel(
         }
     }
 
-    fun selectSchedule(savedSchedule: SavedSchedule) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (savedSchedule.id == activeSchedule.value?.id &&
-                schedule.value?.isNotEmpty() == true) {
-                return@launch
-            }
-            getScheduleById(savedSchedule.id)
-        }
+    fun selectSchedule(scheduleId: Int) {
+        activeScheduleId.value = scheduleId
     }
 
     fun closeError() {
@@ -451,13 +444,8 @@ class ScheduleViewModel(
 
     private fun saveScheduleToLiveData(scheduleData: Schedule) {
         viewModelScope.launch(Dispatchers.IO) {
-            activeSchedule.postValue(scheduleData.toSavedSchedule())
+            activeScheduleId.postValue(scheduleData.id)
             schedule.postValue(scheduleData)
-            if (!scheduleData.isExamsNotExist()) {
-                examsSchedule.postValue(scheduleData)
-            } else {
-                examsSchedule.postValue(null)
-            }
             sharedPrefsUseCase.setActiveScheduleId(scheduleData.id)
         }
     }
@@ -514,7 +502,7 @@ class ScheduleViewModel(
                     deletedSchedule.postValue(savedSchedule)
                     if (schedule.value?.id == savedSchedule.id) {
                         schedule.postValue(null)
-                        activeSchedule.postValue(null)
+                        activeScheduleId.postValue(null)
                         sharedPrefsUseCase.setActiveScheduleId(-1)
                     }
                 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllEmployeeItemsBinding
@@ -22,7 +23,7 @@ import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class AllEmployeeItemsFragment : Fragment() {
 
-    private val groupSchedule: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
+    private val scheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
     private val savedItemsVM: SavedSchedulesViewModel by koinNavGraphViewModel(R.id.navigation)
     private val employeeItemsVM: EmployeeItemsViewModel by koinNavGraphViewModel(R.id.navigation)
 
@@ -49,15 +50,22 @@ class AllEmployeeItemsFragment : Fragment() {
             binding.refreshScheduleItems.isRefreshing = isUpdated
         }
 
-        val saveEmployeeLambda = { savedSchedule: SavedSchedule ->
+        val saveEmployeeCallback = { savedSchedule: SavedSchedule ->
             if (!savedSchedule.isGroup) {
-                groupSchedule.getEmployeeScheduleAPI(savedSchedule.employee)
+                scheduleVM.getEmployeeScheduleAPI(savedSchedule.employee)
             }
+        }
+        val showScheduleCallback = { savedSchedule: SavedSchedule ->
+            Navigation.findNavController(binding.root).popBackStack() // FIXME Clear stack, navigate main
+            Navigation.findNavController(binding.root).popBackStack()
+            scheduleVM.selectSchedule(savedSchedule.id)
         }
         val selectEmployeeLambda = { employee: Employee ->
             val stateDialog = ScheduleItemPreviewDialog(
                 employee.toSavedSchedule(false),
-                saveEmployeeLambda
+                saveEmployeeCallback,
+                showScheduleCallback,
+                employee.isSaved
             )
             stateDialog.isCancelable = true
             stateDialog.show(parentFragmentManager, "employeePreview")
@@ -66,7 +74,7 @@ class AllEmployeeItemsFragment : Fragment() {
         binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleItemsRecycler.adapter = adapter
 
-        groupSchedule.employeeLoadingStatus.observe(viewLifecycleOwner) { loading ->
+        scheduleVM.employeeLoadingStatus.observe(viewLifecycleOwner) { loading ->
             if (loading == null) return@observe
             if (loading) {
                 dialog.show(parentFragmentManager, "LoadingDialog")
@@ -86,12 +94,12 @@ class AllEmployeeItemsFragment : Fragment() {
             }
         }
 
-        groupSchedule.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
+        scheduleVM.scheduleLoadedStatus.observe(viewLifecycleOwner) { savedSchedule ->
             if (savedSchedule == null || savedSchedule.isGroup) return@observe
             savedSchedule.employee.isSaved = true
             savedItemsVM.saveSchedule(savedSchedule)
             employeeItemsVM.saveEmployeeItem(savedSchedule.employee)
-            groupSchedule.setScheduleLoadedNull()
+            scheduleVM.setScheduleLoadedNull()
             adapter.setSavedItem(savedSchedule.employee)
         }
 

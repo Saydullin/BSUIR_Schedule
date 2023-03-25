@@ -80,7 +80,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <Button
                 android:id="@+id/cancelButton"
@@ -89,17 +90,23 @@
                 style="@style/Theme.BSUIRSchedule.Button.Hint"
                 android:text="@string/cancel" />
 
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="wrap_content" />
-
             <Button
                 android:id="@+id/downloadButton"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 style="@style/Theme.BSUIRSchedule.Button"
                 android:text="@string/download" />
+
+            <Button
+                android:id="@+id/openSchedule"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                style="@style/Theme.BSUIRSchedule.Button"
+                android:text="@string/see" />
 
         </LinearLayout>
 

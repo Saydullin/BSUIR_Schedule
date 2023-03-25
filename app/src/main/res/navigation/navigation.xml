@@ -97,6 +97,14 @@
             app:popUpTo="@id/scheduleItemsFragment"
             app:popUpToInclusive="true"
             app:popUpToSaveState="true" />
+        <action
+            android:id="@+id/action_scheduleItemsFragment_to_mainScheduleFragment"
+            app:destination="@id/mainScheduleFragment"
+            app:enterAnim="@anim/rev_enter"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/scheduleItemsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"

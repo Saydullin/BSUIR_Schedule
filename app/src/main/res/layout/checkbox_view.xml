@@ -41,7 +41,7 @@
                     android:id="@+id/checkbox_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                    style="@style/Theme.BSUIRSchedule.TextView.Title"
                     android:text="@string/settings_schedule_title" />
 
             </LinearLayout>
@@ -66,7 +66,6 @@
                 android:id="@+id/checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
                 android:text="@string/settings_auto_update"
                 style="@style/Theme.BSUIRSchedule.Checkbox"
                 android:checked="false" />

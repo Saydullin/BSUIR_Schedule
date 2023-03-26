@@ -243,11 +243,15 @@
     <string name="settings_font_title">Размер шрифта</string>
     <string name="settings_font_caption">Размер можно уменьшить или увеличить</string>
     <string name="settings_auto_update">Автоматическое обновление</string>
+    <string name="settings_auto_update_caption">При появлений обновлений, расписание автоматически обновится</string>
     <string name="settings_notification">Уведомлять при обновлении</string>
     <string name="settings_alarm_on">Включить будильник</string>
     <string name="settings_show_empty_day">Показывать пустые дни</string>
+    <string name="settings_show_empty_day_caption">Дни, в которых нет занятий, можно скрыть, чтобы получить более информативное расписание</string>
     <string name="settings_show_short_version">Показывать в коротком виде</string>
+    <string name="settings_show_short_version_caption">Дополнительная информация будет скрыта и занятия будут занимать меньше места</string>
     <string name="settings_show_past_days">Показывать прошедшие дни</string>
+    <string name="settings_show_past_days_caption">Вы можете указать количество прошедших дней, чтобы видеть их на расписании</string>
     <string name="settings_schedule_title">Расписания</string>
     <string name="settings_auto_update_title">Автообновление</string>
     <string name="settings_past_days_title">Прошедшие дни</string>

@@ -14,22 +14,24 @@ import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class ScheduleSettingsSchedule : Fragment() {
 
+    private lateinit var binding: FragmentScheduleSettingsScheduleBinding
     private val groupScheduleVM: ScheduleViewModel by koinNavGraphViewModel(R.id.navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentScheduleSettingsScheduleBinding.inflate(inflater)
+        binding = FragmentScheduleSettingsScheduleBinding.inflate(inflater)
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) {schedule ->
             if (schedule == null) return@observe
             val settings = schedule.settings.schedule
 
-            settings.isAutoUpdate = binding.autoUpdateCheckBox.isChecked()
-            settings.isShowEmptyDays = binding.emptyDaysCheckBox.isChecked()
-            settings.isShowPastDays = binding.pastDaysCheckBox.isChecked()
-            settings.isShowShortSchedule = binding.shortScheduleCheckBox.isChecked()
+            binding.autoUpdateCheckBox.setChecked(settings.isAutoUpdate)
+            binding.emptyDaysCheckBox.setChecked(settings.isShowEmptyDays)
+            binding.pastDaysCheckBox.setChecked(settings.isShowPastDays)
+            checkPastDays(settings.isShowPastDays)
+            binding.shortScheduleCheckBox.setChecked(settings.isShowShortSchedule)
             binding.pastDaysAmountEditText.setText(settings.pastDaysNumber.toString())
             binding.pastDaysAmountEditText.setSelection(binding.pastDaysAmountEditText.length())
         }
@@ -58,13 +60,7 @@ class ScheduleSettingsSchedule : Fragment() {
         }
 
         binding.pastDaysCheckBox.setOnCheckListener { isChecked: Boolean ->
-            val containerHeight = binding.pastDaysCheckBox.height
-            if (isChecked) {
-                binding.pastDaysShowAmount.animate().alpha(1f).translationY(0f).duration = 200L
-            } else {
-                binding.pastDaysShowAmount.animate().alpha(0f).translationY((-containerHeight).toFloat()).duration = 250L
-                binding.pastDaysAmountEditText.clearInputFocus()
-            }
+            checkPastDays(isChecked)
             validateChanges(binding)
         }
 
@@ -87,6 +83,18 @@ class ScheduleSettingsSchedule : Fragment() {
         }
 
         return binding.root
+    }
+
+    fun checkPastDays(isChecked: Boolean) {
+        val containerHeight = binding.pastDaysCheckBox.height
+        if (isChecked) {
+            binding.pastDaysShowAmount.visibility = View.VISIBLE
+            binding.pastDaysShowAmount.animate().alpha(1f).translationY(0f).duration = 200L
+        } else {
+            binding.pastDaysShowAmount.visibility = View.GONE
+            binding.pastDaysShowAmount.translationY = (-containerHeight).toFloat()
+            binding.pastDaysAmountEditText.clearInputFocus()
+        }
     }
 
     private fun validateChanges(binding: FragmentScheduleSettingsScheduleBinding) {

@@ -31,8 +31,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:textColor="@color/text_primary"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="16sp"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
             android:layout_weight="1" />
 
         <Space

@@ -25,10 +25,10 @@
             android:id="@+id/title_week_number"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            style="@style/Theme.BSUIRSchedule.TextView.Medium"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/text_primary"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
             android:text="@string/test_header_title" />
 
         <ImageButton

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:checkbox_caption="@string/settings_auto_update"
-        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_description="@string/settings_auto_update_caption"
         app:checkbox_icon="@drawable/ic_schedule"
         app:checkbox_title="@string/settings_auto_update_title" />
 
@@ -23,22 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:checkbox_caption="@string/settings_show_short_version"
-        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_description="@string/settings_show_short_version_caption"
         app:checkbox_icon="@drawable/ic_view"
         app:checkbox_title="@string/settings_short_schedule_title" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp" />
-
-    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
-        android:id="@+id/emptyDaysCheckBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:checkbox_caption="@string/settings_show_empty_day"
-        app:checkbox_description="@string/settings_schedule_caption"
-        app:checkbox_icon="@drawable/ic_empty"
-        app:checkbox_title="@string/settings_empty_days_title" />
 
     <Space
         android:layout_width="wrap_content"
@@ -50,21 +37,9 @@
         android:layout_height="wrap_content"
         android:translationZ="1dp"
         app:checkbox_caption="@string/settings_show_past_days"
-        app:checkbox_description="@string/settings_schedule_caption"
+        app:checkbox_description="@string/settings_show_past_days_caption"
         app:checkbox_icon="@drawable/ic_past"
-        app:checkbox_title="@string/settings_past_days_title">
-
-        <com.bsuir.bsuirschedule.presentation.views.EditTextView
-            android:id="@+id/pastDaysAmountEditTexts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textSize="@dimen/font_medium_size"
-            app:caption="@string/schedule_settings_schedule_past_days_hint_text" />
-
-    </com.bsuir.bsuirschedule.presentation.views.CheckBoxView>
+        app:checkbox_title="@string/settings_past_days_title" />
 
     <LinearLayout
         android:id="@+id/pastDaysShowAmount"
@@ -89,11 +64,23 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp" />
 
+    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
+        android:id="@+id/emptyDaysCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:checkbox_caption="@string/settings_show_empty_day"
+        app:checkbox_description="@string/settings_show_empty_day_caption"
+        app:checkbox_icon="@drawable/ic_empty"
+        app:checkbox_title="@string/settings_empty_days_title" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/resetButton"

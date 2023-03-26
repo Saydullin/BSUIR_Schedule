@@ -40,7 +40,7 @@
                     layout="@layout/filter" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/schedule_items_recycler"
+                    android:id="@+id/schedule_group_items_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical" />

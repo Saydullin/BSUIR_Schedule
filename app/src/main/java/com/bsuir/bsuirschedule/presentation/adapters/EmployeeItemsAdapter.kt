@@ -13,7 +13,7 @@ import com.bsuir.bsuirschedule.domain.models.Employee
 class EmployeeItemsAdapter(
     val context: Context,
     val data: ArrayList<Employee>,
-    private val saveEmployeeLambda: (employee: Employee) -> Unit
+    private var saveEmployeeCallback: ((employee: Employee) -> Unit)?
 ): RecyclerView.Adapter<EmployeeItemsAdapter.ViewHolder>() {
 
     fun setEmployeeList(newEmployeeList: ArrayList<Employee>) {
@@ -33,7 +33,7 @@ class EmployeeItemsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = EmployeeItemBinding.inflate(LayoutInflater.from(context), parent, false)
 
-        return ViewHolder(view, saveEmployeeLambda)
+        return ViewHolder(view, saveEmployeeCallback)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -48,7 +48,7 @@ class EmployeeItemsAdapter(
 
     override fun getItemCount() = data.size
 
-    class ViewHolder(employeeItemBinding: EmployeeItemBinding, private val saveEmployeeLambda: (group: Employee) -> Unit): RecyclerView.ViewHolder(employeeItemBinding.root) {
+    class ViewHolder(employeeItemBinding: EmployeeItemBinding, private val saveEmployeeLambda: ((group: Employee) -> Unit)?): RecyclerView.ViewHolder(employeeItemBinding.root) {
         private val binding = employeeItemBinding
 
         fun bind(context: Context, employee: Employee) {
@@ -68,7 +68,7 @@ class EmployeeItemsAdapter(
                 .into(binding.nestedEmployee.image)
 
             binding.root.setOnClickListener {
-                saveEmployeeLambda(employee)
+                saveEmployeeLambda?.let { it1 -> it1(employee) }
             }
         }
 

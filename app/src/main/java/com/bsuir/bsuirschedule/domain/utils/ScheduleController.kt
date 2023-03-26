@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import java.text.SimpleDateFormat
@@ -124,6 +123,10 @@ class ScheduleController {
             }
         }
 
+        schedule.schedules.map { scheduleDay ->
+            scheduleDay.schedule.sortBy { it.startMillis }
+        }
+
         return newSchedule
     }
 
@@ -210,7 +213,6 @@ class ScheduleController {
     }
 
     fun getMultipliedUpdatedHistorySchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-        Log.e("sady", "schedule ${schedule.updateHistorySchedule.size}, ${schedule.updateHistorySchedule}")
         val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
         var daysCounter = 0
         val scheduleDays = ArrayList<ScheduleDayUpdateHistory>()
@@ -253,7 +255,6 @@ class ScheduleController {
             daysCounter++
         }
 
-        Log.e("sady", "scheduleDays return ${scheduleDays.size}, ${scheduleDays}")
         schedule.updateHistorySchedule = scheduleDays
 
         // TODO("set updated schedule, may be join schedule and exams before this")
@@ -298,7 +299,41 @@ class ScheduleController {
             fillEmptyDays(schedule, currentWeekNumber, schedule.endDate, schedule.startExamsDate)
         }
 
-        schedule.schedules.addAll(schedule.examsSchedule) // FIXME instead addAll insertAll
+        for (examsDay in schedule.examsSchedule) {
+            examsDay.schedule.map { filterExamSubject(it) }
+            val scheduleDay = schedule.schedules.find { it.dateInMillis == examsDay.dateInMillis }
+            if (scheduleDay != null) {
+                insertSubject(scheduleDay.schedule, examsDay.schedule)
+            } else {
+                schedule.schedules.add(examsDay)
+            }
+        }
+    }
+
+    private fun filterExamSubject(subject: ScheduleSubject) {
+        when (subject.lessonTypeAbbrev) {
+            ScheduleSubject.LESSON_TYPE_LECTURE -> {
+                subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_CONSULTATION
+            }
+            ScheduleSubject.LESSON_TYPE_PRACTISE -> {
+                subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_EXAM
+            }
+            else -> {
+                subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_EXAM
+            }
+        }
+    }
+
+    private fun insertSubject(subjectsList: ArrayList<ScheduleSubject>, examsSubjectsList: ArrayList<ScheduleSubject>) {
+        for (insertSubject in examsSubjectsList) {
+            val subjectIdBeforeInsert = subjectsList.indexOfFirst { it.startMillis >= insertSubject.startMillis }
+
+            if (subjectIdBeforeInsert == -1) {
+                subjectsList.add(insertSubject)
+            } else {
+                subjectsList.add(subjectIdBeforeInsert, insertSubject)
+            }
+        }
     }
 
     fun getSubjectsHistoryBreakTime(scheduleDays: ArrayList<ScheduleDayUpdateHistory>): ArrayList<ScheduleDayUpdateHistory> {
@@ -449,37 +484,6 @@ class ScheduleController {
         }
         val regularSchedule = schedule.copy()
 
-        if (!schedule.isExamsNotExist()) {
-            if (!scheduleSettings.exams.isShowPastDays) {
-                regularSchedule.examsSchedule = filterActualSchedule(
-                    regularSchedule.examsSchedule,
-                    0,
-                    schedule.startExamsDate
-                )
-            } else {
-                regularSchedule.examsSchedule = filterActualSchedule(
-                    regularSchedule.examsSchedule,
-                    -1,
-                    schedule.startExamsDate
-                )
-            }
-            regularSchedule.examsSchedule = setActualDateStatuses(
-                regularSchedule.examsSchedule,
-                scheduleSettings.exams.isShowPastDays
-            )
-            regularSchedule.examsSchedule = filterBySubgroup(
-                regularSchedule.examsSchedule,
-                scheduleSettings.subgroup.selectedNum
-            )
-            regularSchedule.examsSchedule = getSubjectsBreakTime(regularSchedule.examsSchedule)
-            regularSchedule.examsSchedule = getScheduleBySettings(
-                regularSchedule.examsSchedule,
-                scheduleSettings.exams.isShowEmptyDays
-            )
-        } else {
-            regularSchedule.examsSchedule = ArrayList()
-        }
-
         if (!schedule.isNotExistSchedule()) {
             if (!scheduleSettings.schedule.isShowPastDays) {
                 regularSchedule.schedules = filterActualSchedule(
@@ -505,7 +509,6 @@ class ScheduleController {
             regularSchedule.schedules = getScheduleBySettings(
                 regularSchedule.schedules,
                 regularSchedule.settings.schedule.isShowEmptyDays
-//                scheduleSettings.schedule.isShowEmptyDays
             )
         } else {
             regularSchedule.schedules = ArrayList()

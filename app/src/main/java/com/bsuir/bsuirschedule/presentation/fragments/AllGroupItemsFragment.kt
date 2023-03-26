@@ -59,9 +59,9 @@ class AllGroupItemsFragment : Fragment() {
             groupItemsVM.filterByKeyword(it, true)
         }
 
-        val adapter = GroupItemsAdapter(context!!, ArrayList(), selectGroupLambda)
-        binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-        binding.scheduleItemsRecycler.adapter = adapter
+        val adapter = GroupItemsAdapter(requireContext(), ArrayList(), selectGroupLambda)
+        binding.scheduleGroupItemsRecycler.layoutManager = LinearLayoutManager(context)
+        binding.scheduleGroupItemsRecycler.adapter = adapter
 
         binding.refreshScheduleItems.setDistanceToTriggerSync(500)
         binding.refreshScheduleItems.setOnRefreshListener {
@@ -124,8 +124,8 @@ class AllGroupItemsFragment : Fragment() {
                 binding.content.visibility = View.VISIBLE
                 binding.nestedFilter.filterAmount.text = pluralSchedules
                 adapter.setGroupList(groupItems)
-                binding.scheduleItemsRecycler.alpha = 0f
-                binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
+                binding.scheduleGroupItemsRecycler.alpha = 0f
+                binding.scheduleGroupItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }
         }
 

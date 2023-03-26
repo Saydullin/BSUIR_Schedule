@@ -60,7 +60,7 @@ class AllEmployeeItemsFragment : Fragment() {
             Navigation.findNavController(binding.root).popBackStack()
             scheduleVM.selectSchedule(savedSchedule.id)
         }
-        val selectEmployeeLambda = { employee: Employee ->
+        val selectEmployeeCallback = { employee: Employee ->
             val stateDialog = ScheduleItemPreviewDialog(
                 employee.toSavedSchedule(false),
                 saveEmployeeCallback,
@@ -70,9 +70,10 @@ class AllEmployeeItemsFragment : Fragment() {
             stateDialog.isCancelable = true
             stateDialog.show(parentFragmentManager, "employeePreview")
         }
-        val adapter = EmployeeItemsAdapter(context!!, ArrayList(), selectEmployeeLambda)
-        binding.scheduleItemsRecycler.layoutManager = LinearLayoutManager(context)
-        binding.scheduleItemsRecycler.adapter = adapter
+
+        val adapter = EmployeeItemsAdapter(requireContext(), ArrayList(), selectEmployeeCallback)
+        binding.scheduleEmployeeItemsRecycler.layoutManager = LinearLayoutManager(context)
+        binding.scheduleEmployeeItemsRecycler.adapter = adapter
 
         scheduleVM.employeeLoadingStatus.observe(viewLifecycleOwner) { loading ->
             if (loading == null) return@observe
@@ -113,8 +114,8 @@ class AllEmployeeItemsFragment : Fragment() {
                 val pluralSchedules = resources.getQuantityString(R.plurals.plural_employees, employeeItems.size, employeeItems.size)
                 adapter.setEmployeeList(employeeItems)
                 binding.nestedFilter.filterAmount.text = pluralSchedules
-                binding.scheduleItemsRecycler.alpha = 0f
-                binding.scheduleItemsRecycler.animate().alpha(1f).setDuration(300).start()
+                binding.scheduleEmployeeItemsRecycler.alpha = 0f
+                binding.scheduleEmployeeItemsRecycler.animate().alpha(1f).setDuration(300).start()
             }
         }
 

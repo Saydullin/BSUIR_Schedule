@@ -42,8 +42,8 @@ class SubjectManager(
         val millisLeft = subject.startMillis - calendarStart.timeInMillis + 60_000
         val hours = millisLeft / 3_600_000
         val minutes = millisLeft % 3_600_000 / 60_000
-        val pluralHoursText = context.resources.getQuantityString(R.plurals.plural_hours, hours.toInt(), hours.toInt())
-        val pluralMinutesText = context.resources.getQuantityString(R.plurals.plural_minutes, minutes.toInt(), minutes.toInt())
+        val pluralHoursText = context.getString(R.string.short_hour, hours.toInt())
+        val pluralMinutesText = context.getString(R.string.short_minute, minutes.toInt())
         val subjectStatusTodayString = if (subject.getAudienceInLine().isEmpty()) {
             R.string.subject_status_today_no_audience
         } else {

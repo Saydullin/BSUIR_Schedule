@@ -22,6 +22,8 @@
     <string name="delete">Удалить</string>
     <string name="employee">Преподаватель</string>
     <string name="group">Группа</string>
+    <string name="short_hour">%d ч.</string>
+    <string name="short_minute">%d мин.</string>
 
     <string name="monday">Понедельник</string>
     <string name="tuesday">Вторник</string>

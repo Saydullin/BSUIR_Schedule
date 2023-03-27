@@ -39,17 +39,15 @@ class CheckBoxView(
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CheckBoxView, defStyleAttr, defStyleRes)
 
-        with(binding) {
-            val icon = typedArray.getDrawable(R.styleable.CheckBoxView_checkbox_icon)
-            val title = typedArray.getString(R.styleable.CheckBoxView_checkbox_title) ?: ""
-            val description = typedArray.getString(R.styleable.CheckBoxView_checkbox_description) ?: ""
-            val caption = typedArray.getString(R.styleable.CheckBoxView_checkbox_caption) ?: ""
+        val icon = typedArray.getDrawable(R.styleable.CheckBoxView_checkbox_icon)
+        val title = typedArray.getString(R.styleable.CheckBoxView_checkbox_title) ?: ""
+        val description = typedArray.getString(R.styleable.CheckBoxView_checkbox_description) ?: ""
+        val caption = typedArray.getString(R.styleable.CheckBoxView_checkbox_caption) ?: ""
 
-            setTitle(title)
-            setDescription(description)
-            setCaption(caption)
-            setIcon(icon)
-        }
+        setTitle(title)
+        setDescription(description)
+        setCaption(caption)
+        setIcon(icon)
 
         typedArray.recycle()
     }

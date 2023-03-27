@@ -9,6 +9,9 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.AddCustomSubjectBinding
+import com.bsuir.bsuirschedule.domain.models.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 typealias OnScheduleSelect = () -> Unit
 
@@ -42,7 +45,7 @@ class AddCustomSubjectView(
         }
     }
 
-    fun setListeners() {
+    private fun setListeners() {
         binding.startTimeEditText.setTextChangeListener {
             binding.nestedSubject.subjectStartLesson.text = it
         }
@@ -76,8 +79,6 @@ class AddCustomSubjectView(
         binding.subgroupAutoCompleteTextView.setOnItemClickListener { adapter, _, i, _ ->
             val item = adapter.getItemAtPosition(i)
             setSubgroup(item.toString())
-        }
-        binding.selectSchedule.setOnClickListener {
         }
     }
 
@@ -121,6 +122,116 @@ class AddCustomSubjectView(
         binding.nestedSubject.subjectTitle.text = shortTitle
     }
 
+    fun getShortTitle(): String {
+        return binding.shortTitleEditText.getText()
+    }
+
+    fun getFullTitle(): String {
+        return binding.fullTitleEditText.getText()
+    }
+
+    fun getStartTime(): String {
+        return binding.startTimeEditText.getText()
+    }
+
+    fun getEndTime(): String {
+        return binding.endTimeEditText.getText()
+    }
+
+    fun getNote(): String {
+        return binding.noteEditText.getText()
+    }
+
+    fun getAudience(): String {
+        return binding.audienceEditText.getText()
+    }
+
+    fun getWeekDay(): Int {
+        return when(
+            binding.weekDayAutoCompleteTextView.text.toString()
+        ) {
+            context.getString(R.string.monday) -> {
+                Calendar.MONDAY
+            }
+            context.getString(R.string.tuesday) -> {
+                Calendar.TUESDAY
+            }
+            context.getString(R.string.wednesday) -> {
+                Calendar.WEDNESDAY
+            }
+            context.getString(R.string.thursday) -> {
+                Calendar.THURSDAY
+            }
+            context.getString(R.string.friday) -> {
+                Calendar.FRIDAY
+            }
+            context.getString(R.string.saturday) -> {
+                Calendar.SATURDAY
+            }
+            context.getString(R.string.sunday) -> {
+                Calendar.SUNDAY
+            }
+            else -> {
+                Calendar.MONDAY
+            }
+        }
+    }
+
+    fun getWeeks(): ArrayList<Int> {
+        val weeksList = ArrayList<Int>()
+
+        if (binding.week1.isChecked) {
+            weeksList.add(1)
+        }
+        if (binding.week2.isChecked) {
+            weeksList.add(2)
+        }
+        if (binding.week3.isChecked) {
+            weeksList.add(3)
+        }
+        if (binding.week4.isChecked) {
+            weeksList.add(4)
+        }
+
+        return weeksList
+    }
+
+    fun getSubgroup(): Int {
+        val selectedText = binding.subgroupAutoCompleteTextView.text.toString()
+
+        return if (selectedText == context.getString(R.string.all_subgroups_select)) {
+            0
+        } else {
+            selectedText.toInt()
+        }
+    }
+
+    fun getSubjectType(): String {
+
+        return when(
+            binding.lessonTypeAutoCompleteTextView.text.toString()
+        ) {
+            context.getString(R.string.lecture) -> {
+                ScheduleSubject.LESSON_TYPE_LECTURE
+            }
+            context.getString(R.string.practise) -> {
+                ScheduleSubject.LESSON_TYPE_PRACTISE
+            }
+            context.getString(R.string.laboratory) -> {
+                ScheduleSubject.LESSON_TYPE_LABORATORY
+            }
+            context.getString(R.string.consultation) -> {
+                ScheduleSubject.LESSON_TYPE_CONSULTATION
+            }
+            context.getString(R.string.exam) -> {
+                ScheduleSubject.LESSON_TYPE_EXAM
+            }
+            else -> {
+                ScheduleSubject.LESSON_TYPE_LECTURE
+            }
+        }
+    }
+
     fun setFullTitle(fullTitle: String) {
         binding.fullTitleEditText.setText(fullTitle)
     }
@@ -148,6 +259,38 @@ class AddCustomSubjectView(
     fun setGroup(groupTitle: String) {
         binding.groupEditText.setText(groupTitle)
         binding.nestedSubject.subjectEmployeeName.text = groupTitle
+    }
+
+    fun getSubject(): ScheduleSubject {
+
+        // Create subject useCase
+        return ScheduleSubject(
+            id = 0,
+            subject = getShortTitle(),
+            subjectFullName = getFullTitle(),
+            lessonTypeAbbrev = getSubjectType(),
+            employees = arrayListOf(EmployeeSubject.empty),
+            groups = null,
+            edited = ScheduleSubjectEdit(),
+            subjectGroups = null,
+            nextTimeDaysLeft = null,
+            nextTimeSubject = null,
+            startMillis = 0,
+            endMillis = 0,
+            startLessonTime = getStartTime(),
+            endLessonTime = getEndTime(),
+            numSubgroup = getSubgroup(),
+            note = getNote(),
+            breakTime = null,
+            weekNumber = getWeeks(),
+            dayNumber = getWeekDay(),
+            dateLesson = "",
+            startLessonDate = "",
+            endLessonDate = "",
+            isActual = false,
+            isIgnored = false,
+            audience = arrayListOf(getAudience()),
+        )
     }
 
     fun setLessonType(lessonType: String) {

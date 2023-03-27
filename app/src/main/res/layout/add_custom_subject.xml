@@ -288,14 +288,14 @@
                     android:layout_marginHorizontal="20dp"
                     app:caption="@string/group" />
 
-                <Button
-                    android:id="@+id/select_schedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="20dp"
-                    style="@style/Theme.BSUIRSchedule.Button.Hint"
-                    android:text="Выбрать из списка" />
+<!--                <Button-->
+<!--                    android:id="@+id/select_schedule"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginHorizontal="20dp"-->
+<!--                    style="@style/Theme.BSUIRSchedule.Button.Hint"-->
+<!--                    android:text="Выбрать из списка" />-->
 
                 <Space
                     android:layout_width="wrap_content"

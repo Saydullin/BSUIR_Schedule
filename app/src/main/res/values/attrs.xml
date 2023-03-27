@@ -12,6 +12,12 @@
     <attr name="textColor">@color/text</attr>
     <attr name="textHintColor">@color/text_dark_hint</attr>
 
+    <declare-styleable name="AboutInfoView">
+        <attr name="about_icon" format="integer" />
+        <attr name="about_title" format="string" />
+        <attr name="about_text" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="ScheduleHeaderView">
         <attr name="profileImage" format="string" />
         <attr name="titleText" format="string" />

@@ -43,6 +43,10 @@ class SettingsFragment : Fragment(), KoinComponent {
             Navigation.findNavController(binding.root).navigate(R.id.action_settingsFragment_to_mainScheduleFragment)
         }
 
+        binding.questionButton.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_settingsFragment_to_aboutFragment)
+        }
+
         binding.nestedThemeSettings.autoCompleteThemeTextView.setOnItemClickListener { _, _, i, _ ->
             when (getThemeList()[i].lowercase()) {
                 resources.getString(R.string.settings_theme_light).lowercase() -> {

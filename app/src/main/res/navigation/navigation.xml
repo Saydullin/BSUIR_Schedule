@@ -22,8 +22,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/rev_exit"
             app:popEnterAnim="@anim/rev_enter"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_mainScheduleFragment_to_scheduleSubjectEditFragment"
             app:destination="@id/scheduleSubjectEditFragment"
@@ -71,8 +70,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/rev_exit"
             app:popEnterAnim="@anim/rev_enter"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_to_main_schedules"
             app:destination="@id/mainScheduleFragment"
@@ -137,6 +135,13 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/settingsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/rev_exit"
+            app:popEnterAnim="@anim/rev_enter"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
@@ -234,6 +239,18 @@
             app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/scheduleSubjectAddFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.bsuir.bsuirschedule.presentation.fragments.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/aboutFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

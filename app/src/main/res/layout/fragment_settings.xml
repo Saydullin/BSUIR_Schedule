@@ -18,8 +18,8 @@
         android:orientation="horizontal">
 
         <ImageButton
-            style="@style/Theme.BSUIRSchedule.ImageButton"
             android:id="@+id/cancel_button"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="@string/cd_schedule_list" />
 
@@ -33,9 +33,11 @@
             style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
             android:layout_weight="1" />
 
-        <Space
-            android:layout_width="35dp"
-            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/question_button"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:src="@drawable/ic_question"
+            android:contentDescription="@string/cd_schedule_list" />
 
     </LinearLayout>
 

@@ -38,6 +38,7 @@
 
     <style name="Theme.BSUIRSchedule.Checkbox">
         <item name="android:textColor">?attr/textColor</item>
+        <item name="android:textSize">@dimen/font_regular_size</item>
         <item name="android:padding">10dp</item>
         <item name="android:minWidth">10dp</item>
         <item name="android:minHeight">10dp</item>

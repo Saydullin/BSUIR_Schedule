@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,8 @@ import com.bsuir.bsuirschedule.presentation.dialogs.*
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleSubjectPopupMenu
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleRecyclerFragment : Fragment() {
 
@@ -30,8 +33,9 @@ class ScheduleRecyclerFragment : Fragment() {
     ): View {
         val binding = FragmentScheduleRecyclerBinding.inflate(inflater)
         val loadingStatus = LoadingStatus(LoadingStatus.LOAD_SCHEDULE)
-        val dialog = LoadingDialog(loadingStatus)
-        dialog.isCancelable = false
+        val scheduleLoadingDialog = LoadingDialog(loadingStatus)
+        scheduleLoadingDialog.isCancelable = false
+        binding.scheduleDailyRecycler.visibility = View.GONE
 
         val onSubmitUploadSchedule = { savedSchedule: SavedSchedule ->
             groupScheduleVM.getOrUploadSchedule(savedSchedule)
@@ -78,7 +82,13 @@ class ScheduleRecyclerFragment : Fragment() {
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
-        val adapter = MainScheduleAdapter(context!!)
+        val adapter = MainScheduleAdapter(
+            requireContext(),
+            arrayListOf(),
+            false,
+            showSubjectDialog,
+            onLongPressSubject,
+        )
         val recyclerViewLayoutManager = LinearLayoutManager(context)
         binding.scheduleDailyRecycler.layoutManager = recyclerViewLayoutManager
         binding.scheduleDailyRecycler.adapter = adapter
@@ -111,10 +121,10 @@ class ScheduleRecyclerFragment : Fragment() {
 
         groupScheduleVM.loadingStatus.observe(viewLifecycleOwner) { loading ->
             if (loading) {
-                dialog.show(parentFragmentManager, "LoadingDialog")
+                scheduleLoadingDialog.show(parentFragmentManager, "LoadingDialog")
             } else {
-                if (dialog.dialog?.isShowing == true) {
-                    dialog.dismiss()
+                if (scheduleLoadingDialog.dialog?.isShowing == true) {
+                    scheduleLoadingDialog.dismiss()
                 }
             }
         }
@@ -131,21 +141,23 @@ class ScheduleRecyclerFragment : Fragment() {
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
+
             if (schedule.schedules.size > 0) {
                 val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
                 binding.noSubjectsPlaceholder.visibility = View.GONE
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 binding.scrollUpButton.visibility = View.VISIBLE
                 adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
-                adapter.updateSchedule(schedule.schedules, schedule.isGroup(), showSubjectDialog, onLongPressSubject)
+                adapter.updateScheduleData(schedule.schedules, schedule.isGroup())
                 (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
                 binding.scheduleDailyRecycler.adapter = adapter
             } else {
-                adapter.updateSchedule(ArrayList(), false, null, null)
+                adapter.updateScheduleData(ArrayList())
                 binding.noSubjectsPlaceholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
                 binding.scrollUpButton.visibility = View.GONE
             }
+            Log.e("sady", "VM finished ${Date().time}")
         }
 
         return binding.root

@@ -80,7 +80,7 @@ class ScheduleDaysUpdateHistoryAdapter(
                 }
             }
             if (scheduleDay.weekDayNumber == 1 && position != 0) {
-                binding.weekLayout.visibility = View.VISIBLE
+                binding.weekNumber.visibility = View.VISIBLE
                 binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }
             binding.weekNumberDigit.text = scheduleDay.weekNumberString()

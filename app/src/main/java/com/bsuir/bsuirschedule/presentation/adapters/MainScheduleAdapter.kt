@@ -14,34 +14,24 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.utils.CalendarDate
 
-
 class MainScheduleAdapter(
     private val context: Context,
+    private var data: ArrayList<ScheduleDay>,
+    private var isGroupSchedule: Boolean,
+    private var showSubjectDialog: ((subject: ScheduleSubject) -> Unit)?,
+    private var onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
 ): RecyclerView.Adapter<MainScheduleAdapter.ViewHolder>() {
 
-    private var data = ArrayList<ScheduleDay>()
-    private var isGroupSchedule = false
     private var isShortSchedule = false
-    private var showSubjectDialog: ((subject: ScheduleSubject) -> Unit)? = null
-    private var onLongPress: ((subject: ScheduleSubject, subjectView: View) -> Unit)? = null
 
-    fun updateSchedule(
-        newData: ArrayList<ScheduleDay>,
-        isGroup: Boolean,
-        subjectDialog: ((subject: ScheduleSubject) -> Unit)?,
-        onLongPressFunc: ((subject: ScheduleSubject, subjectView: View) -> Unit)?
-    ) {
+    fun updateScheduleData(newData: ArrayList<ScheduleDay>, isGroup: Boolean = false) {
+        data = newData
         isGroupSchedule = isGroup
-        data.clear()
-        data.addAll(newData)
-        showSubjectDialog = subjectDialog
-        onLongPress = onLongPressFunc
         notifyDataSetChanged()
     }
 
     fun setShortSchedule(isShort: Boolean) {
         isShortSchedule = isShort
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -91,7 +81,7 @@ class MainScheduleAdapter(
                 }
             }
             if (scheduleDay.weekDayNumber == 1 && position != 0) {
-                binding.weekLayout.visibility = View.VISIBLE
+                binding.weekNumber.visibility = View.VISIBLE
                 binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }
             binding.weekNumberDigit.text = scheduleDay.weekNumberString()
@@ -120,6 +110,7 @@ class MainScheduleAdapter(
                 binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()
             }
         }
+
     }
 }
 

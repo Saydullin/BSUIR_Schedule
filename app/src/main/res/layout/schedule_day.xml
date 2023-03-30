@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="20dp"
     android:paddingHorizontal="20dp"
-    android:background="?attr/primaryOnColor"
-    android:orientation="vertical">
+    android:background="?attr/primaryOnColor">
 
-    <LinearLayout
-        android:id="@+id/week_layout"
+    <TextView
+        android:id="@+id/week_number"
+        style="@style/Theme.BSUIRSchedule.TextView.Medium.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/subject_empty_holder"
+        android:visibility="gone"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/subject_empty_holder">
-
-        <TextView
-            android:id="@+id/week_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Theme.BSUIRSchedule.TextView.Medium.Thin"
-            android:text="1 неделя" />
-
-    </LinearLayout>
+        tools:text="1 неделя"
+        app:layout_constraintBottom_toTopOf="@+id/schedule_day_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/schedule_day_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:background="@drawable/subject_holder"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
         android:paddingHorizontal="10dp"
+        android:layout_marginTop="10dp"
         android:paddingVertical="5dp"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/week_number">
 
         <TextView
             android:id="@+id/schedule_date"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Theme.BSUIRSchedule.TextView.Medium"
             android:layout_weight="1"
-            android:textColor="@color/on_primary"
-            android:text="@string/test_schedule_day" />
+            android:text="@string/test_schedule_day"
+            android:textColor="@color/on_primary" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -56,21 +53,21 @@
 
             <TextView
                 android:id="@+id/schedule_week_day"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                android:layout_marginHorizontal="5dp"
-                android:gravity="center_horizontal"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:text="@string/test_schedule_date" />
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/test_schedule_date"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/weekNumberDigit"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium.Thin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium.Thin"
                 android:textColor="?attr/primaryOnHintColor"
                 tools:text="2" />
 
@@ -78,13 +75,13 @@
 
         <TextView
             android:id="@+id/schedule_lessons_amount"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Theme.BSUIRSchedule.TextView.Medium"
-            android:gravity="end"
-            android:textColor="@color/on_primary"
             android:layout_weight="1"
-            android:text="@string/test_schedule_lessons_amount" />
+            android:gravity="end"
+            android:text="@string/test_schedule_lessons_amount"
+            android:textColor="@color/on_primary" />
 
     </LinearLayout>
 
@@ -96,14 +93,21 @@
         android:gravity="center_horizontal"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:text="@string/schedules_no_lessons" />
+        android:layout_marginTop="10dp"
+        android:text="@string/schedules_no_lessons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_day_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/schedule_subjects_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_day_header" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

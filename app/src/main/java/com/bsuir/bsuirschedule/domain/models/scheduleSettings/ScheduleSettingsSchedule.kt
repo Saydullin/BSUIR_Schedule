@@ -14,7 +14,7 @@ data class ScheduleSettingsSchedule (
             isShowShortSchedule = true,
             isShowEmptyDays = true,
             isShowPastDays = false,
-            pastDaysNumber = 1
+            pastDaysNumber = 0
         )
         val fullSchedule = ScheduleSettingsSchedule(
             isAutoUpdate = true,

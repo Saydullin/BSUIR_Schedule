@@ -114,7 +114,7 @@ class ScheduleShortSubjectsAdapter(
             }
 
             if (subject.getSubjectNote().isNotEmpty()) {
-                binding.subjectAdditional.visibility = View.VISIBLE
+                binding.subjectNote.visibility = View.VISIBLE
                 binding.subjectNote.text = subject.getSubjectNote()
             }
 

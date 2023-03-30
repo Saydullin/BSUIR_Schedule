@@ -1,8 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +13,7 @@ import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.*
-import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
+import kotlinx.coroutines.DelicateCoroutinesApi
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -43,6 +40,7 @@ class MainScheduleFragment : Fragment(), KoinComponent {
         groupScheduleVM.setUpdateStatus(true)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,11 +58,13 @@ class MainScheduleFragment : Fragment(), KoinComponent {
             binding.mainScheduleContent.visibility = View.VISIBLE
 
             sharedPrefsUseCase.setDefaultScheduleTitle(schedule.getTitle())
-            val widgetIntent = Intent(context, ScheduleWidget::class.java)
-            widgetIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-            val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), ScheduleWidget::class.java))
-            widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-            requireContext().sendBroadcast(widgetIntent)
+//            GlobalScope.launch(Dispatchers.IO) {
+//                val widgetIntent = Intent(context, ScheduleWidget::class.java)
+//                val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(requireContext(), ScheduleWidget::class.java))
+//                widgetIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+//                widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+//                requireContext().sendBroadcast(widgetIntent)
+//            }
         }
 
         currentWeekVM.getCurrentWeek()

@@ -37,6 +37,7 @@
     <color name="textColorDarkTheme">#d5dfe1</color>
     <color name="textHintColorDarkTheme">#939ea2</color>
 
+    <color name="subject_selected">#7893EA</color>
     <color name="subject_unknown">#FF000000</color>
     <color name="subject_pretest">#FFF600</color>
     <color name="subject_exam">#d63031</color>

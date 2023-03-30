@@ -31,34 +31,60 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp" />
 
-    <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
-        android:id="@+id/pastDaysCheckBox"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:translationZ="1dp"
-        app:checkbox_caption="@string/settings_show_past_days"
-        app:checkbox_description="@string/settings_show_past_days_caption"
-        app:checkbox_icon="@drawable/ic_past"
-        app:checkbox_title="@string/settings_past_days_title" />
+        android:backgroundTint="?attr/secondaryColor"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
 
-    <LinearLayout
-        android:id="@+id/pastDaysShowAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <com.bsuir.bsuirschedule.presentation.views.EditTextView
-            android:id="@+id/pastDaysAmountEditText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textSize="@dimen/font_medium_size"
-            app:caption="@string/schedule_settings_schedule_past_days_hint_text" />
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="10dp"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_past" />
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Theme.BSUIRSchedule.TextView.Title"
+                    android:text="@string/settings_past_days_title" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                android:id="@+id/pastDaysAmountEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:caption="@string/settings_show_past_days_caption"
+                app:hint="0"
+                android:inputType="number" />
+s
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <Space
         android:layout_width="wrap_content"
@@ -72,37 +98,6 @@
         app:checkbox_description="@string/settings_show_empty_day_caption"
         app:checkbox_icon="@drawable/ic_empty"
         app:checkbox_title="@string/settings_empty_days_title" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/resetButton"
-            style="@style/Theme.BSUIRSchedule.Button.Hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/reset" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/saveButton"
-            style="@style/Theme.BSUIRSchedule.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:text="@string/save" />
-
-    </LinearLayout>
 
 </LinearLayout>
 

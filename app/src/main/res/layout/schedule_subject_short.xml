@@ -1,180 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@null"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/subject_break_time"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Theme.BSUIRSchedule.TextView.Hint"
-        android:paddingVertical="2dp"
         android:gravity="center_horizontal"
-        android:text="@string/test_subject_break_time" />
+        android:paddingVertical="3dp"
+        tools:text="@string/test_subject_break_time"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+    <TextView
+        android:id="@+id/subject_start_lesson"
+        style="@style/Theme.BSUIRSchedule.TextView.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="00:00"
+        android:textColor="?attr/textColor"
+        app:layout_constraintTop_toBottomOf="@+id/subject_break_time" />
+
+    <TextView
+        android:id="@+id/subject_end_lesson"
+        style="@style/Theme.BSUIRSchedule.TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="00:00"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="?attr/textColor"
+        app:layout_constraintEnd_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/subject_start_lesson" />
+
+    <ImageView
+        android:id="@+id/actual_subject_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/ic_two_dots"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/subject_end_lesson" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="?attr/secondaryColor"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/subject_start_lesson"
+        app:layout_constraintTop_toBottomOf="@+id/subject_break_time"
+        app:layout_constraintVertical_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/subject_type"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@string/cd_subject_type"
+                android:src="@drawable/ic_subject_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/subject_title" />
+
+            <TextView
+                android:id="@+id/subject_title"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintEnd_toStartOf="@+id/subject_audience"
+                app:layout_constraintStart_toEndOf="@+id/subject_type"
+                app:layout_constraintTop_toTopOf="@+id/subject_type"
+                app:layout_constraintBottom_toBottomOf="@+id/subject_type"
+                tools:text="@string/test_subject_title" />
 
             <LinearLayout
+                android:id="@+id/subgroup_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:orientation="horizontal"
                 android:layout_marginEnd="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/subject_start_lesson"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    style="@style/Theme.BSUIRSchedule.TextView.Title"
-                    android:textColor="?attr/textColor"
-                    android:text="00:00" />
-
-                <TextView
-                    android:id="@+id/subject_end_lesson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView"
-                    android:textColor="?attr/textColor"
-                    android:gravity="end"
-                    android:text="00:00" />
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/subject_audience"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/actual_subject_icon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:visibility="gone"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/ic_two_dots" />
+                    android:contentDescription="@string/cd_schedule_subgroup"
+                    android:src="@drawable/ic_subgroup_hint" />
+
+                <TextView
+                    android:id="@+id/subject_subgroup"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="2" />
 
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/subject_audience"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
-                android:backgroundTint="?attr/secondaryColor"
-                app:cardCornerRadius="10dp">
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/subject_type"
+                app:layout_constraintBottom_toBottomOf="@+id/subject_type"
+                tools:text="214-4 к." />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/subject_employee_name"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subject_title"
+                tools:text="@string/test_subject_employee_name" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/subject_note"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                tools:text="@string/test_subject_note"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subject_employee_name" />
 
-                        <ImageView
-                            android:id="@+id/subject_type"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:src="@drawable/ic_subject_type"
-                            android:contentDescription="@string/cd_subject_type"
-                            android:layout_marginEnd="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/subject_title"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                            android:layout_marginEnd="10dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            tools:text="@string/test_subject_title" />
+    </androidx.cardview.widget.CardView>
 
-                        <LinearLayout
-                            android:id="@+id/subgroup_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:visibility="gone"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_subgroup_hint"
-                                android:contentDescription="@string/cd_schedule_subgroup" />
-
-                            <Space
-                                android:layout_width="3dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:id="@+id/subject_subgroup"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                                tools:text="2" />
-
-                        </LinearLayout>
-s
-                        <TextView
-                            android:id="@+id/subject_audience"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            tools:text="214-4 к." />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/subject_employee"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/subject_employee_name"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                            tools:text="@string/test_subject_employee_name" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/subject_additional"
-                        android:layout_width="wrap_content"
-                        android:visibility="gone"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/subject_note"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                            android:maxLines="5"
-                            android:ellipsize="end"
-                            android:text="@string/test_subject_note" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

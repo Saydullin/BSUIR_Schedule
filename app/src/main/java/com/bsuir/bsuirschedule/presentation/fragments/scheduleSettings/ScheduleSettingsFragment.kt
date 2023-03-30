@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSettingsBinding
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -32,6 +33,13 @@ class ScheduleSettingsFragment : Fragment() {
                 binding.scheduleHeaderView.setDescription(schedule.employee.getRankAndDegree())
                 binding.scheduleHeaderView.setImage(schedule.employee.photoLink)
             }
+        }
+
+        binding.resetButton.setOnClickListener {
+            val schedule = groupScheduleVM.getActiveSchedule() ?: return@setOnClickListener
+            val scheduleSettings = schedule.settings
+            scheduleSettings.schedule = ScheduleSettings.empty.schedule
+            groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
         }
 
         groupScheduleVM.settingsUpdatedStatus.observe(viewLifecycleOwner) { isUpdated ->

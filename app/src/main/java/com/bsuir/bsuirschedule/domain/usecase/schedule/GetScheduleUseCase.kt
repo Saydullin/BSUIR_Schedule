@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -8,6 +9,7 @@ import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.ScheduleController
 import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateHistoryManager
+import java.util.Date
 
 class GetScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
@@ -254,6 +256,7 @@ class GetScheduleUseCase(
 
     suspend fun getById(groupId: Int, ignoreSettings: Boolean = false): Resource<Schedule> {
         return try {
+            Log.e("sady", "getById started ${Date().time}")
             when (
                 val result = scheduleRepository.getScheduleById(groupId)
             ) {

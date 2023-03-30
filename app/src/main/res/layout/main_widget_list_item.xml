@@ -97,7 +97,7 @@
                     android:text="2"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#d5dfe1" />
 
@@ -111,7 +111,7 @@
                 android:text="416-4 к."
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textColor="#d5dfe1"
                 android:textStyle="bold" />
 
@@ -130,7 +130,7 @@
                 android:text="Степанов А. А."
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textColor="#939ea2" />
 
         </LinearLayout>

@@ -153,10 +153,10 @@ class ScheduleSubjectEditFragment : Fragment() {
 
             override fun afterTextChanged(text: Editable?) {
                 if ((text ?: "").trim().isNotEmpty()) {
-                    binding.nestedSubject.subjectAdditional.visibility = View.VISIBLE
+                    binding.nestedSubject.subjectNote.visibility = View.VISIBLE
                     binding.nestedSubject.subjectNote.text = text.toString()
                 } else {
-                    binding.nestedSubject.subjectAdditional.visibility = View.GONE
+                    binding.nestedSubject.subjectNote.visibility = View.GONE
                 }
             }
         })

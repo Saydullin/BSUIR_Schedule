@@ -66,9 +66,9 @@ class AddCustomSubjectView(
         }
         binding.noteEditText.setTextChangeListener {
             if (it.isEmpty()) {
-                binding.nestedSubject.subjectAdditional.visibility = View.GONE
+                binding.nestedSubject.subjectNote.visibility = View.GONE
             } else {
-                binding.nestedSubject.subjectAdditional.visibility = View.VISIBLE
+                binding.nestedSubject.subjectNote.visibility = View.VISIBLE
                 binding.nestedSubject.subjectNote.text = it
             }
         }
@@ -336,9 +336,9 @@ class AddCustomSubjectView(
     fun setNote(note: String) {
         binding.noteEditText.setText(note)
         if (note.isEmpty()) {
-            binding.nestedSubject.subjectAdditional.visibility = View.GONE
+            binding.nestedSubject.subjectNote.visibility = View.GONE
         } else {
-            binding.nestedSubject.subjectAdditional.visibility = View.VISIBLE
+            binding.nestedSubject.subjectNote.visibility = View.VISIBLE
             binding.nestedSubject.subjectNote.text = note
         }
     }

@@ -49,27 +49,6 @@
             android:textColor="@color/text_light"
             android:textStyle="bold" />
 
-<!--        <Space-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1" />-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="20dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:contentDescription="@string/cd_schedule_subgroup"-->
-<!--            android:src="@drawable/ic_subgroup" />-->
-
-<!--        <Space-->
-<!--            android:layout_width="10dp"-->
-<!--            android:layout_height="wrap_content" />-->
-
-<!--        <TextView-->
-<!--            style="@style/Theme.BSUIRSchedule.TextView.Medium"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="2" />-->
-
     </LinearLayout>
 
     <ListView

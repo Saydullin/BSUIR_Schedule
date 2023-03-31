@@ -3,8 +3,8 @@ package com.bsuir.bsuirschedule.domain.usecase
 import com.bsuir.bsuirschedule.domain.models.Employee
 import com.bsuir.bsuirschedule.domain.repository.DepartmentRepository
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
-import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class GetEmployeeItemsUseCase(
     private val employeeItemsRepository: EmployeeItemsRepository,
@@ -26,7 +26,7 @@ class GetEmployeeItemsUseCase(
                         }
                         is Resource.Error -> {
                             Resource.Error(
-                                errorType = isMergedDepartments.errorType,
+                                errorType = isMergedDepartments.statusCode,
                                 message = isMergedDepartments.message
                             )
                         }
@@ -34,14 +34,14 @@ class GetEmployeeItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -67,14 +67,14 @@ class GetEmployeeItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -102,7 +102,7 @@ class GetEmployeeItemsUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.errorType,
+                    errorType = result.statusCode,
                     message = result.message
                 )
             }

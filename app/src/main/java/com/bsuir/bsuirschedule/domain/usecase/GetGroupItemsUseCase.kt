@@ -5,9 +5,9 @@ import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.Speciality
 import com.bsuir.bsuirschedule.domain.repository.FacultyRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
-import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.repository.SpecialityRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 import kotlin.collections.ArrayList
 
 class GetGroupItemsUseCase(
@@ -26,14 +26,14 @@ class GetGroupItemsUseCase(
                     val isMergedSpecialities = mergeSpecialities(groups)
                     if (isMergedSpecialities is Resource.Error) {
                         return Resource.Error(
-                            errorType = isMergedSpecialities.errorType,
+                            errorType = isMergedSpecialities.statusCode,
                             message = isMergedSpecialities.message
                         )
                     }
                     val isMergedFaculties = mergeFaculties(groups)
                     if (isMergedFaculties is Resource.Error) {
                         return Resource.Error(
-                            errorType = isMergedFaculties.errorType,
+                            errorType = isMergedFaculties.statusCode,
                             message = isMergedFaculties.message
                         )
                     }
@@ -41,14 +41,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -70,14 +70,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -99,14 +99,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -130,14 +130,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -153,7 +153,7 @@ class GetGroupItemsUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.errorType,
+                    errorType = result.statusCode,
                     message = result.message
                 )
             }

@@ -6,13 +6,10 @@ import com.bsuir.bsuirschedule.data.db.dao.CurrentWeekDao
 import com.bsuir.bsuirschedule.domain.models.CurrentWeek
 import com.bsuir.bsuirschedule.domain.repository.CurrentWeekRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 import java.util.*
 
 class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : CurrentWeekRepository {
-
-    companion object {
-        const val MAX_WEEKS = 4
-    }
 
     override suspend fun getCurrentWeekAPI(): Resource<CurrentWeek> {
         val currentWeekService = RetrofitBuilder.getInstance().create(GetCurrentWeekService::class.java)
@@ -24,14 +21,14 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
                 Resource.Success(CurrentWeek(week = data, time = Date().time))
             } else {
                 Resource.Error(
-                    errorType = Resource.SERVER_ERROR,
+                    errorType = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = Resource.CONNECTION_ERROR,
+                errorType = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -42,19 +39,15 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
         return try {
             val data = currentWeekDao.getCurrentWeek()
                 ?: return Resource.Error(
-                    errorType = Resource.DATABASE_NOT_FOUND_ERROR
+                    errorType = StatusCode.DATABASE_NOT_FOUND_ERROR
                 )
             Resource.Success(data.toCurrentWeek())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
-    }
-
-    override suspend fun isCurrentWeekPassed(): Resource<Boolean> {
-        TODO("Not yet implemented")
     }
 
     override suspend fun saveCurrentWeek(currentWeek: CurrentWeek): Resource<Unit> {
@@ -63,7 +56,7 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

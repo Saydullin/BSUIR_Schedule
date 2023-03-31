@@ -298,7 +298,7 @@
     <string name="all_schedules_updated_success">Updating all schedules</string>
     <string name="all_schedules_updated_success_caption">The data structure was changed, schedules had to be updated</string>
     <string name="schedule_subject_not_ignored_caption">This lesson will now be counted in the schedule status</string>
-    <string name="popup_deactivate">I\'ll will not go</string>
+    <string name="popup_deactivate">I\'ll skip</string>
     <string name="popup_activate">I\'ll go</string>
     <string name="popup_edit">Edit</string>
     <string name="schedules_subject_edit_title">Edit lesson</string>

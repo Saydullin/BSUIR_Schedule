@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +7,7 @@ import com.bsuir.bsuirschedule.domain.models.CurrentWeek
 import com.bsuir.bsuirschedule.domain.models.StateStatus
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -39,7 +39,7 @@ class CurrentWeekViewModel(
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
+                            type = result.statusCode,
                             message = result.message
                         )
                     )
@@ -62,7 +62,7 @@ class CurrentWeekViewModel(
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = Resource.WEEK_API_LOADING_ERROR,
+                            type = StatusCode.WEEK_API_LOADING_ERROR,
                             message = result.message
                         )
                     )
@@ -83,7 +83,7 @@ class CurrentWeekViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }

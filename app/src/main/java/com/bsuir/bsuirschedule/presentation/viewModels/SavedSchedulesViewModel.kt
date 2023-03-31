@@ -23,7 +23,6 @@ class SavedSchedulesViewModel(
     private val savedSchedules = MutableLiveData<ArrayList<SavedSchedule>>(null)
     private val savedSchedulesCount = MutableLiveData<Int>(null)
     val updatedScheduleStatus = updatedSchedule
-    val activeScheduleStatus = activeSchedule
     val activeScheduleStatusCount = savedSchedulesCount
     val savedSchedulesStatus = savedSchedules
     val errorMessageStatus = error
@@ -43,7 +42,7 @@ class SavedSchedulesViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -69,7 +68,7 @@ class SavedSchedulesViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -94,7 +93,7 @@ class SavedSchedulesViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -120,7 +119,7 @@ class SavedSchedulesViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -145,7 +144,7 @@ class SavedSchedulesViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -161,7 +160,7 @@ class SavedSchedulesViewModel(
             if (result is Resource.Error) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
-                    type = result.errorType,
+                    type = result.statusCode,
                     message = result.message
                 ))
             }

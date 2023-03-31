@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.dialogs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,18 +24,18 @@ class RenameScheduleDialog(
 
         if (savedSchedule.isGroup) {
             if (savedSchedule.group.title != null) {
-                binding.editText.setText(savedSchedule.group.title)
+                binding.editText.setText(savedSchedule.group.getGroupTitle())
                 binding.editText.setSelection(savedSchedule.group.title!!.length)
             }
         } else {
             if (savedSchedule.employee.title != null) {
-                binding.editText.setText(savedSchedule.employee.title)
+                binding.editText.setText(savedSchedule.employee.getEmployeeTitle())
                 binding.editText.setSelection(savedSchedule.employee.title!!.length)
             }
         }
 
         binding.submitButton.setOnClickListener {
-            val newTitle = binding.editText.text.toString().trim()
+            val newTitle = binding.editText.getText()
             onRenameSubmit(savedSchedule, newTitle)
             dismiss()
         }

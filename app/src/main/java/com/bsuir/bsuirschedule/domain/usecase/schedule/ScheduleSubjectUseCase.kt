@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
@@ -23,7 +22,7 @@ class ScheduleSubjectUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.errorType,
+                    errorType = result.statusCode,
                     message = result.message
                 )
             }
@@ -68,7 +67,7 @@ class ScheduleSubjectUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.errorType,
+                    errorType = result.statusCode,
                     message = result.message
                 )
             }
@@ -110,7 +109,7 @@ class ScheduleSubjectUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.errorType,
+                    errorType = result.statusCode,
                     message = result.message
                 )
             }

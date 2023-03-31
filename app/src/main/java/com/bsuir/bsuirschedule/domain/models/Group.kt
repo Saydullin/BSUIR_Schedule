@@ -33,6 +33,10 @@ data class Group (
         )
     }
 
+    fun getGroupTitle(): String {
+        return title ?: ""
+    }
+
     fun getTitleOrName(): String {
         if (title.isNullOrEmpty()) {
             return name

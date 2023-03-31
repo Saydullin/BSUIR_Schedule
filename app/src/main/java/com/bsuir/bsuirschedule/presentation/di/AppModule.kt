@@ -16,7 +16,8 @@ val appModule = module {
             saveScheduleUseCase = get(),
             deleteScheduleUseCase = get(),
             updateScheduleSettingsUseCase = get(),
-            savedScheduleUseCase = get()
+            savedScheduleUseCase = get(),
+            addScheduleSubjectUseCase = get(),
         )
     }
 

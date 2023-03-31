@@ -6,6 +6,7 @@ import com.bsuir.bsuirschedule.data.db.dao.FacultyDao
 import com.bsuir.bsuirschedule.domain.models.Faculty
 import com.bsuir.bsuirschedule.domain.repository.FacultyRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class FacultyRepositoryImpl(override val facultyDao: FacultyDao) : FacultyRepository {
 
@@ -19,14 +20,14 @@ class FacultyRepositoryImpl(override val facultyDao: FacultyDao) : FacultyReposi
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = Resource.SERVER_ERROR,
+                    errorType = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = Resource.CONNECTION_ERROR,
+                errorType = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -40,7 +41,7 @@ class FacultyRepositoryImpl(override val facultyDao: FacultyDao) : FacultyReposi
             Resource.Success(facultiesList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.SERVER_ERROR,
+                errorType = StatusCode.SERVER_ERROR,
                 message = e.message
             )
         }
@@ -53,7 +54,7 @@ class FacultyRepositoryImpl(override val facultyDao: FacultyDao) : FacultyReposi
             Resource.Success(result.toFaculty())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.SERVER_ERROR,
+                errorType = StatusCode.SERVER_ERROR,
                 message = e.message
             )
         }
@@ -67,7 +68,7 @@ class FacultyRepositoryImpl(override val facultyDao: FacultyDao) : FacultyReposi
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.SERVER_ERROR,
+                errorType = StatusCode.SERVER_ERROR,
                 message = e.message
             )
         }

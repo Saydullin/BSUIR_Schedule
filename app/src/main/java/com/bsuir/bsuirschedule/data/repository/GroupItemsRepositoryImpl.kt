@@ -8,6 +8,7 @@ import com.bsuir.bsuirschedule.data.db.entities.GroupTable
 import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepository {
 
@@ -21,14 +22,14 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = Resource.SERVER_ERROR,
+                    errorType = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = Resource.CONNECTION_ERROR,
+                errorType = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -41,7 +42,7 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
             Resource.Success(groupList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -61,7 +62,7 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
             Resource.Success(groupList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -81,7 +82,7 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
             Resource.Success(groupList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -94,7 +95,7 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

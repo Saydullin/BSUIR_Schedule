@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,6 @@ import com.bsuir.bsuirschedule.presentation.dialogs.*
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleSubjectPopupMenu
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleRecyclerFragment : Fragment() {
@@ -157,7 +155,6 @@ class ScheduleRecyclerFragment : Fragment() {
                 binding.scheduleDailyRecycler.visibility = View.GONE
                 binding.scrollUpButton.visibility = View.GONE
             }
-            Log.e("sady", "VM finished ${Date().time}")
         }
 
         return binding.root

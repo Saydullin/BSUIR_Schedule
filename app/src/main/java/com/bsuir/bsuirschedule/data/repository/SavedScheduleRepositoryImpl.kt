@@ -5,6 +5,7 @@ import com.bsuir.bsuirschedule.data.db.dao.SavedScheduleDao
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDao) : SavedScheduleRepository {
 
@@ -14,7 +15,7 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
             Resource.Success(data)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -26,7 +27,7 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -39,7 +40,7 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -49,12 +50,12 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
         return try {
             val data = savedScheduleDao.getSavedScheduleById(scheduleId)
                 ?: return Resource.Error(
-                    errorType = Resource.DATABASE_NOT_FOUND_ERROR,
+                    errorType = StatusCode.DATABASE_NOT_FOUND_ERROR,
                 )
             Resource.Success(data.toSavedSchedule())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -68,7 +69,7 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
             Resource.Success(scheduleList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -82,7 +83,7 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
             Resource.Success(scheduleList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -94,7 +95,7 @@ class SavedScheduleRepositoryImpl(override val savedScheduleDao: SavedScheduleDa
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

@@ -6,6 +6,7 @@ import com.bsuir.bsuirschedule.data.db.dao.DepartmentDao
 import com.bsuir.bsuirschedule.domain.models.Department
 import com.bsuir.bsuirschedule.domain.repository.DepartmentRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class DepartmentRepositoryImpl(override val departmentDao: DepartmentDao) : DepartmentRepository {
 
@@ -19,14 +20,14 @@ class DepartmentRepositoryImpl(override val departmentDao: DepartmentDao) : Depa
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = Resource.SERVER_ERROR,
+                    errorType = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = Resource.CONNECTION_ERROR,
+                errorType = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -40,7 +41,7 @@ class DepartmentRepositoryImpl(override val departmentDao: DepartmentDao) : Depa
             Resource.Success(departmentsList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message,
             )
         }
@@ -53,7 +54,7 @@ class DepartmentRepositoryImpl(override val departmentDao: DepartmentDao) : Depa
             Resource.Success(result.toDepartment())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message,
             )
         }
@@ -67,7 +68,7 @@ class DepartmentRepositoryImpl(override val departmentDao: DepartmentDao) : Depa
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message,
             )
         }

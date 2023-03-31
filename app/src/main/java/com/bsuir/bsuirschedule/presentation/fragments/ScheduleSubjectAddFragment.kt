@@ -48,11 +48,10 @@ class ScheduleSubjectAddFragment : Fragment() {
             binding.addCustomSubjectView.setSubgroups(schedule.subgroups)
         }
 
-//        binding.addCustomSubjectView.setOnSelectScheduleListener {
-//            // Redirect to select fragment
-//            // There save selected schedule
-//            // Then setGroup or setEmployee
-//        }
+        binding.addCustomSubjectView.setOnSelectScheduleListener { newSubject ->
+            scheduleVM.addCustomSubject(newSubject)
+            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectAddFragment_to_mainScheduleFragment)
+        }
 
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectAddFragment_to_mainScheduleFragment)

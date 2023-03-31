@@ -113,7 +113,7 @@ class ScheduleUpdateManager(
             }
             is Resource.Error -> {
                 return Resource.Error(
-                    errorType = Resource.SERVER_ERROR
+                    errorType = StatusCode.SERVER_ERROR
                 )
             }
         }

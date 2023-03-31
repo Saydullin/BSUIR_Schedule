@@ -18,7 +18,7 @@ class ScheduleController {
             initScheduleDay(groupSchedule.schedules?.tuesday ?: ArrayList(), 2, Calendar.TUESDAY),
             initScheduleDay(groupSchedule.schedules?.wednesday ?: ArrayList(), 3, Calendar.WEDNESDAY),
             initScheduleDay(groupSchedule.schedules?.thursday ?: ArrayList(), 4, Calendar.THURSDAY),
-            initScheduleDay(groupSchedule.schedules?.friday ?: ArrayList(), 5, Calendar.FRIDAY ),
+            initScheduleDay(groupSchedule.schedules?.friday ?: ArrayList(), 5, Calendar.FRIDAY),
             initScheduleDay(groupSchedule.schedules?.saturday ?: ArrayList(), 6, Calendar.SATURDAY),
             initScheduleDay(groupSchedule.schedules?.sunday ?: ArrayList(), 0, Calendar.SUNDAY),
         )
@@ -108,6 +108,39 @@ class ScheduleController {
         return newSchedule.originalSchedule
     }
 
+    fun addCustomSubject(schedule: Schedule, subject: ScheduleSubject): Schedule {
+        if (subject.startLessonTime.isNullOrEmpty() || subject.endLessonTime.isNullOrEmpty()) {
+            return schedule
+        }
+
+        val calendarDate = CalendarDate(startDate = schedule.startDate)
+        var daysCounter = 0
+
+        while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter != DAYS_LIMIT) {
+            calendarDate.incDate(daysCounter)
+
+            val scheduleDay = schedule.schedules.find {
+                it.dateInMillis == calendarDate.getDateInMillis() &&
+                        it.weekDayNumber == subject.dayNumber &&
+                        subject.weekNumber?.contains(it.weekNumber) == true
+            }
+
+            if (scheduleDay != null) {
+                val subjectCopy = subject.copy()
+                val startMillis = calendarDate.getTimeInMillis(subject.startLessonTime)
+                val endMillis = calendarDate.getTimeInMillis(subject.endLessonTime)
+                subjectCopy.startMillis = startMillis
+                subjectCopy.endMillis = endMillis
+                subjectCopy.id = subjectCopy.hashCode()
+
+                insertSubject(scheduleDay.schedule, arrayListOf(subjectCopy))
+            }
+            daysCounter++
+        }
+
+        return schedule
+    }
+
     private fun getMillisTimeInSubjects(schedule: Schedule): Schedule {
         val newSchedule = schedule.copy()
         val calendarDate = CalendarDate(startDate = schedule.startDate)
@@ -131,6 +164,14 @@ class ScheduleController {
     }
 
     private fun getActualSubject(schedule: Schedule): ScheduleSubject? {
+
+        // Remove actual subject flag from all subjects
+        schedule.schedules.map {
+            it.schedule.map {
+                it.isActual = false
+            }
+        }
+
         val dateUnixTime = Date().time
         val actualDays = schedule.schedules.filter { it.dateInMillis >= dateUnixTime - 86400000 }
 

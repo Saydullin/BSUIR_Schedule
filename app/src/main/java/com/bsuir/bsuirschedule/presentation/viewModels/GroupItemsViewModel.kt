@@ -124,7 +124,7 @@ class GroupItemsViewModel(
                     is Resource.Error -> {
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = newGroupItems.errorType,
+                            type = newGroupItems.statusCode,
                             message = newGroupItems.message
                         ))
                     }
@@ -133,7 +133,7 @@ class GroupItemsViewModel(
             is Resource.Error -> {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
-                    type = newGroupItems.errorType,
+                    type = newGroupItems.statusCode,
                     message = newGroupItems.message
                 ))
             }
@@ -154,7 +154,7 @@ class GroupItemsViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -178,7 +178,7 @@ class GroupItemsViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }

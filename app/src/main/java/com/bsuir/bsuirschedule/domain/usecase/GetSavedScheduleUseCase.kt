@@ -1,9 +1,9 @@
 package com.bsuir.bsuirschedule.domain.usecase
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.repository.SavedScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 import kotlin.collections.ArrayList
 
 class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedScheduleRepository) {
@@ -17,14 +17,14 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -47,14 +47,14 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -69,21 +69,20 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.errorType,
+                        errorType = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATA_ERROR,
+                errorType = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
     }
 
     suspend fun deleteSchedule(schedule: SavedSchedule): Resource<Unit> {
-        Log.e("sady", "deleting $schedule")
         return savedScheduleRepository.deleteSchedule(schedule)
     }
 

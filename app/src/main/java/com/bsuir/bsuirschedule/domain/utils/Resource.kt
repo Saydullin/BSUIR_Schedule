@@ -1,37 +1,37 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+enum class StatusCode {
+    NO_ERROR,
+    SERVER_ERROR,
+    CONNECTION_ERROR,
+    UPDATE_ERROR,
+    DATABASE_ERROR,
+    DATABASE_NOT_FOUND_ERROR,
+    SYSTEM_ERROR,
+    DATA_ERROR,
+    UNKNOWN_ERROR,
+    WEEK_API_LOADING_ERROR,
+    SCHEDULE_LOADED_SUCCESS,
+    SCHEDULE_UPDATED_SUCCESS,
+    SCHEDULE_DELETED_SUCCESS,
+    SCHEDULE_SUBJECT_DELETED,
+    SCHEDULE_SUBJECT_ADDED,
+    SCHEDULE_SUBJECT_EDITED,
+    SCHEDULE_SUBJECT_IGNORED,
+    SCHEDULE_SUBJECT_NOT_IGNORED,
+    ALL_SCHEDULES_UPDATED_SUCCESS,
+}
+
 sealed class Resource<T>(
     val data: T? = null,
-    val errorType: Int = NO_ERROR,
+    val statusCode: StatusCode = StatusCode.NO_ERROR,
     val message: String? = null
 ) {
-
-    companion object {
-        const val NO_ERROR = 0
-        const val SERVER_ERROR = 1
-        const val CONNECTION_ERROR = 2
-        const val UPDATE_ERROR = 3
-        const val DATABASE_ERROR = 4
-        const val DATABASE_NOT_FOUND_ERROR = 5
-        const val SYSTEM_ERROR = 6
-        const val DATA_ERROR = 7
-        const val UNKNOWN_ERROR = 8
-        const val WEEK_API_LOADING_ERROR = 9
-
-        const val SCHEDULE_LOADED_SUCCESS = 10
-        const val SCHEDULE_UPDATED_SUCCESS = 11
-        const val SCHEDULE_DELETED_SUCCESS = 12
-        const val SCHEDULE_SUBJECT_DELETED = 13
-        const val SCHEDULE_SUBJECT_EDITED = 14
-        const val SCHEDULE_SUBJECT_IGNORED = 15
-        const val SCHEDULE_SUBJECT_NOT_IGNORED = 16
-        const val ALL_SCHEDULES_UPDATED_SUCCESS = 17
-    }
 
     class Success<T>(data: T?): Resource<T>(data)
 
     class Error<T>(
-        errorType: Int = UNKNOWN_ERROR,
+        errorType: StatusCode = StatusCode.UNKNOWN_ERROR,
         message: String? = "",
         data: T? = null
     ): Resource<T>(data, errorType, message)

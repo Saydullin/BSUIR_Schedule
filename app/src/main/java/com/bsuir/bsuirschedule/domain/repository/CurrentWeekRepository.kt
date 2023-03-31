@@ -9,8 +9,6 @@ interface CurrentWeekRepository {
 
     suspend fun getCurrentWeek(): Resource<CurrentWeek>
 
-    suspend fun isCurrentWeekPassed(): Resource<Boolean>
-
     suspend fun saveCurrentWeek(currentWeek: CurrentWeek): Resource<Unit>
 
 }

@@ -11,6 +11,7 @@ import com.bsuir.bsuirschedule.domain.usecase.GetSavedScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.*
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,8 @@ class ScheduleViewModel(
     private val saveScheduleUseCase: SaveScheduleUseCase,
     private val deleteScheduleUseCase: DeleteScheduleUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
-    private val getCurrentWeekUseCase: GetCurrentWeekUseCase
+    private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
+    private val addScheduleSubjectUseCase: AddScheduleSubjectUseCase
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
@@ -37,7 +39,7 @@ class ScheduleViewModel(
     private val schedule = MutableLiveData<Schedule>(null)
     private val deletedSchedule = MutableLiveData<SavedSchedule>(null)
     private val error = MutableLiveData<StateStatus>(null)
-    private val success = MutableLiveData<Int>(null)
+    private val success = MutableLiveData<StatusCode>(null)
     val scheduleStatus = schedule
     val activeSubjectStatus = activeSubject
     val settingsUpdatedStatus = settingsUpdated
@@ -80,7 +82,7 @@ class ScheduleViewModel(
     fun updateSchedule() {
         if (update.value == true) {
             val scheduleId = activeScheduleId.value ?: return
-            settingsUpdated.value = false
+            settingsUpdated.postValue(false)
             getScheduleById(scheduleId, false)
         }
     }
@@ -98,7 +100,7 @@ class ScheduleViewModel(
             if (schedule.value == null || schedule.value!!.id == -1) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
-                    type = Resource.DATA_ERROR,
+                    type = StatusCode.DATA_ERROR,
                 ))
             }
 
@@ -117,16 +119,16 @@ class ScheduleViewModel(
                     ) {
                         is Resource.Success -> {
                             if (isIgnored) {
-                                success.postValue(Resource.SCHEDULE_SUBJECT_IGNORED)
+                                success.postValue(StatusCode.SCHEDULE_SUBJECT_IGNORED)
                             } else {
-                                success.postValue(Resource.SCHEDULE_SUBJECT_NOT_IGNORED)
+                                success.postValue(StatusCode.SCHEDULE_SUBJECT_NOT_IGNORED)
                             }
                             getScheduleById(data.id, isNotUpdate = false)
                         }
                         is Resource.Error -> {
                             error.postValue(StateStatus(
                                 state = StateStatus.ERROR_STATE,
-                                type = saveResponse.errorType,
+                                type = saveResponse.statusCode,
                             ))
                         }
                     }
@@ -134,7 +136,7 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                     ))
                 }
             }
@@ -146,7 +148,7 @@ class ScheduleViewModel(
             if (schedule.value == null || schedule.value!!.id == -1) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
-                    type = Resource.DATA_ERROR,
+                    type = StatusCode.DATA_ERROR,
                 ))
             }
 
@@ -164,13 +166,13 @@ class ScheduleViewModel(
                         val saveResponse = saveScheduleUseCase.execute(data)
                     ) {
                         is Resource.Success -> {
-                            success.postValue(Resource.SCHEDULE_SUBJECT_EDITED)
+                            success.postValue(StatusCode.SCHEDULE_SUBJECT_EDITED)
                             getScheduleById(data.id, isNotUpdate = false)
                         }
                         is Resource.Error -> {
                             error.postValue(StateStatus(
                                 state = StateStatus.ERROR_STATE,
-                                type = saveResponse.errorType,
+                                type = saveResponse.statusCode,
                             ))
                         }
                     }
@@ -178,7 +180,7 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                     ))
                 }
             }
@@ -190,7 +192,7 @@ class ScheduleViewModel(
             if (schedule.value == null || schedule.value!!.id == -1) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
-                    type = Resource.DATA_ERROR,
+                    type = StatusCode.DATA_ERROR,
                 ))
             }
 
@@ -208,13 +210,13 @@ class ScheduleViewModel(
                         val saveResponse = saveScheduleUseCase.execute(data)
                     ) {
                         is Resource.Success -> {
-                            success.postValue(Resource.SCHEDULE_SUBJECT_DELETED)
+                            success.postValue(StatusCode.SCHEDULE_SUBJECT_DELETED)
                             getScheduleById(data.id, isNotUpdate = false)
                         }
                         is Resource.Error -> {
                             error.postValue(StateStatus(
                                 state = StateStatus.ERROR_STATE,
-                                type = saveResponse.errorType,
+                                type = saveResponse.statusCode,
                             ))
                         }
                     }
@@ -222,7 +224,28 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
+                    ))
+                }
+            }
+        }
+    }
+
+    fun addCustomSubject(subject: ScheduleSubject) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val scheduleId = schedule.value?.id ?: return@launch
+            when (
+                val res = addScheduleSubjectUseCase.execute(scheduleId, subject)
+            ) {
+                is Resource.Success -> {
+                    success.postValue(StatusCode.SCHEDULE_SUBJECT_ADDED)
+                    updateSchedule()
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = res.statusCode,
+                        message = res.message
                     ))
                 }
             }
@@ -283,7 +306,7 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.errorType,
+                        type = result.statusCode,
                         message = result.message
                     ))
                 }
@@ -311,9 +334,9 @@ class ScheduleViewModel(
                     if (toNotify) {
                         saveSchedule(groupSchedule)
                         if (isUpdate) {
-                            success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
+                            success.postValue(StatusCode.SCHEDULE_UPDATED_SUCCESS)
                         } else {
-                            success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                            success.postValue(StatusCode.SCHEDULE_LOADED_SUCCESS)
                         }
                     } else {
                         saveScheduleSilently(groupSchedule)
@@ -322,7 +345,7 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = groupScheduleResponse.errorType,
+                        type = groupScheduleResponse.statusCode,
                         message = groupScheduleResponse.message
                     ))
                 }
@@ -345,9 +368,9 @@ class ScheduleViewModel(
                     if (toNotify) {
                         saveSchedule(data)
                         if (isUpdate) {
-                            success.postValue(Resource.SCHEDULE_UPDATED_SUCCESS)
+                            success.postValue(StatusCode.SCHEDULE_UPDATED_SUCCESS)
                         } else {
-                            success.postValue(Resource.SCHEDULE_LOADED_SUCCESS)
+                            success.postValue(StatusCode.SCHEDULE_LOADED_SUCCESS)
                         }
                     } else {
                         saveScheduleSilently(data)
@@ -357,7 +380,7 @@ class ScheduleViewModel(
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = groupSchedule.errorType,
+                            type = groupSchedule.statusCode,
                             message = groupSchedule.message
                         )
                     )
@@ -377,7 +400,7 @@ class ScheduleViewModel(
                     if (groupSchedule.id == -1) {
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = Resource.DATA_ERROR
+                            type = StatusCode.DATA_ERROR
                         ))
                         schedule.postValue(null)
                     } else {
@@ -388,7 +411,7 @@ class ScheduleViewModel(
                     schedule.postValue(null)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = saveResponse.errorType,
+                        type = saveResponse.statusCode,
                         message = saveResponse.message
                     ))
                 }
@@ -405,14 +428,14 @@ class ScheduleViewModel(
                     if (groupSchedule.id == -1) {
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = Resource.DATA_ERROR
+                            type = StatusCode.DATA_ERROR
                         ))
                     }
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = saveResponse.errorType,
+                        type = saveResponse.statusCode,
                         message = saveResponse.message
                     ))
                 }
@@ -434,7 +457,7 @@ class ScheduleViewModel(
                     schedule.postValue(null)
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = saveResponse.errorType,
+                        type = saveResponse.statusCode,
                         message = saveResponse.message
                     ))
                 }
@@ -455,7 +478,7 @@ class ScheduleViewModel(
             schedule.postValue(null)
             error.postValue(StateStatus(
                 state = StateStatus.ERROR_STATE,
-                type = Resource.DATABASE_NOT_FOUND_ERROR
+                type = StatusCode.DATABASE_NOT_FOUND_ERROR
             ))
             return
         }
@@ -474,7 +497,7 @@ class ScheduleViewModel(
                         schedule.postValue(null)
                         error.postValue(StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
+                            type = result.statusCode,
                             message = result.message
                         ))
                     }
@@ -483,7 +506,7 @@ class ScheduleViewModel(
                 schedule.postValue(null)
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
-                    type = Resource.UNKNOWN_ERROR,
+                    type = StatusCode.UNKNOWN_ERROR,
                     message = e.message
                 ))
             }
@@ -498,7 +521,7 @@ class ScheduleViewModel(
                 val isDeletedSchedule = deleteScheduleUseCase.invoke(savedSchedule)
             ) {
                 is Resource.Success -> {
-                    success.postValue(Resource.SCHEDULE_DELETED_SUCCESS)
+                    success.postValue(StatusCode.SCHEDULE_DELETED_SUCCESS)
                     deletedSchedule.postValue(savedSchedule)
                     if (schedule.value?.id == savedSchedule.id) {
                         schedule.postValue(null)
@@ -509,7 +532,7 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = isDeletedSchedule.errorType,
+                        type = isDeletedSchedule.statusCode,
                         message = isDeletedSchedule.message
                     ))
                 }
@@ -541,7 +564,7 @@ class ScheduleViewModel(
                                 is Resource.Error -> {
                                     error.postValue(StateStatus(
                                         state = StateStatus.ERROR_STATE,
-                                        type = groupScheduleResponse.errorType,
+                                        type = groupScheduleResponse.statusCode,
                                         message = groupScheduleResponse.message
                                     ))
                                 }
@@ -550,9 +573,9 @@ class ScheduleViewModel(
                     }
                     updateAllSchedulesIO.join()
                     if (updateAllSchedulesIO.isCancelled) {
-                        success.postValue(Resource.UPDATE_ERROR)
+                        success.postValue(StatusCode.UPDATE_ERROR)
                     } else {
-                        success.postValue(Resource.ALL_SCHEDULES_UPDATED_SUCCESS)
+                        success.postValue(StatusCode.ALL_SCHEDULES_UPDATED_SUCCESS)
                         if (schedule.value != null && schedule.value?.id != -1) {
                             val scheduleId = schedule.value!!.id
                             getScheduleById(scheduleId, false)
@@ -562,7 +585,7 @@ class ScheduleViewModel(
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = savedSchedules.errorType,
+                        type = savedSchedules.statusCode,
                         message = savedSchedules.message
                     ))
                 }

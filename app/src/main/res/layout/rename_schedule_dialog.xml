@@ -35,21 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
-        <EditText
+        <com.bsuir.bsuirschedule.presentation.views.EditTextView
             android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:maxLength="30"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:inputType="text"
-            android:autofillHints="name"
-            android:hint="@string/schedule_title_placeholder"
-            android:focusedByDefault="true"
-            android:textColorHint="?attr/textHintColor"
-            android:textColor="?attr/textColor"
-            android:textSize="@dimen/font_medium_size"
-            android:backgroundTint="?attr/textHintColor"
-            android:textCursorDrawable="@drawable/edit_text_cursor" />
+            app:hint="@string/schedule_title_placeholder" />
 
         <Space
             android:layout_width="wrap_content"

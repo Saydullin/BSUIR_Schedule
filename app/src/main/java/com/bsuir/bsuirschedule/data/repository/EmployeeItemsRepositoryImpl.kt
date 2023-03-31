@@ -6,6 +6,7 @@ import com.bsuir.bsuirschedule.data.db.dao.EmployeeDao
 import com.bsuir.bsuirschedule.domain.models.Employee
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : EmployeeItemsRepository {
 
@@ -19,14 +20,14 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = Resource.SERVER_ERROR,
+                    errorType = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = Resource.CONNECTION_ERROR,
+                errorType = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -39,7 +40,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(data)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -53,7 +54,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(employeeList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -67,7 +68,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(employeeList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -80,7 +81,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

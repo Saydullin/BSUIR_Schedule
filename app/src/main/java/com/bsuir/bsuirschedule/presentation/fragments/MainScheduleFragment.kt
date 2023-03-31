@@ -13,7 +13,6 @@ import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.*
-import kotlinx.coroutines.DelicateCoroutinesApi
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -40,7 +39,6 @@ class MainScheduleFragment : Fragment(), KoinComponent {
         groupScheduleVM.setUpdateStatus(true)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

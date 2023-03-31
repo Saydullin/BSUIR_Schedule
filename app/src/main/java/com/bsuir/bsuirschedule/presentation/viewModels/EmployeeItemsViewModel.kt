@@ -1,6 +1,5 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -80,7 +79,7 @@ class EmployeeItemsViewModel(
                         error.postValue(
                             StateStatus(
                                 state = StateStatus.ERROR_STATE,
-                                type = responseSave.errorType,
+                                type = responseSave.statusCode,
                                 message = responseSave.message
                             )
                         )
@@ -91,7 +90,7 @@ class EmployeeItemsViewModel(
                 error.postValue(
                     StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = newEmployeeItems.errorType,
+                        type = newEmployeeItems.statusCode,
                         message = newEmployeeItems.message
                     )
                 )
@@ -108,7 +107,7 @@ class EmployeeItemsViewModel(
             ) {
                 is Resource.Success -> {
                     employeeItems.postValue(result.data!!)
-                    if (result.data.isNullOrEmpty()) {
+                    if (result.data.isEmpty()) {
                         employeeItems.postValue(null)
                     }
                 }
@@ -116,7 +115,7 @@ class EmployeeItemsViewModel(
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
+                            type = result.statusCode,
                             message = result.message
                         )
                     )
@@ -147,7 +146,7 @@ class EmployeeItemsViewModel(
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = result.errorType,
+                            type = result.statusCode,
                             message = result.message
                         )
                     )

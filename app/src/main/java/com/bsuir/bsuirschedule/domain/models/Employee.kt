@@ -60,6 +60,10 @@ data class Employee (
         jobPosition = ""
     )
 
+    fun getEmployeeTitle(): String {
+        return title ?: ""
+    }
+
     fun getFullName() = "$lastName $firstName $middleName"
 
     fun getTitleOrFullName(): String {

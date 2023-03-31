@@ -101,8 +101,10 @@ class ScheduleSubjectsAdapter(
                 val breakTime = subject.breakTime!!
                 val breakTimeMinutes = context.resources.getQuantityString(R.plurals.plural_minutes, breakTime.minutes.absoluteValue, breakTime.minutes)
                 val breakTimeHours = context.resources.getQuantityString(R.plurals.plural_hours, breakTime.hours.absoluteValue, breakTime.hours)
-                if (breakTime.hours != 0) {
+                if (breakTime.hours != 0 && breakTime.minutes != 0) {
                     binding.subjectBreakTime.text = "$breakTimeHours $breakTimeMinutes"
+                } else if (breakTime.hours != 0) {
+                    binding.subjectBreakTime.text = breakTimeHours
                 } else if (breakTime.minutes != 0) {
                     binding.subjectBreakTime.text = breakTimeMinutes
                 } else {

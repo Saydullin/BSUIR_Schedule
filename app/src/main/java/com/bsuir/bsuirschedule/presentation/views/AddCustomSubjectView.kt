@@ -10,10 +10,9 @@ import androidx.core.content.ContextCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.AddCustomSubjectBinding
 import com.bsuir.bsuirschedule.domain.models.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-typealias OnScheduleSelect = () -> Unit
+typealias OnScheduleSelect = (subject: ScheduleSubject) -> Unit
 
 class AddCustomSubjectView(
     context: Context,
@@ -80,6 +79,12 @@ class AddCustomSubjectView(
             val item = adapter.getItemAtPosition(i)
             setSubgroup(item.toString())
         }
+
+        binding.doneButton.setOnClickListener {
+            val subject = getSubject()
+            this.onScheduleSelect?.invoke(subject)
+        }
+
     }
 
     fun setOnSelectScheduleListener(listener: OnScheduleSelect) {
@@ -146,35 +151,19 @@ class AddCustomSubjectView(
         return binding.audienceEditText.getText()
     }
 
-    fun getWeekDay(): Int {
-        return when(
-            binding.weekDayAutoCompleteTextView.text.toString()
-        ) {
-            context.getString(R.string.monday) -> {
-                Calendar.MONDAY
-            }
-            context.getString(R.string.tuesday) -> {
-                Calendar.TUESDAY
-            }
-            context.getString(R.string.wednesday) -> {
-                Calendar.WEDNESDAY
-            }
-            context.getString(R.string.thursday) -> {
-                Calendar.THURSDAY
-            }
-            context.getString(R.string.friday) -> {
-                Calendar.FRIDAY
-            }
-            context.getString(R.string.saturday) -> {
-                Calendar.SATURDAY
-            }
-            context.getString(R.string.sunday) -> {
-                Calendar.SUNDAY
-            }
-            else -> {
-                Calendar.MONDAY
-            }
-        }
+    private fun getWeekDay(): Int {
+        val weekDay = binding.weekDayAutoCompleteTextView.text.toString()
+        val weekDays = listOf(
+            context.getString(R.string.sunday),
+            context.getString(R.string.monday),
+            context.getString(R.string.tuesday),
+            context.getString(R.string.wednesday),
+            context.getString(R.string.thursday),
+            context.getString(R.string.friday),
+            context.getString(R.string.saturday)
+        )
+
+        return weekDays.indexOf(weekDay)
     }
 
     fun getWeeks(): ArrayList<Int> {
@@ -261,17 +250,16 @@ class AddCustomSubjectView(
         binding.nestedSubject.subjectEmployeeName.text = groupTitle
     }
 
-    fun getSubject(): ScheduleSubject {
+    private fun getSubject(): ScheduleSubject {
 
-        // Create subject useCase
         return ScheduleSubject(
             id = 0,
             subject = getShortTitle(),
             subjectFullName = getFullTitle(),
             lessonTypeAbbrev = getSubjectType(),
-            employees = arrayListOf(EmployeeSubject.empty),
+            employees = null,
             groups = null,
-            edited = ScheduleSubjectEdit(),
+            edited = null,
             subjectGroups = null,
             nextTimeDaysLeft = null,
             nextTimeSubject = null,

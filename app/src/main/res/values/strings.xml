@@ -22,8 +22,8 @@
     <string name="delete">Удалить</string>
     <string name="employee">Преподаватель</string>
     <string name="group">Группа</string>
-    <string name="short_hour">%d ч.</string>
-    <string name="short_minute">%d мин.</string>
+    <string name="short_hour">%d ч</string>
+    <string name="short_minute">%d мин</string>
 
     <string name="monday">Понедельник</string>
     <string name="tuesday">Вторник</string>
@@ -192,6 +192,7 @@
     <string name="schedule_subject_edited">Занятие изменено</string>
     <string name="schedule_subject_edited_caption">Занятие успешно изменено и сохранено в расписании</string>
     <string name="schedule_subject_deleted">Занятие удалено</string>
+    <string name="schedule_subject_added">Занятие добавлено</string>
     <string name="schedule_subject_ignored">Занятие будет игнорироваться</string>
     <string name="schedule_subject_ignored_caption">В статусе расписания больше не будет учитываться это занятие</string>
     <string name="schedule_subject_not_ignored">Занятие будет учитываться</string>
@@ -199,6 +200,7 @@
     <string name="all_schedules_updated_success_caption">Была изменена структура данных, расписания пришлось обновить</string>
     <string name="schedule_subject_not_ignored_caption">Это занятие теперь будет учитываться в статусе расписания</string>
     <string name="schedule_subject_deleted_caption">Занятие успешно удалено с этого расписания</string>
+    <string name="schedule_subject_added_caption">Занятие успешно добавлено</string>
     <string name="schedule_week_loaded_error_caption">Не удалось загрузить номер текущей недели</string>
     <string name="no_error">Нет ошибки</string>
     <string name="no_error_caption">Операция выполнена успешно</string>

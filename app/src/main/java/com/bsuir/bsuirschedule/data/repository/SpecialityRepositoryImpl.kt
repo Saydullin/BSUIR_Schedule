@@ -6,6 +6,7 @@ import com.bsuir.bsuirschedule.data.db.dao.SpecialityDao
 import com.bsuir.bsuirschedule.domain.models.Speciality
 import com.bsuir.bsuirschedule.domain.repository.SpecialityRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : SpecialityRepository {
 
@@ -19,14 +20,14 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = Resource.SERVER_ERROR,
+                    errorType = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = Resource.CONNECTION_ERROR,
+                errorType = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -40,7 +41,7 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
             Resource.Success(specialitiesList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -53,7 +54,7 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
             Resource.Success(result.toSpeciality())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -67,7 +68,7 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = Resource.DATABASE_ERROR,
+                errorType = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

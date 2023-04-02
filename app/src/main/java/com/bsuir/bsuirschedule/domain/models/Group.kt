@@ -59,7 +59,7 @@ data class Group (
 
     fun getFacultyAndSpecialityAbbr() = "${faculty?.abbrev ?: ""} ${speciality?.abbrev ?: ""}".trim()
 
-    fun toSavedSchedule(isExams: Boolean) = SavedSchedule(
+    fun toSavedSchedule(isExams: Boolean = false) = SavedSchedule(
         id = id,
         group = this,
         employee = Employee.empty,

@@ -121,6 +121,10 @@ class EditTextView(
         binding.editTextInput.inputType = inputType
     }
 
+    fun isFocusable(isFocusable: Boolean) {
+        binding.editTextInput.isFocusable = isFocusable
+    }
+
     fun clearInputFocus() {
         binding.editTextInput.clearFocus()
     }
@@ -146,10 +150,10 @@ class EditTextView(
     }
 
     private fun setTimePickerMode() {
-        binding.editTextInput.setText("00:00")
         binding.editTextInput.gravity = Gravity.CENTER
 
-        binding.editTextInput.isFocusable = false
+        setText("00:00")
+        isFocusable(false)
 
         binding.editTextInput.setOnClickListener {
             val timePickerDialog = TimePickerDialog(context, onSelectedTime)

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/primaryOnColor"
     android:orientation="vertical"
     tools:context=".presentation.fragments.ScheduleSubjectEditFragment">
@@ -39,288 +38,293 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <com.bsuir.bsuirschedule.presentation.views.AddCustomSubjectView
+        android:id="@+id/custom_subject_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp">
+        android:layout_height="match_parent" />
 
-        <include
-            android:id="@+id/nested_subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/schedule_subject_short" />
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingHorizontal="20dp"-->
+<!--        android:paddingTop="20dp"-->
+<!--        android:paddingBottom="10dp">-->
 
-    </LinearLayout>
+<!--        <include-->
+<!--            android:id="@+id/nested_subject"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            layout="@layout/schedule_subject_short" />-->
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="10dp" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="10dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="2dp"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:text="@string/short_title_label" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:orientation="vertical">-->
 
-                <EditText
-                    android:id="@+id/short_name_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    style="@style/Theme.BSUIRSchedule.EditText" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingHorizontal="2dp"-->
+<!--                    style="@style/Theme.BSUIRSchedule.TextView.Hint"-->
+<!--                    android:text="@string/short_title_label" />-->
 
-            </LinearLayout>
+<!--                <EditText-->
+<!--                    android:id="@+id/short_name_edit_text"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:ellipsize="end"-->
+<!--                    style="@style/Theme.BSUIRSchedule.EditText" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="20dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:paddingHorizontal="2dp"
-                    android:text="@string/full_title_label" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:orientation="vertical">-->
 
-                <EditText
-                    android:id="@+id/full_name_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="5"
-                    android:ellipsize="end"
-                    style="@style/Theme.BSUIRSchedule.EditText" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Theme.BSUIRSchedule.TextView.Hint"-->
+<!--                    android:paddingHorizontal="2dp"-->
+<!--                    android:text="@string/full_title_label" />-->
 
-            </LinearLayout>
+<!--                <EditText-->
+<!--                    android:id="@+id/full_name_edit_text"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:maxLines="5"-->
+<!--                    android:ellipsize="end"-->
+<!--                    style="@style/Theme.BSUIRSchedule.EditText" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="20dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="2dp"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:text="@string/audience_label" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:orientation="vertical">-->
 
-                <EditText
-                    android:id="@+id/audience_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    style="@style/Theme.BSUIRSchedule.EditText" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingHorizontal="2dp"-->
+<!--                    style="@style/Theme.BSUIRSchedule.TextView.Hint"-->
+<!--                    android:text="@string/audience_label" />-->
 
-            </LinearLayout>
+<!--                <EditText-->
+<!--                    android:id="@+id/audience_edit_text"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:ellipsize="end"-->
+<!--                    style="@style/Theme.BSUIRSchedule.EditText" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="20dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:paddingHorizontal="2dp"
-                    android:text="@string/note_label" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:orientation="vertical">-->
 
-                <EditText
-                    android:id="@+id/note_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical"
-                    android:inputType="text|textMultiLine"
-                    android:maxLines="8"
-                    android:maxHeight="100dp"
-                    android:scrollbarStyle="insideInset"
-                    android:overScrollMode="always"
-                    android:gravity="top|start"
-                    style="@style/Theme.BSUIRSchedule.EditText"
-                    android:ellipsize="end" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Theme.BSUIRSchedule.TextView.Hint"-->
+<!--                    android:paddingHorizontal="2dp"-->
+<!--                    android:text="@string/note_label" />-->
 
-            </LinearLayout>
+<!--                <EditText-->
+<!--                    android:id="@+id/note_edit_text"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scrollbars="vertical"-->
+<!--                    android:inputType="text|textMultiLine"-->
+<!--                    android:maxLines="8"-->
+<!--                    android:maxHeight="100dp"-->
+<!--                    android:scrollbarStyle="insideInset"-->
+<!--                    android:overScrollMode="always"-->
+<!--                    android:gravity="top|start"-->
+<!--                    style="@style/Theme.BSUIRSchedule.EditText"-->
+<!--                    android:ellipsize="end" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="vertical">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="20dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                    android:paddingHorizontal="2dp"
-                    android:text="@string/subgroup_label" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:orientation="vertical">-->
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Theme.BSUIRSchedule.TextView.Hint"-->
+<!--                    android:paddingHorizontal="2dp"-->
+<!--                    android:text="@string/subgroup_label" />-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+<!--                <Space-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="10dp" />-->
 
-                    <AutoCompleteTextView
-                        android:id="@+id/subgroupAutoCompleteTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/text_hint"
-                        android:background="@color/text_hint"
-                        android:inputType="none"
-                        android:padding="10dp"
-                        android:text="@string/settings_all_subgroups" />
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/subgroupAutoCompleteTextView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:backgroundTint="@color/text_hint"-->
+<!--                        android:background="@color/text_hint"-->
+<!--                        android:inputType="none"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="@string/settings_all_subgroups" />-->
 
-            </LinearLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+<!--            </LinearLayout>-->
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                android:backgroundTint="?attr/secondaryColor">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="vertical">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="20dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:cardElevation="0dp"-->
+<!--                android:backgroundTint="?attr/secondaryColor">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/Theme.BSUIRSchedule.TextView.Medium"
-                        android:paddingHorizontal="10dp"
-                        android:text="@string/also_edit" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="10dp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        style="@style/Theme.BSUIRSchedule.TextView.Medium"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:text="@string/also_edit" />-->
 
-                    <Switch
-                        android:id="@+id/edit_subjects_all"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Во всех занятиях по ТВиМС"
-                        style="@style/Theme.BSUIRSchedule.Checkbox"
-                        android:checked="false" />
+<!--                    <Space-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="10dp" />-->
 
-                    <Switch
-                        android:id="@+id/edit_subjects_subgroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Все занятия 1 подгруппы"
-                        style="@style/Theme.BSUIRSchedule.Checkbox"
-                        android:checked="true" />
+<!--                    <Switch-->
+<!--                        android:id="@+id/edit_subjects_all"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Во всех занятиях по ТВиМС"-->
+<!--                        style="@style/Theme.BSUIRSchedule.Checkbox"-->
+<!--                        android:checked="false" />-->
 
-                    <Switch
-                        android:id="@+id/edit_subjects_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Во всех занятиях по ТВиМС (Лекция)"
-                        style="@style/Theme.BSUIRSchedule.Checkbox"
-                        android:checked="false" />
+<!--                    <Switch-->
+<!--                        android:id="@+id/edit_subjects_subgroup"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Все занятия 1 подгруппы"-->
+<!--                        style="@style/Theme.BSUIRSchedule.Checkbox"-->
+<!--                        android:checked="true" />-->
 
-                    <Switch
-                        android:id="@+id/edit_subjects_period"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Во всех занятиях по ТВиМС по ПН"
-                        style="@style/Theme.BSUIRSchedule.Checkbox"
-                        android:checked="false" />
+<!--                    <Switch-->
+<!--                        android:id="@+id/edit_subjects_type"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Во всех занятиях по ТВиМС (Лекция)"-->
+<!--                        style="@style/Theme.BSUIRSchedule.Checkbox"-->
+<!--                        android:checked="false" />-->
 
-                </LinearLayout>
+<!--                    <Switch-->
+<!--                        android:id="@+id/edit_subjects_period"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Во всех занятиях по ТВиМС по ПН"-->
+<!--                        style="@style/Theme.BSUIRSchedule.Checkbox"-->
+<!--                        android:checked="false" />-->
 
-            </androidx.cardview.widget.CardView>
+<!--                </LinearLayout>-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:orientation="horizontal">
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp" />-->
 
-                <Button
-                    android:id="@+id/reset_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.Button.Danger"
-                    android:text="@string/reset" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:orientation="horizontal">-->
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+<!--                <Button-->
+<!--                    android:id="@+id/reset_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Theme.BSUIRSchedule.Button.Danger"-->
+<!--                    android:text="@string/reset" />-->
 
-                <Button
-                    android:id="@+id/save_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.BSUIRSchedule.Button"
-                    android:text="@string/save" />
+<!--                <Space-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1" />-->
 
-            </LinearLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/save_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Theme.BSUIRSchedule.Button"-->
+<!--                    android:text="@string/save" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+<!--            </LinearLayout>-->
 
-        </LinearLayout>
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp" />-->
 
-    </ScrollView>
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
 </LinearLayout>
 

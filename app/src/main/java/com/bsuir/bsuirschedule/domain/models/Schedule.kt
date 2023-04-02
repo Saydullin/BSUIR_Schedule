@@ -8,8 +8,8 @@ import kotlin.collections.ArrayList
 
 data class Schedule (
     var id: Int = -1,
-    val startDate: String,
-    val endDate: String,
+    var startDate: String,
+    var endDate: String,
     val startExamsDate: String,
     val endExamsDate: String,
     val group: Group,
@@ -85,10 +85,6 @@ data class Schedule (
         return startDate.isEmpty() ||
                 endDate.isEmpty() ||
                 schedules.isEmpty()
-    }
-
-    fun isNotEmpty(): Boolean {
-        return id != -1
     }
 
     fun toSavedSchedule() = SavedSchedule(

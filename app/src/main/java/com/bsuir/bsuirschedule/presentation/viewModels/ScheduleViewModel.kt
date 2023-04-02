@@ -231,11 +231,11 @@ class ScheduleViewModel(
         }
     }
 
-    fun addCustomSubject(subject: ScheduleSubject) {
+    fun addCustomSubject(subject: ScheduleSubject, sourceItemsText: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val scheduleId = schedule.value?.id ?: return@launch
             when (
-                val res = addScheduleSubjectUseCase.execute(scheduleId, subject)
+                val res = addScheduleSubjectUseCase.execute(scheduleId, subject, sourceItemsText)
             ) {
                 is Resource.Success -> {
                     success.postValue(StatusCode.SCHEDULE_SUBJECT_ADDED)

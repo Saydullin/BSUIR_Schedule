@@ -13,6 +13,22 @@ data class SavedSchedule (
     var isExistExams: Boolean
 ) {
 
+    fun getTitle(): String {
+        return if (isGroup) {
+            group.getTitleOrName()
+        } else {
+            employee.getTitleOrFullName()
+        }
+    }
+
+    fun getName(): String {
+        return if (isGroup) {
+            group.name
+        } else {
+            employee.getName()
+        }
+    }
+
     fun toSavedScheduleTable() = SavedScheduleTable(
         id = id,
         group = group.toGroupTable(),

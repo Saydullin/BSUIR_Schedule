@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.data.repository
 
 import android.database.sqlite.SQLiteException
-import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
@@ -102,12 +101,10 @@ class ScheduleRepositoryImpl(
 
     override suspend fun getScheduleById(id: Int): Resource<Schedule> {
         return try {
-            Log.e("sady", "Data found3.1: id = $id")
             val data = scheduleDao.getScheduleById(id)
                 ?: return Resource.Error(
                     errorType = StatusCode.DATABASE_NOT_FOUND_ERROR
                 )
-            Log.e("sady", "Data found3.2: $data")
             Resource.Success(data.toSchedule())
         } catch (e: SQLiteException) {
             e.printStackTrace()

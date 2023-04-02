@@ -108,7 +108,15 @@ class ScheduleController {
         return newSchedule.originalSchedule
     }
 
-    fun addCustomSubject(schedule: Schedule, subject: ScheduleSubject): Schedule {
+    fun addCustomSubject(schedule: Schedule, currentWeekNumber: Int, subject: ScheduleSubject): Schedule {
+        if (schedule.isNotExistSchedule()) {
+            val calendar = Calendar.getInstance(Locale("ru", "BE"))
+            val inputFormat = SimpleDateFormat("dd.MM.yyyy")
+            schedule.startDate = inputFormat.format(calendar.time)
+            calendar.add(Calendar.DATE, 7 * 4)
+            schedule.endDate = inputFormat.format(calendar.time)
+            fillEmptyDays(schedule, currentWeekNumber, schedule.startDate, schedule.endDate)
+        }
         if (subject.startLessonTime.isNullOrEmpty() || subject.endLessonTime.isNullOrEmpty()) {
             return schedule
         }
@@ -472,6 +480,9 @@ class ScheduleController {
             day.weekDayTitle = calendarDate.getWeekDayTitle()
             day.weekDayNumber = calendarDate.getWeekDayNumber()
             day.weekNumber = calendarDate.getWeekNumber()
+            day.schedule.map { subject ->
+                subject.dayNumber = calendarDate.getWeekDayNumber()
+            }
         }
 
         return newSchedule

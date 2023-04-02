@@ -12,7 +12,8 @@ import com.bsuir.bsuirschedule.databinding.AddCustomSubjectBinding
 import com.bsuir.bsuirschedule.domain.models.*
 import kotlin.collections.ArrayList
 
-typealias OnScheduleSelect = (subject: ScheduleSubject) -> Unit
+typealias OnScheduleSelect = (subject: ScheduleSubject, sourceItemsText: String) -> Unit
+typealias OnAddSourceScheduleSelect = (isGroup: Boolean) -> Unit
 
 class AddCustomSubjectView(
     context: Context,
@@ -23,6 +24,18 @@ class AddCustomSubjectView(
 
     private val binding = AddCustomSubjectBinding.inflate(LayoutInflater.from(context), this)
     private var onScheduleSelect: OnScheduleSelect? = null
+    private var onSourceScheduleSelect: OnAddSourceScheduleSelect? = null
+    private var isGroupSchedule: Boolean = false
+
+    private val weekDays = listOf(
+        context.getString(R.string.sunday),
+        context.getString(R.string.monday),
+        context.getString(R.string.tuesday),
+        context.getString(R.string.wednesday),
+        context.getString(R.string.thursday),
+        context.getString(R.string.friday),
+        context.getString(R.string.saturday)
+    )
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -32,9 +45,12 @@ class AddCustomSubjectView(
         setListeners()
 
         binding.nestedSubject.subjectBreakTime.visibility = View.GONE
+        setWeekDays()
+        setLessonTypes()
     }
 
     fun setGroupType(isGroup: Boolean) {
+        isGroupSchedule = isGroup
         if (isGroup) {
             binding.groupEditText.visibility = View.VISIBLE
             binding.employeeEditText.visibility = View.GONE
@@ -57,12 +73,6 @@ class AddCustomSubjectView(
         binding.audienceEditText.setTextChangeListener {
             binding.nestedSubject.subjectAudience.text = it
         }
-        binding.employeeEditText.setTextChangeListener {
-            binding.nestedSubject.subjectEmployeeName.text = it
-        }
-        binding.groupEditText.setTextChangeListener {
-            binding.nestedSubject.subjectEmployeeName.text = it
-        }
         binding.noteEditText.setTextChangeListener {
             if (it.isEmpty()) {
                 binding.nestedSubject.subjectNote.visibility = View.GONE
@@ -79,12 +89,24 @@ class AddCustomSubjectView(
             val item = adapter.getItemAtPosition(i)
             setSubgroup(item.toString())
         }
-
+        binding.groupEditText.setTextChangeListener {
+            binding.nestedSubject.subjectEmployeeName.text = it
+        }
+        binding.employeeEditText.setTextChangeListener {
+            binding.nestedSubject.subjectEmployeeName.text = it
+        }
+        binding.addSourceButton.setOnClickListener {
+            this.onSourceScheduleSelect?.invoke(isGroupSchedule)
+        }
         binding.doneButton.setOnClickListener {
             val subject = getSubject()
-            this.onScheduleSelect?.invoke(subject)
+            val sourceScheduleItemsText = getSourceText()
+            this.onScheduleSelect?.invoke(subject, sourceScheduleItemsText)
         }
+    }
 
+    fun setOnAddSourceScheduleListener(listener: OnAddSourceScheduleSelect) {
+        this.onSourceScheduleSelect = listener
     }
 
     fun setOnSelectScheduleListener(listener: OnScheduleSelect) {
@@ -103,28 +125,56 @@ class AddCustomSubjectView(
         binding.subgroupAutoCompleteTextView.setAdapter(arrayAdapter)
     }
 
-    fun setWeekDays(weekDays: List<String>) {
+    private fun setWeekDays() {
         val arrayAdapter = ArrayAdapter(context, R.layout.dropdown_item, weekDays)
+
         binding.weekDayAutoCompleteTextView.setAdapter(arrayAdapter)
     }
 
-    fun setLessonTypes(lessonTypes: List<String>) {
+    private fun setLessonTypes() {
+        val lessonTypes = listOf(
+            context.getString(R.string.lecture),
+            context.getString(R.string.practise),
+            context.getString(R.string.laboratory),
+            context.getString(R.string.consultation),
+            context.getString(R.string.exam),
+        )
         val arrayAdapter = ArrayAdapter(context, R.layout.dropdown_item, lessonTypes)
+
         binding.lessonTypeAutoCompleteTextView.setAdapter(arrayAdapter)
     }
 
-    fun setSubgroup(subgroup: String) {
-        if (subgroup == context.getString(R.string.all_subgroups_select)) {
+    fun setSubgroup(subgroupText: String) {
+
+        if (subgroupText == context.getString(R.string.all_subgroups_select)) {
             binding.nestedSubject.subgroupInfo.visibility = View.GONE
         } else {
             binding.nestedSubject.subgroupInfo.visibility = View.VISIBLE
-            binding.nestedSubject.subjectSubgroup.text = subgroup
+            binding.nestedSubject.subjectSubgroup.text = subgroupText
+        }
+    }
+
+    fun setSelectedSubgroup(subgroup: Int) {
+
+        if (subgroup == 0) {
+            binding.nestedSubject.subgroupInfo.visibility = View.GONE
+        } else {
+            binding.nestedSubject.subgroupInfo.visibility = View.VISIBLE
+            binding.nestedSubject.subjectSubgroup.text = subgroup.toString()
         }
     }
 
     fun setShortTitle(shortTitle: String) {
         binding.shortTitleEditText.setText(shortTitle)
         binding.nestedSubject.subjectTitle.text = shortTitle
+    }
+
+    fun getSourceText(): String {
+        return if (isGroupSchedule) {
+            binding.groupEditText.getText()
+        } else {
+            binding.employeeEditText.getText()
+        }
     }
 
     fun getShortTitle(): String {
@@ -151,38 +201,50 @@ class AddCustomSubjectView(
         return binding.audienceEditText.getText()
     }
 
+    fun setSourceScheduleItem(title: String) {
+        if (isGroupSchedule) {
+            val sourceText = binding.groupEditText.getText()
+            if (sourceText.isEmpty()) {
+                setGroup(title)
+            } else {
+                setGroup("$sourceText, $title")
+            }
+        } else {
+            val sourceText = binding.employeeEditText.getText()
+            if (sourceText.isEmpty()) {
+                setEmployee(title)
+            } else {
+                setEmployee("$sourceText, $title")
+            }
+        }
+    }
+
     private fun getWeekDay(): Int {
         val weekDay = binding.weekDayAutoCompleteTextView.text.toString()
-        val weekDays = listOf(
-            context.getString(R.string.sunday),
-            context.getString(R.string.monday),
-            context.getString(R.string.tuesday),
-            context.getString(R.string.wednesday),
-            context.getString(R.string.thursday),
-            context.getString(R.string.friday),
-            context.getString(R.string.saturday)
-        )
 
         return weekDays.indexOf(weekDay)
+    }
+
+    fun setWeekDay(weekDayNum: Int) {
+        binding.weekDayAutoCompleteTextView.setText(weekDays[weekDayNum], false)
     }
 
     fun getWeeks(): ArrayList<Int> {
         val weeksList = ArrayList<Int>()
 
-        if (binding.week1.isChecked) {
-            weeksList.add(1)
-        }
-        if (binding.week2.isChecked) {
-            weeksList.add(2)
-        }
-        if (binding.week3.isChecked) {
-            weeksList.add(3)
-        }
-        if (binding.week4.isChecked) {
-            weeksList.add(4)
-        }
+        if (binding.week1.isChecked) weeksList.add(1)
+        if (binding.week2.isChecked) weeksList.add(2)
+        if (binding.week3.isChecked) weeksList.add(3)
+        if (binding.week4.isChecked) weeksList.add(4)
 
         return weeksList
+    }
+
+    fun setWeeks(weeks: ArrayList<Int>) {
+        binding.week1.isChecked = weeks.contains(1)
+        binding.week2.isChecked = weeks.contains(2)
+        binding.week3.isChecked = weeks.contains(3)
+        binding.week4.isChecked = weeks.contains(4)
     }
 
     fun getSubgroup(): Int {
@@ -221,6 +283,43 @@ class AddCustomSubjectView(
         }
     }
 
+    fun setSubjectType(type: String) {
+
+        when (type) {
+            ScheduleSubject.LESSON_TYPE_LECTURE -> {
+                val typeText = context.getString(R.string.lecture)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            ScheduleSubject.LESSON_TYPE_PRACTISE -> {
+                val typeText = context.getString(R.string.practise)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            ScheduleSubject.LESSON_TYPE_LABORATORY -> {
+                val typeText = context.getString(R.string.laboratory)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
+                val typeText = context.getString(R.string.consultation)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            ScheduleSubject.LESSON_TYPE_EXAM -> {
+                val typeText = context.getString(R.string.exam)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            else -> {
+                val typeText = context.getString(R.string.lecture)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+
+            }
+        }
+    }
+
     fun setFullTitle(fullTitle: String) {
         binding.fullTitleEditText.setText(fullTitle)
     }
@@ -242,11 +341,13 @@ class AddCustomSubjectView(
 
     fun setEmployee(employeeTitle: String) {
         binding.employeeEditText.setText(employeeTitle)
+        binding.employeeEditText.setSelection(employeeTitle.length)
         binding.nestedSubject.subjectEmployeeName.text = employeeTitle
     }
 
     fun setGroup(groupTitle: String) {
         binding.groupEditText.setText(groupTitle)
+        binding.groupEditText.setSelection(groupTitle.length)
         binding.nestedSubject.subjectEmployeeName.text = groupTitle
     }
 
@@ -281,41 +382,37 @@ class AddCustomSubjectView(
         )
     }
 
-    fun setLessonType(lessonType: String) {
+    private fun setLessonType(lessonType: String) {
+
         when (lessonType) {
             context.getString(R.string.lecture) -> {
                 binding.nestedSubject.subjectType.setImageDrawable(context.getDrawable(R.drawable.ic_subject_type))
                 binding.nestedSubject.subjectType.setColorFilter(
-                    ContextCompat.getColor(context, R.color.subject_lecture
-                    )
+                    ContextCompat.getColor(context, R.color.subject_lecture)
                 )
             }
             context.getString(R.string.practise) -> {
                 binding.nestedSubject.subjectType.setImageDrawable(context.getDrawable(R.drawable.ic_subject_type))
                 binding.nestedSubject.subjectType.setColorFilter(
-                    ContextCompat.getColor(context, R.color.subject_practise
-                    )
+                    ContextCompat.getColor(context, R.color.subject_practise)
                 )
             }
             context.getString(R.string.laboratory) -> {
                 binding.nestedSubject.subjectType.setImageDrawable(context.getDrawable(R.drawable.ic_subject_type))
                 binding.nestedSubject.subjectType.setColorFilter(
-                    ContextCompat.getColor(context, R.color.subject_lab
-                    )
+                    ContextCompat.getColor(context, R.color.subject_lab)
                 )
             }
             context.getString(R.string.consultation) -> {
                 binding.nestedSubject.subjectType.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 binding.nestedSubject.subjectType.setColorFilter(
-                    ContextCompat.getColor(context, R.color.subject_consultation
-                    )
+                    ContextCompat.getColor(context, R.color.subject_consultation)
                 )
             }
             context.getString(R.string.exam) -> {
                 binding.nestedSubject.subjectType.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 binding.nestedSubject.subjectType.setColorFilter(
-                    ContextCompat.getColor(context, R.color.subject_exam
-                    )
+                    ContextCompat.getColor(context, R.color.subject_exam)
                 )
             }
         }

@@ -94,7 +94,7 @@ data class Employee (
 
     fun getDegreeAndRank() = "${degreeAbbrev ?: ""} ${rank ?: ""}".trim()
 
-    fun toSavedSchedule(isExams: Boolean) = SavedSchedule(
+    fun toSavedSchedule(isExams: Boolean = false) = SavedSchedule(
         id = id,
         group = Group.empty,
         employee = this,

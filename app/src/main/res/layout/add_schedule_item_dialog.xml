@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/primaryOnColor">
+
+        <com.bsuir.bsuirschedule.presentation.views.EditTextView
+            android:id="@+id/searchSourceSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:hint="@string/search_placeholder" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/source_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="5"
+                tools:listitem="@layout/subject_item_source"
+                app:layout_constraintHeight_max="300dp"
+                android:scrollbars="vertical" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="20dp"
+            style="@style/Theme.BSUIRSchedule.Button.Hint"
+            android:text="@string/cancel" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+

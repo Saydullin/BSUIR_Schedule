@@ -10,7 +10,7 @@ data class ScheduleSubject (
     var employees: ArrayList<EmployeeSubject>?,
     var groups: ArrayList<Group>?,
     var edited: ScheduleSubjectEdit?,
-    @SerializedName("studentGroups") val subjectGroups: ArrayList<GroupSubject>?,
+    @SerializedName("studentGroups") var subjectGroups: ArrayList<GroupSubject>?,
     var nextTimeDaysLeft: Int?,
     var nextTimeSubject: ScheduleSubject?,
     var startMillis: Long = 0,

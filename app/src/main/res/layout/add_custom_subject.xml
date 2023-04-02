@@ -274,28 +274,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="10dp" />
 
-                <com.bsuir.bsuirschedule.presentation.views.EditTextView
-                    android:id="@+id/employee_edit_text"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    app:caption="@string/employee" />
+                    android:gravity="bottom">
 
-                <com.bsuir.bsuirschedule.presentation.views.EditTextView
-                    android:id="@+id/group_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    app:caption="@string/group" />
+                    <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                        android:id="@+id/employee_edit_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        app:caption="@string/employee" />
 
-<!--                <Button-->
-<!--                    android:id="@+id/select_schedule"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_marginHorizontal="20dp"-->
-<!--                    style="@style/Theme.BSUIRSchedule.Button.Hint"-->
-<!--                    android:text="Выбрать из списка" />-->
+                    <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                        android:id="@+id/group_edit_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:visibility="gone"
+                        app:caption="@string/group" />
+
+                    <ImageButton
+                        android:id="@+id/add_source_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        style="@style/Theme.BSUIRSchedule.ImageButton"
+                        android:src="@drawable/ic_add_text_color" />
+
+                </LinearLayout>
 
                 <Space
                     android:layout_width="wrap_content"

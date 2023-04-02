@@ -55,6 +55,7 @@
     <string name="subject_next_time_in_week_day">в %s</string>
     <string name="no_subject_now">Сейчас нет занятий</string>
     <string name="audience_now">в %s</string>
+    <string name="add">Добавить</string>
     <string name="selected_subgroup">Выбрана %d подгруппа</string>
     <string name="selected_all_subgroups">Выбраны все подгруппы</string>
     <string name="schedule_empty_date_period">Занятий нет</string>

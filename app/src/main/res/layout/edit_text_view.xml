@@ -21,14 +21,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:background="@drawable/outline_secondary_bg"
-            android:padding="5dp"
-            android:orientation="vertical">
+            android:padding="5dp">
 
             <EditText
                 android:id="@+id/editTextInput"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@null"
                 android:focusedByDefault="false"
                 android:inputType="text"

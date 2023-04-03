@@ -46,11 +46,12 @@ class ScheduleSettingsSchedule : Fragment() {
     private fun validateChanges() {
         val schedule = groupScheduleVM.getActiveSchedule() ?: return
         val scheduleSettings = schedule.settings.schedule
-        val isShownPastDays = binding.pastDaysAmountEditText.getText().isNotEmpty()
+        val pastDaysText = binding.pastDaysAmountEditText.getText()
+        val isShownPastDays = pastDaysText.isNotEmpty() || pastDaysText != "0"
 
         if (
-            (binding.pastDaysAmountEditText.getText().isNotEmpty() && binding.pastDaysAmountEditText.getText().isDigitsOnly() &&
-                    binding.pastDaysAmountEditText.getText().toInt() != scheduleSettings.pastDaysNumber) ||
+            (pastDaysText.isNotEmpty() && pastDaysText.isDigitsOnly() &&
+                    pastDaysText.toInt() != scheduleSettings.pastDaysNumber) ||
             scheduleSettings.isShowPastDays != isShownPastDays ||
             scheduleSettings.isShowEmptyDays != binding.emptyDaysCheckBox.isChecked() ||
             scheduleSettings.isShowShortSchedule != binding.shortScheduleCheckBox.isChecked() ||

@@ -364,6 +364,9 @@ class ScheduleController {
             ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_CONSULTATION
             }
+            ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
+                subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_CONSULTATION
+            }
             ScheduleSubject.LESSON_TYPE_PRACTISE -> {
                 subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_EXAM
             }

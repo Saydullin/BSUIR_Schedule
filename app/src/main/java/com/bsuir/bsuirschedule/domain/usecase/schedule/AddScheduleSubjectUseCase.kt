@@ -36,16 +36,17 @@ class AddScheduleSubjectUseCase(
             .split(" ")
 
         if (sourceItems.isEmpty()) return
-
         if (isGroup) {
             val employeeItems = ArrayList<EmployeeSubject>()
             sourceItems.map { item ->
                 val employeeItemResult = getEmployeeItemsUseCase.getEmployeeItems()
                 if (employeeItemResult is Resource.Success && !employeeItemResult.data.isNullOrEmpty()) {
-                    val employeeItem = employeeItemResult.data.first {
+                    val employeeItem = employeeItemResult.data.firstOrNull {
                         it.getName().replace(" ", "") == item
                     }
-                    employeeItems.add(employeeItem.toEmployeeSubject())
+                    if (employeeItem != null) {
+                        employeeItems.add(employeeItem.toEmployeeSubject())
+                    }
                 }
             }
             subject.employees = employeeItems
@@ -55,17 +56,19 @@ class AddScheduleSubjectUseCase(
             sourceItems.map { item ->
                 val groupItemResult = getGroupItemsUseCase.getAllGroupItems()
                 if (groupItemResult is Resource.Success && !groupItemResult.data.isNullOrEmpty()) {
-                    val groupItem = groupItemResult.data.first {
+                    val groupItem = groupItemResult.data.firstOrNull {
                         it.name.replace(" ", "") == item
                     }
-                    groupItems.add(groupItem)
-                    subjectGroupsItems.add(GroupSubject(
-                        specialityName = groupItem.speciality?.name ?: "",
-                        specialityCode = groupItem.speciality?.code ?: "",
-                        numberOfStudents = 0,
-                        name = groupItem.name,
-                        educationDegree = 0,
-                    ))
+                    if (groupItem != null) {
+                        groupItems.add(groupItem)
+                        subjectGroupsItems.add(GroupSubject(
+                            specialityName = groupItem.speciality?.name ?: "",
+                            specialityCode = groupItem.speciality?.code ?: "",
+                            numberOfStudents = 0,
+                            name = groupItem.name,
+                            educationDegree = 0,
+                        ))
+                    }
                 }
             }
             subject.groups = groupItems
@@ -81,15 +84,20 @@ class AddScheduleSubjectUseCase(
             return Resource.Error(currentWeekNumber.statusCode)
         }
 
-        return if (schedule is Resource.Success) {
-            if (schedule.data != null) {
-                val newSchedule = addCustomSubject(schedule.data, currentWeekNumber.data, subject, sourceItemsText)
-                return saveScheduleUseCase.execute(newSchedule)
+        return try {
+            if (schedule is Resource.Success) {
+                if (schedule.data != null) {
+                    val newSchedule = addCustomSubject(schedule.data, currentWeekNumber.data, subject, sourceItemsText)
+                    return saveScheduleUseCase.execute(newSchedule)
+                } else {
+                    Resource.Error(StatusCode.DATA_ERROR)
+                }
             } else {
-                Resource.Error(StatusCode.DATA_ERROR)
+                return Resource.Error(schedule.statusCode)
             }
-        } else {
-            return Resource.Error(schedule.statusCode)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            return Resource.Error(StatusCode.DATA_ERROR)
         }
     }
 

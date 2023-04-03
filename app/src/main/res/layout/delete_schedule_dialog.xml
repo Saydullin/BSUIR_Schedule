@@ -11,17 +11,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="?attr/dialogBg"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="10dp" />
 
             <TextView
                 android:id="@+id/title"

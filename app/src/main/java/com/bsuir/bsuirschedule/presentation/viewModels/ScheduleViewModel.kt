@@ -273,6 +273,9 @@ class ScheduleViewModel(
     }
 
     fun selectSchedule(scheduleId: Int) {
+        if (scheduleId == -1) {
+            success.postValue(StatusCode.TEST_SCHEDULE_NOT_FOUND_PREF)
+        }
         activeScheduleId.value = scheduleId
     }
 
@@ -285,6 +288,12 @@ class ScheduleViewModel(
             val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
             if (activeScheduleId != -1) {
                 getScheduleById(activeScheduleId)
+            } else {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = StatusCode.TEST_SCHEDULE_NOT_FOUND_PREF,
+                    message = ""
+                ))
             }
         }
     }
@@ -466,11 +475,9 @@ class ScheduleViewModel(
     }
 
     private fun saveScheduleToLiveData(scheduleData: Schedule) {
-        viewModelScope.launch(Dispatchers.IO) {
-            activeScheduleId.postValue(scheduleData.id)
-            schedule.postValue(scheduleData)
-            sharedPrefsUseCase.setActiveScheduleId(scheduleData.id)
-        }
+        activeScheduleId.postValue(scheduleData.id)
+        schedule.postValue(scheduleData)
+        sharedPrefsUseCase.setActiveScheduleId(scheduleData.id)
     }
 
     private fun getScheduleById(scheduleId: Int, isNotUpdate: Boolean = true) {
@@ -485,30 +492,21 @@ class ScheduleViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             dataLoading.postValue(isNotUpdate)
-            try {
-                when (
-                    val result = getScheduleUseCase.getById(scheduleId)
-                ) {
-                    is Resource.Success -> {
-                        val data = result.data!!
-                        saveScheduleToLiveData(data)
-                    }
-                    is Resource.Error -> {
-                        schedule.postValue(null)
-                        error.postValue(StateStatus(
-                            state = StateStatus.ERROR_STATE,
-                            type = result.statusCode,
-                            message = result.message
-                        ))
-                    }
+            when (
+                val result = getScheduleUseCase.getById(scheduleId)
+            ) {
+                is Resource.Success -> {
+                    val data = result.data!!
+                    saveScheduleToLiveData(data)
                 }
-            } catch (e: Exception) {
-                schedule.postValue(null)
-                error.postValue(StateStatus(
-                    state = StateStatus.ERROR_STATE,
-                    type = StatusCode.UNKNOWN_ERROR,
-                    message = e.message
-                ))
+                is Resource.Error -> {
+                    schedule.postValue(null)
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = result.statusCode,
+                        message = result.message
+                    ))
+                }
             }
             settingsUpdated.postValue(false)
             dataLoading.postValue(false)

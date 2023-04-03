@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSubjectEditBinding
+import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubjectEdit
 import com.bsuir.bsuirschedule.presentation.dialogs.AddScheduleItemDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -55,23 +57,6 @@ class ScheduleSubjectEditFragment : Fragment() {
                     binding.customSubjectView.setEmployee(groups.joinToString(", ") { it.name })
                 }
             }
-
-//            val deleteAllSubjects = getString(R.string.delete_subject_dialog_all, activeSubject.subject)
-//            val deleteTypeSubjects = getString(
-//                R.string.delete_subject_dialog_type,
-//                subjectManager.getSubjectType(),
-//                activeSubject.subject,
-//            )
-//            val deletePeriodSubjects = getString(
-//                R.string.delete_subject_dialog_period,
-//                activeSubject.subject,
-//                subjectManager.getDayOfWeek(),
-//                subjectManager.getSubjectWeeks()
-//            )
-//
-//            binding.editSubjectsAll.text = deleteAllSubjects
-//            binding.editSubjectsType.text = deleteTypeSubjects
-//            binding.editSubjectsPeriod.text = deletePeriodSubjects
         }
 
         val onSourceSelect = { savedSchedule: SavedSchedule ->
@@ -84,51 +69,31 @@ class ScheduleSubjectEditFragment : Fragment() {
             addScheduleItemDialog.show(parentFragmentManager, "AddSourceScheduleListener")
         }
 
-//        binding.saveButton.setOnClickListener {
-//            val subject = groupScheduleVM.getActiveSubject() ?: return@setOnClickListener
-//
-//            val editSubject = subject.copy()
-//
-//            editSubject.edited = ScheduleSubjectEdit(
-//                shortTitle = binding.shortNameEditText.text.toString().trim(),
-//                fullTitle = binding.fullNameEditText.text.toString().trim(),
-//                audience = binding.audienceEditText.text.toString().trim(),
-//                note = binding.noteEditText.text.toString().trim(),
-//                subgroup = if (binding.nestedSubject.subjectSubgroup.text == allSubgroupsShortText) {
-//                    0
-//                } else {
-//                    binding.nestedSubject.subjectSubgroup.text.toString().toInt()
-//                }
-//            )
-//
-//            val changeSubjectSettings = ChangeSubjectSettings(
-//                forAll = binding.editSubjectsAll.isChecked,
-//                forOnlyType = binding.editSubjectsType.isChecked,
-//                forOnlyPeriod = binding.editSubjectsPeriod.isChecked,
-//                forOnlySubgroup = binding.editSubjectsSubgroup.isChecked
-//            )
-//
-//            groupScheduleVM.editSubject(editSubject, changeSubjectSettings)
-//            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
-//        }
-//
-//        binding.resetButton.setOnClickListener {
-//            val subject = groupScheduleVM.getActiveSubject() ?: return@setOnClickListener
-//
-//            val editSubject = subject.copy()
-//
-//            editSubject.edited = null
-//
-//            val changeSubjectSettings = ChangeSubjectSettings(
-//                forAll = binding.editSubjectsAll.isChecked,
-//                forOnlyType = binding.editSubjectsType.isChecked,
-//                forOnlyPeriod = binding.editSubjectsPeriod.isChecked,
-//                forOnlySubgroup = false
-//            )
-//
-//            groupScheduleVM.editSubject(editSubject, changeSubjectSettings)
-//            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
-//        }
+        binding.customSubjectView.setOnSelectScheduleListener { subject, sourceItemsText ->
+            val activeSubject = groupScheduleVM.getActiveSubject() ?: return@setOnSelectScheduleListener
+            // sourceItemsText get from vm from useCase
+            val subjectEdit = ScheduleSubjectEdit(
+                shortTitle = subject.subject ?: "",
+                fullTitle = subject.getFullTitle(),
+                audience = subject.getAudienceInLine(),
+                startTime = subject.startLessonTime ?: "",
+                endTime = subject.endLessonTime ?: "",
+                lessonType = subject.lessonTypeAbbrev ?: "",
+                weeks = subject.weekNumber ?: arrayListOf(),
+                note = subject.note ?: "",
+                subgroup = subject.numSubgroup ?: 0,
+                sourceItems = arrayListOf()
+            )
+            activeSubject.edited = subjectEdit
+            val changeSubjectSettings = ChangeSubjectSettings(
+                forAll = true,
+                forOnlyType = false,
+                forOnlyPeriod = false,
+                forOnlySubgroup = false
+            )
+            groupScheduleVM.editSubject(activeSubject, changeSubjectSettings)
+            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
+        }
 
         return binding.root
     }

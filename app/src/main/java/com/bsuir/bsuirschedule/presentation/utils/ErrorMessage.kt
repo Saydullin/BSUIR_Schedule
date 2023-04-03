@@ -118,6 +118,12 @@ class ErrorMessage(private val context: Context) {
                     caption = resources.getString(R.string.all_schedules_updated_success_caption)
                 )
             }
+            StatusCode.TEST_SCHEDULE_NOT_FOUND_PREF -> {
+                ErrorMessageText(
+                    title = resources.getString(R.string.test_schedule_not_loaded),
+                    caption = resources.getString(R.string.test_schedule_not_loaded_caption)
+                )
+            }
             else -> {
                 ErrorMessageText(
                     title = resources.getString(R.string.unknown_error),

@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSettingsBinding
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
+import com.bsuir.bsuirschedule.presentation.dialogs.AlertDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
@@ -36,11 +37,19 @@ class ScheduleSettingsFragment : Fragment() {
             }
         }
 
+        val onAgreeResetSettings = {
+            val schedule = groupScheduleVM.getActiveSchedule()
+            if (schedule != null) {
+                val scheduleSettings = schedule.settings
+                scheduleSettings.schedule = ScheduleSettings.empty.schedule
+                groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
+            }
+        }
+
         binding.resetButton.setOnClickListener {
-            val schedule = groupScheduleVM.getActiveSchedule() ?: return@setOnClickListener
-            val scheduleSettings = schedule.settings
-            scheduleSettings.schedule = ScheduleSettings.empty.schedule
-            groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
+            val alertTitle = getString(R.string.alert_reset_settings_title)
+            val alertDialog = AlertDialog(requireContext(), alertTitle, onAgreeResetSettings)
+            alertDialog.show()
         }
 
         groupScheduleVM.settingsUpdatedStatus.observe(viewLifecycleOwner) { isUpdated ->

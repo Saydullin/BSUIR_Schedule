@@ -81,7 +81,6 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
 
         GlobalScope.launch(Dispatchers.IO) {
             val updatedSchedules = scheduleUpdateManager.updatedSchedules()
-            buildScheduleUpdateNotification(context, "Updated", "schedules updated")
             if (isNotificationsEnable) {
                 notifyAboutUpdates(updatedSchedules, context)
             }

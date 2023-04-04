@@ -74,23 +74,31 @@ class ScheduleHeaderView(
         }
         if (!isPreview) {
             binding.optionsButton.setOnClickListener {
-                val scheduleHeaderMenu = ScheduleHeaderMenu(
-                    context = context!!,
-                    onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
-                    onSubjectAddClick = { this.menuListener?.invoke(ScheduleAction.ADD_SUBJECT) },
-                    onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
-                    onUpdateHistoryClick = { this.menuListener?.invoke(ScheduleAction.UPDATE_HISTORY) },
-                    onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
-                    onWidgetAddClick = { this.menuListener?.invoke((ScheduleAction.WIDGET_ADD)) },
-                    onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
-                ).initPopupMenu(binding.optionsButton)
-
-                scheduleHeaderMenu.show()
+                initHeaderMenu(binding.optionsButton)
+            }
+            binding.scheduleHeader.setOnLongClickListener {
+                initHeaderMenu(binding.scheduleHeader)
+                true
             }
         }
         binding.scheduleSubgroupView.setSubgroupListener {
             subgroupListener?.invoke(it)
         }
+    }
+
+    private fun initHeaderMenu(targetView: View) {
+        val scheduleHeaderMenu = ScheduleHeaderMenu(
+            context = context!!,
+            onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
+            onSubjectAddClick = { this.menuListener?.invoke(ScheduleAction.ADD_SUBJECT) },
+            onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
+            onUpdateHistoryClick = { this.menuListener?.invoke(ScheduleAction.UPDATE_HISTORY) },
+            onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
+            onWidgetAddClick = { this.menuListener?.invoke((ScheduleAction.WIDGET_ADD)) },
+            onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
+        ).initPopupMenu(targetView)
+
+        scheduleHeaderMenu.show()
     }
 
     fun setMenuListener(listener: OnScheduleActionListener) {

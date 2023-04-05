@@ -74,10 +74,6 @@ class AddScheduleItemDialog(
             }
         }
 
-        binding.cancelButton.setOnClickListener {
-            dismiss()
-        }
-
         return binding.root
     }
 

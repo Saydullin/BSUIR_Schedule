@@ -35,15 +35,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="20dp"
-            style="@style/Theme.BSUIRSchedule.Button.Hint"
-            android:text="@string/cancel" />
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

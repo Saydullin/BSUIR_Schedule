@@ -93,11 +93,11 @@ class ScheduleRecyclerFragment : Fragment() {
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                val recyclerViewHeight = recyclerViewLayoutManager.findFirstVisibleItemPosition()
-                if (recyclerViewHeight < 10) {
+                val recyclerViewHeight = recyclerViewLayoutManager.findLastVisibleItemPosition()
+                val recyclerViewsAmount = recyclerViewLayoutManager.itemCount
+                if (recyclerViewHeight < 10 || recyclerViewHeight >= recyclerViewsAmount - 1) {
                     binding.scrollUpButton.animate().translationY(300f).alpha(0f).duration = 200
-                }
-                if (recyclerViewHeight > 10) {
+                } else if (recyclerViewHeight > 10) {
                     binding.scrollUpButton.animate().translationY(0f).alpha(1f).duration = 200
                 }
             }

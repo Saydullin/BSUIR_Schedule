@@ -53,11 +53,11 @@ class SubjectDialog(
 
         if (subject.note != null && subject.note!!.isNotEmpty()) {
             binding.subjectNoteContainer.visibility = View.VISIBLE
-            binding.subjectNote.text = subject.getSubjectNote()
+            binding.subjectNote.text = subject.getEditedOrNote()
         }
 
-        binding.subjectTitle.text = subject.getFullTitle()
-        binding.subjectAudience.text = subject.getAudienceInLine()
+        binding.subjectTitle.text = subject.getEditedOrFullTitle()
+        binding.subjectAudience.text = subject.getEditedOrAudienceInLine()
         binding.sourceRecycler.layoutManager = LinearLayoutManager(context)
 
         if (subject.nextTimeDaysLeft != null) {
@@ -82,7 +82,7 @@ class SubjectDialog(
                 }
                 val nextTimeSubjectText = resources.getString(
                     R.string.subject_next_time,
-                    subject.getShortTitle(),
+                    subject.getEditedOrShortTitle(),
                     afterText
                 )
                 binding.subjectNextTime.text = "$nextTimeSubjectText $weeksAmountText $daysLeftText".trim()
@@ -94,7 +94,7 @@ class SubjectDialog(
                 )
                 val nextTimeSubjectText = resources.getString(
                     R.string.subject_next_time,
-                    subject.getShortTitle(),
+                    subject.getEditedOrShortTitle(),
                     "$afterText $pluralDaysText"
                 )
                 binding.subjectNextTime.text = nextTimeSubjectText

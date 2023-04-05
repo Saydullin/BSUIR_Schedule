@@ -34,14 +34,14 @@ class ScheduleSubjectEditFragment : Fragment() {
             val schedule = groupScheduleVM.getActiveSchedule() ?: return@observe
             binding.customSubjectView.setGroupType(!schedule.isGroup())
             binding.customSubjectView.setSubgroups(schedule.subgroups)
-            binding.customSubjectView.setSelectedSubgroup(activeSubject.getNumSubgroup())
+            binding.customSubjectView.setSelectedSubgroup(activeSubject.getEditedOrNumSubgroup())
             binding.customSubjectView.setSubjectType(activeSubject.lessonTypeAbbrev ?: ScheduleSubject.LESSON_TYPE_LECTURE)
             binding.customSubjectView.setStartTime(activeSubject.startLessonTime ?: "00:00")
             binding.customSubjectView.setEndTime(activeSubject.endLessonTime ?: "00:00")
-            binding.customSubjectView.setShortTitle(activeSubject.getShortTitle())
-            binding.customSubjectView.setFullTitle(activeSubject.getFullTitle())
-            binding.customSubjectView.setNote(activeSubject.getSubjectNote())
-            binding.customSubjectView.setAudience(activeSubject.getAudienceInLine())
+            binding.customSubjectView.setShortTitle(activeSubject.getEditedOrShortTitle())
+            binding.customSubjectView.setFullTitle(activeSubject.getEditedOrFullTitle())
+            binding.customSubjectView.setNote(activeSubject.getEditedOrNote())
+            binding.customSubjectView.setAudience(activeSubject.getEditedOrAudienceInLine())
             binding.customSubjectView.setWeeks(activeSubject.weekNumber ?: arrayListOf())
             binding.customSubjectView.setWeekDay(activeSubject.dayNumber)
 
@@ -74,10 +74,11 @@ class ScheduleSubjectEditFragment : Fragment() {
             // sourceItemsText get from vm from useCase
             val subjectEdit = ScheduleSubjectEdit(
                 shortTitle = subject.subject ?: "",
-                fullTitle = subject.getFullTitle(),
-                audience = subject.getAudienceInLine(),
+                fullTitle = subject.getEditedOrFullTitle(),
+                audience = subject.getEditedOrAudienceInLine(),
                 startTime = subject.startLessonTime ?: "",
                 endTime = subject.endLessonTime ?: "",
+                weekDay = subject.dayNumber,
                 lessonType = subject.lessonTypeAbbrev ?: "",
                 weeks = subject.weekNumber ?: arrayListOf(),
                 note = subject.note ?: "",

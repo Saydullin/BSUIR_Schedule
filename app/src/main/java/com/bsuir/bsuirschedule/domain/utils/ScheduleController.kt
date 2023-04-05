@@ -172,7 +172,6 @@ class ScheduleController {
     }
 
     private fun getActualSubject(schedule: Schedule): ScheduleSubject? {
-
         // Remove actual subject flag from all subjects
         schedule.schedules.map {
             it.schedule.map {

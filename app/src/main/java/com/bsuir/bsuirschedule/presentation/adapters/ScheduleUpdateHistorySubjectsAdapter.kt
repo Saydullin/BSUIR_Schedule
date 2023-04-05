@@ -41,14 +41,14 @@ class ScheduleUpdateHistorySubjectsAdapter(
 
         fun bind(subjectHistory: ScheduleSubjectHistory) {
             val subject = subjectHistory.scheduleSubject
-            if (subject.getNumSubgroup() != 0) {
+            if (subject.getEditedOrNumSubgroup() != 0) {
                 binding.subgroupInfo.visibility = View.VISIBLE
-                binding.subjectSubgroup.text = subject.getNumSubgroup().toString()
+                binding.subjectSubgroup.text = subject.getEditedOrNumSubgroup().toString()
             }
             binding.subjectStartLesson.text = subject.startLessonTime
             binding.subjectEndLesson.text = subject.endLessonTime
-            binding.subjectAudience.text = subject.getAudienceInLine()
-            binding.subjectTitle.text = subject.getShortTitle()
+            binding.subjectAudience.text = subject.getEditedOrAudienceInLine()
+            binding.subjectTitle.text = subject.getEditedOrShortTitle()
 
             if (subject.isActual == true) {
                 binding.actualSubjectIcon.visibility = View.VISIBLE
@@ -118,9 +118,9 @@ class ScheduleUpdateHistorySubjectsAdapter(
                 binding.subjectBreakTime.visibility = View.GONE
             }
 
-            if (subject.getSubjectNote().isNotEmpty()) {
+            if (subject.getEditedOrNote().isNotEmpty()) {
                 binding.subjectAdditional.visibility = View.VISIBLE
-                binding.subjectNote.text = subject.getSubjectNote()
+                binding.subjectNote.text = subject.getEditedOrNote()
             }
 
             if (onClick != null) {

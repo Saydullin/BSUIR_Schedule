@@ -47,14 +47,14 @@ class ScheduleSubjectsAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(subject: ScheduleSubject) {
-            if (subject.getNumSubgroup() != 0) {
+            if (subject.getEditedOrNumSubgroup() != 0) {
                 binding.subgroupInfo.visibility = View.VISIBLE
-                binding.subjectSubgroup.text = subject.getNumSubgroup().toString()
+                binding.subjectSubgroup.text = subject.getEditedOrNumSubgroup().toString()
             }
             binding.subjectStartLesson.text = subject.startLessonTime
             binding.subjectEndLesson.text = subject.endLessonTime
-            binding.subjectAudience.text = subject.getAudienceInLine()
-            binding.subjectTitle.text = subject.getShortTitle()
+            binding.subjectAudience.text = subject.getEditedOrAudienceInLine()
+            binding.subjectTitle.text = subject.getEditedOrShortTitle()
 
             if (subject.isActual == true) {
                 binding.actualSubjectIcon.visibility = View.VISIBLE
@@ -118,9 +118,9 @@ class ScheduleSubjectsAdapter(
                 binding.root.alpha = .7f
             }
 
-            if (subject.getSubjectNote().isNotEmpty()) {
+            if (subject.getEditedOrNote().isNotEmpty()) {
                 binding.subjectAdditional.visibility = View.VISIBLE
-                binding.subjectNote.text = subject.getSubjectNote()
+                binding.subjectNote.text = subject.getEditedOrNote()
             }
 
             if (onLongClick != null) {

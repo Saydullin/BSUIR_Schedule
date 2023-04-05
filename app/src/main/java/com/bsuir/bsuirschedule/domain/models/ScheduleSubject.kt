@@ -67,7 +67,7 @@ data class ScheduleSubject (
         const val LESSON_TYPE_LABORATORY = "ЛР"
     }
 
-    fun getShortTitle(): String {
+    fun getEditedOrShortTitle(): String {
         if (edited != null) {
             return edited!!.shortTitle
         }
@@ -75,7 +75,7 @@ data class ScheduleSubject (
         return subject ?: ""
     }
 
-    fun getFullTitle(): String {
+    fun getEditedOrFullTitle(): String {
         if (edited != null) {
             return edited!!.fullTitle
         }
@@ -83,7 +83,47 @@ data class ScheduleSubject (
         return subjectFullName ?: ""
     }
 
-    fun getSubjectNote(): String {
+    fun getEditedOrGroups(): ArrayList<Group> {
+        if (edited != null) {
+            return edited!!.sourceItems.map { it.group } as ArrayList<Group>
+        }
+
+        return groups ?: arrayListOf()
+    }
+
+    fun getEditedOrEmployees(): ArrayList<EmployeeSubject> {
+        if (edited != null) {
+            return edited!!.sourceItems.map { it.employee.toEmployeeSubject() } as ArrayList<EmployeeSubject>
+        }
+
+        return employees ?: arrayListOf()
+    }
+
+    fun getEditedOrLessonType(): String {
+        if (edited != null) {
+            return edited!!.lessonType
+        }
+
+        return lessonTypeAbbrev ?: LESSON_TYPE_LECTURE
+    }
+
+    fun getEditedOrWeeks(): ArrayList<Int> {
+        if (edited != null) {
+            return edited!!.weeks
+        }
+
+        return weekNumber ?: arrayListOf()
+    }
+
+    fun getEditedOrWeekDay(): Int {
+        if (edited != null) {
+            return edited!!.weekDay
+        }
+
+        return dayNumber
+    }
+
+    fun getEditedOrNote(): String {
         if (edited != null) {
             return edited!!.note
         }
@@ -91,7 +131,7 @@ data class ScheduleSubject (
         return note ?: ""
     }
 
-    fun getAudienceInLine(): String {
+    fun getEditedOrAudienceInLine(): String {
         if (edited != null) {
             return edited!!.audience
         }
@@ -99,10 +139,11 @@ data class ScheduleSubject (
         return audience?.joinToString(", ") ?: ""
     }
 
-    fun getNumSubgroup(): Int {
+    fun getEditedOrNumSubgroup(): Int {
         if (edited != null) {
             return edited!!.subgroup
         }
+
         return (numSubgroup ?: 0)
     }
 

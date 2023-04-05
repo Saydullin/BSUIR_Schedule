@@ -71,7 +71,7 @@ class StackRemoteViewsFactory(
     override fun getViewAt(position: Int): RemoteViews {
         val subject = scheduleSubjectsList[position]
         val remoteViews = RemoteViews(context.packageName, R.layout.main_widget_list_item)
-        val subjectSubgroup = subject.getNumSubgroup()
+        val subjectSubgroup = subject.getEditedOrNumSubgroup()
 
         setWidgetThemeViews(context, remoteViews, isDarkTheme)
 
@@ -82,11 +82,11 @@ class StackRemoteViewsFactory(
         if (subject.isActual == true) {
             remoteViews.setViewVisibility(R.id.subject_current_icon, View.VISIBLE)
         }
-        remoteViews.setTextViewText(R.id.lesson_audience, subject.getAudienceInLine())
+        remoteViews.setTextViewText(R.id.lesson_audience, subject.getEditedOrAudienceInLine())
         if (subjectSubgroup == 0) {
             remoteViews.setViewVisibility(R.id.subgroup_container, View.GONE)
         } else {
-            remoteViews.setTextViewText(R.id.lesson_subgroup, subject.getNumSubgroup().toString())
+            remoteViews.setTextViewText(R.id.lesson_subgroup, subject.getEditedOrNumSubgroup().toString())
         }
         if (isGroupSchedule) {
             val employeeTitle = getSubjectEmployeeText(subject.employees ?: ArrayList())

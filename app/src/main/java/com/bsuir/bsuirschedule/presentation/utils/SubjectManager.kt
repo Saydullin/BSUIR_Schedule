@@ -25,15 +25,15 @@ class SubjectManager(
         if (subject.audience.isNullOrEmpty()) {
             return context.resources.getString(
                 R.string.subject_status_now,
-                subject.getShortTitle(),
-                subject.getAudienceInLine()
+                subject.getEditedOrShortTitle(),
+                subject.getEditedOrAudienceInLine()
             )
         }
 
         return context.resources.getString(
             R.string.subject_status_now_in,
-            subject.getShortTitle(),
-            subject.getAudienceInLine()
+            subject.getEditedOrShortTitle(),
+            subject.getEditedOrAudienceInLine()
         )
     }
 
@@ -44,7 +44,7 @@ class SubjectManager(
         val minutes = millisLeft % 3_600_000 / 60_000
         val pluralHoursText = context.getString(R.string.short_hour, hours.toInt())
         val pluralMinutesText = context.getString(R.string.short_minute, minutes.toInt())
-        val subjectStatusTodayString = if (subject.getAudienceInLine().isEmpty()) {
+        val subjectStatusTodayString = if (subject.getEditedOrAudienceInLine().isEmpty()) {
             R.string.subject_status_today_no_audience
         } else {
             R.string.subject_status_today
@@ -54,8 +54,8 @@ class SubjectManager(
             return context.resources.getString(
                 subjectStatusTodayString,
                 pluralMinutesText,
-                subject.getShortTitle(),
-                subject.getAudienceInLine()
+                subject.getEditedOrShortTitle(),
+                subject.getEditedOrAudienceInLine()
             )
         }
 
@@ -63,16 +63,16 @@ class SubjectManager(
             return context.resources.getString(
                 subjectStatusTodayString,
                 pluralHoursText,
-                subject.getShortTitle(),
-                subject.getAudienceInLine()
+                subject.getEditedOrShortTitle(),
+                subject.getEditedOrAudienceInLine()
             )
         }
 
         return context.resources.getString(
             subjectStatusTodayString,
             "$pluralHoursText $pluralMinutesText",
-            subject.getShortTitle(),
-            subject.getAudienceInLine()
+            subject.getEditedOrShortTitle(),
+            subject.getEditedOrAudienceInLine()
         )
 
     }
@@ -82,7 +82,7 @@ class SubjectManager(
         return context.resources.getString(
             R.string.subject_status_tomorrow,
             getSubjectStartTime(),
-            subject.getShortTitle()
+            subject.getEditedOrShortTitle()
         )
     }
 
@@ -98,7 +98,7 @@ class SubjectManager(
         return context.resources.getString(
             R.string.subject_status_days_left,
             daysText,
-            subject.getShortTitle(),
+            subject.getEditedOrShortTitle(),
             subject.startLessonTime
         )
     }

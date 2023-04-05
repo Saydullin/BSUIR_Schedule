@@ -25,20 +25,20 @@ class DeleteSubjectDialog(
 
         isCancelable = true
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
-        val deleteText = resources.getString(R.string.delete_subject, scheduleSubject.getShortTitle())
+        val deleteText = resources.getString(R.string.delete_subject, scheduleSubject.getEditedOrShortTitle())
         val subjectManager = SubjectManager(subject = scheduleSubject, context = context!!)
 
         binding.title.text = deleteText
 
-        val deleteAllSubjects = getString(R.string.delete_subject_dialog_all, scheduleSubject.getShortTitle())
+        val deleteAllSubjects = getString(R.string.delete_subject_dialog_all, scheduleSubject.getEditedOrShortTitle())
         val deleteTypeSubjects = getString(
             R.string.delete_subject_dialog_type,
             subjectManager.getSubjectType(),
-            scheduleSubject.getShortTitle(),
+            scheduleSubject.getEditedOrShortTitle(),
         )
         val deletePeriodSubjects = getString(
             R.string.delete_subject_dialog_period,
-            scheduleSubject.getShortTitle(),
+            scheduleSubject.getEditedOrShortTitle(),
             subjectManager.getDayOfWeek(),
             subjectManager.getSubjectWeeks()
         )
@@ -46,7 +46,7 @@ class DeleteSubjectDialog(
         if (scheduleSubject.numSubgroup != 0) {
             val deleteSubgroupSubjects = getString(
                 R.string.delete_subject_dialog_subgroup,
-                scheduleSubject.getNumSubgroup()
+                scheduleSubject.getEditedOrNumSubgroup()
             )
             binding.deleteAllSubjectsSubgroup.text = deleteSubgroupSubjects
         } else {

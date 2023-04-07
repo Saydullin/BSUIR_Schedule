@@ -35,7 +35,7 @@ data class SavedSchedule (
         employee = employee.toEmployeeTable(),
         isGroup = isGroup,
         lastUpdateTime = lastUpdateTime,
-        lastUpdateDate = lastUpdateDate,
+        lastUpdateDate = lastUpdateDate ?: "",
         isUpdatedSuccessfully = isUpdatedSuccessfully,
         isExistExams = isExistExams
     )

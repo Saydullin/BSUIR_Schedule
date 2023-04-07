@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.dialogs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +26,6 @@ class SubjectDialog(
         val binding = SubjectDialogBinding.inflate(inflater)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         val subjectManager = SubjectManager(subject = subject, context = context!!)
-
-        Log.e("sady", "subject startMillis ${subject.startMillis}, on ${subject.dateLesson}")
 
         val timeText = resources.getString(R.string.subject_time, subject.startLessonTime, subject.endLessonTime)
         binding.subjectTime.text = timeText

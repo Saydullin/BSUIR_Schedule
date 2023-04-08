@@ -311,6 +311,7 @@
     <string name="settings_item_subgroup">%d подгруппа</string>
     <string name="no_calendar_placeholder">Будет доступно в следующем обновлении</string>
     <string name="get_started">Начать</string>
+    <string name="get_started_next">Далее</string>
     <string name="get_started_skip">Пропустить</string>
     <string name="not_available">В процессе разработки</string>
 

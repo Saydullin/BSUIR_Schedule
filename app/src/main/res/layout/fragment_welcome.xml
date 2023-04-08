@@ -24,13 +24,13 @@
         android:layout_marginHorizontal="20dp"/>
 
     <Button
-        android:id="@+id/skip_button"
+        android:id="@+id/next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
         android:paddingHorizontal="10dp"
         android:layout_margin="20dp"
-        android:text="@string/get_started_skip"
+        android:text="@string/get_started_next"
         style="@style/Theme.BSUIRSchedule.Button"
         android:textColor="?attr/secondaryTextColor"
         android:backgroundTint="?attr/secondaryColor" />

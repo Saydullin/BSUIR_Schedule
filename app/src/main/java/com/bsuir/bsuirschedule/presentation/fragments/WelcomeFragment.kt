@@ -72,16 +72,15 @@ class WelcomeFragment : Fragment() {
             Toast.makeText(context, getString(R.string.welcome_load_schedule), Toast.LENGTH_SHORT).show()
         }
 
-        binding.skipButton.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_welcomeFragment_to_firstScheduleAddFragment)
-            Toast.makeText(context, getString(R.string.welcome_load_schedule), Toast.LENGTH_SHORT).show()
-        }
-
         binding.viewPager.adapter = WelcomeAdapter(context!!, welcomeTextList)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.view.background = resources.getDrawable(R.drawable.dot, null)
         }.attach()
+
+        binding.nextButton.setOnClickListener {
+            binding.viewPager.currentItem += 1
+        }
 
         binding.viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -96,7 +95,7 @@ class WelcomeFragment : Fragment() {
                 }
                 prevPosition = position
                 if (position == welcomeTextList.size - 1) {
-                    binding.skipButton.visibility = View.GONE
+                    binding.nextButton.visibility = View.GONE
                     binding.getStartedButton.visibility = View.VISIBLE
                 }
             }

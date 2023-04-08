@@ -273,9 +273,6 @@ class ScheduleViewModel(
     }
 
     fun selectSchedule(scheduleId: Int) {
-        if (scheduleId == -1) {
-            success.postValue(StatusCode.TEST_SCHEDULE_NOT_FOUND_PREF)
-        }
         activeScheduleId.value = scheduleId
     }
 

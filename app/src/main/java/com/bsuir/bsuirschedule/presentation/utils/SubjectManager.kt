@@ -22,7 +22,7 @@ class SubjectManager(
     }
 
     private fun getNowString(): String {
-        if (subject.audience.isNullOrEmpty()) {
+        if (subject.getEditedOrAudienceInLine().isEmpty()) {
             return context.resources.getString(
                 R.string.subject_status_now,
                 subject.getEditedOrShortTitle(),
@@ -204,10 +204,10 @@ class SubjectManager(
 
     fun getSubjectSubgroup(): String {
 
-        return if (subject.numSubgroup == 0) {
+        return if (subject.getEditedOrNumSubgroup() == 0) {
             context.getString(R.string.all_subgroups)
         } else {
-            context.getString(R.string.subgroup, subject.numSubgroup)
+            context.getString(R.string.subgroup, subject.getEditedOrNumSubgroup())
         }
     }
 

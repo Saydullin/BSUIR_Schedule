@@ -140,11 +140,11 @@ class ScheduleSubjectUseCase(
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule = day.schedule.filterNot { subject ->
-                (subject.subject == scheduleSubject.subject &&
-                        subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev &&
-                        ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
-                        subject.dayNumber == scheduleSubject.dayNumber &&
-                        subject.weekNumber == scheduleSubject.weekNumber)
+                (subject.getEditedOrShortTitle() == scheduleSubject.getEditedOrShortTitle() &&
+                        subject.getEditedOrLessonType() == scheduleSubject.getEditedOrLessonType() &&
+                        ((isOnlySubgroup && subject.getEditedOrNumSubgroup() == scheduleSubject.getEditedOrNumSubgroup()) || !isOnlySubgroup) &&
+                        subject.getEditedOrWeekDay() == scheduleSubject.getEditedOrWeekDay() &&
+                        subject.getEditedOrWeeks() == scheduleSubject.getEditedOrWeeks())
             } as ArrayList<ScheduleSubject>
         }
 
@@ -158,9 +158,9 @@ class ScheduleSubjectUseCase(
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule = day.schedule.filterNot { subject ->
-                (subject.subject == scheduleSubject.subject &&
-                        ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
-                        subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev)
+                (subject.getEditedOrShortTitle() == scheduleSubject.getEditedOrShortTitle() &&
+                        ((isOnlySubgroup && subject.getEditedOrNumSubgroup() == scheduleSubject.getEditedOrNumSubgroup()) || !isOnlySubgroup) &&
+                        subject.getEditedOrLessonType() == scheduleSubject.getEditedOrLessonType())
             } as ArrayList<ScheduleSubject>
         }
 
@@ -174,8 +174,8 @@ class ScheduleSubjectUseCase(
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule = day.schedule.filterNot { subject ->
-                (subject.subject == scheduleSubject.subject &&
-                        ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup))
+                (subject.getEditedOrShortTitle() == scheduleSubject.getEditedOrShortTitle() &&
+                        ((isOnlySubgroup && subject.getEditedOrNumSubgroup() == scheduleSubject.getEditedOrNumSubgroup()) || !isOnlySubgroup))
             } as ArrayList<ScheduleSubject>
         }
 
@@ -189,8 +189,8 @@ class ScheduleSubjectUseCase(
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule.map { subject ->
-                if (subject.subject == scheduleSubject.subject &&
-                    ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup)) {
+                if (subject.getEditedOrShortTitle() == scheduleSubject.getEditedOrShortTitle() &&
+                    ((isOnlySubgroup && subject.getEditedOrNumSubgroup() == scheduleSubject.getEditedOrNumSubgroup()) || !isOnlySubgroup)) {
 
                     subject.edited = scheduleSubject.edited
                 }
@@ -207,9 +207,9 @@ class ScheduleSubjectUseCase(
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule.map { subject ->
-                if (subject.subject == scheduleSubject.subject &&
-                    ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
-                    subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev) {
+                if (subject.getEditedOrShortTitle() == scheduleSubject.getEditedOrShortTitle() &&
+                    ((isOnlySubgroup && subject.getEditedOrNumSubgroup() == scheduleSubject.getEditedOrNumSubgroup()) || !isOnlySubgroup) &&
+                    subject.getEditedOrLessonType() == scheduleSubject.getEditedOrLessonType()) {
                     subject.edited = scheduleSubject.edited
                 }
             }
@@ -225,11 +225,11 @@ class ScheduleSubjectUseCase(
     ): ArrayList<ScheduleDay> {
         for (day in scheduleDaysList) {
             day.schedule.map { subject ->
-                if (subject.subject == scheduleSubject.subject &&
-                    ((isOnlySubgroup && subject.numSubgroup == scheduleSubject.numSubgroup) || !isOnlySubgroup) &&
-                    subject.lessonTypeAbbrev == scheduleSubject.lessonTypeAbbrev &&
-                    subject.dayNumber == scheduleSubject.dayNumber &&
-                    subject.weekNumber == scheduleSubject.weekNumber) {
+                if (subject.getEditedOrShortTitle() == scheduleSubject.getEditedOrShortTitle() &&
+                    ((isOnlySubgroup && subject.getEditedOrNumSubgroup() == scheduleSubject.getEditedOrNumSubgroup()) || !isOnlySubgroup) &&
+                    subject.getEditedOrLessonType() == scheduleSubject.getEditedOrLessonType() &&
+                    subject.getEditedOrWeekDay() == scheduleSubject.getEditedOrWeekDay() &&
+                    subject.getEditedOrWeeks() == scheduleSubject.getEditedOrWeeks()) {
 
                     subject.edited = scheduleSubject.edited
                 }

@@ -43,7 +43,7 @@ class DeleteSubjectDialog(
             subjectManager.getSubjectWeeks()
         )
 
-        if (scheduleSubject.numSubgroup != 0) {
+        if (scheduleSubject.getEditedOrNumSubgroup() != 0) {
             val deleteSubgroupSubjects = getString(
                 R.string.delete_subject_dialog_subgroup,
                 scheduleSubject.getEditedOrNumSubgroup()

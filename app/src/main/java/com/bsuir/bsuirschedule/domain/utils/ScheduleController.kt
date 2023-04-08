@@ -583,8 +583,8 @@ class ScheduleController {
                     val scheduleDay = schedule.schedules[dayIndex]
                     val foundSubject = scheduleDay.schedule.find {
                         it.subject == subject.subject && it.lessonTypeAbbrev == subject.lessonTypeAbbrev &&
-                        ((it.numSubgroup ?: 0) == 0 ||
-                        (it.numSubgroup ?: 0) == schedule.settings.subgroup.selectedNum)
+                        ((it.getEditedOrNumSubgroup()) == 0 ||
+                        (it.getEditedOrNumSubgroup()) == schedule.settings.subgroup.selectedNum)
                     }
 
                     if (foundSubject != null) {
@@ -617,7 +617,7 @@ class ScheduleController {
         if (subgroup == 0) return schedule
 
         schedule.map { day ->
-            val subjects = day.schedule.filter { it.numSubgroup == 0 || it.numSubgroup == subgroup }
+            val subjects = day.schedule.filter { it.getEditedOrNumSubgroup() == 0 || it.getEditedOrNumSubgroup() == subgroup }
             day.schedule = subjects as ArrayList<ScheduleSubject>
             scheduleList.add(day)
         }

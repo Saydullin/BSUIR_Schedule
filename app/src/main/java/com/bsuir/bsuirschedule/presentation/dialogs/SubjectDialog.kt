@@ -48,7 +48,7 @@ class SubjectDialog(
 
         binding.subjectSubgroup.text = subjectManager.getSubjectSubgroup()
 
-        if (subject.note != null && subject.note!!.isNotEmpty()) {
+        if (subject.getEditedOrNote().isNotEmpty()) {
             binding.subjectNoteContainer.visibility = View.VISIBLE
             binding.subjectNote.text = subject.getEditedOrNote()
         }

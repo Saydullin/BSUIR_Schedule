@@ -9,9 +9,9 @@ android {
     defaultConfig {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 21
-        targetSdk 32
-        versionCode 60
-        versionName "1.6.0"
+        targetSdk 33
+        versionCode 61
+        versionName "1.6.1"
         resConfigs "en", "ru", "be", "zh"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -16,7 +16,7 @@ class ImageViewDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ImageViewDialogBinding.inflate(LayoutInflater.from(context))
-        window?.setBackgroundDrawableResource(R.color.transparent)
+        window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         setContentView(binding.root)
 

@@ -30,7 +30,7 @@ class AddScheduleItemDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
         val binding = AddScheduleItemDialogBinding.inflate(inflater)
         val recyclerViewLayoutManager = LinearLayoutManager(context)
 

@@ -17,7 +17,7 @@ class AlertDialog(
         super.onCreate(savedInstanceState)
         val binding = AlertDialogBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
-        window?.setBackgroundDrawableResource(R.color.transparent)
+        window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         binding.alertTitle.text = title
 

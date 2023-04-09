@@ -24,7 +24,8 @@ class SavedScheduleDialog(
         savedInstanceState: Bundle?
     ): View {
         val binding = ActiveScheduleDialogBinding.inflate(inflater)
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
+
         val lastUpdateText = resources.getString(R.string.last_update, schedule.getLastUpdateText())
         val courseText = resources.getString(R.string.course)
         val moreText = resources.getString(R.string.more)

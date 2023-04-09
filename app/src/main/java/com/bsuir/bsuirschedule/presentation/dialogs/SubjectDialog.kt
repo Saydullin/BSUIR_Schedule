@@ -24,7 +24,8 @@ class SubjectDialog(
         savedInstanceState: Bundle?
     ): View {
         val binding = SubjectDialogBinding.inflate(inflater)
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
+
         val subjectManager = SubjectManager(subject = subject, context = context!!)
 
         val timeText = resources.getString(R.string.subject_time, subject.startLessonTime, subject.endLessonTime)

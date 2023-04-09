@@ -18,7 +18,7 @@ class TimePickerDialog(
         super.onCreate(savedInstanceState)
         val binding = TimePickerDialogBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
-        window?.setBackgroundDrawableResource(R.color.transparent)
+        window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         binding.timePicker.setIs24HourView(true)
 

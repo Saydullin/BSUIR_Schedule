@@ -16,7 +16,7 @@ class WidgetScheduleAddDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = WidgetAddScheduleDialogBinding.inflate(inflater)
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
 //        binding.cancelButton.setOnClickListener {
 //            dismiss()

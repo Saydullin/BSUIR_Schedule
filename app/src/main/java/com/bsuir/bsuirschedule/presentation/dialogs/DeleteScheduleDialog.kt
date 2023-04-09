@@ -20,9 +20,9 @@ class DeleteScheduleDialog(
         savedInstanceState: Bundle?
     ): View {
         val binding = DeleteScheduleDialogBinding.inflate(inflater)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         isCancelable = true
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         val deleteText = if (savedSchedule.isGroup) {
             resources.getString(R.string.delete_schedule, savedSchedule.group.name)
         } else {

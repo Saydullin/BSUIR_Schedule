@@ -20,7 +20,7 @@ class RenameScheduleDialog(
         savedInstanceState: Bundle?
     ): View {
         val binding = RenameScheduleDialogBinding.inflate(inflater)
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         if (savedSchedule.isGroup) {
             if (savedSchedule.group.title != null) {

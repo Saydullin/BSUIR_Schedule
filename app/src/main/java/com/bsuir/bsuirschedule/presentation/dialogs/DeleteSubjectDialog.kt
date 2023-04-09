@@ -22,9 +22,9 @@ class DeleteSubjectDialog(
         savedInstanceState: Bundle?
     ): View {
         val binding = DeleteSubjectDialogBinding.inflate(inflater)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         isCancelable = true
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         val deleteText = resources.getString(R.string.delete_subject, scheduleSubject.getEditedOrShortTitle())
         val subjectManager = SubjectManager(subject = scheduleSubject, context = context!!)
 

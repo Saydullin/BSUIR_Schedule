@@ -285,12 +285,6 @@ class ScheduleViewModel(
             val activeScheduleId = sharedPrefsUseCase.getActiveScheduleId()
             if (activeScheduleId != -1) {
                 getScheduleById(activeScheduleId)
-            } else {
-                error.postValue(StateStatus(
-                    state = StateStatus.ERROR_STATE,
-                    type = StatusCode.TEST_SCHEDULE_NOT_FOUND_PREF,
-                    message = ""
-                ))
             }
         }
     }

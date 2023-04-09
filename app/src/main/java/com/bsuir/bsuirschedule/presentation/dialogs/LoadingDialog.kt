@@ -17,8 +17,7 @@ class LoadingDialog(private val loadingStatus: LoadingStatus): DialogFragment() 
         savedInstanceState: Bundle?
     ): View {
         val binding = LoadingDialogBinding.inflate(inflater)
-
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         when(loadingStatus.code) {
             LoadingStatus.LOAD_SCHEDULE -> {

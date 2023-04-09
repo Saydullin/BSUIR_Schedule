@@ -18,7 +18,7 @@ class StateDialog(private val stateStatus: StateStatus): DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = StateDialogBinding.inflate(inflater)
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         binding.cancelButton.setOnClickListener {
             dismiss()

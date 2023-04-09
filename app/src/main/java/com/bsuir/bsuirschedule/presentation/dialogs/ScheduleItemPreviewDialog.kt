@@ -23,7 +23,7 @@ class ScheduleItemPreviewDialog(
         savedInstanceState: Bundle?
     ): View {
         val binding = ScheduleItemPreviewDialogBinding.inflate(inflater)
-        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
 
         if (savedSchedule.isGroup) {
             val group = savedSchedule.group

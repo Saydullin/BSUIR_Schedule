@@ -26,7 +26,7 @@
         <item name="primaryColor">@color/primary</item>
         <item name="primaryOnColor">@color/white</item>
         <item name="primaryOnHintColor">@color/white_hint</item>
-        <item name="dialogBg">@color/white</item>
+        <item name="dialogBg">@color/white</item> <!-- FIXME SDK 33+ -->
         <item name="primaryTextColor">@color/white</item>
         <item name="secondaryOnHintColor">@color/secondary_hint</item>
         <item name="secondaryOnHintButtonColor">@color/secondary_hint</item>

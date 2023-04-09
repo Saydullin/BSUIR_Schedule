@@ -14,6 +14,7 @@ import kotlin.collections.ArrayList
 
 typealias OnScheduleSelect = (subject: ScheduleSubject, sourceItemsText: String) -> Unit
 typealias OnAddSourceScheduleSelect = (isGroup: Boolean) -> Unit
+typealias OnCancel = () -> Unit
 
 class AddCustomSubjectView(
     context: Context,
@@ -25,6 +26,7 @@ class AddCustomSubjectView(
     private val binding = AddCustomSubjectBinding.inflate(LayoutInflater.from(context), this)
     private var onScheduleSelect: OnScheduleSelect? = null
     private var onSourceScheduleSelect: OnAddSourceScheduleSelect? = null
+    private var onCancel: OnCancel? = null
     private var isGroupSchedule: Boolean = false
 
     private val weekDays = listOf(
@@ -98,11 +100,18 @@ class AddCustomSubjectView(
         binding.addSourceButton.setOnClickListener {
             this.onSourceScheduleSelect?.invoke(isGroupSchedule)
         }
+        binding.cancelButton.setOnClickListener {
+            this.onCancel?.invoke()
+        }
         binding.doneButton.setOnClickListener {
             val subject = getSubject()
             val sourceScheduleItemsText = getSourceText()
             this.onScheduleSelect?.invoke(subject, sourceScheduleItemsText)
         }
+    }
+
+    fun setOnCancelListener(listener: OnCancel) {
+        this.onCancel = listener
     }
 
     fun setOnAddSourceScheduleListener(listener: OnAddSourceScheduleSelect) {

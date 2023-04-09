@@ -327,6 +327,7 @@
                     android:layout_marginHorizontal="20dp">
 
                     <Button
+                        android:id="@+id/cancel_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Theme.BSUIRSchedule.Button.Hint"

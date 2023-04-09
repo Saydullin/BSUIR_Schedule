@@ -35,6 +35,7 @@
 
     <declare-styleable name="EditTextView">
         <attr name="android:inputType" />
+        <attr name="android:minWidth" />
         <attr name="hint" format="string" />
         <attr name="caption" format="string" />
         <attr name="action" format="string" />

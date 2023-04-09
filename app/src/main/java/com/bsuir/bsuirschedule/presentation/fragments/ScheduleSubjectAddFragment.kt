@@ -35,6 +35,10 @@ class ScheduleSubjectAddFragment : Fragment() {
             binding.addCustomSubjectView.setSourceScheduleItem(savedSchedule.getName())
         }
 
+        binding.addCustomSubjectView.setOnCancelListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectAddFragment_to_mainScheduleFragment)
+        }
+
         binding.addCustomSubjectView.setOnAddSourceScheduleListener { isGroup ->
             val addScheduleItemDialog = AddScheduleItemDialog(isGroup, onSourceSelect)
             addScheduleItemDialog.isCancelable = true

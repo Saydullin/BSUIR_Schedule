@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,28 +39,32 @@ class ScheduleUpdateHistoryFragment : Fragment() {
         binding.scheduleUpdateHistoryRecycler.layoutManager = LinearLayoutManager(context)
         binding.scheduleUpdateHistoryRecycler.adapter = adapter
 
-        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
-            if (schedule == null) return@observe
+        binding.noUpdatedPlaceholder.visibility = View.VISIBLE
+        binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
 
-            binding.scheduleHeaderView.setTitle(schedule.getTitle())
-            binding.scheduleHeaderView.setDescription(schedule.getDescription())
-            if (!schedule.isGroup()) {
-                binding.scheduleHeaderView.setImage(schedule.employee.photoLink)
-            } else {
-                binding.scheduleHeaderView.setImage(R.drawable.ic_group_placeholder)
-            }
-
-            if (schedule.updateHistorySchedule.size > 0) {
-                binding.noUpdatedPlaceholder.visibility = View.GONE
-                binding.scheduleUpdateHistoryRecycler.visibility = View.VISIBLE
-                adapter.updateSchedule(schedule.updateHistorySchedule, schedule.isGroup(), showSubjectDialog)
-                binding.scheduleUpdateHistoryRecycler.adapter = adapter
-            } else {
-                adapter.updateSchedule(ArrayList(), false, null)
-                binding.noUpdatedPlaceholder.visibility = View.VISIBLE
-                binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
-            }
-        }
+//        Hide Recycler
+//        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+//            if (schedule == null) return@observe
+//
+//            binding.scheduleHeaderView.setTitle(schedule.getTitle())
+//            binding.scheduleHeaderView.setDescription(schedule.getDescription())
+//            if (!schedule.isGroup()) {
+//                binding.scheduleHeaderView.setImage(schedule.employee.photoLink)
+//            } else {
+//                binding.scheduleHeaderView.setImage(R.drawable.ic_group_placeholder)
+//            }
+//
+//            if (schedule.updateHistorySchedule.size > 0) {
+//                binding.noUpdatedPlaceholder.visibility = View.GONE
+//                binding.scheduleUpdateHistoryRecycler.visibility = View.VISIBLE
+//                adapter.updateSchedule(schedule.updateHistorySchedule, schedule.isGroup(), showSubjectDialog)
+//                binding.scheduleUpdateHistoryRecycler.adapter = adapter
+//            } else {
+//                adapter.updateSchedule(ArrayList(), false, null)
+//                binding.noUpdatedPlaceholder.visibility = View.VISIBLE
+//                binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
+//            }
+//        }
 
         return binding.root
     }

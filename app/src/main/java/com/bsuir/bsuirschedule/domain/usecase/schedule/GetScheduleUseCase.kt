@@ -28,7 +28,7 @@ class GetScheduleUseCase(
                     val currentWeek = currentWeekUseCase.getCurrentWeek()
                     if (currentWeek is Resource.Error) {
                         return Resource.Error(
-                            errorType = currentWeek.statusCode,
+                            statusCode = currentWeek.statusCode,
                             message = currentWeek.message
                         )
                     }
@@ -50,14 +50,14 @@ class GetScheduleUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = apiSchedule.statusCode,
+                        statusCode = apiSchedule.statusCode,
                         message = apiSchedule.message
                     )
                 }
             }
         } catch (e: Exception) {
             return Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -78,7 +78,7 @@ class GetScheduleUseCase(
                             val currentWeek = currentWeekUseCase.getCurrentWeek()
                             if (currentWeek is Resource.Error) {
                                 return Resource.Error(
-                                    errorType = currentWeek.statusCode,
+                                    statusCode = currentWeek.statusCode,
                                     message = currentWeek.message
                                 )
                             }
@@ -97,7 +97,7 @@ class GetScheduleUseCase(
                         }
                         is Resource.Error -> {
                             return Resource.Error(
-                                errorType = groupItems.statusCode,
+                                statusCode = groupItems.statusCode,
                                 message = groupItems.message
                             )
                         }
@@ -105,7 +105,7 @@ class GetScheduleUseCase(
                 }
                 is Resource.Error -> {
                     return Resource.Error(
-                        errorType = apiSchedule.statusCode,
+                        statusCode = apiSchedule.statusCode,
                         message = apiSchedule.message
                     )
                 }
@@ -113,7 +113,7 @@ class GetScheduleUseCase(
         } catch(e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -132,7 +132,7 @@ class GetScheduleUseCase(
                 val data = result.data!!
                 if (schedule.employee.id == -1) {
                     return Resource.Error(
-                        errorType = StatusCode.DATA_ERROR
+                        statusCode = StatusCode.DATA_ERROR
                     )
                 }
                 val employeeMatch = data.find { it.id == schedule.employee.id }
@@ -141,7 +141,7 @@ class GetScheduleUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }
@@ -172,7 +172,7 @@ class GetScheduleUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }
@@ -187,7 +187,7 @@ class GetScheduleUseCase(
                 val data = result.data!!
                 if (schedule.group.id == -1) {
                     return Resource.Error(
-                        errorType = StatusCode.DATA_ERROR
+                        statusCode = StatusCode.DATA_ERROR
                     )
                 }
                 val groupMatch = data.find { it.id == schedule.group.id }
@@ -197,7 +197,7 @@ class GetScheduleUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }
@@ -235,8 +235,9 @@ class GetScheduleUseCase(
             val changedDays = scheduleUpdateHistoryManager.getChangedDays()
             return if (changedDays.size > 0) {
                 currentSchedule.updateHistorySchedule = changedDays
-                val updateHistorySchedule = scheduleController.getMultipliedUpdatedHistorySchedule(currentSchedule, currentWeekNumber)
-                updateHistorySchedule.updateHistorySchedule = scheduleController.getSubjectsHistoryBreakTime(updateHistorySchedule.updateHistorySchedule)
+//                val updateHistorySchedule = scheduleController.getMultipliedUpdatedHistorySchedule(currentSchedule, currentWeekNumber)
+                val updateHistorySchedule = Schedule.empty
+//                updateHistorySchedule.updateHistorySchedule = scheduleController.getSubjectsHistoryBreakTime(updateHistorySchedule.updateHistorySchedule)
                 updateHistorySchedule.updateHistorySchedule
             } else {
                 previousSchedule.data.updateHistorySchedule
@@ -266,7 +267,7 @@ class GetScheduleUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
@@ -274,7 +275,7 @@ class GetScheduleUseCase(
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }

@@ -38,7 +38,8 @@ data class ScheduleDay (
     ) = ScheduleDayUpdateHistory(
         id = id,
         scheduleDay = this,
-        scheduleSubjects = scheduleSubjects ?: schedule.map { it.toSubjectHistory(status) } as ArrayList<ScheduleSubjectHistory>,
+        scheduleActions = ArrayList()
+//        scheduleActions = scheduleSubjects ?: schedule.map { it.toSubjectHistory(status) } as ArrayList<ScheduleSubjectHistory>,
     )
 
 }

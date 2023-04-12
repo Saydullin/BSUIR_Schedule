@@ -17,14 +17,14 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -47,14 +47,14 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -69,14 +69,14 @@ class GetSavedScheduleUseCase(private val savedScheduleRepository: SavedSchedule
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }

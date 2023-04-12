@@ -12,7 +12,7 @@ class SaveScheduleLastUpdateDateUseCase(
 
         if (scheduleResult is Resource.Error) {
             return Resource.Error(
-                errorType = scheduleResult.statusCode
+                statusCode = scheduleResult.statusCode
             )
         }
 
@@ -24,7 +24,7 @@ class SaveScheduleLastUpdateDateUseCase(
 
         if (isSavedSchedule is Resource.Error) {
             return Resource.Error(
-                errorType = isSavedSchedule.statusCode
+                statusCode = isSavedSchedule.statusCode
             )
         }
 

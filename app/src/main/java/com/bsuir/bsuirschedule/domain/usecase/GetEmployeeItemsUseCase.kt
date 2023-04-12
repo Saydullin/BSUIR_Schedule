@@ -26,7 +26,7 @@ class GetEmployeeItemsUseCase(
                         }
                         is Resource.Error -> {
                             Resource.Error(
-                                errorType = isMergedDepartments.statusCode,
+                                statusCode = isMergedDepartments.statusCode,
                                 message = isMergedDepartments.message
                             )
                         }
@@ -34,14 +34,14 @@ class GetEmployeeItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -67,14 +67,14 @@ class GetEmployeeItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -102,7 +102,7 @@ class GetEmployeeItemsUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }

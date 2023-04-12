@@ -20,14 +20,14 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR,
+                    statusCode = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -40,7 +40,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(data)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -54,7 +54,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(employeeList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -68,7 +68,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(employeeList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -81,7 +81,7 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

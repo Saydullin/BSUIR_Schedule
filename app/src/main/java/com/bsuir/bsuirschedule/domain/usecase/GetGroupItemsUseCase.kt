@@ -26,14 +26,14 @@ class GetGroupItemsUseCase(
                     val isMergedSpecialities = mergeSpecialities(groups)
                     if (isMergedSpecialities is Resource.Error) {
                         return Resource.Error(
-                            errorType = isMergedSpecialities.statusCode,
+                            statusCode = isMergedSpecialities.statusCode,
                             message = isMergedSpecialities.message
                         )
                     }
                     val isMergedFaculties = mergeFaculties(groups)
                     if (isMergedFaculties is Resource.Error) {
                         return Resource.Error(
-                            errorType = isMergedFaculties.statusCode,
+                            statusCode = isMergedFaculties.statusCode,
                             message = isMergedFaculties.message
                         )
                     }
@@ -41,14 +41,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -70,14 +70,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -99,14 +99,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -130,14 +130,14 @@ class GetGroupItemsUseCase(
                 }
                 is Resource.Error -> {
                     Resource.Error(
-                        errorType = result.statusCode,
+                        statusCode = result.statusCode,
                         message = result.message
                     )
                 }
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }
@@ -153,7 +153,7 @@ class GetGroupItemsUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }

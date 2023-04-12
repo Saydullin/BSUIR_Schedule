@@ -61,8 +61,8 @@ class ScheduleDaysUpdateHistoryAdapter(
             val scheduleDay = scheduleDayHistory.scheduleDay
             val lessonsText = context.resources.getQuantityString(
                 R.plurals.plural_lessons,
-                scheduleDayHistory.scheduleSubjects.size,
-                scheduleDayHistory.scheduleSubjects.size
+                scheduleDayHistory.scheduleActions.size,
+                scheduleDayHistory.scheduleActions.size
             )
 
             when (scheduleDay.date) {
@@ -101,7 +101,8 @@ class ScheduleDaysUpdateHistoryAdapter(
             } else {
                 val adapter = ScheduleUpdateHistorySubjectsAdapter(
                     context,
-                    scheduleDayHistory.scheduleSubjects,
+//                    scheduleDayHistory.scheduleActions,
+                    ArrayList(),
                     isGroupSchedule,
                     showSubjectDialog,
                 )

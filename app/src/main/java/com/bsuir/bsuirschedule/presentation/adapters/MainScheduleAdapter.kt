@@ -84,7 +84,7 @@ class MainScheduleAdapter(
                 binding.weekNumber.visibility = View.VISIBLE
                 binding.weekNumber.text = context.getString(R.string.schedule_week_number, scheduleDay.weekNumber)
             }
-            binding.weekNumberDigit.text = scheduleDay.weekNumberString()
+            binding.weekNumberDigit.text = context.getString(R.string.week_short, scheduleDay.weekNumber)
             binding.scheduleWeekDay.text = scheduleDay.weekDayNameUpperFirstLetter()
             binding.scheduleLessonsAmount.text = lessonsText
             if (scheduleDay.schedule.isEmpty()) {

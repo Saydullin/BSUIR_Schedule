@@ -20,14 +20,14 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR,
+                    statusCode = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -41,7 +41,7 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
             Resource.Success(specialitiesList)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -54,7 +54,7 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
             Resource.Success(result.toSpeciality())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -68,7 +68,7 @@ class SpecialityRepositoryImpl(override val specialityDao: SpecialityDao) : Spec
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

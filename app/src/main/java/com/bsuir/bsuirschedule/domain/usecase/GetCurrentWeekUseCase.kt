@@ -30,7 +30,7 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
             Resource.Success(weekManager.isWeekPassed(initWeek.data))
         } else {
             Resource.Error(
-                errorType = initWeek.statusCode,
+                statusCode = initWeek.statusCode,
                 message = initWeek.message
             )
         }
@@ -46,13 +46,13 @@ class GetCurrentWeekUseCase(private val currentWeekRepository: CurrentWeekReposi
                 Resource.Success(gotWeek)
             } else {
                 Resource.Error(
-                    errorType = initWeek.statusCode,
+                    statusCode = initWeek.statusCode,
                     message = initWeek.message
                 )
             }
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATA_ERROR,
+                statusCode = StatusCode.DATA_ERROR,
                 message = e.message
             )
         }

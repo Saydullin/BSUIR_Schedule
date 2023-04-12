@@ -28,14 +28,14 @@ class ScheduleRepositoryImpl(
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR,
+                    statusCode = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -50,14 +50,14 @@ class ScheduleRepositoryImpl(
                 Resource.Success(data)
             } else {
                 Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR,
+                    statusCode = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -69,13 +69,13 @@ class ScheduleRepositoryImpl(
             val result = groupScheduleService.getGroupLastUpdateDate(scheduleId)
             val data = result.body()
                 ?: return Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR
+                    statusCode = StatusCode.SERVER_ERROR
                 )
             return Resource.Success(data)
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -87,13 +87,13 @@ class ScheduleRepositoryImpl(
             val result = groupScheduleService.getGroupLastUpdateDate(scheduleId)
             val data = result.body()
                 ?: return Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR
+                    statusCode = StatusCode.SERVER_ERROR
                 )
             return Resource.Success(data)
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -103,19 +103,19 @@ class ScheduleRepositoryImpl(
         return try {
             val data = scheduleDao.getScheduleById(id)
                 ?: return Resource.Error(
-                    errorType = StatusCode.DATABASE_NOT_FOUND_ERROR
+                    statusCode = StatusCode.DATABASE_NOT_FOUND_ERROR
                 )
             Resource.Success(data.toSchedule())
         } catch (e: SQLiteException) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -128,7 +128,7 @@ class ScheduleRepositoryImpl(
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -144,7 +144,7 @@ class ScheduleRepositoryImpl(
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -156,7 +156,7 @@ class ScheduleRepositoryImpl(
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

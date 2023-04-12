@@ -32,10 +32,10 @@ sealed class Resource<T>(
     class Success<T>(data: T?): Resource<T>(data)
 
     class Error<T>(
-        errorType: StatusCode = StatusCode.UNKNOWN_ERROR,
+        statusCode: StatusCode = StatusCode.UNKNOWN_ERROR,
         message: String? = "",
         data: T? = null
-    ): Resource<T>(data, errorType, message)
+    ): Resource<T>(data, statusCode, message)
 
 }
 

@@ -21,14 +21,14 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
                 Resource.Success(CurrentWeek(week = data, time = Date().time))
             } else {
                 Resource.Error(
-                    errorType = StatusCode.SERVER_ERROR,
+                    statusCode = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                errorType = StatusCode.CONNECTION_ERROR,
+                statusCode = StatusCode.CONNECTION_ERROR,
                 message = e.message
             )
         }
@@ -39,12 +39,12 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
         return try {
             val data = currentWeekDao.getCurrentWeek()
                 ?: return Resource.Error(
-                    errorType = StatusCode.DATABASE_NOT_FOUND_ERROR
+                    statusCode = StatusCode.DATABASE_NOT_FOUND_ERROR
                 )
             Resource.Success(data.toCurrentWeek())
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }
@@ -56,7 +56,7 @@ class CurrentWeekRepositoryImpl(private val currentWeekDao: CurrentWeekDao) : Cu
             Resource.Success(null)
         } catch (e: Exception) {
             Resource.Error(
-                errorType = StatusCode.DATABASE_ERROR,
+                statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         }

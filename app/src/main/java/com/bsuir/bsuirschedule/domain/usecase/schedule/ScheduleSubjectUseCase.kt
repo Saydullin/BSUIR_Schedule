@@ -22,7 +22,7 @@ class ScheduleSubjectUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }
@@ -67,7 +67,7 @@ class ScheduleSubjectUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }
@@ -109,7 +109,7 @@ class ScheduleSubjectUseCase(
             }
             is Resource.Error -> {
                 Resource.Error(
-                    errorType = result.statusCode,
+                    statusCode = result.statusCode,
                     message = result.message
                 )
             }

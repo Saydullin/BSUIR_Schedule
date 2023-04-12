@@ -260,56 +260,56 @@ class ScheduleController {
         return schedule
     }
 
-    fun getMultipliedUpdatedHistorySchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
-        var daysCounter = 0
-        val scheduleDays = ArrayList<ScheduleDayUpdateHistory>()
-
-        while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
-            calendarDate.incDate(daysCounter)
-            val currentTimeInMillis = calendarDate.getDateInMillis()
-            val weekNumber = calendarDate.getWeekNumber()
-            val weekDayNumber = calendarDate.getWeekDayNumber()
-            val weekNumberDays = schedule.updateHistorySchedule.filter { it.scheduleDay.weekDayNumber == weekDayNumber }
-            val weekNumberDaysCopy = weekNumberDays.map { it.copy() }
-            weekNumberDaysCopy.map { scheduleDay ->
-                val subjects = scheduleDay.scheduleSubjects.filter { subject ->
-                    if (subject.scheduleSubject.startLessonDate.isNullOrEmpty() || subject.scheduleSubject.endLessonDate.isNullOrEmpty()) {
-                        weekNumber in (subject.scheduleSubject.weekNumber ?: ArrayList())
-                    } else {
-                        val startMillis = calendarDate.getDateInMillis(subject.scheduleSubject.startLessonDate)
-                        val endMillis = calendarDate.getDateInMillis(subject.scheduleSubject.endLessonDate)
-                        weekNumber in (subject.scheduleSubject.weekNumber ?: ArrayList()) &&
-                                currentTimeInMillis >= calendarDate.resetMillisTime(startMillis) &&
-                                currentTimeInMillis <= calendarDate.resetMillisTime(endMillis)
-                    }
-                } as ArrayList<ScheduleSubjectHistory>
-                val subjectsCopy = subjects.map { it.copy() }
-                val schedulesDay = ScheduleDay(
-                    date = calendarDate.getDateStatus(),
-                    dateInMillis = calendarDate.getDateInMillis(),
-                    weekDayTitle = calendarDate.getWeekDayTitle(),
-                    weekDayNumber = weekDayNumber,
-                    weekNumber = weekNumber,
-                    schedule = scheduleDay.scheduleDay.schedule
-                )
-                scheduleDays.add(
-                    ScheduleDayUpdateHistory(
-                        id = -1,
-                        scheduleDay = schedulesDay,
-                        scheduleSubjects = subjectsCopy as ArrayList<ScheduleSubjectHistory>
-                ))
-            }
-            daysCounter++
-        }
-
-        schedule.updateHistorySchedule = scheduleDays
-
-        // TODO("set updated schedule, may be join schedule and exams before this")
-        // mergeExamsSchedule(schedule, currentWeekNumber)
-
-        return schedule
-    }
+//    fun getMultipliedUpdatedHistorySchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
+//        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
+//        var daysCounter = 0
+//        val scheduleDays = ArrayList<ScheduleDayUpdateHistory>()
+//
+//        while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
+//            calendarDate.incDate(daysCounter)
+//            val currentTimeInMillis = calendarDate.getDateInMillis()
+//            val weekNumber = calendarDate.getWeekNumber()
+//            val weekDayNumber = calendarDate.getWeekDayNumber()
+//            val weekNumberDays = schedule.updateHistorySchedule.filter { it.scheduleDay.weekDayNumber == weekDayNumber }
+//            val weekNumberDaysCopy = weekNumberDays.map { it.copy() }
+//            weekNumberDaysCopy.map { scheduleDay ->
+//                val subjects = scheduleDay.scheduleActions.filter { subject ->
+//                    if (subject.scheduleSubject.startLessonDate.isNullOrEmpty() || subject.scheduleSubject.endLessonDate.isNullOrEmpty()) {
+//                        weekNumber in (subject.scheduleSubject.weekNumber ?: ArrayList())
+//                    } else {
+//                        val startMillis = calendarDate.getDateInMillis(subject.scheduleSubject.startLessonDate)
+//                        val endMillis = calendarDate.getDateInMillis(subject.scheduleSubject.endLessonDate)
+//                        weekNumber in (subject.scheduleSubject.weekNumber ?: ArrayList()) &&
+//                                currentTimeInMillis >= calendarDate.resetMillisTime(startMillis) &&
+//                                currentTimeInMillis <= calendarDate.resetMillisTime(endMillis)
+//                    }
+//                } as ArrayList<ScheduleSubjectHistory>
+//                val subjectsCopy = subjects.map { it.copy() }
+//                val schedulesDay = ScheduleDay(
+//                    date = calendarDate.getDateStatus(),
+//                    dateInMillis = calendarDate.getDateInMillis(),
+//                    weekDayTitle = calendarDate.getWeekDayTitle(),
+//                    weekDayNumber = weekDayNumber,
+//                    weekNumber = weekNumber,
+//                    schedule = scheduleDay.scheduleDay.schedule
+//                )
+//                scheduleDays.add(
+//                    ScheduleDayUpdateHistory(
+//                        id = -1,
+//                        scheduleDay = schedulesDay,
+//                        scheduleActions = subjectsCopy as ArrayList<ScheduleSubjectHistory>
+//                ))
+//            }
+//            daysCounter++
+//        }
+//
+//        schedule.updateHistorySchedule = scheduleDays
+//
+//        // TODO("set updated schedule, may be join schedule and exams before this")
+//        // mergeExamsSchedule(schedule, currentWeekNumber)
+//
+//        return schedule
+//    }
 
     private fun fillEmptyDays(
         schedule: Schedule,
@@ -387,37 +387,37 @@ class ScheduleController {
         }
     }
 
-    fun getSubjectsHistoryBreakTime(scheduleDays: ArrayList<ScheduleDayUpdateHistory>): ArrayList<ScheduleDayUpdateHistory> {
-        val subjectsBreakTime = ArrayList<ScheduleDayUpdateHistory>()
-        val calendarDate = CalendarDate()
-
-        for (scheduleItem in scheduleDays) {
-            val scheduleDay = scheduleItem.copy()
-            val subjectsList = ArrayList<ScheduleSubjectHistory>()
-            for (subjectIndex in 0 until scheduleItem.scheduleSubjects.size) {
-                val subject = scheduleItem.scheduleSubjects[subjectIndex].copy()
-                if (subjectIndex != 0) {
-                    val currSubject = scheduleItem.scheduleSubjects[subjectIndex].scheduleSubject
-                    val prevSubject = scheduleItem.scheduleSubjects[subjectIndex-1].scheduleSubject
-                    subject.scheduleSubject.breakTime = calendarDate.getSubjectBreakTime(
-                        currSubject.startLessonTime,
-                        prevSubject.endLessonTime
-                    )
-                } else {
-                    subject.scheduleSubject.breakTime = SubjectBreakTime(
-                        -1,
-                        -1,
-                        false
-                    )
-                }
-                subjectsList.add(subject)
-            }
-            scheduleDay.scheduleSubjects = subjectsList
-            subjectsBreakTime.add(scheduleDay)
-        }
-
-        return subjectsBreakTime
-    }
+//    fun getSubjectsHistoryBreakTime(scheduleDays: ArrayList<ScheduleDayUpdateHistory>): ArrayList<ScheduleDayUpdateHistory> {
+//        val subjectsBreakTime = ArrayList<ScheduleDayUpdateHistory>()
+//        val calendarDate = CalendarDate()
+//
+//        for (scheduleItem in scheduleDays) {
+//            val scheduleDay = scheduleItem.copy()
+//            val subjectsList = ArrayList<ScheduleSubjectHistory>()
+//            for (subjectIndex in 0 until scheduleItem.scheduleActions.size) {
+//                val subject = scheduleItem.scheduleActions[subjectIndex].copy()
+//                if (subjectIndex != 0) {
+//                    val currSubject = scheduleItem.scheduleActions[subjectIndex].scheduleSubject
+//                    val prevSubject = scheduleItem.scheduleActions[subjectIndex-1].scheduleSubject
+//                    subject.scheduleSubject.breakTime = calendarDate.getSubjectBreakTime(
+//                        currSubject.startLessonTime,
+//                        prevSubject.endLessonTime
+//                    )
+//                } else {
+//                    subject.scheduleSubject.breakTime = SubjectBreakTime(
+//                        -1,
+//                        -1,
+//                        false
+//                    )
+//                }
+//                subjectsList.add(subject)
+//            }
+//            scheduleDay.scheduleActions = subjectsList
+//            subjectsBreakTime.add(scheduleDay)
+//        }
+//
+//        return subjectsBreakTime
+//    }
 
     private fun getSubjectsBreakTime(scheduleDays: ArrayList<ScheduleDay>): ArrayList<ScheduleDay> {
         val subjectsBreakTime = ArrayList<ScheduleDay>()

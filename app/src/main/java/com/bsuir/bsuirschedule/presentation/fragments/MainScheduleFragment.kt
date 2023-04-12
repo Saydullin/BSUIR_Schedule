@@ -20,6 +20,8 @@ import com.bsuir.bsuirschedule.presentation.widgets.ScheduleWidget
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainScheduleFragment : Fragment(), KoinComponent {
 
@@ -49,6 +51,10 @@ class MainScheduleFragment : Fragment(), KoinComponent {
     ): View {
         binding = FragmentMainScheduleBinding.inflate(inflater)
         val weekText = getString(R.string.week)
+        val datePattern = SimpleDateFormat("E, dd MMMM")
+        val calendar = Calendar.getInstance(Locale("be", "BY"))
+
+        binding.titleDate.text = datePattern.format(calendar.time).replaceFirstChar { it.uppercase() }
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) {

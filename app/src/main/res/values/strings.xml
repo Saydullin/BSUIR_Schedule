@@ -2,6 +2,7 @@
     <string name="app_name">BSUIR Schedule</string>
     <string name="course">курс</string>
     <string name="week">неделя</string>
+    <string name="week_short">%d нед.</string>
     <string name="exam">Экзамен</string>
     <string name="pretest">Зачет</string>
     <string name="tomorrow">Завтра</string>
@@ -192,7 +193,7 @@
     <string name="schedule_success_updated_caption">Расписание обновлено успешно</string>
     <string name="schedule_success_deleted">Расписание удалено</string>
     <string name="schedule_success_deleted_caption">Расписание успешно удалено</string>
-    <string name="schedule_week_loaded_error">Какая сейчас неделя?</string>
+    <string name="schedule_week_loaded_error">Не загрузился номер недели</string>
     <string name="schedule_subject_edited">Занятие изменено</string>
     <string name="schedule_subject_edited_caption">Занятие успешно изменено и сохранено в расписании</string>
     <string name="schedule_subject_deleted">Занятие удалено</string>

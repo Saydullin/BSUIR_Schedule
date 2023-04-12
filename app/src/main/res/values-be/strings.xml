@@ -3,6 +3,7 @@
     <string name="app_name">BSUIR Schedule</string>
     <string name="course">курс</string>
     <string name="week">тыдзень</string>
+    <string name="week_short">%d тыдзень</string>
     <string name="exam">Экзамен</string>
     <string name="pretest">Залік</string>
     <string name="tomorrow">Заўтра</string>

@@ -99,6 +99,7 @@
     <string name="settings_show_past_days">显示过去的日子</string>
     <string name="settings_show_past_days_caption">您可以指定经过的天数以在日程表中查看它们</string>
     <string name="settings_schedule_title">时间表</string>
+    <string name="week_short">%d 一周</string>
     <string name="exam">考试</string>
     <string name="pretest">抵消</string>
     <string name="tomorrow">明天</string>

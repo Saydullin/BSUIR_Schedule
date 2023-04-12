@@ -28,7 +28,7 @@
         android:id="@+id/schedule_day_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:background="@drawable/subject_holder"
         android:orientation="horizontal"
@@ -49,7 +49,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top">
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/schedule_week_day"
@@ -57,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="@string/test_schedule_date"
@@ -68,8 +68,9 @@
                 style="@style/Theme.BSUIRSchedule.TextView.Medium.Thin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:textColor="?attr/primaryOnHintColor"
-                tools:text="2" />
+                tools:text="2 нед." />
 
         </LinearLayout>
 

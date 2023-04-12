@@ -196,6 +196,7 @@
     <string name="settings_show_past_days">Show past days</string>
     <string name="settings_show_past_days_caption">You can specify the number of elapsed days to see them on the schedule</string>
     <string name="settings_schedule_title">Schedule</string>
+    <string name="week_short">%d week</string>
     <string name="exam">Exam</string>
     <string name="pretest">Pretest</string>
     <string name="tomorrow">Tomorrow</string>

@@ -77,6 +77,8 @@ dependencies {
 
     // Notification
     implementation "io.karn:notify:1.4.0"
+    implementation 'com.github.kirich1409:android-notification-dsl-core:0.2.1'
+    implementation 'com.github.kirich1409:android-notification-dsl-extensions:0.2.1'
 
     def room_version = "2.4.2"
     apply plugin: 'kotlin-kapt'

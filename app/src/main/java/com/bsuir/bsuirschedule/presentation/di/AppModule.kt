@@ -21,6 +21,12 @@ val appModule = module {
         )
     }
 
+    viewModel {
+        ScheduleUpdatedHistoryViewModel(
+            getUpdatedScheduleHistoryUseCase = get()
+        )
+    }
+
     single {
         ScheduleUpdateManager(
             getScheduleLastUpdateUseCase = get(),

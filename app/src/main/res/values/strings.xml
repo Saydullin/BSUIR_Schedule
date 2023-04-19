@@ -2,7 +2,7 @@
     <string name="app_name">BSUIR Schedule</string>
     <string name="course">курс</string>
     <string name="week">неделя</string>
-    <string name="week_short">%d нед.</string>
+    <string name="week_short">%d нед</string>
     <string name="exam">Экзамен</string>
     <string name="pretest">Зачет</string>
     <string name="tomorrow">Завтра</string>
@@ -98,6 +98,7 @@
     <string name="test_schedule_subtitle" translatable="false">к.ф.-м.н. доцент</string>
     <string name="test_schedule_date" translatable="false">Понедельник</string>
     <string name="test_schedule_lessons_amount" translatable="false">4 пары</string>
+    <string name="test_schedule_change_amount" translatable="false">2 изменения</string>
     <string name="test_schedule_day" translatable="false">Сегодня</string>
     <string name="test_subject_title" translatable="false">Физика</string>
     <string name="test_subject_subtitle" translatable="false">151005</string>
@@ -124,6 +125,7 @@
     <string name="schedules_settings_title">Настройки расписания</string>
     <string name="schedules_update_history_title">История обновления</string>
     <string name="schedules_no_lessons">Нет занятий</string>
+    <string name="schedules_no_changes">Нет изменений</string>
     <string name="lesson_type">Тип занятия</string>
     <string name="tab_item_group">Группы</string>
     <string name="tab_item_employee">Преподаватели</string>
@@ -262,6 +264,8 @@
     <string name="settings_notifications_title">Уведомления</string>
     <string name="settings_notifications_caption">Уведомления работают только при автообновлении расписаний</string>
     <string name="settings_rate_title">Оценить</string>
+    <string name="settings_share_title">Поделиться</string>
+    <string name="settings_share_caption">Вы можете поделиться приложением с другими людьми</string>
     <string name="settings_rate_caption">Сообщите о проблеме, возможно вы столкнулись с багом или знаете, что можно исправить/добавить?</string>
     <string name="settings_feedback_title">Обратная связь</string>
     <string name="settings_font_title">Размер шрифта</string>
@@ -315,6 +319,15 @@
     <string name="get_started_next">Далее</string>
     <string name="get_started_skip">Пропустить</string>
     <string name="not_available">В процессе разработки</string>
+    <string name="schedule_updated_deleted">Удалено %s</string>
+    <string name="schedule_updated_added">Добавлено %s</string>
+    <string name="schedule_updated_note">Изменено примечание в %s</string>
+    <string name="schedule_updated_weeks">Изменены учебные недели в %s</string>
+    <string name="schedule_updated_lesson_type">Изменен тип занятия в %s</string>
+    <string name="schedule_updated_subgroup">Изменена подгруппа в %s</string>
+    <string name="schedule_updated_employee">Изменен преподаватель в %s</string>
+    <string name="schedule_updated_group">Изменена группа в %s</string>
+    <string name="schedule_updated_audience">Изменена аудитория в %s</string>
 
     <string-array name="languages">
         <item>Русский</item>
@@ -353,6 +366,24 @@
         <item quantity="other">%d расписания</item>
     </plurals>
 
+    <plurals name="plural_lessons">
+        <item quantity="zero">%d занятий</item>
+        <item quantity="one">%d занятие</item>
+        <item quantity="two">%d занятия</item>
+        <item quantity="few">%d занятия</item>
+        <item quantity="many">%d занятий</item>
+        <item quantity="other">%d занятия</item>
+    </plurals>
+
+    <plurals name="plural_case_lessons">
+        <item quantity="zero">%d занятии</item>
+        <item quantity="one">%d занятии</item>
+        <item quantity="two">%d занятиях</item>
+        <item quantity="few">%d занятиях</item>
+        <item quantity="many">%d занятиях</item>
+        <item quantity="other">%d занятиях</item>
+    </plurals>
+
     <plurals name="plural_employees">
         <item quantity="zero">найдено %d преподавателей</item>
         <item quantity="one">найден %d преподаватель</item>
@@ -371,7 +402,16 @@
         <item quantity="other">%d экзамена</item>
     </plurals>
 
-    <plurals name="plural_lessons">
+    <plurals name="plural_changes">
+        <item quantity="zero">%d изменений</item>
+        <item quantity="one">%d изменение</item>
+        <item quantity="two">%d изменения</item>
+        <item quantity="few">%d изменения</item>
+        <item quantity="many">%d изменений</item>
+        <item quantity="other">%d изменений</item>
+    </plurals>
+
+    <plurals name="plural_lessons_short">
         <item quantity="zero">%d пар</item>
         <item quantity="one">%d пара</item>
         <item quantity="two">%d пары</item>
@@ -471,6 +511,10 @@
     <string name="no_changes">Без изменений</string>
     <string name="added">Добавлено</string>
     <string name="download">Загрузить</string>
+    <string name="rate">Оценить</string>
+    <string name="share">Поделиться</string>
+    <string name="shareText">Рекомендую приложение для расписаний БГУИР - "BSUIR Schedule 2023" https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
+    <string name="shareTitle">Поделиться приложением "BSUIR Schedule 2023"</string>
 
 </resources>
 

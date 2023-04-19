@@ -326,7 +326,7 @@
         <item quantity="other">%d іспыту</item>
     </plurals>
 
-    <plurals name="plural_lessons">
+    <plurals name="plural_lessons_short">
         <item quantity="zero">%d пар</item>
         <item quantity="one">%d пара</item>
         <item quantity="two">%d пары</item>

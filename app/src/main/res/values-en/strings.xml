@@ -126,7 +126,7 @@
         <item quantity="other">found %d teachers</item>
     </plurals>
 
-    <plurals name="plural_lessons">
+    <plurals name="plural_lessons_short">
         <item quantity="zero">%d lessons</item>
         <item quantity="one">%d lesson</item>
         <item quantity="two">%d lessons</item>

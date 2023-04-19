@@ -323,7 +323,7 @@
         <item quantity="other">找到 %d 位老师</item>
     </plurals>
 
-    <plurals name="plural_lessons">
+    <plurals name="plural_lessons_short">
         <item quantity="zero">%d 节课</item>
         <item quantity="one">%d 节课</item>
         <item quantity="two">%d 节课</item>

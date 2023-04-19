@@ -85,6 +85,20 @@ class SettingsFragment : Fragment(), KoinComponent {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(googlePlayLink)))
         }
 
+        binding.nestedShare.shareButton.setOnClickListener {
+            val shareText = getString(R.string.shareText)
+            val shareTitle = getString(R.string.shareTitle)
+
+            val share = Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, shareText)
+                type = "text/plain"
+
+                putExtra(Intent.EXTRA_TITLE, shareTitle)
+            }, getString(R.string.app_name))
+            startActivity(share)
+        }
+
         return binding.root
     }
 

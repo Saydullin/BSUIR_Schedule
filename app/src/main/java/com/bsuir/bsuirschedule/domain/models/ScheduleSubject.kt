@@ -147,6 +147,10 @@ data class ScheduleSubject (
         return (numSubgroup ?: 0)
     }
 
+    fun getMainHashCode(): Int {
+        return (subject + subjectFullName + weekNumber + startMillis + endMillis).hashCode()
+    }
+
     fun toSubjectHistory(status: SubjectHistoryStatus = SubjectHistoryStatus.NOTHING) = ScheduleSubjectHistory(
         id = id ?: -1,
         scheduleSubject = this,

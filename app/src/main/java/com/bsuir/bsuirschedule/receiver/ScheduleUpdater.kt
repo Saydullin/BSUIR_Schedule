@@ -4,11 +4,13 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateManager
 import com.bsuir.bsuirschedule.presentation.activities.MainActivity
+import com.kirich1409.androidnotificationdsl.*
 import io.karn.notify.Notify
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
@@ -29,6 +31,9 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
                     Intent(context, MainActivity::class.java),
                     PendingIntent.FLAG_MUTABLE
                 )
+            }
+            .alerting(Notify.CHANNEL_DEFAULT_KEY) {
+                lightColor = Color.RED
             }
             .content {
                 title = titleText
@@ -77,6 +82,7 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
     @OptIn(DelicateCoroutinesApi::class)
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
+
         val isNotificationsEnable = sharedPrefsUseCase.isNotificationsEnabled()
 
         GlobalScope.launch(Dispatchers.IO) {

@@ -86,7 +86,7 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
                 }
                 remoteViews.setTextViewText(R.id.schedule_day_of_week, actualScheduleDay.weekDayNameUpperFirstLetter())
                 val scheduleLessonsText = context.resources.getQuantityString(
-                    R.plurals.plural_lessons,
+                    R.plurals.plural_lessons_short,
                     actualScheduleDay.schedule.size,
                     actualScheduleDay.schedule.size
                 )

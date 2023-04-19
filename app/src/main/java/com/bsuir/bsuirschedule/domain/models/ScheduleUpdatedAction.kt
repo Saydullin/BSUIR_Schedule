@@ -3,7 +3,7 @@ package com.bsuir.bsuirschedule.domain.models
 enum class ScheduleUpdatedActionsList {
     CHANGED_AUDIENCE,
     CHANGED_SUBGROUP,
-    CHANGED_TEACHER,
+    CHANGED_EMPLOYEE,
     CHANGED_GROUP,
     CHANGED_LESSON_TYPE,
     CHANGED_WEEKS,
@@ -15,7 +15,6 @@ enum class ScheduleUpdatedActionsList {
 data class ScheduleUpdatedAction(
     val id: Int,
     val action: ScheduleUpdatedActionsList,
-    val itemsCount: Int,
     val items: List<ScheduleSubject>
 )
 

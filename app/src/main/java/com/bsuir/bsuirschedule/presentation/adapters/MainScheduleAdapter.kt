@@ -61,7 +61,7 @@ class MainScheduleAdapter(
 
         fun bind(scheduleDay: ScheduleDay, context: Context, position: Int) {
             val lessonsText = context.resources.getQuantityString(
-                R.plurals.plural_lessons,
+                R.plurals.plural_lessons_short,
                 scheduleDay.schedule.size,
                 scheduleDay.schedule.size
             )

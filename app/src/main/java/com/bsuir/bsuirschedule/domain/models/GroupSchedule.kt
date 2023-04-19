@@ -49,11 +49,11 @@ data class GroupSchedule (
         subgroups = subgroups ?: listOf(),
         exams = exams ?: ArrayList(),
         examsSchedule = examsSchedule ?: ArrayList(),
-        updateHistorySchedule = ArrayList(),
         subjectNow = null,
         lastUpdateTime = lastUpdateTime ?: Date().time,
         lastUpdateDate = "",
         schedules = ArrayList(),
+        prevOriginalSchedule = ArrayList(),
         originalSchedule = ArrayList(),
         settings = ScheduleSettings.empty
     )

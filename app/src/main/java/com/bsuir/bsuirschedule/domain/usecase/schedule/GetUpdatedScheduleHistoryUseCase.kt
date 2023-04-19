@@ -1,29 +1,37 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleDay
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleUpdatedAction
-import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdatedController
 import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
-class GetUpdatedScheduleHistoryUseCase(
-    private val scheduleRepository: ScheduleRepository,
-) {
+class GetUpdatedScheduleHistoryUseCase {
 
-    suspend fun invoke(scheduleId: Int): Resource<ArrayList<ScheduleUpdatedAction>> {
-        val scheduleUpdatedActions = ArrayList<ScheduleUpdatedAction>()
-        val scheduleResult = scheduleRepository.getScheduleById(scheduleId)
+    fun execute(schedule: Schedule): Resource<ArrayList<ScheduleUpdatedAction>> {
+        return try {
+            val prevSchedule = schedule.originalSchedule.map { it.copy() } as ArrayList<ScheduleDay>
+            prevSchedule.map { day ->
+                day.schedule = day.schedule.map { it.copy() } as ArrayList<ScheduleSubject>
+            }
+            prevSchedule[0].schedule[0].note = "Hello World"
+            prevSchedule[0].schedule[1].lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_EXAM
 
-        if (scheduleResult is Resource.Success && scheduleResult.data != null) {
-            val schedule = scheduleResult.data
-
-
-        } else {
-            return Resource.Error(
+            val scheduleUpdateController = ScheduleUpdatedController(
+                prevOriginalSchedule = schedule.originalSchedule,
+                currOriginalSchedule = prevSchedule
+            )
+            Resource.Success(scheduleUpdateController.getChangedActions())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(
                 statusCode = StatusCode.DATA_ERROR
             )
         }
-
-        return Resource.Success(scheduleUpdatedActions)
     }
 
 }
+
+

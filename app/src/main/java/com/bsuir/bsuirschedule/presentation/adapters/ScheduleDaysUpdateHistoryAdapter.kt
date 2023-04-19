@@ -60,7 +60,7 @@ class ScheduleDaysUpdateHistoryAdapter(
         fun bind(scheduleDayHistory: ScheduleDayUpdateHistory, context: Context, position: Int) {
             val scheduleDay = scheduleDayHistory.scheduleDay
             val lessonsText = context.resources.getQuantityString(
-                R.plurals.plural_lessons,
+                R.plurals.plural_lessons_short,
                 scheduleDayHistory.scheduleActions.size,
                 scheduleDayHistory.scheduleActions.size
             )

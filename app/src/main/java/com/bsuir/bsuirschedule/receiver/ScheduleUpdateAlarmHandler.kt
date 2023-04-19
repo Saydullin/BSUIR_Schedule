@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.bsuir.bsuirschedule.service.ScheduleUpdateService
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ScheduleUpdateAlarmHandler(
@@ -23,12 +24,16 @@ class ScheduleUpdateAlarmHandler(
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DATE, 1)
-        calendar.set(Calendar.HOUR_OF_DAY, 20)
-        calendar.set(Calendar.AM_PM, Calendar.PM)
-        calendar.set(Calendar.MINUTE, 0)
-        val timeInMillis = calendar.timeInMillis
+        val calendar = Calendar.getInstance(Locale("ru", "BY"))
+        val calendarAlarm = Calendar.getInstance(Locale("ru", "BY"))
+        val format = SimpleDateFormat("HH:mm")
+        calendar.time = format.parse("20:00") as Date
+        calendarAlarm.add(Calendar.DATE, 1)
+        calendarAlarm.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
+        calendarAlarm.set(Calendar.HOUR, calendar.get(Calendar.HOUR))
+        calendarAlarm.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
+
+        val timeInMillis = calendarAlarm.timeInMillis
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, sender)

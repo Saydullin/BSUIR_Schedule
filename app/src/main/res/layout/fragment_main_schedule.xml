@@ -37,7 +37,7 @@
                 tools:text="@string/test_header_title" />
 
             <Space
-                android:layout_width="10dp"
+                android:layout_width="15dp"
                 android:layout_height="wrap_content" />
 
             <TextView

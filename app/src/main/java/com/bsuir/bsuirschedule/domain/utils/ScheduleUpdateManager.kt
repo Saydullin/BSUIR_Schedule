@@ -2,7 +2,6 @@ package com.bsuir.bsuirschedule.domain.utils
 
 import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
-import com.bsuir.bsuirschedule.domain.models.ScheduleLastUpdatedDate
 import com.bsuir.bsuirschedule.domain.usecase.GetSavedScheduleUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GetScheduleLastUpdateUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
@@ -97,10 +96,10 @@ class ScheduleUpdateManager(
                         }
                     ) {
                         is Resource.Success -> {
-                            val lastUpdate = lastUpdatedDate.data ?: ScheduleLastUpdatedDate.empty
+                            val lastUpdateDate = lastUpdatedDate.data?.lastUpdateDate ?: return@map
                             if (savedSchedule.lastUpdateDate != null
-                                && (lastUpdate.lastUpdateDate ?: "") != savedSchedule.lastUpdateDate) {
-                                savedSchedule.lastUpdateDate = lastUpdate.lastUpdateDate ?: ""
+                                && lastUpdateDate != savedSchedule.lastUpdateDate) {
+                                savedSchedule.lastUpdateDate = lastUpdateDate
                                 shouldUpdateSavedSchedule.add(savedSchedule)
                             }
                         }

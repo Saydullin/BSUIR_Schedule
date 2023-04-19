@@ -7,7 +7,6 @@ import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.ScheduleController
-import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateHistoryManager
 import com.bsuir.bsuirschedule.domain.utils.StatusCode
 
 class GetScheduleUseCase(
@@ -42,10 +41,7 @@ class GetScheduleUseCase(
                     if (isMergedEmployees is Resource.Error) {
                         return isMergedEmployees
                     }
-                    if (!schedule.isNotExistSchedule()) {
-                        val updatedHistoryScheduleDays = setUpdateHistory(schedule, currentWeek.data)
-                        schedule.updateHistorySchedule = updatedHistoryScheduleDays
-                    }
+                    setPrevOriginalSchedule(schedule)
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -89,10 +85,7 @@ class GetScheduleUseCase(
                             if (isMergedDepartments is Resource.Error) {
                                 return isMergedDepartments
                             }
-                            if (!schedule.isNotExistSchedule()) {
-                                val updatedScheduleHistoryDays = setUpdateHistory(schedule, currentWeek.data)
-                                schedule.updateHistorySchedule = updatedScheduleHistoryDays
-                            }
+                            setPrevOriginalSchedule(schedule)
                             return Resource.Success(schedule)
                         }
                         is Resource.Error -> {
@@ -215,36 +208,14 @@ class GetScheduleUseCase(
         return normalSchedule
     }
 
-    private suspend fun setUpdateHistory(currentSchedule: Schedule, currentWeekNumber: Int): ArrayList<ScheduleDayUpdateHistory> {
-        val scheduleDayHistoryList = ArrayList<ScheduleDayUpdateHistory>()
-        val scheduleController = ScheduleController()
+    private suspend fun setPrevOriginalSchedule(schedule: Schedule) {
+        val oldSchedule = scheduleRepository.getScheduleById(schedule.id)
 
-        currentSchedule.originalSchedule = scheduleController.getMillisTimeInOriginalScheduleSubjects(currentSchedule)
-
-        val previousSchedule = getById(currentSchedule.id, ignoreSettings = true)
-        if (previousSchedule is Resource.Success) {
-            if (previousSchedule.data == null) return scheduleDayHistoryList
-
-//            currentSchedule.originalSchedule[0].schedule.removeAt(0)
-
-            val scheduleUpdateHistoryManager = ScheduleUpdateHistoryManager(
-                previousSchedule = previousSchedule.data,
-                currentSchedule = currentSchedule
-            )
-
-            val changedDays = scheduleUpdateHistoryManager.getChangedDays()
-            return if (changedDays.size > 0) {
-                currentSchedule.updateHistorySchedule = changedDays
-//                val updateHistorySchedule = scheduleController.getMultipliedUpdatedHistorySchedule(currentSchedule, currentWeekNumber)
-                val updateHistorySchedule = Schedule.empty
-//                updateHistorySchedule.updateHistorySchedule = scheduleController.getSubjectsHistoryBreakTime(updateHistorySchedule.updateHistorySchedule)
-                updateHistorySchedule.updateHistorySchedule
-            } else {
-                previousSchedule.data.updateHistorySchedule
+        if (oldSchedule is Resource.Success && oldSchedule.data != null) {
+            if (oldSchedule.data.originalSchedule != schedule.originalSchedule) {
+                schedule.prevOriginalSchedule = oldSchedule.data.originalSchedule
             }
         }
-
-        return scheduleDayHistoryList
     }
 
     private suspend fun setActualSettings(schedule: Schedule) {

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/subject_start_lesson"
+        style="@style/Theme.BSUIRSchedule.TextView.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="00:00"
+        android:textColor="?attr/textColor"
+        app:layout_constraintTop_toBottomOf="@+id/subject_break_time" />
+
+    <TextView
+        android:id="@+id/subject_end_lesson"
+        style="@style/Theme.BSUIRSchedule.TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="00:00"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="?attr/textColor"
+        app:layout_constraintEnd_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/subject_start_lesson" />
+
+    <ImageView
+        android:id="@+id/actual_subject_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/ic_two_dots"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/subject_end_lesson" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="?attr/secondaryColor"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/subject_start_lesson"
+        app:layout_constraintTop_toBottomOf="@+id/subject_break_time"
+        app:layout_constraintVertical_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/subject_type"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@string/cd_subject_type"
+                android:src="@drawable/ic_subject_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/subject_title" />
+
+            <TextView
+                android:id="@+id/subject_title"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintEnd_toStartOf="@+id/subject_audience"
+                app:layout_constraintStart_toEndOf="@+id/subject_type"
+                app:layout_constraintTop_toTopOf="@+id/subject_type"
+                app:layout_constraintBottom_toBottomOf="@+id/subject_type"
+                tools:text="@string/test_subject_title" />
+
+            <LinearLayout
+                android:id="@+id/subgroup_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/subject_audience"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/cd_schedule_subgroup"
+                    android:src="@drawable/ic_subgroup_hint" />
+
+                <TextView
+                    android:id="@+id/subject_subgroup"
+                    style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="2" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/subject_audience"
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/subject_type"
+                app:layout_constraintBottom_toBottomOf="@+id/subject_type"
+                tools:text="214-4 к." />
+
+            <TextView
+                android:id="@+id/subject_week_day"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/subject_title"
+                tools:text="@string/week_day" />
+
+            <TextView
+                android:id="@+id/subject_weeks"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subject_title"
+                tools:text="@string/week" />
+
+            <TextView
+                android:id="@+id/subject_employee_name"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subject_week_day"
+                tools:text="@string/test_subject_employee_name" />
+
+            <TextView
+                android:id="@+id/subject_note"
+                style="@style/Theme.BSUIRSchedule.TextView.Hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                tools:text="@string/test_subject_note"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subject_employee_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

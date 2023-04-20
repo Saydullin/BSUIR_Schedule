@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.widget.Toast
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleSubgroupBinding
 
@@ -54,12 +53,12 @@ class ScheduleSubgroupView(
         }
 
         popupMenu.setOnMenuItemClickListener {
-            binding.subgroupNumber.text = it.title
-            if (it.title == context.getString(R.string.all_subgroups_select)) {
+            if (it.title == context.getString(R.string.all_subgroups_short)) {
                 subgroupListener?.invoke(0)
                 binding.subgroupNumber.text = context.getString(R.string.all_subgroups_short)
             } else {
-                subgroupListener?.invoke(it.title.toString().toInt())
+                subgroupListener?.invoke(it.itemId)
+                binding.subgroupNumber.text = it.itemId.toString()
             }
             true
         }
@@ -73,9 +72,10 @@ class ScheduleSubgroupView(
         popupMenu.menu.clear()
         subgroups.forEach {
             if (it == 0) {
-                popupMenu.menu.add(context.getString(R.string.all_subgroups_select))
+                popupMenu.menu.add(context.getString(R.string.all_subgroups_short))
             } else {
-                popupMenu.menu.add(it.toString())
+                val subgroupText = context.getString(R.string.settings_item_subgroup, it)
+                popupMenu.menu.add(0, it, it, subgroupText)
             }
         }
     }

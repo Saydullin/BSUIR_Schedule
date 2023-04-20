@@ -21,6 +21,7 @@
     <string name="schedules_settings_title">日程设置</string>
     <string name="schedules_update_history_title">更新历史</string>
     <string name="schedules_no_lessons">没有课</string>
+    <string name="schedules_no_changes">不用找了</string>
     <string name="lesson_type">课程类型</string>
     <string name="tab_item_group">团体</string>
     <string name="tab_item_employee">教师</string>
@@ -90,6 +91,8 @@
     <string name="settings_notifications_title">通知</string>
     <string name="settings_notifications_caption">通知仅在时间表自动更新时有效</string>
     <string name="settings_rate_title">估计</string>
+    <string name="settings_share_title">分享</string>
+    <string name="settings_share_caption">您可以与其他人共享该应用程序</string>
     <string name="settings_rate_caption">报告问题，也许您遇到了错误或知道可以修复/添加什么？</string>
     <string name="settings_feedback_title">反馈</string>
     <string name="settings_font_title">字体大小</string>
@@ -392,6 +395,10 @@
     <string name="added">添加</string>
     <string name="download">下载</string>
     <string name="get_started_next">更远</string>
+    <string name="rate">估计</string>
+    <string name="share">分享</string>
+    <string name="shareText">我推荐申请 BSUIR 时间表 - BSUIR 时间表 2023 https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
+    <string name="shareTitle">分享 BSUIR Schedule 2023 App</string>
 
 </resources>
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -13,12 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:background="?attr/selectableItemBackgroundBorderless">
 
         <ImageView
             android:id="@+id/subgroup_icon"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:contentDescription="subgroup"
             android:src="@drawable/ic_subgroup" />
 
@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/subgroup_number"
-            style="@style/Theme.BSUIRSchedule.TextView.Medium"
+            style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

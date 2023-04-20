@@ -92,6 +92,7 @@
     <string name="schedules_settings_title">Налады раскладу</string>
     <string name="schedules_update_history_title">Гісторыя абнаўлення</string>
     <string name="schedules_no_lessons">Няма заняткаў</string>
+    <string name="schedules_no_changes">Няма змен</string>
     <string name="lesson_type">Тып занятку</string>
     <string name="tab_item_group">Групы</string>
     <string name="tab_item_employee">Выкладчыкі</string>
@@ -205,6 +206,8 @@
     <string name="settings_notifications_title">Апавяшчэнні</string>
     <string name="settings_notifications_caption">Апавяшчэнні працуюць толькі пры аўтаабнаўленні раскладаў</string>
     <string name="settings_rate_title">Ацаніць</string>
+    <string name="settings_share_title">Падзяліцца</string>
+    <string name="settings_share_caption">Вы можаце падзяліцца дадаткам з іншымі людзьмі</string>
     <string name="settings_rate_caption">Паведаміце аб праблеме, магчыма вы сутыкнуліся з багам ці ведаеце, што можна выправіць/дадаць?</string>
     <string name="settings_feedback_title">зваротная сувязь</string>
     <string name="settings_font_title">Памер шрыфта</string>
@@ -394,4 +397,8 @@
     <string name="added">Паведамленні</string>
     <string name="download">Загрузіць</string>
     <string name="get_started_next">Далей</string>
+    <string name="rate">Ацаніць</string>
+    <string name="share">Падзяліцца</string>
+    <string name="shareText">Рэкамендую прыкладанне для раскладаў БДУІР - BSUIR Schedule 2023 https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
+    <string name="shareTitle">Падзяліцца дадаткам BSUIR Schedule 2023</string>
 </resources>

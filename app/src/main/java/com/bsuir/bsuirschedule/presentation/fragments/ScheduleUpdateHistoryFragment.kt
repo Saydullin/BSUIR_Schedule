@@ -6,13 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleUpdateHistoryBinding
-import com.bsuir.bsuirschedule.domain.models.*
-import com.bsuir.bsuirschedule.presentation.adapters.ScheduleUpdatedDayAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
-import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleUpdatedHistoryViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -30,14 +26,17 @@ class ScheduleUpdateHistoryFragment : Fragment() {
         val binding = FragmentScheduleUpdateHistoryBinding.inflate(inflater)
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) {
-            updatedActionsVM.getActions(it)
+//            updatedActionsVM.getActions(it)
+            binding.scheduleHeaderView.setTitle(it.getTitle())
+            binding.scheduleHeaderView.setDescription(it.getDescription())
+            binding.scheduleHeaderView.setImage(it.getImage())
         }
 
-        val onShowSubjectDialog = { subject: ScheduleSubject ->
-            val subjectDialog = SubjectDialog(subject, null)
-            subjectDialog.isCancelable = true
-            subjectDialog.show(parentFragmentManager, "subjectDialog")
-        }
+//        val onShowSubjectDialog = { subject: ScheduleSubject ->
+//            val subjectDialog = SubjectDialog(subject, null)
+//            subjectDialog.isCancelable = true
+//            subjectDialog.show(parentFragmentManager, "subjectDialog")
+//        }
 
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleUpdateHistoryFragment_to_mainScheduleFragment)
@@ -46,18 +45,18 @@ class ScheduleUpdateHistoryFragment : Fragment() {
         val calendar = Calendar.getInstance(Locale("ru", "BY"))
         calendar.add(Calendar.DATE, -3)
 
-        binding.noUpdatedPlaceholder.visibility = View.GONE
+        binding.noUpdatedPlaceholder.visibility = View.VISIBLE
 
-        updatedActionsVM.actions.observe(viewLifecycleOwner) { actions ->
-            val datas = arrayListOf(ScheduleUpdatedDay(
-                id = 0,
-                dateInMillis = calendar.timeInMillis,
-                actions = actions
-            ))
-            val adapter = ScheduleUpdatedDayAdapter(requireContext(), datas, true, onShowSubjectDialog)
-            binding.scheduleUpdateHistoryRecycler.layoutManager = LinearLayoutManager(context)
-            binding.scheduleUpdateHistoryRecycler.adapter = adapter
-        }
+//        updatedActionsVM.actions.observe(viewLifecycleOwner) { actions ->
+//            val datas = arrayListOf(ScheduleUpdatedDay(
+//                id = 0,
+//                dateInMillis = calendar.timeInMillis,
+//                actions = actions
+//            ))
+//            val adapter = ScheduleUpdatedDayAdapter(requireContext(), datas, true, onShowSubjectDialog)
+//            binding.scheduleUpdateHistoryRecycler.layoutManager = LinearLayoutManager(context)
+//            binding.scheduleUpdateHistoryRecycler.adapter = adapter
+//        }
 
         updatedActionsVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
             if (errorStatus != null) {
@@ -68,7 +67,7 @@ class ScheduleUpdateHistoryFragment : Fragment() {
             }
         }
 
-//        binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
+        binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
 //        Hide Recycler
 //        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
 //            if (schedule == null) return@observe

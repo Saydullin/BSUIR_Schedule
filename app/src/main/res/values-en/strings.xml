@@ -21,6 +21,7 @@
     <string name="schedules_settings_title">Schedule settings</string>
     <string name="schedules_update_history_title">Update History</string>
     <string name="schedules_no_lessons">No lessons</string>
+    <string name="schedules_no_changes">No changes</string>
     <string name="lesson_type">Lesson type</string>
     <string name="tab_item_group">Groups</string>
     <string name="tab_item_employee">Teachers</string>
@@ -187,6 +188,8 @@
     <string name="settings_notifications_title">Notifications</string>
     <string name="settings_notifications_caption">Notifications only work when schedules are automatically updated</string>
     <string name="settings_rate_title">Estimate</string>
+    <string name="settings_share_title">Share</string>
+    <string name="settings_share_caption">You can share the app with other people</string>
     <string name="settings_rate_caption">Report a problem, maybe you have encountered a bug or know what can be fixed/added?</string>
     <string name="settings_feedback_title">Feedback</string>
     <string name="settings_font_title">Text size</string>
@@ -392,6 +395,10 @@
     <string name="added">Added</string>
     <string name="download">Download</string>
     <string name="get_started_next">Next</string>
+    <string name="rate">Rate</string>
+    <string name="share">Share</string>
+    <string name="shareText">I recommend the application for BSUIR schedules - BSUIR Schedule 2023 https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
+    <string name="shareTitle">Share BSUIR Schedule 2023 app</string>
 </resources>
 
 

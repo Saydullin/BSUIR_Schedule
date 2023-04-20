@@ -106,6 +106,22 @@ data class Schedule (
         }
     }
 
+    fun getDescription(): String {
+        return if (isGroup()) {
+            group.getFacultyAndSpecialityAbbr()
+        } else {
+            employee.getRankAndDegree()
+        }
+    }
+
+    fun getImage(): String {
+        return if (isGroup()) {
+            ""
+        } else {
+            employee.photoLink
+        }
+    }
+
     fun toScheduleTable() =  ScheduleTable(
         id = id,
         startDate = startDate,

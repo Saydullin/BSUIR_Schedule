@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/group_image"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:src="@drawable/ic_subgroup"
             android:contentDescription="@string/app_name" />
 
@@ -43,8 +43,8 @@
 
         <ImageView
             android:id="@+id/employee_image"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:src="@drawable/ic_person"
             android:contentDescription="@string/app_name" />
 

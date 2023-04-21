@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
@@ -39,8 +40,10 @@ class AllGroupItemsFragment : Fragment() {
             }
         }
         val showScheduleCallback = { savedSchedule: SavedSchedule ->
-            Navigation.findNavController(binding.root).popBackStack()
-            Navigation.findNavController(binding.root).popBackStack()
+            val isNavigatedToMain = findNavController().popBackStack(R.id.mainScheduleFragment, false)
+            if (!isNavigatedToMain) {
+                Navigation.findNavController(binding.root).navigate(R.id.action_firstScheduleAddFragment_to_mainScheduleFragment)
+            }
             groupScheduleVM.selectSchedule(savedSchedule.id)
         }
         val selectGroupLambda = { group: Group ->

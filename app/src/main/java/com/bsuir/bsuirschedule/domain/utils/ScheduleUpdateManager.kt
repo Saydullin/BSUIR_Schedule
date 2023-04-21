@@ -88,25 +88,20 @@ class ScheduleUpdateManager(
             is Resource.Success -> {
                 val savedScheduleList = savedSchedules.data!!
                 savedScheduleList.map { savedSchedule ->
-                    when (
-                        val lastUpdatedDate = if (savedSchedule.isGroup) {
-                            getScheduleLastUpdateUseCase.getGroupLastUpdateDateByID(savedSchedule.id)
-                        } else {
-                            getScheduleLastUpdateUseCase.getEmployeeLastUpdateDateByID(savedSchedule.id)
+                    val lastUpdatedDate = if (savedSchedule.isGroup) {
+                        getScheduleLastUpdateUseCase.getGroupLastUpdateDateByID(savedSchedule.id)
+                    } else {
+                        getScheduleLastUpdateUseCase.getEmployeeLastUpdateDateByID(savedSchedule.id)
+                    }
+                    if (lastUpdatedDate is Resource.Success && lastUpdatedDate.data != null) {
+                        val lastUpdateDate = lastUpdatedDate.data.lastUpdateDate ?: return@map
+                        if (savedSchedule.lastUpdateDate != null
+                            && lastUpdateDate != savedSchedule.lastUpdateDate) {
+                            savedSchedule.lastUpdateDate = lastUpdateDate
+                            shouldUpdateSavedSchedule.add(savedSchedule)
                         }
-                    ) {
-                        is Resource.Success -> {
-                            val lastUpdateDate = lastUpdatedDate.data?.lastUpdateDate ?: return@map
-                            if (savedSchedule.lastUpdateDate != null
-                                && lastUpdateDate != savedSchedule.lastUpdateDate) {
-                                savedSchedule.lastUpdateDate = lastUpdateDate
-                                shouldUpdateSavedSchedule.add(savedSchedule)
-                            }
-                        }
-                        is Resource.Error -> {
-//                            savedSchedule.isUpdatedSuccessfully = false
-                            // FIXME What to do, if server returns null on last update date request
-                        }
+                    } else {
+                        savedSchedule.isUpdatedSuccessfully = false
                     }
                 }
             }

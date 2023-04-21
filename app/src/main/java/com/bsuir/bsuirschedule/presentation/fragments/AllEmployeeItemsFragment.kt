@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentAllEmployeeItemsBinding
@@ -56,8 +57,10 @@ class AllEmployeeItemsFragment : Fragment() {
             }
         }
         val showScheduleCallback = { savedSchedule: SavedSchedule ->
-            Navigation.findNavController(binding.root).popBackStack() // FIXME Clear stack, navigate main
-            Navigation.findNavController(binding.root).popBackStack()
+            val isNavigatedToMain = findNavController().popBackStack(R.id.mainScheduleFragment, false)
+            if (!isNavigatedToMain) {
+                Navigation.findNavController(binding.root).navigate(R.id.action_firstScheduleAddFragment_to_mainScheduleFragment)
+            }
             scheduleVM.selectSchedule(savedSchedule.id)
         }
         val selectEmployeeCallback = { employee: Employee ->

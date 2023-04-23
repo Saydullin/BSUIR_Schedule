@@ -1,121 +1,104 @@
 package com.bsuir.bsuirschedule.domain.utils
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.usecase.GetSavedScheduleUseCase
-import com.bsuir.bsuirschedule.domain.usecase.GetScheduleLastUpdateUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetScheduleUseCase
-import com.bsuir.bsuirschedule.domain.usecase.schedule.SaveScheduleLastUpdateDateUseCase
-import kotlinx.coroutines.*
-import java.util.*
-import kotlin.collections.ArrayList
+import com.bsuir.bsuirschedule.domain.usecase.schedule.SaveScheduleUseCase
+import java.util.Date
 
 class ScheduleUpdateManager(
-    private val getScheduleLastUpdateUseCase: GetScheduleLastUpdateUseCase,
     private val getSavedScheduleUseCase: GetSavedScheduleUseCase,
     private val getScheduleUseCase: GetScheduleUseCase,
-    private val saveSavedScheduleUseCase: GetSavedScheduleUseCase,
-    private val saveScheduleLastUpdateDateUseCase: SaveScheduleLastUpdateDateUseCase
+    private val saveScheduleUseCase: SaveScheduleUseCase,
 ) {
 
-    suspend fun updatedSchedules(): ArrayList<SavedSchedule> = withContext(Dispatchers.IO) {
+    suspend fun execute(): ArrayList<SavedSchedule> {
         val updatedSchedules = ArrayList<SavedSchedule>()
-        when (
-            val result = getShouldUpdateSchedules()
-        ) {
-            is Resource.Success -> {
-                val shouldUpdateSchedules = result.data!!
-                updatedSchedules.addAll(updateSchedules(shouldUpdateSchedules))
-            }
-            is Resource.Error -> {
-                // Save error in update schedule history table
-                Log.e("sady", "Ops updated ${result.message}")
-            }
-        }
-        updatedSchedules
-    }
+        val schedulesToBeUpdated = getSchedulesToBeUpdated()
 
-    private suspend fun getScheduleAutoUpdateStatus(savedSchedule: SavedSchedule): Boolean {
-        when (val scheduleDB = getScheduleUseCase.getById(savedSchedule.id)) {
-            is Resource.Success -> {
-                val schedule = scheduleDB.data ?: return false
-                return schedule.settings.schedule.isAutoUpdate
-            }
-            is Resource.Error -> {
-                return false
-            }
-        }
-    }
-
-    // FIXME Rewrite
-    private suspend fun updateSchedules(schedules: ArrayList<SavedSchedule>): ArrayList<SavedSchedule> {
-        for (savedSchedule in schedules) {
-            val isScheduleAutoUpdate = getScheduleAutoUpdateStatus(savedSchedule)
-            if (!isScheduleAutoUpdate || savedSchedule.lastUpdateDate == null) continue
-            when (
-                if (savedSchedule.isGroup) {
-                    getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
-                } else {
-                    getScheduleUseCase.getEmployeeAPI(savedSchedule.employee.urlId)
-                }
-            ) {
-                is Resource.Success -> {
-                    savedSchedule.isUpdatedSuccessfully = true
-                    savedSchedule.lastUpdateTime = Date().time
-                    saveScheduleLastUpdateDateUseCase.execute(
-                        scheduleId = savedSchedule.id,
-                        lastUpdateTime = savedSchedule.lastUpdateTime,
-                        lastUpdateDate = savedSchedule.lastUpdateDate,
-                    )
-                }
-                is Resource.Error -> {
-                    savedSchedule.isUpdatedSuccessfully = false
-                }
+        schedulesToBeUpdated.map { savedSchedule ->
+            val isUpdatedSuccessfully = updateSchedule(savedSchedule)
+            if (isUpdatedSuccessfully) {
+                updatedSchedules.add(savedSchedule)
             }
         }
 
-        saveSavedScheduleUseCase.saveSchedulesList(schedules)
-
-        return schedules
+        return updatedSchedules
     }
 
-    private suspend fun getShouldUpdateSchedules(): Resource<ArrayList<SavedSchedule>> {
-        val shouldUpdateSavedSchedule = ArrayList<SavedSchedule>()
+    private suspend fun getSchedulesToBeUpdated(): ArrayList<SavedSchedule> {
+        val schedulesToBeUpdated = ArrayList<SavedSchedule>()
+        val savedScheduleResult = getSavedScheduleUseCase.getSavedSchedules()
 
-        when (
-            val savedSchedules = getSavedScheduleUseCase.getSavedSchedules()
-        ) {
-            is Resource.Success -> {
-                val savedScheduleList = savedSchedules.data!!
-                savedScheduleList.map { savedSchedule ->
-                    val lastUpdatedDate = if (savedSchedule.isGroup) {
-                        getScheduleLastUpdateUseCase.getGroupLastUpdateDateByID(savedSchedule.id)
-                    } else {
-                        getScheduleLastUpdateUseCase.getEmployeeLastUpdateDateByID(savedSchedule.id)
-                    }
-                    if (lastUpdatedDate is Resource.Success && lastUpdatedDate.data != null) {
-                        val lastUpdateDate = lastUpdatedDate.data.lastUpdateDate ?: return@map
-                        if (savedSchedule.lastUpdateDate != null
-                            && lastUpdateDate != savedSchedule.lastUpdateDate) {
-                            savedSchedule.lastUpdateDate = lastUpdateDate
-                            shouldUpdateSavedSchedule.add(savedSchedule)
-                        }
-                    } else {
-                        savedSchedule.isUpdatedSuccessfully = false
+        if (savedScheduleResult is Resource.Success && savedScheduleResult.data != null) {
+            val savedSchedules = savedScheduleResult.data
+            savedSchedules.map { savedSchedule ->
+                val isAutoUpdateEnabled = isAutoUpdateEnabled(savedSchedule)
+                if (isAutoUpdateEnabled) {
+                    val isHaveUpdates = isScheduleHaveUpdates(savedSchedule)
+
+                    if (isHaveUpdates) {
+                        schedulesToBeUpdated.add(savedSchedule)
                     }
                 }
             }
-            is Resource.Error -> {
-                return Resource.Error(
-                    statusCode = StatusCode.SERVER_ERROR
-                )
-            }
         }
 
-        return Resource.Success(
-            data = shouldUpdateSavedSchedule
-        )
+        return schedulesToBeUpdated
+    }
 
+    private suspend fun isAutoUpdateEnabled(savedSchedule: SavedSchedule): Boolean {
+        val scheduleResult = getScheduleUseCase.getById(savedSchedule.id)
+
+        if (scheduleResult is Resource.Success && scheduleResult.data != null) {
+            return scheduleResult.data.settings.schedule.isAutoUpdate
+        }
+
+        return false
+    }
+
+    private suspend fun isScheduleHaveUpdates(savedSchedule: SavedSchedule): Boolean {
+        val scheduleAPIResult = if (savedSchedule.isGroup) {
+            getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
+        } else {
+            getScheduleUseCase.getEmployeeAPI(savedSchedule.employee.urlId)
+        }
+        val scheduleResult = getScheduleUseCase.getById(savedSchedule.id)
+
+        if (scheduleAPIResult is Resource.Success && scheduleAPIResult.data != null &&
+                scheduleResult is Resource.Success && scheduleResult.data != null) {
+
+            return scheduleResult.data.originalSchedule != scheduleAPIResult.data.originalSchedule
+        }
+
+        return false
+    }
+
+    private suspend fun updateSchedule(savedSchedule: SavedSchedule): Boolean {
+        val scheduleResult = if (savedSchedule.isGroup) {
+            getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
+        } else {
+            getScheduleUseCase.getEmployeeAPI(savedSchedule.employee.urlId)
+        }
+
+        if (scheduleResult is Resource.Success && scheduleResult.data != null) {
+            val schedule = scheduleResult.data
+
+            schedule.lastUpdateTime = Date().time
+            schedule.lastOriginalUpdateTime = Date().time
+
+            return saveSchedule(scheduleResult.data)
+        }
+
+        return false
+
+    }
+
+    private suspend fun saveSchedule(schedule: Schedule): Boolean {
+        val saveScheduleResult = saveScheduleUseCase.execute(schedule)
+
+        return saveScheduleResult is Resource.Success
     }
 
 }

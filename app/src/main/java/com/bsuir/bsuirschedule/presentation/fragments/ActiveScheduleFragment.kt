@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
-import com.bsuir.bsuirschedule.presentation.dialogs.SavedScheduleDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import com.bsuir.bsuirschedule.R
@@ -106,12 +106,12 @@ class ActiveScheduleFragment : Fragment() {
             val activeSchedule = groupScheduleVM.getActiveSchedule() ?: return@setMenuListener
             when (it) {
                 ScheduleAction.DIALOG_OPEN -> {
-                    val savedScheduleDialog = SavedScheduleDialog(
+                    val scheduleDialog = ScheduleDialog(
                         schedule = activeSchedule,
                         delete = deleteWarning,
                         update = updateSchedule)
-                    savedScheduleDialog.isCancelable = true
-                    savedScheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
+                    scheduleDialog.isCancelable = true
+                    scheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
                 }
                 ScheduleAction.SETTINGS -> {
                     Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSettingsFragment)

@@ -99,8 +99,8 @@ data class Employee (
         group = Group.empty,
         employee = this,
         isGroup = false,
-        lastUpdateTime = Date().time,
-        lastUpdateDate = "",
+        lastUpdateTime = 0,
+        lastUpdateDate = 0,
         isUpdatedSuccessfully = false,
         isExistExams = isExams
     )

@@ -29,11 +29,9 @@ val appModule = module {
 
     single {
         ScheduleUpdateManager(
-            getScheduleLastUpdateUseCase = get(),
-            getSavedScheduleUseCase = get(),
             getScheduleUseCase = get(),
-            saveSavedScheduleUseCase = get(),
-            saveScheduleLastUpdateDateUseCase = get(),
+            getSavedScheduleUseCase = get(),
+            saveScheduleUseCase = get()
         )
     }
 

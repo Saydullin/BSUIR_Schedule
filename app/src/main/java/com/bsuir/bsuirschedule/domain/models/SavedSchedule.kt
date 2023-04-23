@@ -8,7 +8,7 @@ data class SavedSchedule (
     val group: Group,
     val isGroup: Boolean,
     var lastUpdateTime: Long,
-    var lastUpdateDate: String?,
+    var lastUpdateDate: Long,
     var isUpdatedSuccessfully: Boolean,
     var isExistExams: Boolean
 ) {
@@ -35,7 +35,7 @@ data class SavedSchedule (
         employee = employee.toEmployeeTable(),
         isGroup = isGroup,
         lastUpdateTime = lastUpdateTime,
-        lastUpdateDate = lastUpdateDate ?: "",
+        lastOriginalUpdateTime = lastUpdateDate,
         isUpdatedSuccessfully = isUpdatedSuccessfully,
         isExistExams = isExistExams
     )

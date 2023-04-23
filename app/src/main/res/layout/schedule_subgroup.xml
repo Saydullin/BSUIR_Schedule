@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/subgroup_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:contentDescription="subgroup"
             android:src="@drawable/ic_subgroup" />
 

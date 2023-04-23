@@ -2,6 +2,7 @@ package com.bsuir.bsuirschedule.domain.usecase.schedule
 
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import java.util.Date
 
 class SaveScheduleLastUpdateDateUseCase(
     private val scheduleRepository: ScheduleRepository
@@ -18,7 +19,7 @@ class SaveScheduleLastUpdateDateUseCase(
 
         val schedule = scheduleResult.data!!
         schedule.lastUpdateTime = lastUpdateTime
-        schedule.lastUpdateDate = lastUpdateDate
+        schedule.lastOriginalUpdateTime = Date().time
 
         val isSavedSchedule = scheduleRepository.saveSchedule(schedule)
 

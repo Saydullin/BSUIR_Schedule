@@ -22,7 +22,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         CurrentWeekTable::class,
         WidgetSettingsTable::class
     ],
-    version = 8,
+    version = 9,
     exportSchema = true,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
@@ -32,6 +32,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         AutoMigration (from = 5, to = 6),
         AutoMigration (from = 6, to = 7),
         AutoMigration (from = 7, to = 8, spec = AppDatabase.MigrationFrom7to8::class),
+        AutoMigration (from = 8, to = 9, spec= AppDatabase.MigrationFrom8to9::class),
     ]
 )
 @TypeConverters(
@@ -55,6 +56,16 @@ abstract class AppDatabase : RoomDatabase() {
         columnName = "normalSchedules"
     )
     class MigrationFrom7to8 : AutoMigrationSpec
+
+    @DeleteColumn(
+        tableName = "SavedScheduleTable",
+        columnName = "lastUpdateDate"
+    )
+    @DeleteColumn(
+        tableName = "ScheduleTable",
+        columnName = "lastUpdateDate"
+    )
+    class MigrationFrom8to9 : AutoMigrationSpec
 
     abstract fun groupDao(): GroupDao
 

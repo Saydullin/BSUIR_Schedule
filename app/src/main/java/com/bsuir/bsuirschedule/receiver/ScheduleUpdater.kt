@@ -57,7 +57,7 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
             .show()
     }
 
-    private fun notifyAboutUpdates(updatedSchedules: ArrayList<SavedSchedule>, context: Context?) {
+    private fun notifyAboutUpdates(updatedSchedules: ArrayList<SavedSchedule>, context: Context) {
 
         updatedSchedules.forEach { updatedSchedule ->
             if (updatedSchedule.isUpdatedSuccessfully) {
@@ -85,12 +85,19 @@ class ScheduleUpdater : BroadcastReceiver(), KoinComponent {
 
         val isNotificationsEnable = sharedPrefsUseCase.isNotificationsEnabled()
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val updatedSchedules = scheduleUpdateManager.updatedSchedules()
-            if (isNotificationsEnable) {
-                notifyAboutUpdates(updatedSchedules, context)
-            }
-        }
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val updatedSchedules = scheduleUpdateManager2.execute()
+//            if (isNotificationsEnable) {
+//                notifyAboutUpdates(updatedSchedules, context)
+//            }
+//        }
+
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val updatedSchedules = scheduleUpdateManager.updatedSchedules()
+//            if (isNotificationsEnable) {
+//                notifyAboutUpdates(updatedSchedules, context)
+//            }
+//        }
 
         val scheduleUpdateAlarmHandler = ScheduleUpdateAlarmHandler(context)
         scheduleUpdateAlarmHandler.cancelAlarmManager()

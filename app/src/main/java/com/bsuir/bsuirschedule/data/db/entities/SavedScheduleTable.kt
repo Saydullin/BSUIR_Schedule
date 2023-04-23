@@ -13,7 +13,7 @@ data class SavedScheduleTable (
     @Embedded(prefix = "employee_") val employee: EmployeeTable,
     @ColumnInfo val isGroup: Boolean,
     @ColumnInfo val lastUpdateTime: Long,
-    @ColumnInfo val lastUpdateDate: String,
+    @ColumnInfo val lastOriginalUpdateTime: Long?,
     @ColumnInfo val isUpdatedSuccessfully: Boolean,
     @ColumnInfo val isExistExams: Boolean
 ) {
@@ -24,7 +24,7 @@ data class SavedScheduleTable (
         employee = employee.toEmployee(),
         isGroup = isGroup,
         lastUpdateTime = lastUpdateTime,
-        lastUpdateDate = lastUpdateDate,
+        lastUpdateDate = lastOriginalUpdateTime ?: 0,
         isUpdatedSuccessfully = isUpdatedSuccessfully,
         isExistExams = isExistExams
     )

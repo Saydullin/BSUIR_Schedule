@@ -64,8 +64,8 @@ data class Group (
         group = this,
         employee = Employee.empty,
         isGroup = true,
-        lastUpdateTime = Date().time,
-        lastUpdateDate = "",
+        lastUpdateTime = 0,
+        lastUpdateDate = 0,
         isUpdatedSuccessfully = false,
         isExistExams = isExams
     )

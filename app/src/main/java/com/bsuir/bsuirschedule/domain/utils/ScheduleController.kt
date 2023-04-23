@@ -495,8 +495,7 @@ class ScheduleController {
 
         val originalWithSubjectsBreakTime = getSubjectsBreakTime(originalSchedule.schedules)
 
-        originalSchedule.originalSchedule.clear()
-        originalSchedule.originalSchedule.addAll(originalWithSubjectsBreakTime)
+        originalSchedule.originalSchedule = originalWithSubjectsBreakTime
 
         return originalSchedule.originalSchedule
     }

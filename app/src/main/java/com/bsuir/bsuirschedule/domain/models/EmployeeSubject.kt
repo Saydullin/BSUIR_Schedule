@@ -1,7 +1,6 @@
 package com.bsuir.bsuirschedule.domain.models
 
 import com.bsuir.bsuirschedule.data.db.entities.EmployeeTable
-import java.util.*
 import kotlin.collections.ArrayList
 
 data class EmployeeSubject(
@@ -47,8 +46,8 @@ data class EmployeeSubject(
         employee = this.toEmployeeTable().toEmployee(),
         group = Group.empty,
         isGroup = false,
-        lastUpdateTime = Date().time,
-        lastUpdateDate = "",
+        lastUpdateTime = 0,
+        lastUpdateDate = 0,
         isUpdatedSuccessfully = false,
         isExistExams = false
     )

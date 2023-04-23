@@ -8,6 +8,8 @@ import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.ScheduleController
 import com.bsuir.bsuirschedule.domain.utils.StatusCode
+import java.util.*
+import kotlin.collections.ArrayList
 
 class GetScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
@@ -202,7 +204,6 @@ class GetScheduleUseCase(
         val originalSchedule = scheduleController.getOriginalSchedule(groupSchedule)
 
         val normalSchedule = scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
-        normalSchedule.originalSchedule.clear()
         normalSchedule.originalSchedule = originalSchedule
 
         return normalSchedule
@@ -214,6 +215,7 @@ class GetScheduleUseCase(
         if (oldSchedule is Resource.Success && oldSchedule.data != null) {
             if (oldSchedule.data.originalSchedule != schedule.originalSchedule) {
                 schedule.prevOriginalSchedule = oldSchedule.data.originalSchedule
+                schedule.lastUpdateTime = Date().time
             }
         }
     }

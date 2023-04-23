@@ -12,7 +12,7 @@ import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 
-class SavedScheduleDialog(
+class ScheduleDialog(
     private val schedule: Schedule,
     private val update: (savedSchedule: SavedSchedule) -> Unit,
     private val delete: (savedSchedule: SavedSchedule) -> Unit
@@ -30,6 +30,7 @@ class SavedScheduleDialog(
         val courseText = resources.getString(R.string.course)
         val moreText = resources.getString(R.string.more)
         val selectedSubgroup = schedule.settings.subgroup.selectedNum
+        binding.lastUpdate.text = lastUpdateText
         binding.scheduleSubgroup.text = if (selectedSubgroup == 0) {
             resources.getString(R.string.selected_all_subgroups)
         } else {
@@ -69,7 +70,6 @@ class SavedScheduleDialog(
             binding.schedule.course.visibility = View.VISIBLE
             binding.schedule.course.text = "${group.course} $courseText"
             binding.scheduleSubtitles.text = group.getFacultyAndSpecialityFull()
-            binding.lastUpdate.text = lastUpdateText
         } else {
             val employee = schedule.employee
             Glide.with(binding.schedule.image)
@@ -85,7 +85,6 @@ class SavedScheduleDialog(
             } else {
                 binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
             }
-            binding.lastUpdate.text = lastUpdateText
 
             binding.schedule.image.setOnClickListener {
                 val imageViewDialog = ImageViewDialog(requireContext(), employee.photoLink)

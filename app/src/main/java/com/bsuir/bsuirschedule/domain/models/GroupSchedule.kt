@@ -51,7 +51,7 @@ data class GroupSchedule (
         examsSchedule = examsSchedule ?: ArrayList(),
         subjectNow = null,
         lastUpdateTime = lastUpdateTime ?: Date().time,
-        lastUpdateDate = "",
+        lastOriginalUpdateTime = Date().time,
         schedules = ArrayList(),
         prevOriginalSchedule = ArrayList(),
         originalSchedule = ArrayList(),

@@ -23,7 +23,7 @@ data class Schedule (
     var prevOriginalSchedule: ArrayList<ScheduleDay>,
     var originalSchedule: ArrayList<ScheduleDay>,
     var lastUpdateTime: Long,
-    var lastUpdateDate: String?,
+    var lastOriginalUpdateTime: Long,
     var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
     var settings: ScheduleSettings = ScheduleSettings.empty
 ) {
@@ -47,7 +47,7 @@ data class Schedule (
             originalSchedule = ArrayList(),
             lastUpdateTime = 0,
             selectedSubgroup = 0,
-            lastUpdateDate = "",
+            lastOriginalUpdateTime = 0,
             settings = ScheduleSettings.empty
         )
     }
@@ -93,7 +93,7 @@ data class Schedule (
         group = group,
         isGroup = isGroup(),
         lastUpdateTime = lastUpdateTime,
-        lastUpdateDate = lastUpdateDate ?: "",
+        lastUpdateDate = lastOriginalUpdateTime,
         isUpdatedSuccessfully = false,
         isExistExams = exams.isNotEmpty()
     )
@@ -134,15 +134,11 @@ data class Schedule (
         isGroup = isGroup,
         exams = exams,
         examsSchedule = examsSchedule,
-//        prevOriginalSchedule = originalSchedule,
-//        originalSchedule = originalSchedule,
-//        normalSchedules = originalSchedule,
         originalSchedule = originalSchedule,
         prevOriginalSchedule = prevOriginalSchedule,
-//        updateHistorySchedule = arrayListOf(),
         schedules = schedules,
         lastUpdateTime = lastUpdateTime,
-        lastUpdateDate = lastUpdateDate ?: "",
+        lastOriginalUpdateTime = lastOriginalUpdateTime,
         settings = settings,
     )
 

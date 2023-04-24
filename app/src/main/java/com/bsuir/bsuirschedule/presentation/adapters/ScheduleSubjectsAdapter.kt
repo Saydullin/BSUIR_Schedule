@@ -115,7 +115,7 @@ class ScheduleSubjectsAdapter(
             }
 
             if (subject.isIgnored == true) {
-                binding.root.alpha = .7f
+                binding.root.alpha = .6f
             }
 
             if (subject.getEditedOrNote().isNotEmpty()) {

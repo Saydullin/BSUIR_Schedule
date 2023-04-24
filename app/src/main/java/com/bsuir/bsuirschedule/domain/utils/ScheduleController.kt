@@ -430,7 +430,13 @@ class ScheduleController {
                 val subject = scheduleItem.schedule[subjectIndex].copy()
                 if (subjectIndex != 0) {
                     val currSubject = scheduleItem.schedule[subjectIndex]
-                    val prevSubject = scheduleItem.schedule[subjectIndex-1]
+                    var prevSubject = scheduleItem.schedule[subjectIndex - 1]
+                    for (subjectIdx in subjectIndex - 1 downTo 0) {
+                        if (scheduleItem.schedule[subjectIdx].isIgnored != true) {
+                            prevSubject = scheduleItem.schedule[subjectIdx]
+                            break
+                        }
+                    }
                     subject.breakTime = calendarDate.getSubjectBreakTime(
                         currSubject.startLessonTime,
                         prevSubject.endLessonTime

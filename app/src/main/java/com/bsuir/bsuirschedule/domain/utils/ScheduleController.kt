@@ -260,57 +260,6 @@ class ScheduleController {
         return schedule
     }
 
-//    fun getMultipliedUpdatedHistorySchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
-//        val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
-//        var daysCounter = 0
-//        val scheduleDays = ArrayList<ScheduleDayUpdateHistory>()
-//
-//        while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
-//            calendarDate.incDate(daysCounter)
-//            val currentTimeInMillis = calendarDate.getDateInMillis()
-//            val weekNumber = calendarDate.getWeekNumber()
-//            val weekDayNumber = calendarDate.getWeekDayNumber()
-//            val weekNumberDays = schedule.updateHistorySchedule.filter { it.scheduleDay.weekDayNumber == weekDayNumber }
-//            val weekNumberDaysCopy = weekNumberDays.map { it.copy() }
-//            weekNumberDaysCopy.map { scheduleDay ->
-//                val subjects = scheduleDay.scheduleActions.filter { subject ->
-//                    if (subject.scheduleSubject.startLessonDate.isNullOrEmpty() || subject.scheduleSubject.endLessonDate.isNullOrEmpty()) {
-//                        weekNumber in (subject.scheduleSubject.weekNumber ?: ArrayList())
-//                    } else {
-//                        val startMillis = calendarDate.getDateInMillis(subject.scheduleSubject.startLessonDate)
-//                        val endMillis = calendarDate.getDateInMillis(subject.scheduleSubject.endLessonDate)
-//                        weekNumber in (subject.scheduleSubject.weekNumber ?: ArrayList()) &&
-//                                currentTimeInMillis >= calendarDate.resetMillisTime(startMillis) &&
-//                                currentTimeInMillis <= calendarDate.resetMillisTime(endMillis)
-//                    }
-//                } as ArrayList<ScheduleSubjectHistory>
-//                val subjectsCopy = subjects.map { it.copy() }
-//                val schedulesDay = ScheduleDay(
-//                    date = calendarDate.getDateStatus(),
-//                    dateInMillis = calendarDate.getDateInMillis(),
-//                    weekDayTitle = calendarDate.getWeekDayTitle(),
-//                    weekDayNumber = weekDayNumber,
-//                    weekNumber = weekNumber,
-//                    schedule = scheduleDay.scheduleDay.schedule
-//                )
-//                scheduleDays.add(
-//                    ScheduleDayUpdateHistory(
-//                        id = -1,
-//                        scheduleDay = schedulesDay,
-//                        scheduleActions = subjectsCopy as ArrayList<ScheduleSubjectHistory>
-//                ))
-//            }
-//            daysCounter++
-//        }
-//
-//        schedule.updateHistorySchedule = scheduleDays
-//
-//        // TODO("set updated schedule, may be join schedule and exams before this")
-//        // mergeExamsSchedule(schedule, currentWeekNumber)
-//
-//        return schedule
-//    }
-
     private fun fillEmptyDays(
         schedule: Schedule,
         currentWeekNumber: Int,
@@ -343,8 +292,10 @@ class ScheduleController {
         if (schedule.isExamsNotExist()) return
         val calendarExamsDate = CalendarDate(startDate = schedule.startExamsDate, currentWeekNumber)
 
-        if (calendarExamsDate.getDateInMillis(schedule.endDate) < calendarExamsDate.getDateInMillis(schedule.startExamsDate)) {
-            fillEmptyDays(schedule, currentWeekNumber, schedule.endDate, schedule.startExamsDate)
+        if (!schedule.isNotExistSchedule()) {
+            if (calendarExamsDate.getDateInMillis(schedule.endDate) < calendarExamsDate.getDateInMillis(schedule.startExamsDate)) {
+                fillEmptyDays(schedule, currentWeekNumber, schedule.endDate, schedule.startExamsDate)
+            }
         }
 
         for (examsDay in schedule.examsSchedule) {
@@ -521,6 +472,9 @@ class ScheduleController {
         schedule.subgroups = getSubgroupsList(schedule)
 
         if (schedule.isNotExistSchedule()) {
+            if (!schedule.isExamsNotExist()) {
+                mergeExamsSchedule(schedule, currentWeekNumber)
+            }
             return schedule
         }
 
@@ -541,9 +495,10 @@ class ScheduleController {
         } else {
             schedule.settings
         }
+
         val regularSchedule = schedule.copy()
 
-        if (!schedule.isNotExistSchedule()) {
+        if (!regularSchedule.isNotExistSchedule() || regularSchedule.schedules.isNotEmpty()) {
             if (!scheduleSettings.schedule.isShowPastDays) {
                 regularSchedule.schedules = filterActualSchedule(
                     regularSchedule.schedules,
@@ -570,7 +525,7 @@ class ScheduleController {
                 regularSchedule.settings.schedule.isShowEmptyDays
             )
         } else {
-            regularSchedule.schedules = ArrayList()
+//            regularSchedule.schedules = ArrayList()
         }
 
         setSubjectsPrediction(regularSchedule)

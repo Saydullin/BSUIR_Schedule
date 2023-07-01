@@ -51,7 +51,7 @@ class MainScheduleFragment : Fragment(), KoinComponent {
     ): View {
         binding = FragmentMainScheduleBinding.inflate(inflater)
         val weekText = getString(R.string.week)
-        val datePattern = SimpleDateFormat("E dd MMMM")
+        val datePattern = SimpleDateFormat("E d MMMM")
         val calendar = Calendar.getInstance(Locale("be", "BY"))
 
         binding.titleDate.text = datePattern.format(calendar.time).replaceFirstChar { it.uppercase() }

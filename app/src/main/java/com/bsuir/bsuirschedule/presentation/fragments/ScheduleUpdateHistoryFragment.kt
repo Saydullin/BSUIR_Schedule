@@ -6,9 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleUpdateHistoryBinding
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.ScheduleUpdatedDay
+import com.bsuir.bsuirschedule.presentation.adapters.ScheduleUpdatedDayAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleUpdatedHistoryViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -32,27 +37,29 @@ class ScheduleUpdateHistoryFragment : Fragment() {
             binding.scheduleHeaderView.setImage(it.getImage())
         }
 
-//        val onShowSubjectDialog = { subject: ScheduleSubject ->
-//            val subjectDialog = SubjectDialog(subject, null)
-//            subjectDialog.isCancelable = true
-//            subjectDialog.show(parentFragmentManager, "subjectDialog")
-//        }
+        val onShowSubjectDialog = { subject: ScheduleSubject ->
+            val subjectDialog = SubjectDialog(subject, null)
+            subjectDialog.isCancelable = true
+            subjectDialog.show(parentFragmentManager, "subjectDialog")
+        }
 
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleUpdateHistoryFragment_to_mainScheduleFragment)
         }
 
-        val calendar = Calendar.getInstance(Locale("ru", "BY"))
-        calendar.add(Calendar.DATE, -3)
-
-        binding.noUpdatedPlaceholder.visibility = View.VISIBLE
-
+//        val calendar = Calendar.getInstance(Locale("ru", "BY"))
+//        calendar.add(Calendar.DATE, -3)
+//
+//        binding.noUpdatedPlaceholder.visibility = View.VISIBLE
+//
 //        updatedActionsVM.actions.observe(viewLifecycleOwner) { actions ->
-//            val datas = arrayListOf(ScheduleUpdatedDay(
-//                id = 0,
-//                dateInMillis = calendar.timeInMillis,
-//                actions = actions
-//            ))
+//            val datas = arrayListOf(
+//                    ScheduleUpdatedDay(
+//                    id = 0,
+//                    dateInMillis = calendar.timeInMillis,
+//                    actions = actions
+//                )
+//            )
 //            val adapter = ScheduleUpdatedDayAdapter(requireContext(), datas, true, onShowSubjectDialog)
 //            binding.scheduleUpdateHistoryRecycler.layoutManager = LinearLayoutManager(context)
 //            binding.scheduleUpdateHistoryRecycler.adapter = adapter
@@ -68,6 +75,7 @@ class ScheduleUpdateHistoryFragment : Fragment() {
         }
 
         binding.scheduleUpdateHistoryRecycler.visibility = View.GONE
+        binding.noUpdatedPlaceholder.visibility = View.VISIBLE
 //        Hide Recycler
 //        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
 //            if (schedule == null) return@observe

@@ -2,6 +2,7 @@ package com.bsuir.bsuirschedule.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +44,10 @@ class ScheduleUpdatedActionAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, scheduleUpdatedAction: ScheduleUpdatedAction) {
+            if (scheduleUpdatedAction.items.isEmpty()) {
+                binding.root.visibility = View.GONE
+                return
+            }
 
             when (scheduleUpdatedAction.action) {
                 ScheduleUpdatedActionsList.ADDED_SUBJECT -> {

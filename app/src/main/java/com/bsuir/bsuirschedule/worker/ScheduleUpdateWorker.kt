@@ -37,7 +37,6 @@ class ScheduleUpdateWorker(
                 try {
                     val updatedSchedules = scheduleUpdateManager.execute()
                     notifyAboutUpdates(updatedSchedules, context)
-                    buildScheduleUpdateNotification(context, "Updated ${updatedSchedules.size}", "${updatedSchedules.size}")
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

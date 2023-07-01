@@ -48,7 +48,6 @@ class App : Application() {
 
     private fun initScheduleUpdated() {
         val calendar = Calendar.getInstance(Locale("ru", "BY"))
-        calendar.add(Calendar.DATE, 1)
         calendar.set(Calendar.HOUR, 20)
         calendar.set(Calendar.AM_PM, Calendar.AM)
         calendar.set(Calendar.MINUTE, 0)

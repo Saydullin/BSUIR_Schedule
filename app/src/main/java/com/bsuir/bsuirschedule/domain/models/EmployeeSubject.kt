@@ -115,7 +115,12 @@ data class EmployeeSubject(
 
     fun getFullName() = "$lastName $firstName $middleName"
 
-    fun getName() = "$lastName ${firstName[0]}. ${middleName[0]}.".trim()
+    fun getName(): String {
+        val firstNameLetter = if (firstName != "") "${firstName[0]}." else ""
+        val middleNameLetter = if (middleName != "") "${middleName[0]}" else ""
+
+        return "$lastName $firstNameLetter $middleNameLetter".trim()
+    }
 
 }
 

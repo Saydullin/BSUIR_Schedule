@@ -138,7 +138,7 @@ class SavedSchedulesViewModel(
                     if (schedule.isGroup) {
                         sharedPrefsUseCase.setActiveScheduleId(schedule.group.id)
                     } else {
-                        sharedPrefsUseCase.setActiveScheduleId(schedule.employee.id)
+                        schedule.employee.id?.let { sharedPrefsUseCase.setActiveScheduleId(it) }
                     }
                 }
                 is Resource.Error -> {

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleHeaderBinding
+import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleHeaderMenu
 import com.bumptech.glide.Glide
 
@@ -15,8 +16,8 @@ enum class ScheduleAction {
 }
 
 typealias OnScheduleActionListener = (ScheduleAction) -> Unit
-
 typealias OnScheduleSubgroupListener = (Int) -> Unit
+typealias OnScheduleImageListener = () -> Unit
 
 class ScheduleHeaderView(
     context: Context,
@@ -29,7 +30,20 @@ class ScheduleHeaderView(
 
     private var menuListener: OnScheduleActionListener? = null
     private var subgroupListener: OnScheduleSubgroupListener? = null
+    private var imageClickListener: OnScheduleImageListener? = null
     private var isPreview = false
+
+    private val scheduleHeaderMenu = ScheduleHeaderMenu(
+        context = context,
+        onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
+        onSubjectAddClick = { this.menuListener?.invoke(ScheduleAction.ADD_SUBJECT) },
+        onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
+        onUpdateHistoryClick = { this.menuListener?.invoke(ScheduleAction.UPDATE_HISTORY) },
+        onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
+        onExamsClick = { this.menuListener?.invoke(ScheduleAction.EXAMS) },
+        onWidgetAddClick = { this.menuListener?.invoke((ScheduleAction.WIDGET_ADD)) },
+        onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
+    )
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -72,6 +86,9 @@ class ScheduleHeaderView(
         binding.scheduleHeader.setOnClickListener {
             this.menuListener?.invoke(ScheduleAction.DIALOG_OPEN)
         }
+        binding.profileImage.setOnClickListener {
+            this.imageClickListener?.invoke()
+        }
         if (!isPreview) {
             binding.optionsButton.setOnClickListener {
                 initHeaderMenu(binding.optionsButton)
@@ -87,18 +104,11 @@ class ScheduleHeaderView(
     }
 
     private fun initHeaderMenu(targetView: View) {
-        val scheduleHeaderMenu = ScheduleHeaderMenu(
-            context = context!!,
-            onUpdateClick = { this.menuListener?.invoke(ScheduleAction.UPDATE) },
-            onSubjectAddClick = { this.menuListener?.invoke(ScheduleAction.ADD_SUBJECT) },
-            onSettingsClick = { this.menuListener?.invoke(ScheduleAction.SETTINGS) },
-            onUpdateHistoryClick = { this.menuListener?.invoke(ScheduleAction.UPDATE_HISTORY) },
-            onShareClick = { this.menuListener?.invoke(ScheduleAction.SHARE) },
-            onWidgetAddClick = { this.menuListener?.invoke((ScheduleAction.WIDGET_ADD)) },
-            onDeleteClick = { this.menuListener?.invoke(ScheduleAction.DELETE) },
-        ).initPopupMenu(targetView)
+        scheduleHeaderMenu.initPopupMenu(targetView).show()
+    }
 
-        scheduleHeaderMenu.show()
+    fun isExistExams(isExist: Boolean) {
+        scheduleHeaderMenu.isExistExams(isExist)
     }
 
     fun setMenuListener(listener: OnScheduleActionListener) {
@@ -109,8 +119,26 @@ class ScheduleHeaderView(
         this.subgroupListener = listener
     }
 
+    fun setImageClickListener(listener: OnScheduleImageListener) {
+        this.imageClickListener = listener
+    }
+
     fun setTitle(title: String) {
         binding.headerTitle.text = title
+    }
+
+    fun setSecondTitle(title: String) {
+        if (title.trim().isNotBlank()) {
+            binding.secondTitle.visibility = View.VISIBLE
+            binding.secondTitle.text = title
+        }
+    }
+
+    fun setSecondSubTitle(title: String) {
+        if (title.trim().isNotBlank()) {
+            binding.secondSubTitle.visibility = View.VISIBLE
+            binding.secondSubTitle.text = title
+        }
     }
 
     fun setDescription(desc: String) {
@@ -129,6 +157,38 @@ class ScheduleHeaderView(
             .load(imageDrawable)
             .placeholder(R.drawable.ic_person_placeholder)
             .into(binding.profileImage)
+    }
+
+    fun setExamsIcon(isExist: Boolean) {
+        if (isExist) {
+            binding.examsFlag.visibility = View.VISIBLE
+        } else {
+            binding.examsFlag.visibility = View.GONE
+        }
+    }
+
+    fun setSavedSchedule(savedSchedule: SavedSchedule) {
+        if (savedSchedule.isGroup) {
+            with(savedSchedule.group) {
+                val courseText = resources.getString(R.string.course)
+                setTitle(name)
+                setSecondTitle("$course $courseText")
+                setSecondSubTitle(speciality?.educationForm?.name ?: "")
+                setImage(R.drawable.ic_group_placeholder)
+                setDescription(getFacultyAndSpecialityAbbr())
+            }
+        } else {
+            with(savedSchedule.employee) {
+                setTitle(getTitleOrFullName())
+                if (photoLink == null) {
+                    setImage(R.drawable.ic_person_placeholder)
+                } else {
+                    setImage(photoLink)
+                }
+                setDescription(getDegreeAndRank())
+            }
+        }
+        setExamsIcon(savedSchedule.isExistExams)
     }
 
     fun setSubgroupText(subgroupText: String) {

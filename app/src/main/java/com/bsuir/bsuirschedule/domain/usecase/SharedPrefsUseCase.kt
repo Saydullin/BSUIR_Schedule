@@ -22,6 +22,14 @@ class SharedPrefsUseCase(
         return sharedPrefsRepository.isAutoUpdate()
     }
 
+    fun getPrevVersion(): Int {
+        return sharedPrefsRepository.getPrevVersion()
+    }
+
+    fun setPrevVersion(prevVersion: Int) {
+        return sharedPrefsRepository.setPrevVersion(prevVersion)
+    }
+
     fun getActiveScheduleId(): Int {
         return sharedPrefsRepository.getActiveScheduleId()
     }

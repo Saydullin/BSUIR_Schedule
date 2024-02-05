@@ -31,6 +31,7 @@
         <item name="dialogBg">@color/dark_dialog</item>
         <item name="secondaryOnHintColor">@color/secondary_hint</item>
         <item name="secondaryColor">@color/primaryOnColorDarkTheme</item>
+        <item name="onTransparentButton">@color/transparent_dark_button</item>
         <item name="secondaryTextColor">@color/textColorDarkTheme</item>
         <item name="primaryTextColor">@color/white</item>
         <item name="textColor">@color/white</item>

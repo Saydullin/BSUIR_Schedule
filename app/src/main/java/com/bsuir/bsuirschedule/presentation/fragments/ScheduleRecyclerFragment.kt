@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
+import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -39,8 +40,12 @@ class ScheduleRecyclerFragment : Fragment() {
             groupScheduleVM.getOrUploadSchedule(savedSchedule)
         }
 
-        val onSubjectSourceClick = { savedSchedule: SavedSchedule ->
-            val uploadScheduleDialog = UploadScheduleDialog(savedSchedule, onSubmitUploadSchedule)
+        val onSubjectSourceClick = { savedSchedule: SavedSchedule, employeeSubject: EmployeeSubject? ->
+            val uploadScheduleDialog = UploadScheduleDialog(
+                savedSchedule = savedSchedule,
+                employeeSubject = employeeSubject,
+                onUploadSubmit = onSubmitUploadSchedule,
+            )
             uploadScheduleDialog.isCancelable = true
             uploadScheduleDialog.show(parentFragmentManager, "uploadScheduleDialog")
         }

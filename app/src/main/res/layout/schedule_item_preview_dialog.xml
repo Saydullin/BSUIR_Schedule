@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="?attr/dialogBg"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/dialog_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:layout_marginEnd="10dp"
                 android:shape="ring"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="@dimen/view_radius">
 
                 <ImageView
                     android:id="@+id/employee_image"
@@ -87,7 +87,7 @@
                 android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.Button.Hint"
+                style="@style/Theme.BSUIRSchedule.Button.Transparent"
                 android:text="@string/cancel" />
 
             <Button

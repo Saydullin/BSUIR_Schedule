@@ -53,10 +53,14 @@ class ScheduleViewModel(
     val employeeLoadingStatus = employeeLoading
 
     init {
+        val scheduleId = activeScheduleId.value ?: -1
+
         if (sharedPrefsUseCase.getScheduleCounter() < BuildConfig.SCHEDULES_UPDATE_COUNTER) {
             sharedPrefsUseCase.setScheduleCounter(BuildConfig.SCHEDULES_UPDATE_COUNTER)
             updateAllSchedules()
         }
+
+        updateSchedule(scheduleId)
     }
 
     fun setScheduleLoadedNull() {
@@ -79,9 +83,8 @@ class ScheduleViewModel(
         update.value = updateStatus
     }
 
-    fun updateSchedule() {
-        if (update.value == true) {
-            val scheduleId = activeScheduleId.value ?: return
+    fun updateSchedule(scheduleId: Int = activeScheduleId.value ?: -1) {
+        if (update.value == true && scheduleId != -1) {
             settingsUpdated.postValue(false)
             getScheduleById(scheduleId, false)
         }
@@ -360,7 +363,7 @@ class ScheduleViewModel(
             loading.postValue(true)
             employeeLoading.postValue(true)
             when (
-                val groupSchedule = getScheduleUseCase.getEmployeeAPI(employee.urlId)
+                val groupSchedule = employee.urlId?.let { getScheduleUseCase.getEmployeeAPI(it) }
             ) {
                 is Resource.Success -> {
                     val data = groupSchedule.data!!
@@ -376,12 +379,12 @@ class ScheduleViewModel(
                         saveScheduleSilently(data)
                     }
                 }
-                is Resource.Error -> {
+                else -> {
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = groupSchedule.statusCode,
-                            message = groupSchedule.message
+                            type = groupSchedule?.statusCode ?: StatusCode.UNKNOWN_ERROR,
+                            message = groupSchedule?.message ?: ""
                         )
                     )
                 }
@@ -543,18 +546,22 @@ class ScheduleViewModel(
                                 val groupScheduleResponse = if (savedSchedule.isGroup)
                                     getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
                                 else
-                                    getScheduleUseCase.getEmployeeAPI(savedSchedule.employee.urlId)
+                                    savedSchedule.employee.urlId?.let {
+                                        getScheduleUseCase.getEmployeeAPI(
+                                            it
+                                        )
+                                    }
                             ) {
                                 is Resource.Success -> {
                                     val groupSchedule = groupScheduleResponse.data!!
                                     scheduleLoaded.postValue(savedSchedule)
                                     saveScheduleSilently(groupSchedule)
                                 }
-                                is Resource.Error -> {
+                                else -> {
                                     error.postValue(StateStatus(
                                         state = StateStatus.ERROR_STATE,
-                                        type = groupScheduleResponse.statusCode,
-                                        message = groupScheduleResponse.message
+                                        type = groupScheduleResponse?.statusCode ?: StatusCode.UNKNOWN_ERROR,
+                                        message = groupScheduleResponse?.message
                                     ))
                                 }
                             }

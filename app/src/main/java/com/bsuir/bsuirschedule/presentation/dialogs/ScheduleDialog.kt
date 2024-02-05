@@ -1,11 +1,16 @@
 package com.bsuir.bsuirschedule.presentation.dialogs
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.bumptech.glide.Glide
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ActiveScheduleDialogBinding
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
@@ -59,37 +64,71 @@ class ScheduleDialog(
         }
         binding.scheduleDate.text = scheduleDatePeriod
 
-        if (schedule.isGroup()) {
-            val group = schedule.group
-            Glide.with(binding.schedule.image)
-                .load(R.drawable.ic_group_placeholder)
-                .into(binding.schedule.image)
-            binding.schedule.title.text = group.name
-            binding.schedule.departments.text = group.getFacultyAndSpecialityAbbr()
-            binding.schedule.educationType.text = group.speciality?.educationForm?.name ?: ""
-            binding.schedule.course.visibility = View.VISIBLE
-            binding.schedule.course.text = "${group.course} $courseText"
-            binding.scheduleSubtitles.text = group.getFacultyAndSpecialityFull()
-        } else {
-            val employee = schedule.employee
-            Glide.with(binding.schedule.image)
-                .load(employee.photoLink)
-                .into(binding.schedule.image)
-            binding.schedule.title.text = employee.getFullName()
-            binding.schedule.departments.text = employee.getRankAndDegree()
-            binding.schedule.educationType.text = employee.getShortDepartments(moreText)
-            binding.schedule.course.visibility = View.GONE
-            if (employee.departmentsList.isNullOrEmpty()) {
-                val noDepartments = resources.getString(R.string.active_schedule_no_departments)
-                binding.scheduleSubtitles.text = noDepartments
-            } else {
-                binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
+        if (!schedule.employee.email.isNullOrEmpty()) {
+            val copiedText = getString(R.string.text_copied)
+            binding.letterContainer.visibility = View.VISIBLE
+            binding.copyLetterButton.text = schedule.employee.email
+            binding.copyLetterButton.setOnClickListener {
+                val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText(
+                    "com.bsuir.bsuirschedule",
+                    binding.copyLetterButton.text
+                )
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(context, copiedText, Toast.LENGTH_SHORT).show()
             }
+            binding.emailButton.setOnClickListener {
+                val recipient = schedule.employee.email
+                val emailIntent = Intent(Intent.ACTION_SENDTO)
+                emailIntent.data = Uri.parse("mailto:")
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+                emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    getString(R.string.hello_name,
+                        "${schedule.employee.firstName} ${schedule.employee.middleName}")
+                )
+                try {
+                    startActivity(emailIntent)
+                } catch(e: Exception) {
+                    val errorOpenGmailText = getString(R.string.error_open_gmail)
+                    Toast.makeText(context, errorOpenGmailText, Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            binding.letterContainer.visibility = View.GONE
+        }
 
-            binding.schedule.image.setOnClickListener {
-                val imageViewDialog = ImageViewDialog(requireContext(), employee.photoLink)
-                imageViewDialog.show()
-                dismiss()
+        with(binding.scheduleHeaderView) {
+            if (schedule.isGroup()) {
+                val group = schedule.group
+                setTitle(group.name)
+                setImage(R.drawable.ic_group_placeholder)
+                setDescription(group.getFacultyAndSpecialityAbbr())
+                setSecondTitle("${group.course} $courseText")
+                setSecondSubTitle(group.speciality?.educationForm?.name ?: "")
+                binding.scheduleSubtitles.text = group.getFacultyAndSpecialityFull()
+            } else {
+                val employee = schedule.employee
+                setTitle(employee.getFullName())
+                setImage(employee.photoLink)
+                setDescription(employee.getRankAndDegree())
+                setSecondSubTitle(employee.getShortDepartments(moreText))
+                if (employee.departmentsList.isNullOrEmpty()) {
+                    val noDepartments = resources.getString(R.string.active_schedule_no_departments)
+                    binding.scheduleSubtitles.text = noDepartments
+                } else {
+                    binding.scheduleSubtitles.text = employee.getFullDepartments("\n\n")
+                }
+
+                setImageClickListener {
+                    val imageViewDialog = ImageViewDialog(
+                        requireContext(),
+                        employee.photoLink,
+                        employee.getFullName()
+                    )
+                    imageViewDialog.show()
+                    dismiss()
+                }
             }
         }
 

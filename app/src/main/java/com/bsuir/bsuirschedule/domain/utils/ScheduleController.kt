@@ -59,8 +59,8 @@ class ScheduleController {
         }
     }
 
-    fun mergeGroupsSubjects(schedule: Schedule, groupItems: ArrayList<Group>) {
-        schedule.schedules.map { day ->
+    fun mergeGroupsSubjects(schedules: ArrayList<ScheduleDay>, groupItems: ArrayList<Group>) {
+        schedules.map { day ->
             day.schedule.map { subject ->
                 val groups = ArrayList<Group>()
                 subject.subjectGroups?.map { subjectGroup ->
@@ -449,7 +449,6 @@ class ScheduleController {
 
     fun getOriginalSchedule(groupSchedule: GroupSchedule): ArrayList<ScheduleDay> {
         val originalSchedule = getNormalSchedule(groupSchedule)
-
         val originalWithSubjectsBreakTime = getSubjectsBreakTime(originalSchedule.schedules)
 
         originalSchedule.originalSchedule = originalWithSubjectsBreakTime
@@ -466,6 +465,11 @@ class ScheduleController {
                 schedule.exams,
                 schedule.startExamsDate,
                 schedule.endExamsDate
+            )
+            schedule.examsSchedule = getSubjectsBreakTime(schedule.examsSchedule)
+            schedule.examsSchedule = getScheduleBySettings(
+                schedule.examsSchedule,
+                false
             )
         }
 

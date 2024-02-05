@@ -8,6 +8,7 @@
     <attr name="secondaryColor">@color/secondary_new</attr>
     <attr name="secondaryOnHintColor">@color/secondary_hint</attr>
     <attr name="secondaryOnHintButtonColor">@color/secondary_hint</attr>
+    <attr name="onTransparentButton">@color/transparent_button</attr>
     <attr name="secondaryTextColor">@color/text</attr>
     <attr name="textColor">@color/text</attr>
     <attr name="textHintColor">@color/text_dark_hint</attr>

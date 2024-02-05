@@ -77,6 +77,7 @@ data class EmployeeTable (
         rank = rank,
         photoLink = photoLink,
         calendarId = calendarId,
+        email = email,
         departmentsAbbrList = academicDepartment,
         departments = departments.map { it.toDepartment() } as ArrayList<Department>,
         isSaved = isSaved ?: false,

@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:backgroundTint="?attr/secondaryColor"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="@dimen/view_radius"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"

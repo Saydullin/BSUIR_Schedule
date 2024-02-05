@@ -31,6 +31,7 @@
         <item name="secondaryOnHintColor">@color/secondary_hint</item>
         <item name="secondaryOnHintButtonColor">@color/secondary_hint</item>
         <item name="secondaryColor">@color/primary_holder</item>
+        <item name="onTransparentButton">@color/transparent_light_button</item>
         <item name="secondaryTextColor">@color/dark</item>
         <item name="textColor">@color/dark</item>
         <item name="textHintColor">@color/text_dark_hint</item>
@@ -56,7 +57,9 @@
     <style name="Theme.BSUIRSchedule.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_ripple_background</item>
         <item name="android:backgroundTint">?attr/primaryColor</item>
+        <item name="backgroundTint">@null</item>
         <item name="android:textColor">@color/on_primary</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:minHeight">42dp</item>
@@ -72,12 +75,20 @@
     </style>
 
     <style name="Theme.BSUIRSchedule.Button.Danger" parent="Theme.BSUIRSchedule.Button">
+        <item name="android:background">@drawable/button_ripple_background</item>
         <item name="android:backgroundTint">@color/danger</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.Button.Hint" parent="Theme.BSUIRSchedule.Button">
-        <item name="android:backgroundTint">?attr/secondaryOnHintButtonColor</item>
+        <item name="android:background">@drawable/button_ripple_background</item>
         <item name="android:textColor">?attr/textColor</item>
+        <item name="android:backgroundTint">?attr/secondaryOnHintButtonColor</item>
+    </style>
+
+    <style name="Theme.BSUIRSchedule.Button.Transparent" parent="Theme.BSUIRSchedule.Button">
+        <item name="android:background">@drawable/button_ripple_background</item>
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:backgroundTint">?attr/onTransparentButton</item>
     </style>
 
     <style name="Theme.BSUIRSchedule.ImageButton">

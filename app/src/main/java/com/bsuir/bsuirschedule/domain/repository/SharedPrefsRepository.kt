@@ -14,6 +14,10 @@ interface SharedPrefsRepository {
 
     fun isAutoUpdate(): Boolean
 
+    fun getPrevVersion(): Int
+
+    fun setPrevVersion(prevVersion: Int)
+
     fun setAutoUpdate(isAutoUpdate: Boolean)
 
     fun setActiveScheduleId(scheduleId: Int)

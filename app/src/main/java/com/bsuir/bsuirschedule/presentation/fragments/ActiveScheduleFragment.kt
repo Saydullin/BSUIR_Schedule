@@ -18,6 +18,7 @@ import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.WidgetSettings
 import com.bsuir.bsuirschedule.presentation.activities.WidgetAddActivity
 import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.ImageViewDialog
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
 import com.bsuir.bsuirschedule.presentation.viewModels.EmployeeItemsViewModel
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
@@ -37,43 +38,6 @@ class ActiveScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentActiveScheduleBinding.inflate(inflater)
-
-        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
-            if (schedule == null) return@observe
-            val selectedSubgroup = schedule.settings.subgroup.selectedNum
-
-            with (binding.scheduleHeaderView) {
-                setSubgroupItems(schedule.subgroups)
-
-                if (schedule.isGroup()) {
-                    val group = schedule.group
-                    setTitle(group.getTitleOrName())
-                    setImage(R.drawable.ic_group_placeholder)
-                    setDescription(group.getFacultyAndSpecialityAbbr())
-                } else {
-                    val employee = schedule.employee
-                    setTitle(employee.getTitleOrFullName())
-                    setImage(employee.photoLink)
-                    setDescription(employee.getRankAndDegree())
-                    binding.scheduleHeaderView.setDescription(employee.getRankAndDegree())
-                }
-                setLocationText(getCurrentSubject(schedule.subjectNow))
-
-                if (selectedSubgroup == 0) {
-                    setSubgroupText(resources.getString(R.string.all_subgroups_short))
-                } else {
-                    setSubgroupText(selectedSubgroup.toString())
-                }
-
-                setSubgroupListener { subgroupNum ->
-                    val scheduleSettings = schedule.settings
-                    if (scheduleSettings.subgroup.selectedNum != subgroupNum) {
-                        scheduleSettings.subgroup.selectedNum = subgroupNum
-                        groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
-                    }
-                }
-            }
-        }
 
         val deleteSchedule = { savedSchedule: SavedSchedule ->
             savedScheduleVM.deleteSchedule(savedSchedule)
@@ -102,46 +66,92 @@ class ActiveScheduleFragment : Fragment() {
             }
         }
 
-        binding.scheduleHeaderView.setMenuListener {
-            val activeSchedule = groupScheduleVM.getActiveSchedule() ?: return@setMenuListener
-            when (it) {
-                ScheduleAction.DIALOG_OPEN -> {
-                    val scheduleDialog = ScheduleDialog(
-                        schedule = activeSchedule,
-                        delete = deleteWarning,
-                        update = updateSchedule)
-                    scheduleDialog.isCancelable = true
-                    scheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
+        groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+            if (schedule == null) return@observe
+            val selectedSubgroup = schedule.settings.subgroup.selectedNum
+
+            with (binding.scheduleHeaderView) {
+                setSubgroupItems(schedule.subgroups)
+
+                if (schedule.isGroup()) {
+                    val group = schedule.group
+                    setTitle(group.getTitleOrName())
+                    setImage(R.drawable.ic_group_placeholder)
+                    setDescription(group.getFacultyAndSpecialityAbbr())
+                } else {
+                    val employee = schedule.employee
+                    val moreText = getString(R.string.more)
+                    setTitle(employee.getTitleOrFullName())
+                    setImage(employee.photoLink)
+                    setDescription(employee.getShortDepartments(moreText))
+                    setImageClickListener {
+                        val imageViewDialog = ImageViewDialog(
+                            requireContext(),
+                            employee.photoLink,
+                            employee.getFullName(),
+                        )
+                        imageViewDialog.show()
+                    }
                 }
-                ScheduleAction.SETTINGS -> {
-                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSettingsFragment)
+                setExamsIcon(!schedule.isExamsNotExist())
+                setLocationText(getCurrentSubject(schedule.subjectNow))
+
+                if (selectedSubgroup == 0) {
+                    setSubgroupText(resources.getString(R.string.all_subgroups_short))
+                } else {
+                    setSubgroupText(selectedSubgroup.toString())
                 }
-                ScheduleAction.UPDATE_HISTORY -> {
-                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleUpdateHistoryFragment)
-                }
-                ScheduleAction.UPDATE -> {
-                    updateSchedule(activeSchedule.toSavedSchedule())
-                }
-                ScheduleAction.ADD_SUBJECT -> {
-                    Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSubjectAddFragment)
-                }
-                ScheduleAction.SHARE -> {
-                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
-                }
-                ScheduleAction.WIDGET_ADD -> {
-                    val intent = Intent(requireActivity(), WidgetAddActivity::class.java)
-                    intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_TITLE, activeSchedule.getTitle())
-                    intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, activeSchedule.id)
-                    intent.putExtra(WidgetSettings.EXTRA_HAVE_TO_ADD_APPWIDGET, true)
-                    startActivity(intent)
-                }
-                ScheduleAction.EXAMS -> {
-                    Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
-                }
-                ScheduleAction.DELETE -> {
-                    deleteWarning(activeSchedule.toSavedSchedule())
+
+                setSubgroupListener { subgroupNum ->
+                    val scheduleSettings = schedule.settings
+                    if (scheduleSettings.subgroup.selectedNum != subgroupNum) {
+                        scheduleSettings.subgroup.selectedNum = subgroupNum
+                        groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
+                    }
                 }
             }
+            binding.scheduleHeaderView.isExistExams(!schedule.isExamsNotExist())
+            binding.scheduleHeaderView.setMenuListener {
+                when (it) {
+                    ScheduleAction.DIALOG_OPEN -> {
+                        val scheduleDialog = ScheduleDialog(
+                            schedule = schedule,
+                            delete = deleteWarning,
+                            update = updateSchedule)
+                        scheduleDialog.isCancelable = true
+                        scheduleDialog.show(parentFragmentManager, "savedScheduleDialog")
+                    }
+                    ScheduleAction.SETTINGS -> {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSettingsFragment)
+                    }
+                    ScheduleAction.UPDATE_HISTORY -> {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleUpdateHistoryFragment)
+                    }
+                    ScheduleAction.UPDATE -> {
+                        updateSchedule(schedule.toSavedSchedule())
+                    }
+                    ScheduleAction.ADD_SUBJECT -> {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleSubjectAddFragment)
+                    }
+                    ScheduleAction.SHARE -> {
+                        Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
+                    }
+                    ScheduleAction.WIDGET_ADD -> {
+                        val intent = Intent(requireActivity(), WidgetAddActivity::class.java)
+                        intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_TITLE, schedule.getTitle())
+                        intent.putExtra(WidgetSettings.EXTRA_APPWIDGET_SCHEDULE_ID, schedule.id)
+                        intent.putExtra(WidgetSettings.EXTRA_HAVE_TO_ADD_APPWIDGET, true)
+                        startActivity(intent)
+                    }
+                    ScheduleAction.EXAMS -> {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_mainScheduleFragment_to_scheduleExamsFragment)
+                    }
+                    ScheduleAction.DELETE -> {
+                        deleteWarning(schedule.toSavedSchedule())
+                    }
+                }
+            }
+
         }
 
         return binding.root

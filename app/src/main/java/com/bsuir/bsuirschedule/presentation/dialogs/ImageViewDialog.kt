@@ -11,18 +11,21 @@ import com.bumptech.glide.Glide
 class ImageViewDialog(
     ctx: Context,
     private val imageView: String,
+    private val caption: String,
 ) : Dialog(ctx) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ImageViewDialogBinding.inflate(LayoutInflater.from(context))
-        window?.setBackgroundDrawableResource(R.drawable.dialog_bg_shadow)
+        window?.setBackgroundDrawableResource(R.drawable.dialog_bg_transparent_shadow)
 
         setContentView(binding.root)
 
         Glide.with(context)
             .load(imageView)
             .into(binding.imagePreview)
+
+        binding.caption.text = caption
     }
 
 }

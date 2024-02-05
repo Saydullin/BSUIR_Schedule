@@ -10,6 +10,7 @@ import com.bsuir.bsuirschedule.BuildConfig
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentSplashScreenBinding
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
+import com.bsuir.bsuirschedule.presentation.dialogs.InfoDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.*
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.core.component.KoinComponent
@@ -44,6 +45,17 @@ class SplashScreenFragment : Fragment(), KoinComponent {
             currentWeekVM.getCurrentWeekAPI()
             findNavController().navigate(R.id.action_splashScreenFragment_to_welcomeFragment)
         } else {
+            val prevVersion = sharedPrefsUseCase.getPrevVersion()
+            if (prevVersion < BuildConfig.VERSION_CODE) {
+                val title = getString(R.string.update_info_title)
+                val description = getString(R.string.update_info_description)
+                val infoDialog = InfoDialog(
+                    title = title,
+                    description = description
+                )
+                infoDialog.show(parentFragmentManager, "WarningDialog")
+                sharedPrefsUseCase.setPrevVersion(BuildConfig.VERSION_CODE)
+            }
             groupScheduleVM.initActiveSchedule()
             currentWeekVM.setCurrentWeekNumber()
             findNavController().navigate(R.id.action_to_mainScheduleFragment)

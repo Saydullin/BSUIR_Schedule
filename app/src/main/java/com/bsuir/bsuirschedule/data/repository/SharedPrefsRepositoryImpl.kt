@@ -48,6 +48,23 @@ class SharedPrefsRepositoryImpl(override val context: Context): SharedPrefsRepos
         )
     }
 
+    override fun getPrevVersion(): Int {
+        return prefs.getInt(
+            context.getString(R.string.app_prev_version),
+            0
+        )
+    }
+
+    override fun setPrevVersion(prevVersion: Int) {
+        with(prefs.edit()) {
+            putInt(
+                context.getString(R.string.app_prev_version),
+                prevVersion
+            )
+            apply()
+        }
+    }
+
     override fun setAutoUpdate(isAutoUpdate: Boolean) {
         with(prefs.edit()) {
             putBoolean(

@@ -62,7 +62,7 @@ class ScheduleUpdateManager(
         val scheduleAPIResult = if (savedSchedule.isGroup) {
             getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
         } else {
-            getScheduleUseCase.getEmployeeAPI(savedSchedule.employee.urlId)
+            savedSchedule.employee.urlId?.let { getScheduleUseCase.getEmployeeAPI(it) }
         }
         val scheduleResult = getScheduleUseCase.getById(savedSchedule.id)
 
@@ -79,7 +79,7 @@ class ScheduleUpdateManager(
         val scheduleResult = if (savedSchedule.isGroup) {
             getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
         } else {
-            getScheduleUseCase.getEmployeeAPI(savedSchedule.employee.urlId)
+            savedSchedule.employee.urlId?.let { getScheduleUseCase.getEmployeeAPI(it) }
         }
 
         if (scheduleResult is Resource.Success && scheduleResult.data != null) {

@@ -12,6 +12,7 @@
     <string name="last_update">%s 已更新</string>
     <string name="controls_settings">日程设置</string>
     <string name="schedules_list_title">我的日程</string>
+    <string name="schedules_exams_title">考试</string>
     <string name="schedule_edit_title">更改时间表</string>
     <string name="schedule_subject_add_title">添加活动</string>
     <string name="no_teacher_title">未列出教师</string>
@@ -26,7 +27,7 @@
     <string name="tab_item_group">团体</string>
     <string name="tab_item_employee">教师</string>
     <string name="no_data_field">未注明</string>
-    <string name="subject_break_time_or">或者</string>
+    <string name="subject_break_time_or">•</string>
     <string name="search_placeholder">搜索</string>
     <string name="loading_dots">加载中...</string>
     <string name="popup_update">刷新</string>
@@ -137,7 +138,7 @@
     <string name="all_subgroups_short">*</string>
     <string name="subgroup_selected">选择了 %d 个子组</string>
     <string name="schedule_week_number">" %d 周"</string>
-    <string name="no_items_placeholder">时间表未加载（下拉刷新</string>
+    <string name="no_items_placeholder">时间表未加载\n下拉刷新</string>
     <string name="okay">可以理解</string>
     <string name="schedules_first_add_all_list_title">选择时间表</string>
     <string name="add">添加</string>
@@ -185,6 +186,15 @@
     <string name="delete_schedule_dialog_caption">日程设置也将被删除</string>
     <string name="reset_schedule_settings">设置重置</string>
     <string name="save_schedule_settings">设置已保存</string>
+    <string name="schedule_updated_deleted">已删除 %s</string>
+    <string name="schedule_updated_added">添加了 %s</string>
+    <string name="schedule_updated_note">已更改 %s 中的注释</string>
+    <string name="schedule_updated_weeks">更改了 %s 的学校周数</string>
+    <string name="schedule_updated_lesson_type">已更改 %s 中的活动类型</string>
+    <string name="schedule_updated_subgroup">已更改 %s 中的子组</string>
+    <string name="schedule_updated_employee">%s 换了老师</string>
+    <string name="schedule_updated_group">已更改 %s 中的组</string>
+    <string name="schedule_updated_audience">%s 后受众群体发生变化</string>
     <string name="schedule_widget_description">申请中所选小组或教师的时间表</string>
     <string name="schedule_settings_schedule_past_days_hint_text">显示过去多少天？</string>
     <string name="yesterday">昨天</string>
@@ -208,6 +218,7 @@
     <string name="schedule_week_loaded_error">现在是星期几？</string>
     <string name="schedule_subject_added_caption">活动添加成功</string>
     <string name="schedule_week_loaded_error_caption">无法加载当前周数</string>
+    <string name="error_open_gmail">无法打开 Gmail 应用程序</string>
     <string name="test_header_title">0周</string>
     <string name="popup_rename">改名</string>
     <string name="rename_schedule_dialog_caption">新名称将被标记在括号中</string>
@@ -264,6 +275,7 @@
     <string name="friday">星期五</string>
     <string name="saturday">周六</string>
     <string name="sunday">星期日</string>
+    <string name="hello_name">你好%s！</string>
     <string name="alert_reset_settings_title">您确定要重置设置吗？</string>
     <string name="schedule_updated_notification">由 %s 更新</string>
     <string name="new_notifications_amount">%d 个新通知</string>
@@ -399,6 +411,11 @@
     <string name="share">分享</string>
     <string name="shareText">我推荐申请 BSUIR 时间表 - BSUIR 时间表 2023 https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
     <string name="shareTitle">分享 BSUIR Schedule 2023 App</string>
+    <string name="employee_image">员工形象</string>
+    <string name="write">写</string>
+    <string name="text_copied">已复制到剪贴板</string>
+    <string name="update_info_title">老师的电子邮件</string>
+    <string name="update_info_description">现在您可以轻松获取教师的联系信息。\n\n要查找教师的电子邮件，只需加载他们的日程安排或在任何课程中点击他们的姓名。\n\n如果有电子邮件信息可用，它将显示在屏幕上，并附带一个写邮件的按钮。</string>
 
 </resources>
 

@@ -32,7 +32,8 @@ class ScheduleItemsFragment : Fragment() {
         employeeItemsVM.getAllEmployeeItems()
 
         binding.cancelButton.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_to_saved_schedules)
+//            Navigation.findNavController(binding.root).navigate(R.id.action_to_saved_schedules)
+            Navigation.findNavController(binding.root).navigateUp()
         }
 
         groupScheduleVM.successStatus.observe(viewLifecycleOwner) { successCode ->

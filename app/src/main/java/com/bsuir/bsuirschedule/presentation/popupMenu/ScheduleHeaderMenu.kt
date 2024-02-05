@@ -12,14 +12,24 @@ class ScheduleHeaderMenu(
     private val onSettingsClick: () -> Unit,
     private val onUpdateHistoryClick: () -> Unit,
     private val onShareClick: () -> Unit,
+    private val onExamsClick: () -> Unit,
     private val onWidgetAddClick: () -> Unit,
     private val onDeleteClick: () -> Unit
 ) {
+
+    private var isExistExams = false
+
+    fun isExistExams(isExist: Boolean) {
+        isExistExams = isExist
+    }
 
     fun initPopupMenu(targetView: View): PopupMenu {
         val popupMenu = PopupMenu(context, targetView)
 
         popupMenu.inflate(R.menu.schedule_header_menu)
+
+        val examsMenuItem = popupMenu.menu.findItem(R.id.exams)
+        examsMenuItem.isVisible = isExistExams
 
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId) {
@@ -45,6 +55,10 @@ class ScheduleHeaderMenu(
                 }
                 R.id.delete -> {
                     onDeleteClick()
+                    true
+                }
+                R.id.exams -> {
+                    onExamsClick()
                     true
                 }
                 R.id.add_widget -> {

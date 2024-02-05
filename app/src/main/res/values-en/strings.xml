@@ -12,6 +12,7 @@
     <string name="last_update">Was updated at %s</string>
     <string name="controls_settings">Schedule settings</string>
     <string name="schedules_list_title">My schedules</string>
+    <string name="schedules_exams_title">Exams</string>
     <string name="schedule_edit_title">Change schedule</string>
     <string name="schedule_subject_add_title">Add lesson</string>
     <string name="no_teacher_title">Teacher not listed</string>
@@ -26,7 +27,7 @@
     <string name="tab_item_group">Groups</string>
     <string name="tab_item_employee">Teachers</string>
     <string name="no_data_field">Not listed</string>
-    <string name="subject_break_time_or">or</string>
+    <string name="subject_break_time_or">•</string>
     <string name="search_placeholder">Search</string>
     <string name="loading_dots">loading ...</string>
     <string name="popup_update">Update</string>
@@ -36,7 +37,7 @@
     <string name="subgroup">For %d subgroup</string>
     <string name="subject_time">from %s to %s</string>
     <string name="subject_weeks">at %s weeks</string>
-    <string name="subject_note">Note: %s</string>
+    <string name="subject_note">Note:</string>
     <string name="subject_date_range">From %s to %s</string>
     <string name="about_search_title">Schedule Search</string>
     <string name="about_search_text">The search works on all keywords related to the schedule./n/nGroups can be searched by the full name or abbreviation of the faculty and specialty:/nThe query “ksis waters” will return all groups related to the given faculty and specialty./n/nA query consisting of a single digit will return all groups of the corresponding course./n/nLikewise with teachers. You can search, by department, for a scientific degree (“PhD”, “Associate Professor”, “Professor”, etc.).</string>
@@ -234,7 +235,7 @@
     <string name="all_subgroups_short">All</string>
     <string name="subgroup_selected">%d subgroup selected</string>
     <string name="schedule_week_number">%d week</string>
-    <string name="no_items_placeholder">Schedules not loaded (\nDrag down to refresh</string>
+    <string name="no_items_placeholder">Schedules not loaded\nDrag down to refresh</string>
     <string name="okay">Okay</string>
     <string name="schedules_first_add_all_list_title">Select schedule</string>
     <string name="add">Add</string>
@@ -282,6 +283,15 @@
     <string name="delete_schedule_dialog_caption">Schedule settings will also be deleted</string>
     <string name="reset_schedule_settings">Settings reset</string>
     <string name="save_schedule_settings">Settings saved</string>
+    <string name="schedule_updated_deleted">Deleted %s</string>
+    <string name="schedule_updated_added">Added %s</string>
+    <string name="schedule_updated_note">Changed note in %s</string>
+    <string name="schedule_updated_weeks">Changed school weeks in %s</string>
+    <string name="schedule_updated_lesson_type">Changed activity type in %s</string>
+    <string name="schedule_updated_subgroup">Changed subgroup in %s</string>
+    <string name="schedule_updated_employee">Changed teacher in %s</string>
+    <string name="schedule_updated_group">Changed group in %s</string>
+    <string name="schedule_updated_audience">Audience changed in %s</string>
     <string name="schedule_widget_description">Schedule of the selected group or teacher in the application</string>
     <string name="schedule_settings_schedule_past_days_hint_text">How many past days to show?</string>
     <string name="yesterday">Yesterday</string>
@@ -305,6 +315,7 @@
     <string name="schedule_week_loaded_error">What week is now?</string>
     <string name="schedule_subject_added_caption">Lesson added successfully</string>
     <string name="schedule_week_loaded_error_caption">Failed to load current week number</string>
+    <string name="error_open_gmail">Failed to open Gmail app</string>
     <string name="test_header_title">0 week</string>
     <string name="popup_rename">Rename</string>
     <string name="rename_schedule_dialog_caption">The new name will be marked in brackets</string>
@@ -361,6 +372,7 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    <string name="hello_name">Hello %s!</string>
     <string name="alert_reset_settings_title">" Are you sure you want to reset your settings?"</string>
     <string name="schedule_updated_notification">Updated %s</string>
     <string name="new_notifications_amount">%d new notifications.</string>
@@ -399,6 +411,11 @@
     <string name="share">Share</string>
     <string name="shareText">I recommend the application for BSUIR schedules - BSUIR Schedule 2023 https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
     <string name="shareTitle">Share BSUIR Schedule 2023 app</string>
+    <string name="employee_image">employee image</string>
+    <string name="write">Write</string>
+    <string name="text_copied">Copied to clipboard</string>
+    <string name="update_info_title">Teacher\'s email</string>
+    <string name="update_info_description">Now you can easily access the contact information of the teacher.\n\nTo find out the teachers\'s email, simply load their schedule or click on their name during any class.\n\nIf the email information is available, it will be displayed on the screen along with a button to write an email.</string>
 </resources>
 
 

@@ -32,6 +32,7 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Субота</string>
     <string name="sunday">Нядзеля</string>
+    <string name="hello_name">Добры дзень, %s!</string>
     <string name="alert_reset_settings_title">Вы ўпэўненыя, што хочаце скінуць наладкі?</string>
     <string name="schedule_updated_notification">Абноўлена %s</string>
     <string name="group_schedule_updated_notification">Група %s</string>
@@ -77,9 +78,11 @@
     <string name="delete_subject_dialog_caption">Вярнуць занятак можна будзе толькі абнавіўшы расклад!</string>
     <string name="reset_schedule_settings">Налады скінуты</string>
     <string name="save_schedule_settings">Настройкі захаваны</string>
+    <string name="error_open_gmail">Не ўдалося адкрыць прыкладанне Gmail</string>
     <string name="test_header_title">0 тыдзень</string>
     <string name="controls_settings">Налады расклад</string>
     <string name="schedules_list_title">Мае расклады</string>
+    <string name="schedules_exams_title">Экзамены</string>
     <string name="schedule_edit_title">Змяніць расклад</string>
     <string name="schedule_subject_add_title">Дадаць занятак</string>
     <string name="no_teacher_title">Выкладчык не пазначаны</string>
@@ -102,7 +105,7 @@
     <string name="tab_item_settings">Налады</string>
     <string name="tab_item_schedule_control">Упраўленне</string>
     <string name="no_data_field">Не пазначана</string>
-    <string name="subject_break_time_or">ці</string>
+    <string name="subject_break_time_or">•</string>
     <string name="search_placeholder">Пошук</string>
     <string name="schedule_title_placeholder">Увядзіце што заўгодна</string>
     <string name="loading_dots">загружаецца ...</string>
@@ -197,7 +200,7 @@
     <string name="no_schedule_updated_history">Няма захаваных абнаўленняў</string>
     <string name="no_schedule">%s (няма заняткаў)</string>
     <string name="no_schedule_placeholder">Няма раскладу</string>
-    <string name="no_items_placeholder">Расклады не загрузіліся ( Пацягніце ўніз, каб абнавіць</string>
+    <string name="no_items_placeholder">Расклады не загрузіліся\nПацягніце ўніз, каб абнавіць</string>
     <string name="no_exams_placeholder">Няма экзаменаў</string>
     <string name="settings_lang_title">Мова прыкладання</string>
     <string name="settings_lang_caption">Лакалізацыя прыкладання частковая.\nРасклады будуць заўсёды на рускай.</string>
@@ -249,6 +252,15 @@
     <string name="get_started">Пачаць</string>
     <string name="get_started_skip">Прапусціць</string>
     <string name="not_available">У працэсе распрацоўкі</string>
+    <string name="schedule_updated_deleted">Выдалена %s</string>
+    <string name="schedule_updated_added">Паведамленні %s</string>
+    <string name="schedule_updated_note">Зменена нататка ў %s</string>
+    <string name="schedule_updated_weeks">Зменены навучальныя тыдні ў %s</string>
+    <string name="schedule_updated_lesson_type">Зменены тып заняткаў у %s</string>
+    <string name="schedule_updated_subgroup">Зменена падгрупа ў %s</string>
+    <string name="schedule_updated_employee">Зменены выкладчык у %s</string>
+    <string name="schedule_updated_group">Зменена група ў %s</string>
+    <string name="schedule_updated_audience">Зменена аўдыторыя ў %s</string>
     <string name="schedule_widget_description">Расклад абранай групы або выкладчыка ў дадатку</string>
     <string name="schedule_settings_schedule_past_days_hint_text">Колькі мінулых дзён паказваць?</string>
     <string name="reset">Скінуць</string>
@@ -401,4 +413,9 @@
     <string name="share">Падзяліцца</string>
     <string name="shareText">Рэкамендую прыкладанне для раскладаў БДУІР - BSUIR Schedule 2023 https://play.google.com/store/apps/details?id=com.bsuir.bsuirschedule</string>
     <string name="shareTitle">Падзяліцца дадаткам BSUIR Schedule 2023</string>
+    <string name="employee_image">employee image</string>
+    <string name="write">Напісаць</string>
+    <string name="text_copied">Скапіравана ў буфер абмену</string>
+    <string name="update_info_title">Пошта выкладчыка</string>
+    <string name="update_info_description">Цяпер вы можаце лёгка атрымаць доступ да кантактнай інфармацыі выкладчыка.\n\nКаб даведацца пошту выкладчыка, проста загрузіце яго расклад ці націсніце на яго ў любым занятку.\n\nПры наяўнасці інфармацыі аб пошце, яна будзе адлюстравана на экране разам з кнопкай для напісання ліста.</string>
 </resources>

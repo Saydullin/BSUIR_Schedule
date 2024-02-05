@@ -25,7 +25,10 @@ data class Schedule (
     var lastUpdateTime: Long,
     var lastOriginalUpdateTime: Long,
     var selectedSubgroup: Int = 0, // 0 - non selected, show all subgroups
-    var settings: ScheduleSettings = ScheduleSettings.empty
+    var settings: ScheduleSettings = ScheduleSettings.empty,
+    val currentTerm: String?,
+    val currentPeriod: String?,
+    val previousTerm: String?,
 ) {
 
     companion object {
@@ -48,7 +51,10 @@ data class Schedule (
             lastUpdateTime = 0,
             selectedSubgroup = 0,
             lastOriginalUpdateTime = 0,
-            settings = ScheduleSettings.empty
+            settings = ScheduleSettings.empty,
+            currentTerm = null,
+            currentPeriod = null,
+            previousTerm = null,
         )
     }
 
@@ -140,6 +146,9 @@ data class Schedule (
         lastUpdateTime = lastUpdateTime,
         lastOriginalUpdateTime = lastOriginalUpdateTime,
         settings = settings,
+        currentTerm = currentTerm ?: "",
+        currentPeriod = currentPeriod ?: "",
+        previousTerm = previousTerm ?: "",
     )
 
 }

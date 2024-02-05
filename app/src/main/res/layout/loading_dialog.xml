@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:backgroundTint="?attr/dialogBg"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/dialog_radius">
 
     <LinearLayout
         android:layout_width="match_parent"

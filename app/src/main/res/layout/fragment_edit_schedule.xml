@@ -48,6 +48,7 @@
         android:id="@+id/scheduleHeaderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
         app:titleText="151003"
         app:subTitle="ФКСИС ПОИТ"
         app:subgroup="3"

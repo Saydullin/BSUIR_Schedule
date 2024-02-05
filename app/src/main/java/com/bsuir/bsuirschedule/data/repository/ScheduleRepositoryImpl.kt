@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.data.repository
 
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
@@ -55,6 +56,7 @@ class ScheduleRepositoryImpl(
                 )
             }
         } catch (e: Exception) {
+            Log.e("sady", "getEmployeeScheduleAPI")
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.CONNECTION_ERROR,
@@ -113,6 +115,7 @@ class ScheduleRepositoryImpl(
                 message = e.message
             )
         } catch (e: Exception) {
+            Log.e("sady", "getScheduleById")
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
@@ -126,6 +129,8 @@ class ScheduleRepositoryImpl(
             scheduleDao.saveSchedule(schedule.toScheduleTable())
             Resource.Success(null)
         } catch (e: Exception) {
+            Log.e("sady", "saveSchedule")
+            Log.e("sady", e.message.toString())
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
@@ -142,6 +147,7 @@ class ScheduleRepositoryImpl(
             scheduleDao.updateScheduleSettings(id, Gson().toJson(newSettings))
             Resource.Success(null)
         } catch (e: Exception) {
+            Log.e("sady", "updateScheduleSettings")
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,

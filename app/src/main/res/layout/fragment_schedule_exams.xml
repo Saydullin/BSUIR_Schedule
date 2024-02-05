@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="?attr/primaryOnColor"
-    tools:context=".presentation.fragments.ScheduleUpdateHistoryFragment">
+    tools:context=".presentation.fragments.ScheduleExamsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,16 +18,16 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/cancel_button"
             style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/cancel_button"
+            android:src="@drawable/ic_arrow_back"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_schedule_list"
-            android:src="@drawable/ic_arrow_back" />
+            android:contentDescription="@string/cd_schedule_list" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/schedules_update_history_title"
+            android:text="@string/schedules_exams_title"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:textColor="@color/text_primary"
@@ -51,51 +51,14 @@
         app:subTitle="ФКСИС ПОИТ"
         app:subgroup="3" />
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:layout_marginVertical="10dp">-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="20dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:src="@drawable/ic_update"-->
-<!--            android:layout_marginEnd="5dp"-->
-<!--            android:contentDescription="@string/cd_last_update" />-->
-
-<!--        <Space-->
-<!--            android:layout_width="5dp"-->
-<!--            android:layout_height="wrap_content" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            style="@style/Theme.BSUIRSchedule.TextView"-->
-<!--            android:text="Обновлено 13 мая" />-->
-
-<!--    </LinearLayout>-->
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/schedule_update_history_recycler"
+        android:id="@+id/schedule_exams_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        tools:listitem="@layout/schedule_day"
-        tools:itemCount="3" />
-
-    <LinearLayout
-        android:id="@+id/noUpdatedPlaceholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/nested_placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/schedule_updated_history_placeholder" />
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/schedule_day" />
 
 </LinearLayout>
 

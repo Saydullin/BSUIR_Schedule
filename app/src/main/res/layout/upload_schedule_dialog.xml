@@ -10,51 +10,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="?attr/dialogBg"
-        android:padding="10dp">
+        android:background="?attr/dialogBg">
 
-        <LinearLayout
+        <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
+            android:id="@+id/scheduleHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            app:titleText="151003"
+            app:subTitle="ФКСИС ПОИТ"
+            app:subgroup="3"
+            app:isPreview="true" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
+        <LinearLayout
+            android:id="@+id/letter_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/copy_letter_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:lineHeight="21dp"
-                android:text="@string/upload_schedule_dialog_title_holder"/>
+                android:layout_marginEnd="20dp"
+                style="@style/Theme.BSUIRSchedule.Button.Transparent"
+                android:text="Написать" />
 
             <Space
                 android:layout_width="0dp"
-                android:layout_height="10dp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-            <TextView
+            <Button
+                android:id="@+id/email_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Hint"
-                android:gravity="center"
-                android:text="@string/upload_schedule_dialog_caption" />
+                style="@style/Theme.BSUIRSchedule.Button.Transparent"
+                android:text="@string/write" />
 
         </LinearLayout>
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.Button.Hint"
+                style="@style/Theme.BSUIRSchedule.Button.Transparent"
                 android:text="@string/cancel" />
 
             <Space

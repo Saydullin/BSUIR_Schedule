@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
         android:text="@string/no_items_placeholder" />
 
 </LinearLayout>

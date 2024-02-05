@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.repository
 
+import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetEmployeeItemsService
 import com.bsuir.bsuirschedule.data.db.dao.EmployeeDao
@@ -39,6 +40,8 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             val data = employeeDao.getEmployees().map { it.toEmployee() } as ArrayList<Employee>
             Resource.Success(data)
         } catch (e: Exception) {
+            Log.e("sady", "getEmployeeItems")
+            e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
@@ -53,6 +56,8 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             val employeeList = data.map { it.toEmployee() } as ArrayList<Employee>
             Resource.Success(employeeList)
         } catch (e: Exception) {
+            Log.e("sady", "filterByKeywordASC")
+            e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
@@ -67,6 +72,8 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             val employeeList = data.map { it.toEmployee() } as ArrayList<Employee>
             Resource.Success(employeeList)
         } catch (e: Exception) {
+            Log.e("sady", "filterByKeywordDESC")
+            e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
@@ -80,6 +87,9 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
             employeeDao.saveEmployeeItem(employeeList.map { it.toEmployeeTable() })
             Resource.Success(null)
         } catch (e: Exception) {
+            Log.e("sady", "saveEmployeeItem")
+            Log.e("sady", e.message.toString())
+            e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
@@ -88,3 +98,5 @@ class EmployeeItemsRepositoryImpl(override val employeeDao: EmployeeDao) : Emplo
     }
 
 }
+
+

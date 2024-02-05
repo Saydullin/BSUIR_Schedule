@@ -53,13 +53,13 @@ class ScheduleUpdateWorker(
                 buildScheduleUpdateNotification(
                     context,
                     context.getString(R.string.schedule_updated),
-                    context.getString(R.string.group_schedule_updated_notification, updatedSchedule.group.name) + updatedSchedule.lastUpdateDate
+                    context.getString(R.string.group_schedule_updated_notification, updatedSchedule.group.name)
                 )
             } else {
                 buildScheduleUpdateNotification(
                     context,
                     context.getString(R.string.schedule_updated),
-                    context.getString(R.string.employee_schedule_updated_notification, updatedSchedule.employee.getName()) + updatedSchedule.lastUpdateDate
+                    context.getString(R.string.employee_schedule_updated_notification, updatedSchedule.employee.getName())
                 )
             }
         }

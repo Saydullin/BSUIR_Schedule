@@ -111,32 +111,29 @@ class GroupItemsViewModel(
 
     // Update all group items from API
     private suspend fun updateGroupItems() {
-        when (
-            val newGroupItems = getGroupItemsUseCase.getGroupItemsAPI()
-        ) {
-            is Resource.Success -> {
-                when (
-                    getGroupItemsUseCase.saveGroupItems(newGroupItems.data!!)
-                ) {
-                    is Resource.Success -> {
-                        getAllGroupItems()
-                    }
-                    is Resource.Error -> {
-                        error.postValue(StateStatus(
-                            state = StateStatus.ERROR_STATE,
-                            type = newGroupItems.statusCode,
-                            message = newGroupItems.message
-                        ))
-                    }
+        val newGroupItems = getGroupItemsUseCase.getGroupItemsAPI()
+
+        if (newGroupItems is Resource.Success && newGroupItems.data != null) {
+            when (
+                getGroupItemsUseCase.saveGroupItems(newGroupItems.data)
+            ) {
+                is Resource.Success -> {
+                    getAllGroupItems()
+                }
+                is Resource.Error -> {
+                    error.postValue(StateStatus(
+                        state = StateStatus.ERROR_STATE,
+                        type = newGroupItems.statusCode,
+                        message = newGroupItems.message
+                    ))
                 }
             }
-            is Resource.Error -> {
-                error.postValue(StateStatus(
-                    state = StateStatus.ERROR_STATE,
-                    type = newGroupItems.statusCode,
-                    message = newGroupItems.message
-                ))
-            }
+        } else {
+            error.postValue(StateStatus(
+                state = StateStatus.ERROR_STATE,
+                type = newGroupItems.statusCode,
+                message = newGroupItems.message
+            ))
         }
     }
 

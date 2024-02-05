@@ -15,6 +15,8 @@
     <color name="on_primary">#FFFFFF</color>
     <color name="primary_holder">#dfe6e9</color>
     <color name="secondary_hint">#CBD2D5</color>
+    <color name="transparent_light_button">#F0F0F0</color>
+    <color name="transparent_dark_button">#323232</color>
     <color name="light_danger">#ff7675</color>
     <color name="danger_background">#FCBFBE</color>
     <color name="danger">#d63031</color>

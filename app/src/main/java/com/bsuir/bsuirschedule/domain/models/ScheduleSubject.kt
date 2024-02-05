@@ -125,7 +125,7 @@ data class ScheduleSubject (
 
     fun getEditedOrNote(): String {
         if (edited != null) {
-            return edited!!.note
+            return edited?.note ?: ""
         }
 
         return note ?: ""

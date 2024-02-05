@@ -23,6 +23,9 @@ data class ScheduleTable (
     @ColumnInfo val prevOriginalSchedule: ArrayList<ScheduleDay>?,
     @ColumnInfo val lastUpdateTime: Long,
     @ColumnInfo val lastOriginalUpdateTime: Long?,
+    @ColumnInfo val currentPeriod: String?,
+    @ColumnInfo val currentTerm: String?,
+    @ColumnInfo val previousTerm: String?,
     @TypeConverters(ScheduleSettingsConverter::class) val settings: ScheduleSettings
 ) {
 
@@ -44,7 +47,10 @@ data class ScheduleTable (
         originalSchedule = originalSchedule ?: ArrayList(),
         lastUpdateTime = lastUpdateTime,
         lastOriginalUpdateTime = lastOriginalUpdateTime ?: 0,
-        settings = settings
+        settings = settings,
+        currentPeriod = currentPeriod,
+        currentTerm = currentTerm,
+        previousTerm = previousTerm,
     )
 
 }

@@ -19,17 +19,24 @@
         android:id="@+id/update_history"
         android:icon="@drawable/ic_timeline"
         android:iconTint="?attr/colorPrimary"
+        android:visible="false"
         android:title="@string/schedule_header_menu_update_history" />
     <item
         android:id="@+id/share"
         android:icon="@drawable/ic_share"
         android:iconTint="?attr/colorPrimary"
+        android:visible="false"
         android:title="@string/schedule_header_menu_share" />
     <item
         android:id="@+id/add_widget"
         android:icon="@drawable/ic_widget"
         android:iconTint="?attr/colorPrimary"
         android:title="@string/schedule_header_menu_add_widget" />
+    <item
+        android:id="@+id/exams"
+        android:icon="@drawable/ic_flag"
+        android:iconTint="@color/danger"
+        android:title="@string/exams" />
     <item
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete"

@@ -45,7 +45,8 @@ class ScheduleSavedItemsFragment : Fragment() {
 
         val onSelectSchedule = { savedSchedule: SavedSchedule ->
             groupScheduleVM.selectSchedule(savedSchedule.id)
-            Navigation.findNavController(binding.root).navigate(R.id.action_to_main_schedules)
+            Navigation.findNavController(binding.root).navigateUp()
+            Unit
         }
 
         val deleteSchedule = { savedSchedule: SavedSchedule ->
@@ -106,13 +107,13 @@ class ScheduleSavedItemsFragment : Fragment() {
             popupMenu.show()
         }
 
-        binding.nestedFilter.editText.isSaveEnabled(false)
-        binding.nestedFilter.editText.setTextChangeListener {
-            savedScheduleVM.filterByKeyword(it, true)
-        }
+//        binding.nestedFilter.editText.isSaveEnabled(false)
+//        binding.nestedFilter.editText.setTextChangeListener {
+//            savedScheduleVM.filterByKeyword(it, true)
+//        }
 
         binding.scheduleSavedItemsRecycler.layoutManager = LinearLayoutManager(context)
-        val adapter = SavedItemsAdapter(context!!, ArrayList(), onSelectSchedule, longPressLambda)
+        val adapter = SavedItemsAdapter(requireContext(), ArrayList(), onSelectSchedule, longPressLambda)
         binding.scheduleSavedItemsRecycler.adapter = adapter
 
         groupScheduleVM.deletedScheduleStatus.observe(viewLifecycleOwner) { savedSchedule ->
@@ -169,7 +170,7 @@ class ScheduleSavedItemsFragment : Fragment() {
         savedScheduleVM.activeScheduleStatusCount.observe(viewLifecycleOwner) { savedSchedulesCount ->
             if (savedSchedulesCount == null) return@observe
             val pluralSchedules = resources.getQuantityString(R.plurals.plural_schedules, savedSchedulesCount, savedSchedulesCount)
-            binding.nestedFilter.filterAmount.text = pluralSchedules
+//            binding.nestedFilter.filterAmount.text = pluralSchedules
         }
 
         savedScheduleVM.savedSchedulesStatus.observe(viewLifecycleOwner) { savedSchedules ->
@@ -177,6 +178,11 @@ class ScheduleSavedItemsFragment : Fragment() {
                 binding.hiddenPlaceholder.visibility = View.VISIBLE
                 binding.savedSchedules.visibility = View.GONE
             } else {
+//                if (savedSchedules.size >= 9) {
+//                    binding.filterContainer.visibility = View.VISIBLE
+//                } else {
+//                    binding.filterContainer.visibility = View.GONE
+//                }
                 binding.savedSchedules.visibility = View.VISIBLE
                 binding.hiddenPlaceholder.visibility = View.GONE
                 adapter.updateItems(savedSchedules)

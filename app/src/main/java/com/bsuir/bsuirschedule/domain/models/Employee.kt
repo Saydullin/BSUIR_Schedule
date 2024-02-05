@@ -8,14 +8,15 @@ import kotlin.collections.ArrayList
 data class Employee (
     val id: Int,
     var title: String?,
-    val firstName: String,
-    val lastName: String,
-    val middleName: String,
+    val firstName: String?,
+    val lastName: String?,
+    val middleName: String?,
     var degreeFull: String?,
     @SerializedName("degree") val degreeAbbrev: String?,
     val rank: String?,
-    val photoLink: String,
+    val photoLink: String?,
     val calendarId: String?,
+    val email: String?,
     @SerializedName("academicDepartment")
     val departmentsAbbrList: List<String>?,
     var departments: ArrayList<Department> = arrayListOf(),
@@ -35,6 +36,7 @@ data class Employee (
             rank = "",
             photoLink = "",
             calendarId = "",
+            email = "",
             listOf(),
             arrayListOf(),
             urlId = "",
@@ -45,19 +47,19 @@ data class Employee (
     fun toEmployeeSubject() = EmployeeSubject(
         id = id,
         title = title,
-        firstName = firstName,
-        lastName = lastName,
-        middleName = middleName,
+        firstName = firstName ?: "",
+        lastName = lastName ?: "",
+        middleName = middleName ?: "",
         degree = degreeFull,
         degreeAbbrev = degreeAbbrev,
         rank = rank,
-        photoLink = photoLink,
+        photoLink = photoLink ?: "",
         calendarId = calendarId,
-        email = "",
+        email = email,
         department = departmentsAbbrList,
         departmentsList = departments,
         urlId = urlId,
-        jobPosition = ""
+        jobPosition = null
     )
 
     fun getEmployeeTitle(): String {
@@ -74,7 +76,7 @@ data class Employee (
         return "${getName()} ($title)"
     }
 
-    fun getName() = "$lastName ${firstName[0]}. ${middleName[0]}.".trim()
+    fun getName() = "$lastName ${firstName?.get(0)}. ${middleName?.get(0)}.".trim()
 
     fun getShortDepartmentsAbbr(): String {
         if (departmentsAbbrList.isNullOrEmpty()) return ""
@@ -108,15 +110,15 @@ data class Employee (
     fun toEmployeeTable() = EmployeeTable(
         id = id,
         title = title ?: "",
-        firstName = firstName,
-        lastName = lastName,
-        middleName = middleName,
+        firstName = firstName ?: "",
+        lastName = lastName ?: "",
+        middleName = middleName ?: "",
         fullName = getFullName(),
         degree = degreeFull ?: "",
         degreeAbbrev = degreeAbbrev ?: "",
         rank = rank ?: "",
-        photoLink = photoLink,
-        email = "",
+        photoLink = photoLink ?: "",
+        email = email ?: "",
         jobPosition = "",
         calendarId = calendarId ?: "",
         academicDepartment = departmentsAbbrList ?: listOf(),

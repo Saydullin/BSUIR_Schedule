@@ -8,7 +8,7 @@ data class EmployeeSubject(
     var title: String?,
     val firstName: String,
     val lastName: String,
-    val middleName: String,
+    val middleName: String?,
     val degree: String?,
     val degreeAbbrev: String?,
     val rank: String?,
@@ -57,7 +57,7 @@ data class EmployeeSubject(
         title = title ?: "",
         firstName = firstName,
         lastName = lastName,
-        middleName = middleName,
+        middleName = middleName ?: "",
         fullName = getFullName(),
         degree = degree ?: "",
         degreeAbbrev = degreeAbbrev ?: "",
@@ -83,6 +83,7 @@ data class EmployeeSubject(
         rank = rank,
         photoLink = photoLink,
         calendarId = calendarId,
+        email = email,
         departmentsAbbrList = department,
         departments = departmentsList ?: arrayListOf(),
         urlId = urlId,
@@ -117,7 +118,7 @@ data class EmployeeSubject(
 
     fun getName(): String {
         val firstNameLetter = if (firstName != "") "${firstName[0]}." else ""
-        val middleNameLetter = if (middleName != "") "${middleName[0]}" else ""
+        val middleNameLetter = if (middleName != "") "${middleName?.get(0)}" else ""
 
         return "$lastName $firstNameLetter $middleNameLetter".trim()
     }

@@ -18,6 +18,9 @@ data class GroupSchedule (
     val exams: ArrayList<ScheduleSubject>? = ArrayList(),
     var examsSchedule: ArrayList<ScheduleDay>? = ArrayList(),
     var lastUpdateTime: Long? = Date().time,
+    val currentTerm: String,
+    val currentPeriod: String,
+    val previousTerm: String,
 ) {
 
     companion object {
@@ -33,7 +36,10 @@ data class GroupSchedule (
             exams = ArrayList(),
             examsSchedule = ArrayList(),
             lastUpdateTime = Date().time,
-            schedules = GroupScheduleWeek.empty
+            schedules = GroupScheduleWeek.empty,
+            currentTerm = "",
+            currentPeriod = "",
+            previousTerm = "",
         )
     }
 
@@ -55,7 +61,10 @@ data class GroupSchedule (
         schedules = ArrayList(),
         prevOriginalSchedule = ArrayList(),
         originalSchedule = ArrayList(),
-        settings = ScheduleSettings.empty
+        settings = ScheduleSettings.empty,
+        currentTerm = currentTerm,
+        currentPeriod = currentPeriod,
+        previousTerm = previousTerm,
     )
 
 }

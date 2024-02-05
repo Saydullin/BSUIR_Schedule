@@ -49,7 +49,11 @@ class ScheduleItemPreviewDialog(
             binding.scheduleDepartments.text = employee.getShortDepartmentsAbbrList(", ")
 
             binding.employeeImage.setOnClickListener {
-                val imageViewDialog = ImageViewDialog(requireContext(), employee.photoLink)
+                val imageViewDialog = ImageViewDialog(
+                    requireContext(),
+                    employee.photoLink,
+                    employee.getFullName(),
+                )
                 imageViewDialog.show()
                 dismiss()
             }

@@ -43,7 +43,7 @@ class GetScheduleUseCase(
                     if (isMergedEmployees is Resource.Error) {
                         return isMergedEmployees
                     }
-                    setPrevOriginalSchedule(schedule)
+                    //setPrevOriginalSchedule(schedule)
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
@@ -87,7 +87,7 @@ class GetScheduleUseCase(
                             if (isMergedDepartments is Resource.Error) {
                                 return isMergedDepartments
                             }
-                            setPrevOriginalSchedule(schedule)
+                            //setPrevOriginalSchedule(schedule)
                             return Resource.Success(schedule)
                         }
                         is Resource.Error -> {
@@ -116,7 +116,8 @@ class GetScheduleUseCase(
 
     private fun mergeGroupsSubjects(schedule: Schedule, groupItems: ArrayList<Group>) {
         val scheduleController = ScheduleController()
-        scheduleController.mergeGroupsSubjects(schedule, groupItems)
+        scheduleController.mergeGroupsSubjects(schedule.schedules, groupItems)
+        scheduleController.mergeGroupsSubjects(schedule.examsSchedule, groupItems)
     }
 
     private suspend fun mergeDepartments(schedule: Schedule): Resource<Schedule> {
@@ -155,7 +156,7 @@ class GetScheduleUseCase(
                         subject.employees?.forEach { employeeItem ->
                             val employee = data.find { it.id == employeeItem.id }
                             if (employee != null) {
-                                employeeList.add(employee.toEmployeeSubject())
+                                employeeList.add(employee.toEmployeeSubject().copy(email = employeeItem.email))
                             } else {
                                 employeeList.add(employeeItem)
                             }
@@ -175,27 +176,24 @@ class GetScheduleUseCase(
     }
 
     private suspend fun mergeSpecialitiesAndFaculties(schedule: Schedule): Resource<Schedule> {
-        return when (
-            val result = groupItemsRepository.getAllGroupItems()
-        ) {
-            is Resource.Success -> {
-                val data = result.data!!
-                if (schedule.group.id == -1) {
-                    return Resource.Error(
-                        statusCode = StatusCode.DATA_ERROR
-                    )
-                }
-                val groupMatch = data.find { it.id == schedule.group.id }
-                schedule.group.speciality = groupMatch?.speciality
-                schedule.group.faculty = groupMatch?.faculty
-                Resource.Success(schedule)
-            }
-            is Resource.Error -> {
-                Resource.Error(
-                    statusCode = result.statusCode,
-                    message = result.message
+        val groupItems = groupItemsRepository.getAllGroupItems()
+
+        return if (groupItems is Resource.Success && groupItems.data != null) {
+            val data = groupItems.data
+            if (schedule.group.id == -1) {
+                return Resource.Error(
+                    statusCode = StatusCode.DATA_ERROR
                 )
             }
+            val groupMatch = data.find { it.id == schedule.group.id }
+            schedule.group.speciality = groupMatch?.speciality
+            schedule.group.faculty = groupMatch?.faculty
+            Resource.Success(schedule)
+        } else {
+            Resource.Error(
+                statusCode = groupItems.statusCode,
+                message = groupItems.message
+            )
         }
     }
 

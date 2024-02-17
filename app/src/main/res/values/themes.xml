@@ -135,6 +135,10 @@
         <item name="android:textSize">@dimen/font_thin_size</item>
     </style>
 
+    <style name="Theme.BSUIRSchedule.TextView.Medium.Label" parent="Theme.BSUIRSchedule.TextView.Medium">
+        <item name="android:textSize">@dimen/font_label_size</item>
+    </style>
+
     <style name="Theme.BSUIRSchedule.TextView.Medium.Title" parent="Theme.BSUIRSchedule.TextView.Medium">
         <item name="android:textSize">@dimen/font_medium_size</item>
     </style>

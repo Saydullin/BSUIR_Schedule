@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 26
-        targetSdk 33
-        versionCode 72
-        versionName "1.7.2"
+        targetSdk 34
+        versionCode 74
+        versionName "1.7.4"
         resConfigs "en", "ru", "be", "zh"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

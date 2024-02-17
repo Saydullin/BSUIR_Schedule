@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -328,11 +329,10 @@ class ScheduleViewModel(
                 }
                 currentWeekAPI.join()
             }
-            when (
-                val groupScheduleResponse = getScheduleUseCase.getGroupAPI(group.name)
-            ) {
-                is Resource.Success -> {
-                    val groupSchedule = groupScheduleResponse.data!!
+            val groupScheduleResponse = getScheduleUseCase.getGroupAPI(group.name)
+            if (groupScheduleResponse is Resource.Success) {
+                if (groupScheduleResponse.data != null) {
+                    val groupSchedule = groupScheduleResponse.data
                     scheduleLoaded.postValue(group.toSavedSchedule(!groupSchedule.isExamsNotExist()))
                     if (toNotify) {
                         saveSchedule(groupSchedule)
@@ -344,14 +344,19 @@ class ScheduleViewModel(
                     } else {
                         saveScheduleSilently(groupSchedule)
                     }
-                }
-                is Resource.Error -> {
+                } else {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = groupScheduleResponse.statusCode,
+                        type = StatusCode.DATA_ERROR,
                         message = groupScheduleResponse.message
                     ))
                 }
+            } else {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = groupScheduleResponse.statusCode,
+                    message = groupScheduleResponse.message
+                ))
             }
             loading.postValue(false)
             groupLoading.postValue(false)

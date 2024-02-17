@@ -8,10 +8,6 @@ import android.widget.PopupMenu
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleSubgroupBinding
 
-enum class ScheduleSubjectAction {
-    SUBGROUP_CHANGE
-}
-
 typealias OnSubgroupSelectListener = (Int) -> Unit
 
 class ScheduleSubgroupView(
@@ -76,6 +72,18 @@ class ScheduleSubgroupView(
             } else {
                 val subgroupText = context.getString(R.string.settings_item_subgroup, it)
                 popupMenu.menu.add(0, it, it, subgroupText)
+            }
+        }
+    }
+
+    fun setTerms(terms: List<Int> ) {
+        popupMenu.menu.clear()
+        terms.forEach {
+            if (it == 0) {
+                popupMenu.menu.add(context.getString(R.string.all_subgroups_short))
+            } else {
+                val termText = context.getString(R.string.settings_item_subgroup, it)
+                popupMenu.menu.add(0, it, it, termText)
             }
         }
     }

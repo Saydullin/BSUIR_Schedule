@@ -9,7 +9,7 @@ import kotlin.collections.ArrayList
 class ScheduleController {
 
     companion object {
-        const val DAYS_LIMIT = 200
+        const val DAYS_LIMIT = 100
     }
 
     private fun getNormalSchedule(groupSchedule: GroupSchedule): Schedule {

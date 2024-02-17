@@ -27,7 +27,7 @@
     <string name="tab_item_group">团体</string>
     <string name="tab_item_employee">教师</string>
     <string name="no_data_field">未注明</string>
-    <string name="subject_break_time_or">•</string>
+    <string name="subject_break_time_or" />
     <string name="search_placeholder">搜索</string>
     <string name="loading_dots">加载中...</string>
     <string name="popup_update">刷新</string>

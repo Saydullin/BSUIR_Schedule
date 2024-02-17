@@ -27,7 +27,7 @@
     <string name="tab_item_group">Groups</string>
     <string name="tab_item_employee">Teachers</string>
     <string name="no_data_field">Not listed</string>
-    <string name="subject_break_time_or">•</string>
+    <string name="subject_break_time_or" />
     <string name="search_placeholder">Search</string>
     <string name="loading_dots">loading ...</string>
     <string name="popup_update">Update</string>

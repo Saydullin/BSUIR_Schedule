@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleDay
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.*
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleSubjectPopupMenu
@@ -151,6 +154,20 @@ class ScheduleRecyclerFragment : Fragment() {
                 binding.scheduleDailyRecycler.visibility = View.VISIBLE
                 binding.scrollUpButton.visibility = View.VISIBLE
                 adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
+//                when(schedule.settings.term.selectedTerm) {
+//                    ScheduleTerm.CURRENT_SCHEDULE -> {
+//                        adapter.updateScheduleData(schedule.schedules, schedule.isGroup())
+//                    }
+//                    ScheduleTerm.PREVIOUS_SCHEDULE -> {
+//                        adapter.updateScheduleData(schedule.previousSchedules, schedule.isGroup())
+//                    }
+//                    ScheduleTerm.SESSION -> {
+//                        adapter.updateScheduleData(schedule.examsSchedule, schedule.isGroup())
+//                    }
+//                    else -> {
+//                        adapter.updateScheduleData(arrayListOf(), schedule.isGroup())
+//                    }
+//                }
                 adapter.updateScheduleData(schedule.schedules, schedule.isGroup())
                 (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
                 binding.scheduleDailyRecycler.adapter = adapter

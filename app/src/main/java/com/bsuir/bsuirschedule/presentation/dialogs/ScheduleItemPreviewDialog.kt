@@ -51,7 +51,7 @@ class ScheduleItemPreviewDialog(
             binding.employeeImage.setOnClickListener {
                 val imageViewDialog = ImageViewDialog(
                     requireContext(),
-                    employee.photoLink,
+                    employee.photoLink ?: "",
                     employee.getFullName(),
                 )
                 imageViewDialog.show()

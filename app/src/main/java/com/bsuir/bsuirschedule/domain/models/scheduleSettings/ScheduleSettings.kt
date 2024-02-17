@@ -3,6 +3,7 @@ package com.bsuir.bsuirschedule.domain.models.scheduleSettings
 data class ScheduleSettings (
     val id: Int,
     var subgroup: ScheduleSettingsSubgroup,
+//    var term: ScheduleSettingsTerm,
     var schedule: ScheduleSettingsSchedule,
     var exams: ScheduleSettingsExams,
     val alarmSettings: ScheduleSettingsAlarm
@@ -12,6 +13,7 @@ data class ScheduleSettings (
         val empty = ScheduleSettings(
             id = -1,
             subgroup = ScheduleSettingsSubgroup.empty,
+//            term = ScheduleSettingsTerm.empty,
             schedule = ScheduleSettingsSchedule.empty,
             exams = ScheduleSettingsExams.empty,
             alarmSettings = ScheduleSettingsAlarm.empty
@@ -19,6 +21,7 @@ data class ScheduleSettings (
         val fullSchedule = ScheduleSettings(
             id = -1,
             subgroup = ScheduleSettingsSubgroup.empty,
+//            term = ScheduleSettingsTerm.schedule,
             schedule = ScheduleSettingsSchedule.fullSchedule,
             exams = ScheduleSettingsExams.fullSchedule,
             alarmSettings = ScheduleSettingsAlarm.empty

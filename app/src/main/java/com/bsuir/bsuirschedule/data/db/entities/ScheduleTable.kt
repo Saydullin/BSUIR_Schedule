@@ -19,6 +19,7 @@ data class ScheduleTable (
     @TypeConverters(ScheduleSubjectsListConverter::class) var exams: ArrayList<ScheduleSubject>,
     @TypeConverters(ScheduleDayListConverter::class) var examsSchedule: ArrayList<ScheduleDay>,
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
+//    @TypeConverters(ScheduleDayListConverter::class) @ColumnInfo(defaultValue = "") var previousSchedules: ArrayList<ScheduleDay>?,
     @ColumnInfo val originalSchedule: ArrayList<ScheduleDay>?,
     @ColumnInfo val prevOriginalSchedule: ArrayList<ScheduleDay>?,
     @ColumnInfo val lastUpdateTime: Long,
@@ -43,6 +44,7 @@ data class ScheduleTable (
         examsSchedule = examsSchedule,
         subjectNow = null,
         schedules = schedules,
+        previousSchedules = arrayListOf(),
         prevOriginalSchedule = prevOriginalSchedule ?: ArrayList(),
         originalSchedule = originalSchedule ?: ArrayList(),
         lastUpdateTime = lastUpdateTime,
@@ -50,7 +52,8 @@ data class ScheduleTable (
         settings = settings,
         currentPeriod = currentPeriod,
         currentTerm = currentTerm,
-        previousTerm = previousTerm,
+        previousTerm = "previousTerm",
+        termsList = listOf()
     )
 
 }

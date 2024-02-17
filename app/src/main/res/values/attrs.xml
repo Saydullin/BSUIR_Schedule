@@ -46,6 +46,10 @@
         <attr name="subgroupNum" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="ScheduleTermView">
+        <attr name="term" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="AppWidgetAttrs">
         <attr name="appWidgetPadding" format="dimension" />
         <attr name="appWidgetInnerRadius" format="dimension" />

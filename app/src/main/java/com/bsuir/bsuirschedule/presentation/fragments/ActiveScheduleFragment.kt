@@ -94,7 +94,7 @@ class ActiveScheduleFragment : Fragment() {
                     }
                 }
                 setExamsIcon(!schedule.isExamsNotExist())
-                setLocationText(getCurrentSubject(schedule.subjectNow))
+//                setLocationText(getCurrentSubject(schedule.subjectNow))
 
                 if (selectedSubgroup == 0) {
                     setSubgroupText(resources.getString(R.string.all_subgroups_short))
@@ -108,6 +108,27 @@ class ActiveScheduleFragment : Fragment() {
                         scheduleSettings.subgroup.selectedNum = subgroupNum
                         groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
                     }
+                }
+
+                // Term
+                val semester = arrayListOf<String>()
+                if (!schedule.currentTerm.isNullOrEmpty()) {
+                    semester.add(schedule.currentTerm)
+                }
+                if (!schedule.previousTerm.isNullOrEmpty()) {
+                    semester.add(schedule.previousTerm)
+                }
+                if (!schedule.isExamsNotExist()) {
+                    semester.add("Сессия")
+                }
+                setTermItems(semester)
+
+                setTermListener {
+                    val scheduleSettings = schedule.settings
+//                    if (scheduleSettings.term.selectedTerm != it) {
+//                        scheduleSettings.term.selectedTerm = it
+//                        groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
+//                    }
                 }
             }
             binding.scheduleHeaderView.isExistExams(!schedule.isExamsNotExist())

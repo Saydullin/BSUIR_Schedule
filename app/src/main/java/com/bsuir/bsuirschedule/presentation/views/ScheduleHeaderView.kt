@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleHeaderBinding
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleHeaderMenu
 import com.bumptech.glide.Glide
 
@@ -17,6 +18,7 @@ enum class ScheduleAction {
 
 typealias OnScheduleActionListener = (ScheduleAction) -> Unit
 typealias OnScheduleSubgroupListener = (Int) -> Unit
+typealias OnScheduleTermListener = (ScheduleTerm) -> Unit
 typealias OnScheduleImageListener = () -> Unit
 
 class ScheduleHeaderView(
@@ -30,6 +32,7 @@ class ScheduleHeaderView(
 
     private var menuListener: OnScheduleActionListener? = null
     private var subgroupListener: OnScheduleSubgroupListener? = null
+    private var termListener: OnScheduleTermListener? = null
     private var imageClickListener: OnScheduleImageListener? = null
     private var isPreview = false
 
@@ -119,6 +122,10 @@ class ScheduleHeaderView(
         this.subgroupListener = listener
     }
 
+    fun setTermListener(listener: OnScheduleTermListener) {
+        this.termListener = listener
+    }
+
     fun setImageClickListener(listener: OnScheduleImageListener) {
         this.imageClickListener = listener
     }
@@ -199,9 +206,13 @@ class ScheduleHeaderView(
         binding.scheduleSubgroupView.setSubgroups(subgroups)
     }
 
-    fun setLocationText(locationText: String) {
-        binding.location.text = locationText
+    fun setTermItems(terms: List<String>) {
+        binding.scheduleTermView.setTerms(terms)
     }
+
+//    fun setLocationText(locationText: String) {
+//        binding.location.text = locationText
+//    }
 
 }
 

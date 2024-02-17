@@ -20,6 +20,7 @@ data class Schedule (
     var examsSchedule: ArrayList<ScheduleDay>,
     var subjectNow: ScheduleSubject?,
     var schedules: ArrayList<ScheduleDay>,
+    var previousSchedules: ArrayList<ScheduleDay>,
     var prevOriginalSchedule: ArrayList<ScheduleDay>,
     var originalSchedule: ArrayList<ScheduleDay>,
     var lastUpdateTime: Long,
@@ -29,6 +30,7 @@ data class Schedule (
     val currentTerm: String?,
     val currentPeriod: String?,
     val previousTerm: String?,
+    val termsList: List<ScheduleTerm>,
 ) {
 
     companion object {
@@ -46,6 +48,7 @@ data class Schedule (
             examsSchedule = ArrayList(),
             subjectNow = null,
             schedules = ArrayList(),
+            previousSchedules = ArrayList(),
             prevOriginalSchedule = ArrayList(),
             originalSchedule = ArrayList(),
             lastUpdateTime = 0,
@@ -55,6 +58,7 @@ data class Schedule (
             currentTerm = null,
             currentPeriod = null,
             previousTerm = null,
+            termsList = listOf()
         )
     }
 
@@ -128,7 +132,7 @@ data class Schedule (
         }
     }
 
-    fun toScheduleTable() =  ScheduleTable(
+    fun toScheduleTable() = ScheduleTable(
         id = id,
         startDate = startDate,
         endDate = endDate,
@@ -143,6 +147,7 @@ data class Schedule (
         originalSchedule = originalSchedule,
         prevOriginalSchedule = prevOriginalSchedule,
         schedules = schedules,
+//        previousSchedules = previousSchedules,
         lastUpdateTime = lastUpdateTime,
         lastOriginalUpdateTime = lastOriginalUpdateTime,
         settings = settings,

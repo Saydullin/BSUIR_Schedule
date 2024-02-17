@@ -25,7 +25,7 @@
 #-renamesourcefileattribute SourceFile
 -keepattributes Signature
 -keepattributes Annotation
--keep class sun.misc.Unsafe { *; }
+#-keep class sun.misc.Unsafe { *; }
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**

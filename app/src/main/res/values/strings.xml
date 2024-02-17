@@ -139,7 +139,7 @@
     <string name="tab_item_settings">Настройки</string>
     <string name="tab_item_schedule_control">Управление</string>
     <string name="no_data_field">Не указано</string>
-    <string name="subject_break_time_or"></string>
+    <string name="subject_break_time_or" />
     <string name="search_placeholder">Поиск</string>
     <string name="schedule_title_placeholder">Введите что угодно</string>
     <string name="loading_dots">загружается ...</string>

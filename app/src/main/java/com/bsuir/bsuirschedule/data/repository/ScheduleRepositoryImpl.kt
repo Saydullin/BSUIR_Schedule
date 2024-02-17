@@ -115,7 +115,7 @@ class ScheduleRepositoryImpl(
                 message = e.message
             )
         } catch (e: Exception) {
-            Log.e("sady", "getScheduleById")
+            Log.e("sady", "getScheduleById ${e.message}")
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,

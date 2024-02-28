@@ -276,6 +276,7 @@
     <string name="active_schedule_no_departments">No department</string>
     <string name="settings_lang_chosen">Chosen %s language</string>
     <string name="subject_status_today_no_audience">%s before %s</string>
+    <string name="session">session</string>
     <string name="cancel">Cancel</string>
     <string name="delete_schedule">Delete %s?</string>
     <string name="agree">Yes</string>
@@ -416,6 +417,8 @@
     <string name="text_copied">Copied to clipboard</string>
     <string name="update_info_title">Teacher\'s email</string>
     <string name="update_info_description">Now you can easily access the contact information of the teacher.\n\nTo find out the teachers\'s email, simply load their schedule or click on their name during any class.\n\nIf the email information is available, it will be displayed on the screen along with a button to write an email.</string>
+    <string name="actual_semester">Current semester</string>
+    <string name="previous_semester">Previous semester</string>
 </resources>
 
 

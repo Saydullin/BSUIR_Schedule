@@ -64,6 +64,7 @@
     <string name="exams_date_period">Экзамены з %s па %s</string>
     <string name="exams_empty_date_period">Экзаменаў няма</string>
     <string name="more">яшчэ</string>
+    <string name="session">сесія</string>
     <string name="cancel">Назад</string>
     <string name="delete_schedule">Выдаліць расклад \"%s\"?</string>
     <string name="delete_subject">Выдаліць адзін занятак па %s?</string>
@@ -418,4 +419,6 @@
     <string name="text_copied">Скапіравана ў буфер абмену</string>
     <string name="update_info_title">Пошта выкладчыка</string>
     <string name="update_info_description">Цяпер вы можаце лёгка атрымаць доступ да кантактнай інфармацыі выкладчыка.\n\nКаб даведацца пошту выкладчыка, проста загрузіце яго расклад ці націсніце на яго ў любым занятку.\n\nПры наяўнасці інфармацыі аб пошце, яна будзе адлюстравана на экране разам з кнопкай для напісання ліста.</string>
+    <string name="actual_semester">Актуальны семестр</string>
+    <string name="previous_semester">Папярэдні семестр</string>
 </resources>

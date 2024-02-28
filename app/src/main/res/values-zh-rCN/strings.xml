@@ -179,6 +179,7 @@
     <string name="active_schedule_no_departments">部门不见了</string>
     <string name="settings_lang_chosen">选择了 %s 种语言</string>
     <string name="subject_status_today_no_audience">%s 到 %s</string>
+    <string name="session">会议</string>
     <string name="cancel">后退</string>
     <string name="delete_schedule">删除计划“%s”？</string>
     <string name="agree">是的</string>
@@ -416,6 +417,8 @@
     <string name="text_copied">已复制到剪贴板</string>
     <string name="update_info_title">老师的电子邮件</string>
     <string name="update_info_description">现在您可以轻松获取教师的联系信息。\n\n要查找教师的电子邮件，只需加载他们的日程安排或在任何课程中点击他们的姓名。\n\n如果有电子邮件信息可用，它将显示在屏幕上，并附带一个写邮件的按钮。</string>
+    <string name="actual_semester">本学期</string>
+    <string name="previous_semester">上学期</string>
 
 </resources>
 

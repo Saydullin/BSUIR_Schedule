@@ -459,6 +459,7 @@ class ScheduleViewModel(
             ) {
                 is Resource.Success -> {
                     settingsUpdated.postValue(true)
+                    Log.e("sady", "updated successfully")
                     getScheduleById(id)
                 }
                 is Resource.Error -> {
@@ -474,6 +475,7 @@ class ScheduleViewModel(
     }
 
     private fun saveScheduleToLiveData(scheduleData: Schedule) {
+        Log.e("sady", "savedToLiveData: ${schedule.value?.settings?.term?.selectedTerm}")
         activeScheduleId.postValue(scheduleData.id)
         schedule.postValue(scheduleData)
         sharedPrefsUseCase.setActiveScheduleId(scheduleData.id)
@@ -497,6 +499,7 @@ class ScheduleViewModel(
                 is Resource.Success -> {
                     val data = result.data!!
                     saveScheduleToLiveData(data)
+
                 }
                 is Resource.Error -> {
                     schedule.postValue(null)

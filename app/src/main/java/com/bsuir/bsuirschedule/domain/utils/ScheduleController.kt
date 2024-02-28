@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import java.text.SimpleDateFormat
@@ -461,18 +462,23 @@ class ScheduleController {
         val schedule = getNormalSchedule(groupSchedule)
 
         if (!schedule.isExamsNotExist()) {
+            Log.e("sady", "getBasic added ${schedule.exams.size}")
+            val startDateExams = schedule.startDate.ifEmpty {
+                schedule.startExamsDate
+            }
             schedule.examsSchedule = getDaysFromSubjects(
                 schedule.exams,
-                schedule.startExamsDate,
-                schedule.endExamsDate
+                startDateExams,
+                schedule.endExamsDate,
             )
             schedule.examsSchedule = getSubjectsBreakTime(schedule.examsSchedule)
+            Log.e("sady", "getBasic added ${schedule.examsSchedule.size}")
             schedule.examsSchedule = getScheduleBySettings(
                 schedule.examsSchedule,
                 false
             )
         }
-
+        Log.e("sady", "getBasicSchedule ${schedule.examsSchedule.size}")
         schedule.subgroups = getSubgroupsList(schedule)
 
         if (schedule.isNotExistSchedule()) {
@@ -532,9 +538,20 @@ class ScheduleController {
 //            regularSchedule.schedules = ArrayList()
         }
 
+        setScheduleTerm(regularSchedule)
+
         setSubjectsPrediction(regularSchedule)
 
         return regularSchedule
+    }
+
+    private fun setScheduleTerm(schedule: Schedule) {
+        if (schedule.isScheduleNotExist() && !schedule.isExamsNotExist()) {
+            schedule.settings.term.selectedTerm = ScheduleTerm.SESSION
+        }
+        if (schedule.isScheduleNotExist() && schedule.previousSchedules.isNotEmpty()) {
+            schedule.settings.term.selectedTerm = ScheduleTerm.PREVIOUS_SCHEDULE
+        }
     }
 
     /** FIXME subject lab for 0 subgroups bug */
@@ -625,6 +642,32 @@ class ScheduleController {
         }
 
         return scheduleDays as ArrayList<ScheduleDay>
+    }
+
+    private fun getExamsSchedule(
+        subjects: List<ScheduleSubject>,
+        startDate: String,
+        endDate: String,
+        currentWeek: Int = 1,
+    ) {
+        val calendarDate = CalendarDate(startDate = startDate, weekNumber = currentWeek)
+        val scheduleDays = ArrayList<ScheduleDay>()
+        var daysCounter = 0
+
+        while (!calendarDate.isEqualDate(endDate) && daysCounter < DAYS_LIMIT) {
+            val subjectsDay = subjects.filter { subject ->
+                subject.dateLesson == calendarDate.getFullDate(daysCounter)
+            }
+            scheduleDays.add(ScheduleDay(
+                date = calendarDate.getDate(),
+                dateInMillis = calendarDate.getDateInMillis(),
+                weekDayTitle = calendarDate.getWeekDayTitle(),
+                weekDayNumber = calendarDate.getWeekDayNumber(),
+                weekNumber = calendarDate.getWeekNumber(),
+                schedule = subjectsDay as ArrayList<ScheduleSubject>
+            ))
+            daysCounter++
+        }
     }
 
     private fun getDaysFromSubjects(

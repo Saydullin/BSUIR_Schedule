@@ -19,7 +19,6 @@ class WidgetAddReceiver: BroadcastReceiver(), KoinComponent {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent == null) return
-        Toast.makeText(context, "${intent.action}", Toast.LENGTH_SHORT).show()
 
         val widgetAddedText = context?.resources?.getString(R.string.widget_successfully_added) ?: "Widget successfully added"
         val isDarkTheme = intent.extras?.getBoolean(WidgetSettings.EXTRA_APPWIDGET_IS_DARK_THEME, true) ?: true

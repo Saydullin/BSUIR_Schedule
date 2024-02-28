@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -43,10 +44,21 @@ class GetScheduleUseCase(
                     if (isMergedEmployees is Resource.Error) {
                         return isMergedEmployees
                     }
+                    Log.e("sady", "exams ${isMergedEmployees.data?.examsSchedule?.size}")
+                    Log.e("sady", "exams ${isMergedEmployees.data?.exams?.size}")
                     //setPrevOriginalSchedule(schedule)
+                    if (schedule.schedules.isNotEmpty()) {
+                        schedule.settings.term.selectedTerm = ScheduleTerm.CURRENT_SCHEDULE
+                    } else if (schedule.previousSchedules.isNotEmpty()) {
+                        schedule.settings.term.selectedTerm = ScheduleTerm.PREVIOUS_SCHEDULE
+                    } else if (schedule.previousSchedules.isEmpty()
+                        && !schedule.isExamsNotExist()) {
+                        schedule.settings.term.selectedTerm = ScheduleTerm.SESSION
+                    }
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {
+                    Log.e("sady", "getGroupAPI UseCase updated")
                     Resource.Error(
                         statusCode = apiSchedule.statusCode,
                         message = apiSchedule.message
@@ -54,6 +66,8 @@ class GetScheduleUseCase(
                 }
             }
         } catch (e: Exception) {
+            Log.e("sady", "getGroupAPI UseCase updated 2")
+            Log.e("sady", e.printStackTrace().toString())
             return Resource.Error(
                 statusCode = StatusCode.DATA_ERROR,
                 message = e.message
@@ -203,6 +217,8 @@ class GetScheduleUseCase(
 
         val normalSchedule = scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
         normalSchedule.originalSchedule = originalSchedule
+
+        Log.e("sady", "getNormalSchedule ${normalSchedule.examsSchedule.size}")
 
         return normalSchedule
     }

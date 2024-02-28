@@ -67,6 +67,9 @@
     <string name="exams_date_period">Экзамены с %s по %s</string>
     <string name="exams_empty_date_period">Экзаменов нет</string>
     <string name="more">ещё</string>
+    <string name="session">Сессия</string>
+    <string name="actual_semester">Актуальный семестр</string>
+    <string name="previous_semester">Предыдущий семестр</string>
     <string name="cancel">Назад</string>
     <string name="delete_schedule">Удалить расписание  «%s»?</string>
     <string name="delete_subject">Удалить одно занятие по %s?</string>

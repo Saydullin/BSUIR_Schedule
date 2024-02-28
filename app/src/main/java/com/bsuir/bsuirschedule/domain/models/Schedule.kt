@@ -30,7 +30,6 @@ data class Schedule (
     val currentTerm: String?,
     val currentPeriod: String?,
     val previousTerm: String?,
-    val termsList: List<ScheduleTerm>,
 ) {
 
     companion object {
@@ -58,7 +57,6 @@ data class Schedule (
             currentTerm = null,
             currentPeriod = null,
             previousTerm = null,
-            termsList = listOf()
         )
     }
 
@@ -147,7 +145,7 @@ data class Schedule (
         originalSchedule = originalSchedule,
         prevOriginalSchedule = prevOriginalSchedule,
         schedules = schedules,
-//        previousSchedules = previousSchedules,
+        previousSchedules = previousSchedules,
         lastUpdateTime = lastUpdateTime,
         lastOriginalUpdateTime = lastOriginalUpdateTime,
         settings = settings,

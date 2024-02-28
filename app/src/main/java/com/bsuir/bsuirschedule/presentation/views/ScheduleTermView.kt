@@ -8,7 +8,7 @@ import android.widget.PopupMenu
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.ScheduleTermBinding
 
-typealias OnTermSelectListener = (Int) -> Unit
+typealias OnTermSelectListener = (String) -> Unit
 
 class ScheduleTermView(
     context: Context,
@@ -49,18 +49,13 @@ class ScheduleTermView(
         }
 
         popupMenu.setOnMenuItemClickListener {
-            if (it.title == context.getString(R.string.all_subgroups_short)) {
-                termListener?.invoke(0)
-                binding.term.text = context.getString(R.string.all_subgroups_short)
-            } else {
-                termListener?.invoke(it.itemId)
-                binding.term.text = it.itemId.toString()
-            }
+            termListener?.invoke(it.title.toString())
+            binding.term.text = it.title
             true
         }
     }
 
-    fun setTermListener(listener: OnSubgroupSelectListener) {
+    fun setTermListener(listener: OnTermSelectListener) {
         this.termListener = listener
     }
 
@@ -68,7 +63,6 @@ class ScheduleTermView(
         popupMenu.menu.clear()
         terms.forEach {
             popupMenu.menu.add(it)
-
         }
     }
 

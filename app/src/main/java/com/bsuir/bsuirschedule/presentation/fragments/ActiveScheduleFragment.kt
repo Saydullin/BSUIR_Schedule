@@ -2,6 +2,7 @@ package com.bsuir.bsuirschedule.presentation.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.bsuir.bsuirschedule.presentation.viewModels.SavedSchedulesViewModel
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentActiveScheduleBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.domain.models.WidgetSettings
 import com.bsuir.bsuirschedule.presentation.activities.WidgetAddActivity
 import com.bsuir.bsuirschedule.presentation.dialogs.DeleteScheduleDialog
@@ -69,6 +71,7 @@ class ActiveScheduleFragment : Fragment() {
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
             val selectedSubgroup = schedule.settings.subgroup.selectedNum
+            val selectedTerm = schedule.settings.term.selectedTerm
 
             with (binding.scheduleHeaderView) {
                 setSubgroupItems(schedule.subgroups)
@@ -102,6 +105,27 @@ class ActiveScheduleFragment : Fragment() {
                     setSubgroupText(selectedSubgroup.toString())
                 }
 
+                when(selectedTerm) {
+                    ScheduleTerm.PREVIOUS_SCHEDULE -> {
+                        if (schedule.previousSchedules.isNotEmpty()) {
+                            setTermText(getString(R.string.previous_semester))
+                        }
+                    }
+                    ScheduleTerm.CURRENT_SCHEDULE -> {
+                        if (!schedule.isScheduleNotExist()) {
+                            setTermText(getString(R.string.actual_semester))
+                        }
+                    }
+                    ScheduleTerm.SESSION -> {
+                        if (!schedule.isExamsNotExist()) {
+                            setTermText(resources.getString(R.string.session))
+                        }
+                    }
+                    else -> {
+                        setTermText(resources.getString(R.string.unknown))
+                    }
+                }
+
                 setSubgroupListener { subgroupNum ->
                     val scheduleSettings = schedule.settings
                     if (scheduleSettings.subgroup.selectedNum != subgroupNum) {
@@ -112,23 +136,35 @@ class ActiveScheduleFragment : Fragment() {
 
                 // Term
                 val semester = arrayListOf<String>()
-                if (!schedule.currentTerm.isNullOrEmpty()) {
-                    semester.add(schedule.currentTerm)
+                if (!schedule.isScheduleNotExist()) {
+                    semester.add(getString(R.string.actual_semester))
                 }
-                if (!schedule.previousTerm.isNullOrEmpty()) {
-                    semester.add(schedule.previousTerm)
+                if (schedule.previousSchedules.isNotEmpty()) {
+                    semester.add(getString(R.string.previous_semester))
                 }
                 if (!schedule.isExamsNotExist()) {
-                    semester.add("Сессия")
+                    semester.add(resources.getString(R.string.session))
                 }
                 setTermItems(semester)
 
                 setTermListener {
                     val scheduleSettings = schedule.settings
-//                    if (scheduleSettings.term.selectedTerm != it) {
-//                        scheduleSettings.term.selectedTerm = it
-//                        groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
-//                    }
+                    when (it.lowercase()) {
+                        getString(R.string.actual_semester).lowercase() -> {
+                            scheduleSettings.term.selectedTerm = ScheduleTerm.CURRENT_SCHEDULE
+                        }
+                        getString(R.string.previous_semester).lowercase() -> {
+                            scheduleSettings.term.selectedTerm = ScheduleTerm.PREVIOUS_SCHEDULE
+                        }
+                        resources.getString(R.string.session).lowercase() -> {
+                            Log.e("sady", "exams setting")
+                            scheduleSettings.term.selectedTerm = ScheduleTerm.SESSION
+                        }
+                        else -> {
+                            scheduleSettings.term.selectedTerm = ScheduleTerm.NOTHING
+                        }
+                    }
+                    groupScheduleVM.updateScheduleSettings(schedule.id, scheduleSettings)
                 }
             }
             binding.scheduleHeaderView.isExistExams(!schedule.isExamsNotExist())

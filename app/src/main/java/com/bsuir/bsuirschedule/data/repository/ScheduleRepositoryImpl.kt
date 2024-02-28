@@ -28,12 +28,15 @@ class ScheduleRepositoryImpl(
             return if (result.isSuccessful && data != null) {
                 Resource.Success(data)
             } else {
+                Log.e("sady", "getGroupScheduleAPI custom error")
                 Resource.Error(
                     statusCode = StatusCode.SERVER_ERROR,
                     message = result.message()
                 )
             }
         } catch (e: Exception) {
+            Log.e("sady", "getGroupScheduleAPI")
+            Log.e("sady", e.printStackTrace().toString())
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.CONNECTION_ERROR,

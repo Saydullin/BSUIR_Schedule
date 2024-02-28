@@ -24,11 +24,12 @@ class ScheduleAlarmHandler(
         val nextCallMillis = widgetSubjectController.getNextCallTime()
 
         if (nextCallMillis != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCallMillis, sender)
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, nextCallMillis, sender)
-            }
+            alarmManager.set(AlarmManager.RTC_WAKEUP, nextCallMillis, sender)
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextCallMillis, sender)
+//            } else {
+//                alarmManager.set(AlarmManager.RTC_WAKEUP, nextCallMillis, sender)
+//            }
         }
     }
 

@@ -66,7 +66,6 @@ data class GroupSchedule (
         currentPeriod = currentPeriod,
         previousTerm = previousTerm,
         previousSchedules = arrayListOf(),
-        termsList = listOf(),
     )
 
 }

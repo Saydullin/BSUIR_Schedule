@@ -18,7 +18,7 @@ enum class ScheduleAction {
 
 typealias OnScheduleActionListener = (ScheduleAction) -> Unit
 typealias OnScheduleSubgroupListener = (Int) -> Unit
-typealias OnScheduleTermListener = (ScheduleTerm) -> Unit
+typealias OnScheduleTermListener = (String) -> Unit
 typealias OnScheduleImageListener = () -> Unit
 
 class ScheduleHeaderView(
@@ -103,6 +103,9 @@ class ScheduleHeaderView(
         }
         binding.scheduleSubgroupView.setSubgroupListener {
             subgroupListener?.invoke(it)
+        }
+        binding.scheduleTermView.setTermListener {
+            termListener?.invoke(it)
         }
     }
 
@@ -200,6 +203,10 @@ class ScheduleHeaderView(
 
     fun setSubgroupText(subgroupText: String) {
         binding.scheduleSubgroupView.setSubgroupText(subgroupText)
+    }
+
+    fun setTermText(termText: String) {
+        binding.scheduleTermView.setTermText(termText)
     }
 
     fun setSubgroupItems(subgroups: List<Int>) {

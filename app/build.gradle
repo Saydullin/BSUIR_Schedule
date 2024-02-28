@@ -10,8 +10,8 @@ android {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 26
         targetSdk 34
-        versionCode 74
-        versionName "1.7.4"
+        versionCode 77
+        versionName "1.7.7"
         resConfigs "en", "ru", "be", "zh"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -147,31 +148,34 @@ class ScheduleRecyclerFragment : Fragment() {
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
+            var isEmptyList = false
 
-            if (schedule.schedules.size > 0) {
-                val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
-                binding.noSubjectsPlaceholder.visibility = View.GONE
-                binding.scheduleDailyRecycler.visibility = View.VISIBLE
-                binding.scrollUpButton.visibility = View.VISIBLE
-                adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
-//                when(schedule.settings.term.selectedTerm) {
-//                    ScheduleTerm.CURRENT_SCHEDULE -> {
-//                        adapter.updateScheduleData(schedule.schedules, schedule.isGroup())
-//                    }
-//                    ScheduleTerm.PREVIOUS_SCHEDULE -> {
-//                        adapter.updateScheduleData(schedule.previousSchedules, schedule.isGroup())
-//                    }
-//                    ScheduleTerm.SESSION -> {
-//                        adapter.updateScheduleData(schedule.examsSchedule, schedule.isGroup())
-//                    }
-//                    else -> {
-//                        adapter.updateScheduleData(arrayListOf(), schedule.isGroup())
-//                    }
-//                }
-                adapter.updateScheduleData(schedule.schedules, schedule.isGroup())
-                (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
-                binding.scheduleDailyRecycler.adapter = adapter
-            } else {
+            val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
+            binding.noSubjectsPlaceholder.visibility = View.GONE
+            binding.scheduleDailyRecycler.visibility = View.VISIBLE
+            binding.scrollUpButton.visibility = View.VISIBLE
+            adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
+            when(schedule.settings.term.selectedTerm) {
+                ScheduleTerm.CURRENT_SCHEDULE -> {
+                    isEmptyList = schedule.schedules.isEmpty()
+                    adapter.updateScheduleData(schedule.schedules, schedule.isGroup())
+                }
+                ScheduleTerm.PREVIOUS_SCHEDULE -> {
+                    isEmptyList = schedule.previousSchedules.isEmpty()
+                    adapter.updateScheduleData(schedule.previousSchedules, schedule.isGroup())
+                }
+                ScheduleTerm.SESSION -> {
+                    Log.e("sady", "exams showing")
+                    isEmptyList = schedule.examsSchedule.isEmpty()
+                    adapter.updateScheduleData(schedule.examsSchedule, schedule.isGroup())
+                }
+                else -> {
+                    adapter.updateScheduleData(arrayListOf(), schedule.isGroup())
+                }
+            }
+            (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
+            binding.scheduleDailyRecycler.adapter = adapter
+            if (isEmptyList) {
                 adapter.updateScheduleData(ArrayList())
                 binding.noSubjectsPlaceholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE

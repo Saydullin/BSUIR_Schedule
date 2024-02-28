@@ -35,11 +35,13 @@ class ScheduleUpdateAlarmHandler(
 
         val timeInMillis = calendarAlarm.timeInMillis
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, sender)
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sender)
-        }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sender)
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sender)
+//        } else {
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sender)
+//        }
     }
 
     fun cancelAlarmManager() {

@@ -6,7 +6,7 @@ import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 
 @Entity
-data class ScheduleTable (
+data class ScheduleTable  (
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo val startDate: String,
     @ColumnInfo val endDate: String,
@@ -19,7 +19,7 @@ data class ScheduleTable (
     @TypeConverters(ScheduleSubjectsListConverter::class) var exams: ArrayList<ScheduleSubject>,
     @TypeConverters(ScheduleDayListConverter::class) var examsSchedule: ArrayList<ScheduleDay>,
     @TypeConverters(ScheduleDayListConverter::class) var schedules: ArrayList<ScheduleDay>,
-//    @TypeConverters(ScheduleDayListConverter::class) @ColumnInfo(defaultValue = "") var previousSchedules: ArrayList<ScheduleDay>?,
+    @TypeConverters(ScheduleDayListConverter::class) @ColumnInfo(defaultValue = "") var previousSchedules: ArrayList<ScheduleDay>?,
     @ColumnInfo val originalSchedule: ArrayList<ScheduleDay>?,
     @ColumnInfo val prevOriginalSchedule: ArrayList<ScheduleDay>?,
     @ColumnInfo val lastUpdateTime: Long,
@@ -52,8 +52,7 @@ data class ScheduleTable (
         settings = settings,
         currentPeriod = currentPeriod,
         currentTerm = currentTerm,
-        previousTerm = "previousTerm",
-        termsList = listOf()
+        previousTerm = previousTerm,
     )
 
 }

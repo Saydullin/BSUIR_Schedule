@@ -27,6 +27,7 @@ class GetScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = apiSchedule.data!!
+                    Log.e("sady", "exams check ${data.exams.toString()}")
                     val currentWeek = currentWeekUseCase.getCurrentWeek()
                     if (currentWeek is Resource.Error) {
                         return Resource.Error(
@@ -35,6 +36,7 @@ class GetScheduleUseCase(
                         )
                     }
                     val schedule = getNormalSchedule(data, currentWeek.data!!)
+                    Log.e("sady", "exams check2 ${data.examsSchedule.toString()}")
                     setActualSettings(schedule)
                     val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(schedule)
                     if (isMergedFacultyAndSpeciality is Resource.Error) {
@@ -250,6 +252,7 @@ class GetScheduleUseCase(
                     val data = result.data!!
                     val scheduleController = ScheduleController()
                     val schedule = scheduleController.getRegularSchedule(data, ignoreSettings)
+
                     Resource.Success(schedule)
                 }
                 is Resource.Error -> {

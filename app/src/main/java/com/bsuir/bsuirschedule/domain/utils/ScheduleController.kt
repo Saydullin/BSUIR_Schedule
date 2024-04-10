@@ -211,7 +211,7 @@ class ScheduleController {
         var daysCounter = 0
         val scheduleDays = ArrayList<ScheduleDay>()
 
-        while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter < DAYS_LIMIT) {
+        while (!calendarDate.isEqualDate(schedule.endDate) && calendarDate.getIncDayCounter() < DAYS_LIMIT) {
             calendarDate.incDate(daysCounter)
             val currentTimeInMillis = calendarDate.getDateInMillis()
             val weekNumber = calendarDate.getWeekNumber()
@@ -254,9 +254,10 @@ class ScheduleController {
             }
             daysCounter++
         }
+        Log.e("sady", "daysCounter: $daysCounter, calendarDate: ${calendarDate.getIncDayCounter()}")
         schedule.schedules = scheduleDays
 
-        mergeExamsSchedule(schedule, currentWeekNumber)
+//        mergeExamsSchedule(schedule, currentWeekNumber)
 
         return schedule
     }
@@ -463,12 +464,9 @@ class ScheduleController {
 
         if (!schedule.isExamsNotExist()) {
             Log.e("sady", "getBasic added ${schedule.exams.size}")
-            val startDateExams = schedule.startDate.ifEmpty {
-                schedule.startExamsDate
-            }
             schedule.examsSchedule = getDaysFromSubjects(
                 schedule.exams,
-                startDateExams,
+                schedule.startExamsDate,
                 schedule.endExamsDate,
             )
             schedule.examsSchedule = getSubjectsBreakTime(schedule.examsSchedule)

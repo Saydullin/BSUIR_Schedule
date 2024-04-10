@@ -8,6 +8,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
 
     private val inputDate = SimpleDateFormat("dd.MM.yyyy").parse(startDate)
     private val calendar = Calendar.getInstance(Locale("ru", "BY"))
+    private var dayCounter = 0
 
     companion object {
         private val inputFormat = SimpleDateFormat("dd.MM.yyyy")
@@ -116,8 +117,16 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun incDate(amount: Int) {
+        this.dayCounter += amount - this.dayCounter
         calendar.time = inputDate as Date
         calendar.add(Calendar.DATE, amount)
+    }
+
+    fun getIncDayCounter(): Int {
+        val beginDateCalendar = Calendar.getInstance()
+        beginDateCalendar.time = inputDate as Date
+        beginDateCalendar.timeInMillis.minus(calendar.timeInMillis)
+        return beginDateCalendar.get(Calendar.DATE)
     }
 
     fun getIncDate(amount: Int): String {

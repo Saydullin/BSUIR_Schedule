@@ -257,7 +257,7 @@ class ScheduleController {
         Log.e("sady", "daysCounter: $daysCounter, calendarDate: ${calendarDate.getIncDayCounter()}")
         schedule.schedules = scheduleDays
 
-//        mergeExamsSchedule(schedule, currentWeekNumber)
+        mergeExamsSchedule(schedule, currentWeekNumber)
 
         return schedule
     }
@@ -430,20 +430,29 @@ class ScheduleController {
         return amount.toSet().toList().sorted()
     }
 
+    @Deprecated(message = "This function crushes schedule")
     private fun setDatesFromBeginSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
         val newSchedule = schedule.copy()
+        var dayCounter = 0
         val calendarDate = CalendarDate(startDate = newSchedule.startDate, currentWeekNumber)
 
-        newSchedule.schedules.mapIndexed { index, day ->
-            calendarDate.incDate(index)
-            day.date = calendarDate.getDate()
-            day.dateInMillis = calendarDate.getDateInMillis()
-            day.weekDayTitle = calendarDate.getWeekDayTitle()
-            day.weekDayNumber = calendarDate.getWeekDayNumber()
-            day.weekNumber = calendarDate.getWeekNumber()
-            day.schedule.map { subject ->
-                subject.dayNumber = calendarDate.getWeekDayNumber()
-            }
+        while (!calendarDate.isEqualDate(schedule.endDate) && calendarDate.getIncDayCounter() < DAYS_LIMIT) {
+            calendarDate.incDate(dayCounter)
+
+            newSchedule.schedules[dayCounter].date = calendarDate.getDate()
+
+//            newSchedule.schedules.mapIndexed { index, day ->
+//                calendarDate.incDate(index)
+//                day.date = calendarDate.getDate()
+//                day.dateInMillis = calendarDate.getDateInMillis()
+//                day.weekDayTitle = calendarDate.getWeekDayTitle()
+//                day.weekDayNumber = calendarDate.getWeekDayNumber()
+//                day.weekNumber = calendarDate.getWeekNumber()
+//                day.schedule.map { subject ->
+//                    subject.dayNumber = calendarDate.getWeekDayNumber()
+//                }
+//            }
+            dayCounter++
         }
 
         return newSchedule
@@ -489,11 +498,10 @@ class ScheduleController {
         val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
         setSubjectIds(schedule) // set unique id to subjects
         schedule.schedules = getSubjectsBreakTime(schedule.schedules) // set subjects break time
-        val daysWithDatesSchedule = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
+//        val daysWithDatesSchedule = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)
+        setSubjectsPrediction(scheduleMultiplied)
 
-        setSubjectsPrediction(daysWithDatesSchedule)
-
-        return getMillisTimeInSubjects(daysWithDatesSchedule)
+        return getMillisTimeInSubjects(scheduleMultiplied)
     }
 
     /** This schedule will be shown on UI */

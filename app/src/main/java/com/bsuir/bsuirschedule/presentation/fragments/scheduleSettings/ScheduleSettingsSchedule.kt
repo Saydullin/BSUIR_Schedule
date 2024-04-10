@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.presentation.fragments.scheduleSettings
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,7 @@ class ScheduleSettingsSchedule : Fragment() {
         val isShownPastDays = pastDaysText.isNotEmpty() || pastDaysText != "0"
 
         if (
+            pastDaysText.isEmpty() ||
             (pastDaysText.isNotEmpty() && pastDaysText.isDigitsOnly() &&
                     pastDaysText.toInt() != scheduleSettings.pastDaysNumber) ||
             scheduleSettings.isShowPastDays != isShownPastDays ||
@@ -63,12 +65,14 @@ class ScheduleSettingsSchedule : Fragment() {
 
     private fun updateSettings() {
         isUIUpdated = false
+        Log.e("sady", "pastDaysNumber: ${binding.pastDaysAmountEditText.getText()}")
         val schedule = groupScheduleVM.getActiveSchedule() ?: return
         val scheduleSettings = schedule.settings
         scheduleSettings.schedule.isShowPastDays = binding.pastDaysAmountEditText.getText().isNotEmpty()
         if (binding.pastDaysAmountEditText.getText().isNotEmpty() && binding.pastDaysAmountEditText.getText().isDigitsOnly()) {
             scheduleSettings.schedule.pastDaysNumber = binding.pastDaysAmountEditText.getText().toInt()
         } else {
+            binding.pastDaysAmountEditText.setText("0")
             scheduleSettings.schedule.pastDaysNumber = 0
         }
         binding.pastDaysAmountEditText.clearFocus()

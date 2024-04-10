@@ -276,7 +276,7 @@
     <string name="active_schedule_no_departments">No department</string>
     <string name="settings_lang_chosen">Chosen %s language</string>
     <string name="subject_status_today_no_audience">%s before %s</string>
-    <string name="session">session</string>
+    <string name="session">Session</string>
     <string name="cancel">Cancel</string>
     <string name="delete_schedule">Delete %s?</string>
     <string name="agree">Yes</string>

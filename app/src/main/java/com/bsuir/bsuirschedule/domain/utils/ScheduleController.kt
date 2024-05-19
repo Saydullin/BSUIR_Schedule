@@ -203,10 +203,15 @@ class ScheduleController {
     /**
      * Function that expands schedule for all weeks, by schedule.startDate and schedule.endDate
      * @param schedule - Schedule class
+     * @param holidays - Holidays (to except schedule days)
      * @param currentWeekNumber - Current week number
      * @return Same Schedule class with multiplied days and subjects
      */
-    private fun getMultipliedSchedule(schedule: Schedule, currentWeekNumber: Int): Schedule {
+    private fun getMultipliedSchedule(
+        schedule: Schedule,
+        holidays: List<Holiday>,
+        currentWeekNumber: Int,
+    ): Schedule {
         val calendarDate = CalendarDate(startDate = schedule.startDate, currentWeekNumber)
         var daysCounter = 0
         val scheduleDays = ArrayList<ScheduleDay>()
@@ -218,7 +223,8 @@ class ScheduleController {
             val weekDayNumber = calendarDate.getWeekDayNumber()
             val weekNumberDays = schedule.schedules.filter { it.weekDayNumber == weekDayNumber }
             val weekNumberDaysCopy = weekNumberDays.map { it.copy() }
-            if (weekNumberDaysCopy.isEmpty()) {
+            val holidayMatch = holidays.find { calendarDate.isHoliday(it.date) }
+            if (holidayMatch != null) {
                 scheduleDays.add(
                     ScheduleDay(
                         date = calendarDate.getDateStatus(),
@@ -226,31 +232,44 @@ class ScheduleController {
                         weekDayTitle = calendarDate.getWeekDayTitle(),
                         weekDayNumber = weekDayNumber,
                         weekNumber = weekNumber,
+                        dayDescription = holidayMatch.title,
                         schedule = ArrayList(),
                     ))
-            }
-            weekNumberDaysCopy.map { scheduleDay ->
-                val subjects = scheduleDay.schedule.filter { subject ->
-                    if (subject.startLessonDate.isNullOrEmpty() || subject.endLessonDate.isNullOrEmpty()) {
-                        weekNumber in (subject.weekNumber ?: ArrayList())
-                    } else {
-                        val startMillis = calendarDate.getDateInMillis(subject.startLessonDate)
-                        val endMillis = calendarDate.getDateInMillis(subject.endLessonDate)
-                        weekNumber in (subject.weekNumber ?: ArrayList()) &&
-                                currentTimeInMillis >= calendarDate.resetMillisTime(startMillis) &&
-                                currentTimeInMillis <= calendarDate.resetMillisTime(endMillis)
-                    }
-                } as ArrayList<ScheduleSubject>
-                val subjectsCopy = subjects.map { it.copy() }
-                scheduleDays.add(
-                    ScheduleDay(
-                        date = calendarDate.getDateStatus(),
-                        dateInMillis = calendarDate.getDateInMillis(),
-                        weekDayTitle = calendarDate.getWeekDayTitle(),
-                        weekDayNumber = weekDayNumber,
-                        weekNumber = weekNumber,
-                        schedule = subjectsCopy as ArrayList<ScheduleSubject>
-                    ))
+            } else {
+                if (weekNumberDaysCopy.isEmpty()) {
+                    scheduleDays.add(
+                        ScheduleDay(
+                            date = calendarDate.getDateStatus(),
+                            dateInMillis = calendarDate.getDateInMillis(),
+                            weekDayTitle = calendarDate.getWeekDayTitle(),
+                            weekDayNumber = weekDayNumber,
+                            weekNumber = weekNumber,
+                            schedule = ArrayList(),
+                        ))
+                }
+                weekNumberDaysCopy.map { scheduleDay ->
+                    val subjects = scheduleDay.schedule.filter { subject ->
+                        if (subject.startLessonDate.isNullOrEmpty() || subject.endLessonDate.isNullOrEmpty()) {
+                            weekNumber in (subject.weekNumber ?: ArrayList())
+                        } else {
+                            val startMillis = calendarDate.getDateInMillis(subject.startLessonDate)
+                            val endMillis = calendarDate.getDateInMillis(subject.endLessonDate)
+                            weekNumber in (subject.weekNumber ?: ArrayList()) &&
+                                    currentTimeInMillis >= calendarDate.resetMillisTime(startMillis) &&
+                                    currentTimeInMillis <= calendarDate.resetMillisTime(endMillis)
+                        }
+                    } as ArrayList<ScheduleSubject>
+                    val subjectsCopy = subjects.map { it.copy() }
+                    scheduleDays.add(
+                        ScheduleDay(
+                            date = calendarDate.getDateStatus(),
+                            dateInMillis = calendarDate.getDateInMillis(),
+                            weekDayTitle = calendarDate.getWeekDayTitle(),
+                            weekDayNumber = weekDayNumber,
+                            weekNumber = weekNumber,
+                            schedule = subjectsCopy as ArrayList<ScheduleSubject>
+                        ))
+                }
             }
             daysCounter++
         }
@@ -468,7 +487,11 @@ class ScheduleController {
     }
 
     /** This schedule will be saved in DB */
-    fun getBasicSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
+    fun getBasicSchedule(
+        groupSchedule: GroupSchedule,
+        holidays: List<Holiday>,
+        currentWeekNumber: Int,
+    ): Schedule {
         val schedule = getNormalSchedule(groupSchedule)
 
         if (!schedule.isExamsNotExist()) {
@@ -495,7 +518,11 @@ class ScheduleController {
             return schedule
         }
 
-        val scheduleMultiplied = getMultipliedSchedule(schedule, currentWeekNumber)
+        val scheduleMultiplied = getMultipliedSchedule(
+            schedule,
+            holidays,
+            currentWeekNumber
+        )
         setSubjectIds(schedule) // set unique id to subjects
         schedule.schedules = getSubjectsBreakTime(schedule.schedules) // set subjects break time
 //        val daysWithDatesSchedule = setDatesFromBeginSchedule(scheduleMultiplied, currentWeekNumber)

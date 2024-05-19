@@ -1,6 +1,8 @@
 package com.bsuir.bsuirschedule.domain.utils
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
+import com.bsuir.bsuirschedule.domain.models.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -58,6 +60,17 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     fun minusDays(num: Int) {
         // FIXME Check if got number bigger than passed days from startDate (num < startDate)
         calendar.add(Calendar.DATE, num * -1)
+    }
+
+    fun isHoliday(date: Long): Boolean {
+        val holidayCalendar = Calendar.getInstance(Locale("ru", "BY"))
+        holidayCalendar.timeZone = TimeZone.getTimeZone("EST")
+        val yearsNow = holidayCalendar.get(Calendar.YEAR)
+        holidayCalendar.timeInMillis = date
+        val yearsOld = holidayCalendar.get(Calendar.YEAR)
+        holidayCalendar.add(Calendar.YEAR, yearsNow - yearsOld)
+
+        return holidayCalendar.timeInMillis == calendar.timeInMillis
     }
 
     fun getDateInMillis(): Long {

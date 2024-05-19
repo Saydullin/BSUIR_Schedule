@@ -4,6 +4,7 @@ import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
+import com.bsuir.bsuirschedule.domain.repository.HolidayRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
@@ -16,7 +17,8 @@ class GetScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
     private val groupItemsRepository: GroupItemsRepository,
     private val employeeItemsRepository: EmployeeItemsRepository,
-    private val currentWeekUseCase: GetCurrentWeekUseCase
+    private val holidayRepository: HolidayRepository,
+    private val currentWeekUseCase: GetCurrentWeekUseCase,
 ) {
 
     suspend fun getGroupAPI(groupName: String): Resource<Schedule> {
@@ -35,7 +37,18 @@ class GetScheduleUseCase(
                             message = currentWeek.message
                         )
                     }
-                    val schedule = getNormalSchedule(data, currentWeek.data!!)
+                    val holidays = holidayRepository.getHolidays()
+                    if (holidays is Resource.Error) {
+                        return Resource.Error(
+                            statusCode = holidays.statusCode,
+                            message = holidays.message
+                        )
+                    }
+                    val schedule = getNormalSchedule(
+                        data,
+                        holidays.data!!,
+                        currentWeek.data!!
+                    )
                     Log.e("sady", "exams check2 ${data.examsSchedule.toString()}")
                     setActualSettings(schedule)
                     val isMergedFacultyAndSpeciality = mergeSpecialitiesAndFaculties(schedule)
@@ -96,7 +109,18 @@ class GetScheduleUseCase(
                                     message = currentWeek.message
                                 )
                             }
-                            val schedule = getNormalSchedule(data, currentWeek.data!!)
+                            val holidays = holidayRepository.getHolidays()
+                            if (holidays is Resource.Error) {
+                                return Resource.Error(
+                                    statusCode = holidays.statusCode,
+                                    message = holidays.message
+                                )
+                            }
+                            val schedule = getNormalSchedule(
+                                data,
+                                holidays.data!!,
+                                currentWeek.data!!
+                            )
                             setActualSettings(schedule)
                             mergeGroupsSubjects(schedule, groupItems.data!!)
                             val isMergedDepartments = mergeDepartments(schedule)
@@ -213,11 +237,19 @@ class GetScheduleUseCase(
         }
     }
 
-    private fun getNormalSchedule(groupSchedule: GroupSchedule, currentWeekNumber: Int): Schedule {
+    private fun getNormalSchedule(
+        groupSchedule: GroupSchedule,
+        holidays: List<Holiday>,
+        currentWeekNumber: Int,
+        ): Schedule {
         val scheduleController = ScheduleController()
         val originalSchedule = scheduleController.getOriginalSchedule(groupSchedule)
 
-        val normalSchedule = scheduleController.getBasicSchedule(groupSchedule, currentWeekNumber)
+        val normalSchedule = scheduleController.getBasicSchedule(
+            groupSchedule,
+            holidays,
+            currentWeekNumber
+        )
         normalSchedule.originalSchedule = originalSchedule
 
         Log.e("sady", "getNormalSchedule ${normalSchedule.examsSchedule.size}")

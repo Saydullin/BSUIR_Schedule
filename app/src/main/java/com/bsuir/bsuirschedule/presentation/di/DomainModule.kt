@@ -11,7 +11,8 @@ val domainModule = module {
             groupItemsRepository = get(),
             currentWeekUseCase = get(),
             employeeItemsRepository = get(),
-            scheduleRepository = get()
+            scheduleRepository = get(),
+            holidayRepository = get(),
         )
     }
 

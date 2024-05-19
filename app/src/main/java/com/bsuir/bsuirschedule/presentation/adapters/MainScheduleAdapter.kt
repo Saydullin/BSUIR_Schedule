@@ -89,7 +89,13 @@ class MainScheduleAdapter(
             binding.scheduleLessonsAmount.text = lessonsText
             if (scheduleDay.schedule.isEmpty()) {
                 binding.scheduleSubjectsRecycler.visibility = View.GONE
+                val scheduleNoLessonsText = context.getString(R.string.schedules_no_lessons)
                 binding.scheduleNoLessons.visibility = View.VISIBLE
+                binding.scheduleNoLessons.text = if (scheduleDay.dayDescription.isNotEmpty()) {
+                    scheduleDay.dayDescription
+                } else {
+                    scheduleNoLessonsText
+                }
                 val typedValue = TypedValue()
                 val theme = context.theme
                 theme.resolveAttribute(R.attr.textColor, typedValue, true)

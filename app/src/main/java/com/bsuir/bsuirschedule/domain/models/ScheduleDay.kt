@@ -7,6 +7,7 @@ data class ScheduleDay (
     var weekDayTitle: String,
     var weekDayNumber: Int,
     var weekNumber: Int,
+    var dayDescription: String = "",
     var schedule: ArrayList<ScheduleSubject> = ArrayList()
 ) {
 
@@ -18,6 +19,7 @@ data class ScheduleDay (
             weekDayTitle = "",
             weekDayNumber = 0,
             weekNumber = -1,
+            dayDescription = "",
             schedule = ArrayList()
         )
     }

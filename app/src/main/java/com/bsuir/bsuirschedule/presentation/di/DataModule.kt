@@ -8,6 +8,7 @@ import com.bsuir.bsuirschedule.data.repository.*
 import com.bsuir.bsuirschedule.domain.repository.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
+import java.io.File
 
 val dataModule = module {
 
@@ -17,6 +18,7 @@ val dataModule = module {
             AppDatabase::class.java,
             "AppDB"
         )
+            .createFromAsset("bsuirHolidays.db")
             .addTypeConverter(DepartmentConverter())
             .addTypeConverter(IntListConverter())
             .addTypeConverter(StrListConverter())
@@ -29,6 +31,8 @@ val dataModule = module {
     fun groupDao(db: AppDatabase) = db.groupDao()
 
     fun specialityDao(db: AppDatabase) = db.specialityDao()
+
+    fun holidayDao(db: AppDatabase) = db.holidayDao()
 
     fun facultyDao(db: AppDatabase) = db.facultyDao()
 
@@ -54,6 +58,8 @@ val dataModule = module {
 
     single { scheduleDao(get()) }
 
+    single { holidayDao(get()) }
+
     single { employeeDao(get()) }
 
     single { savedScheduleDao(get()) }
@@ -72,6 +78,10 @@ val dataModule = module {
 
     single<CurrentWeekRepository> {
         CurrentWeekRepositoryImpl(get())
+    }
+
+    single<HolidayRepository> {
+        HolidayRepositoryImpl(get())
     }
 
     single<ScheduleRepository> {

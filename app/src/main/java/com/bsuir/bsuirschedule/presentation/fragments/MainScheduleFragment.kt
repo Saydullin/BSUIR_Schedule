@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.data.repository.HolidayRepositoryImpl
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
@@ -50,6 +51,7 @@ class MainScheduleFragment : Fragment(), KoinComponent {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScheduleBinding.inflate(inflater)
+
         val weekText = getString(R.string.week)
         val datePattern = SimpleDateFormat("E d MMMM")
         val calendar = Calendar.getInstance(Locale("be", "BY"))

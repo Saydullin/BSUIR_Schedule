@@ -20,9 +20,10 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         SpecialityTable::class,
         DepartmentTable::class,
         CurrentWeekTable::class,
-        WidgetSettingsTable::class
+        WidgetSettingsTable::class,
+        HolidaysTable::class,
     ],
-    version = 11,
+    version = 12,
     exportSchema = true,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
@@ -35,6 +36,7 @@ import com.bsuir.bsuirschedule.data.db.entities.*
         AutoMigration (from = 8, to = 9, spec = AppDatabase.MigrationFrom8to9::class),
         AutoMigration (from = 9, to = 10),
         AutoMigration (from = 10, to = 11),
+        AutoMigration (from = 11, to = 12),
     ]
 )
 @TypeConverters(
@@ -79,6 +81,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun departmentDao(): DepartmentDao
 
     abstract fun scheduleDao(): ScheduleDao
+
+    abstract fun holidayDao(): HolidaysDao
 
     abstract fun savedScheduleDao(): SavedScheduleDao
 

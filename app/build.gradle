@@ -12,7 +12,7 @@ android {
         targetSdk 34
         versionCode 80
         versionName "1.8.0"
-        resConfigs "en", "ru", "be", "zh"
+        resourceConfigurations += ['en', 'ru', 'be', 'zh']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
@@ -24,10 +24,6 @@ android {
         }
     }
 
-    lintOptions {
-        checkOnly 'NewApi', 'HandlerLeak'
-        baseline file("lint-baseline.xml")
-    }
 
     buildFeatures {
         viewBinding true
@@ -63,6 +59,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    namespace 'com.bsuir.bsuirschedule'
+    lint {
+        baseline file('lint-baseline.xml')
+        checkOnly 'NewApi', 'HandlerLeak'
     }
 }
 

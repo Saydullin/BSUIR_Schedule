@@ -4,11 +4,11 @@ import android.app.Application
 import androidx.room.Room
 import com.bsuir.bsuirschedule.data.db.AppDatabase
 import com.bsuir.bsuirschedule.data.db.converters.*
+import com.bsuir.bsuirschedule.data.db.migration.MIGRATION_11_12
 import com.bsuir.bsuirschedule.data.repository.*
 import com.bsuir.bsuirschedule.domain.repository.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
-import java.io.File
 
 val dataModule = module {
 
@@ -19,6 +19,7 @@ val dataModule = module {
             "AppDB"
         )
             .createFromAsset("bsuirHolidays.db")
+            .addMigrations(MIGRATION_11_12)
             .addTypeConverter(DepartmentConverter())
             .addTypeConverter(IntListConverter())
             .addTypeConverter(StrListConverter())

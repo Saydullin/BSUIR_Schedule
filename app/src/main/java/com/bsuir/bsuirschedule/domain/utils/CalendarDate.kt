@@ -2,7 +2,6 @@ package com.bsuir.bsuirschedule.domain.utils
 
 import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
-import com.bsuir.bsuirschedule.domain.models.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,13 +63,20 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
 
     fun isHoliday(date: Long): Boolean {
         val holidayCalendar = Calendar.getInstance(Locale("ru", "BY"))
-        holidayCalendar.timeZone = TimeZone.getTimeZone("EST")
         val yearsNow = holidayCalendar.get(Calendar.YEAR)
         holidayCalendar.timeInMillis = date
         val yearsOld = holidayCalendar.get(Calendar.YEAR)
         holidayCalendar.add(Calendar.YEAR, yearsNow - yearsOld)
+        val holidayMonth = holidayCalendar.get(Calendar.MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val holidayDayOfMonth = holidayCalendar.get(Calendar.DAY_OF_MONTH)
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        Log.e("sady", "${holidayCalendar.time} == ${calendar.time}")
+        Log.e("sady", "isHoliday $holidayMonth == $month, " +
+                "$holidayDayOfMonth == $dayOfMonth " +
+                "${holidayMonth == month && holidayDayOfMonth == dayOfMonth}")
 
-        return holidayCalendar.timeInMillis == calendar.timeInMillis
+        return holidayMonth == month && holidayDayOfMonth == dayOfMonth
     }
 
     fun getDateInMillis(): Long {

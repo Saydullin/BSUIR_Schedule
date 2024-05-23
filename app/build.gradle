@@ -10,8 +10,8 @@ android {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 26
         targetSdk 34
-        versionCode 80
-        versionName "1.8.0"
+        versionCode 83
+        versionName "1.8.3"
         resourceConfigurations += ['en', 'ru', 'be', 'zh']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -23,7 +23,6 @@ android {
             }
         }
     }
-
 
     buildFeatures {
         viewBinding true

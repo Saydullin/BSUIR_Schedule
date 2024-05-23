@@ -9,6 +9,7 @@ import androidx.room.migration.AutoMigrationSpec
 import com.bsuir.bsuirschedule.data.db.converters.*
 import com.bsuir.bsuirschedule.data.db.dao.*
 import com.bsuir.bsuirschedule.data.db.entities.*
+import com.bsuir.bsuirschedule.data.db.migration.MIGRATION_11_12
 
 @Database(
     entities = [

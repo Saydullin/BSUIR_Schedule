@@ -7,6 +7,13 @@ val MIGRATION_11_12 = object : Migration(11, 12) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
+            "CREATE TABLE IF NOT EXISTS `HolidaysTable` (" +
+                    "`id` INTEGER PRIMARY KEY NOT NULL, " +
+                    "`date` INTEGER NOT NULL, " +
+                    "`title` TEXT NOT NULL" +
+                    ")"
+        )
+        database.execSQL(
             "INSERT INTO `HolidaysTable` (`id`, `date`, `title`) " +
                     "VALUES (1, 31438800000, 'Новый год')," +
                     "(2, 507600000, 'Рождество Христово')," +

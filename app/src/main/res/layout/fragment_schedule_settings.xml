@@ -47,7 +47,7 @@
         android:id="@+id/schedule_header_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="15dp"
         android:paddingVertical="10dp"
         app:isPreview="true" />
 
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorSecondary"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="15dp"
             android:paddingBottom="20dp"
             android:paddingTop="10dp"
             android:orientation="vertical">
@@ -73,7 +73,7 @@
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/schedule_settings_schedule"

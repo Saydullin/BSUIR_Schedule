@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 12,
-    "identityHash": "f7d236400a05fa8fd2f2e64cdc1cc885",
+    "identityHash": "0d30363eeae86ce7e6680cbfee9785de",
     "entities": [
       {
         "tableName": "GroupTable",
@@ -1051,7 +1051,7 @@
       },
       {
         "tableName": "HolidaysTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `date` INTEGER NOT NULL, `title` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` INTEGER NOT NULL, `title` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1076,7 +1076,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -1085,7 +1085,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f7d236400a05fa8fd2f2e64cdc1cc885')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0d30363eeae86ce7e6680cbfee9785de')"
     ]
   }
 }

@@ -10,8 +10,8 @@ android {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 26
         targetSdk 34
-        versionCode 83
-        versionName "1.8.3"
+        versionCode 84
+        versionName "1.8.4"
         resourceConfigurations += ['en', 'ru', 'be', 'zh']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -42,14 +42,14 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '9'
+            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '10'
         }
 
         debug {
             applicationIdSuffix ".debug"
             debuggable true
 
-            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '9'
+            buildConfigField "int", "SCHEDULES_UPDATE_COUNTER", '10'
         }
     }
     compileOptions {

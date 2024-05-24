@@ -6,7 +6,7 @@ import com.bsuir.bsuirschedule.domain.models.Holiday
 
 @Entity
 data class HolidaysTable(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: Long,
     val title: String,
 ) {

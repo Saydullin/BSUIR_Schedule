@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="8dp"
             android:background="?attr/selectableItemBackground">
 
             <ImageView

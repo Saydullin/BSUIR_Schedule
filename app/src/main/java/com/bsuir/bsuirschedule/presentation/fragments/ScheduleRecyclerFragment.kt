@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.bsuirschedule.R
+import com.bsuir.bsuirschedule.data.logger.Logger
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleRecyclerBinding
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
@@ -74,7 +75,7 @@ class ScheduleRecyclerFragment : Fragment() {
 
         val onLongPressSubject = { subject: ScheduleSubject, subjectView: View ->
             val popupMenu = ScheduleSubjectPopupMenu(
-                context = context!!,
+                context = requireContext(),
                 scheduleSubject = subject,
                 edit = onEditScheduleSubject,
                 isIgnore = onIgnoreScheduleSubject,
@@ -123,6 +124,7 @@ class ScheduleRecyclerFragment : Fragment() {
                 stateDialog.isCancelable = true
                 stateDialog.show(parentFragmentManager, "ErrorDialog")
                 groupScheduleVM.closeError()
+                Logger(requireContext()).log("${errorStatus.type} = ${errorStatus.message}")
             }
         }
 

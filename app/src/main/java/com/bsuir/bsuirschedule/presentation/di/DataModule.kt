@@ -3,7 +3,9 @@ package com.bsuir.bsuirschedule.presentation.di
 import android.app.Application
 import androidx.room.Room
 import com.bsuir.bsuirschedule.data.db.AppDatabase
+import com.bsuir.bsuirschedule.data.db.callback.LoggingCallback
 import com.bsuir.bsuirschedule.data.db.converters.*
+import com.bsuir.bsuirschedule.data.db.migration.MIGRATION_10_11
 import com.bsuir.bsuirschedule.data.db.migration.MIGRATION_11_12
 import com.bsuir.bsuirschedule.data.repository.*
 import com.bsuir.bsuirschedule.domain.repository.*
@@ -12,14 +14,16 @@ import org.koin.dsl.module
 
 val dataModule = module {
 
-    fun provideDatabase(application: Application): AppDatabase {
+    fun provideDatabase(application: Application): AppDatabase   {
         return Room.databaseBuilder(
             application,
             AppDatabase::class.java,
             "AppDB"
         )
             .createFromAsset("bsuirHolidays.db")
+            .addMigrations(MIGRATION_10_11)
             .addMigrations(MIGRATION_11_12)
+            .addCallback(LoggingCallback(application))
             .addTypeConverter(DepartmentConverter())
             .addTypeConverter(IntListConverter())
             .addTypeConverter(StrListConverter())

@@ -1,19 +1,16 @@
 package com.bsuir.bsuirschedule.presentation.activities
 
 import android.os.Bundle
-import android.os.LocaleList
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
-import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
+import com.bsuir.bsuirschedule.data.logger.Logger
 import com.bsuir.bsuirschedule.databinding.ActivityMainBinding
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
+        Logger(this).log("Hello, Saydullin!")
 
         setContentView(binding.root)
     }

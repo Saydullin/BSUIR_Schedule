@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
-import com.bsuir.bsuirschedule.data.repository.HolidayRepositoryImpl
+import com.bsuir.bsuirschedule.data.logger.Logger
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
@@ -94,6 +94,7 @@ class MainScheduleFragment : Fragment(), KoinComponent {
                 stateStatus.isCancelable = true
                 stateStatus.show(parentFragmentManager, "ErrorDialog")
                 currentWeekVM.closeError()
+                Logger(requireContext()).log("${errorStatus.type} = ${errorStatus.message}")
             }
         }
 
@@ -102,6 +103,7 @@ class MainScheduleFragment : Fragment(), KoinComponent {
                 val messageManager = ErrorMessage(requireContext()).get(successCode)
                 groupScheduleVM.setSuccessNull()
                 Toast.makeText(context, messageManager.title, Toast.LENGTH_SHORT).show()
+                Logger(requireContext()).log("successStatus = $successCode")
             }
         }
 

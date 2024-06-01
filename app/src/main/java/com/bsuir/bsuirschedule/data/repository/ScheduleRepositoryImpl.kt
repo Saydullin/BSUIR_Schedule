@@ -5,6 +5,7 @@ import android.util.Log
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupScheduleService
 import com.bsuir.bsuirschedule.data.db.dao.ScheduleDao
+import com.bsuir.bsuirschedule.data.logger.Logger
 import com.bsuir.bsuirschedule.domain.models.GroupSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleLastUpdatedDate
@@ -107,20 +108,26 @@ class ScheduleRepositoryImpl(
     override suspend fun getScheduleById(id: Int): Resource<Schedule> {
         return try {
             val data = scheduleDao.getScheduleById(id)
-                ?: return Resource.Error(
-                    statusCode = StatusCode.DATABASE_NOT_FOUND_ERROR
-                )
-            Resource.Success(data.toSchedule())
+            if (data != null) {
+                return Resource.Success(data.toSchedule())
+            }
+            return Resource.Error(
+                statusCode = StatusCode.DATABASE_NOT_FOUND_ERROR,
+                message = "Data not found in database"
+            )
         } catch (e: SQLiteException) {
+            Log.e("sady", "getScheduleById SQL ${e.message}")
+            Log.e("sady", "getScheduleById SQL print ${e.printStackTrace()}")
             e.printStackTrace()
-            Resource.Error(
+            return Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )
         } catch (e: Exception) {
             Log.e("sady", "getScheduleById ${e.message}")
+            Log.e("sady", "getScheduleById print ${e.printStackTrace()}")
             e.printStackTrace()
-            Resource.Error(
+            return Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,
                 message = e.message
             )

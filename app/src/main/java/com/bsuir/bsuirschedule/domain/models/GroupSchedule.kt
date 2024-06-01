@@ -15,6 +15,7 @@ data class GroupSchedule (
     @SerializedName("employeeDto") val employee: EmployeeSubject?,
     var subgroups: List<Int>?,
     val schedules: GroupScheduleWeek? = GroupScheduleWeek.empty,
+    val previousSchedules: GroupScheduleWeek? = GroupScheduleWeek.empty,
     val exams: ArrayList<ScheduleSubject>? = ArrayList(),
     var examsSchedule: ArrayList<ScheduleDay>? = ArrayList(),
     var lastUpdateTime: Long? = Date().time,
@@ -65,7 +66,7 @@ data class GroupSchedule (
         currentTerm = currentTerm,
         currentPeriod = currentPeriod,
         previousTerm = previousTerm,
-        previousSchedules = arrayListOf(),
+        previousSchedules = ArrayList(),
     )
 
 }

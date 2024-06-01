@@ -43,6 +43,9 @@ class StateDialog(private val stateStatus: StateStatus): DialogFragment() {
                 binding.icon.setImageResource(R.drawable.ic_error_icon)
                 binding.title.text = errorMessage.title
                 binding.caption.text = errorMessage.caption
+                binding.title.setOnClickListener {
+                    binding.caption.text = stateStatus.message
+                }
             }
             else -> {
                 binding.icon.setImageResource(R.drawable.ic_info_icon)

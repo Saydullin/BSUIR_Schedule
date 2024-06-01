@@ -27,6 +27,7 @@ import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.views.ScheduleAction
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ActiveScheduleFragment : Fragment() {
 
@@ -139,6 +140,7 @@ class ActiveScheduleFragment : Fragment() {
                 if (!schedule.isScheduleNotExist()) {
                     semester.add(getString(R.string.actual_semester))
                 }
+                Log.e("sady", "previous Schedule ${schedule.previousSchedules}")
                 if (schedule.previousSchedules.isNotEmpty()) {
                     semester.add(getString(R.string.previous_semester))
                 }

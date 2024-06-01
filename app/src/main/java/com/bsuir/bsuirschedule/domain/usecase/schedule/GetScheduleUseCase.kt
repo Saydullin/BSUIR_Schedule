@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
 import android.util.Log
+import com.bsuir.bsuirschedule.domain.manager.schedule.ScheduleBuilder
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
@@ -44,6 +45,12 @@ class GetScheduleUseCase(
                             message = holidays.message
                         )
                     }
+//                    val scheduleRes = ScheduleBuilder()
+//                        .setGroupSchedule(data)
+//                        .setHolidays(holidays.data as ArrayList<Holiday>)
+//                        .injectEmployees(arrayListOf())
+//                        .setCurrentWeekNumber(currentWeek.data!!)
+//                        .build()
                     val schedule = getNormalSchedule(
                         data,
                         holidays.data!!,
@@ -215,6 +222,7 @@ class GetScheduleUseCase(
         }
     }
 
+    @Deprecated("Redundant db operations")
     private suspend fun mergeSpecialitiesAndFaculties(schedule: Schedule): Resource<Schedule> {
         val groupItems = groupItemsRepository.getAllGroupItems()
 
@@ -238,9 +246,9 @@ class GetScheduleUseCase(
     }
 
     private fun getNormalSchedule(
-        groupSchedule: GroupSchedule,
-        holidays: List<Holiday>,
-        currentWeekNumber: Int,
+            groupSchedule: GroupSchedule,
+            holidays: List<Holiday>,
+            currentWeekNumber: Int,
         ): Schedule {
         val scheduleController = ScheduleController()
         val originalSchedule = scheduleController.getOriginalSchedule(groupSchedule)

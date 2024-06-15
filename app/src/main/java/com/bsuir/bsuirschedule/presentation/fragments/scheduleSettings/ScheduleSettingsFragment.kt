@@ -27,7 +27,7 @@ class ScheduleSettingsFragment : Fragment() {
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
             if (schedule.isGroup()) {
-                binding.scheduleHeaderView.setTitle(schedule.group.name)
+                binding.scheduleHeaderView.setTitle(schedule.group.name ?: "")
                 binding.scheduleHeaderView.setDescription(schedule.group.getFacultyAndSpecialityAbbr())
                 binding.scheduleHeaderView.setImage(R.drawable.ic_group_placeholder)
             } else {

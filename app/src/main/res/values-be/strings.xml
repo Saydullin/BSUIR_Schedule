@@ -125,7 +125,7 @@
     <string name="subgroup_selected">%d падгрупа абрана</string>
     <string name="subject_time">з %s да %s</string>
     <string name="subject_weeks">на %s нед.</string>
-    <string name="subject_note">Заўвага:</string>
+    <string name="subject_note">*</string>
     <string name="schedule_week_number">%d тыдзень</string>
     <string name="exams">Экзамены</string>
     <string name="subject_date_range">З %s па %s</string>

@@ -24,7 +24,7 @@ import com.bsuir.bsuirschedule.data.db.migration.MIGRATION_11_12
         WidgetSettingsTable::class,
         HolidaysTable::class,
     ],
-    version = 12,
+    version = 13,
     exportSchema = true,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
@@ -38,6 +38,7 @@ import com.bsuir.bsuirschedule.data.db.migration.MIGRATION_11_12
         AutoMigration (from = 9, to = 10),
         AutoMigration (from = 10, to = 11),
         AutoMigration (from = 11, to = 12),
+        AutoMigration (from = 12, to = 13),
     ]
 )
 @TypeConverters(

@@ -107,11 +107,6 @@ class ScheduleSavedItemsFragment : Fragment() {
             popupMenu.show()
         }
 
-//        binding.nestedFilter.editText.isSaveEnabled(false)
-//        binding.nestedFilter.editText.setTextChangeListener {
-//            savedScheduleVM.filterByKeyword(it, true)
-//        }
-
         binding.scheduleSavedItemsRecycler.layoutManager = LinearLayoutManager(context)
         val adapter = SavedItemsAdapter(requireContext(), ArrayList(), onSelectSchedule, longPressLambda)
         binding.scheduleSavedItemsRecycler.adapter = adapter

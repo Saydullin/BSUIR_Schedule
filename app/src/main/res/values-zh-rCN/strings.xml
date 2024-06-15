@@ -37,7 +37,7 @@
     <string name="subgroup">对于 %d 个子组</string>
     <string name="subject_time">从 %s 到 %s</string>
     <string name="subject_weeks">%s 周</string>
-    <string name="subject_note">笔记：</string>
+    <string name="subject_note">*</string>
     <string name="subject_date_range">从 %s 到 %s</string>
     <string name="about_search_title">日程搜索</string>
     <string name="about_search_text">搜索适用于与时间表相关的所有关键字。/n/nGroups 可以通过教师和专业的全名或缩写进行搜索：/n查询“ksis waters”将返回与给定教师和专业相关的所有组。/ n/n由单个数字组成的查询将返回相应课程的所有组。/n/n与教师类似。您可以按部门搜索科学学位（“博士”、“副教授”、“教授”等）。</string>

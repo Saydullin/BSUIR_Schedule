@@ -18,11 +18,13 @@ import kotlinx.coroutines.launch
 
 class ScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase,
-    private val scheduleSubjectUseCase: ScheduleSubjectUseCase,
+    private val ignoreSubjectUseCase: IgnoreSubjectUseCase,
     private val updateScheduleSettingsUseCase: UpdateScheduleSettingsUseCase,
     private val savedScheduleUseCase: GetSavedScheduleUseCase,
     private val saveScheduleUseCase: SaveScheduleUseCase,
     private val deleteScheduleUseCase: DeleteScheduleUseCase,
+    private val deleteSubjectUseCase: DeleteSubjectUseCase,
+    private val editSubjectUseCase: EditSubjectUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
     private val addScheduleSubjectUseCase: AddScheduleSubjectUseCase
@@ -99,136 +101,138 @@ class ScheduleViewModel(
         return schedule.value
     }
 
-    fun ignoreSubject(scheduleSubject: ScheduleSubject, isIgnored: Boolean) {
+    fun ignoreSubject(
+        scheduleSubject: ScheduleSubject,
+        isIgnored: Boolean,
+        scheduleTerm: ScheduleTerm
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (schedule.value == null || schedule.value!!.id == -1) {
+            if (schedule.value == null || schedule.value?.id == -1) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
                     type = StatusCode.DATA_ERROR,
                 ))
+                return@launch
             }
 
-            val scheduleId = schedule.value!!.id
+            val scheduleId = schedule.value?.id ?: return@launch
+            val result = ignoreSubjectUseCase.execute(
+                scheduleId = scheduleId,
+                scheduleSubject = scheduleSubject,
+                scheduleTerm = scheduleTerm,
+                isIgnored = isIgnored
+            )
+            if (result is Resource.Error || result.data == null) {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = result.statusCode,
+                ))
+                return@launch
+            }
+            val data = result.data
             when (
-                val result = scheduleSubjectUseCase.ignore(
-                    scheduleId = scheduleId,
-                    scheduleSubject = scheduleSubject,
-                    isIgnored = isIgnored
-                )
+                val saveResponse = saveScheduleUseCase.execute(data)
             ) {
                 is Resource.Success -> {
-                    val data = result.data!!
-                    when (
-                        val saveResponse = saveScheduleUseCase.execute(data)
-                    ) {
-                        is Resource.Success -> {
-                            if (isIgnored) {
-                                success.postValue(StatusCode.SCHEDULE_SUBJECT_IGNORED)
-                            } else {
-                                success.postValue(StatusCode.SCHEDULE_SUBJECT_NOT_IGNORED)
-                            }
-                            getScheduleById(data.id, isNotUpdate = false)
-                        }
-                        is Resource.Error -> {
-                            error.postValue(StateStatus(
-                                state = StateStatus.ERROR_STATE,
-                                type = saveResponse.statusCode,
-                            ))
-                        }
-                    }
+                    success.postValue(StatusCode.SCHEDULE_SUBJECT_IGNORED)
+                    getScheduleById(data.id, isNotUpdate = false)
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.statusCode,
+                        type = saveResponse.statusCode,
                     ))
                 }
             }
         }
     }
 
-    fun editSubject(scheduleSubject: ScheduleSubject, changeSettings: ChangeSubjectSettings) {
+    fun editSubject(
+        scheduleSubject: ScheduleSubject,
+        changeSettings: ChangeSubjectSettings,
+        scheduleTerm: ScheduleTerm
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (schedule.value == null || schedule.value!!.id == -1) {
+            if (schedule.value == null || schedule.value?.id == -1) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
                     type = StatusCode.DATA_ERROR,
                 ))
+                return@launch
             }
 
-            val scheduleId = schedule.value!!.id
+            val scheduleId = schedule.value?.id ?: return@launch
+            val result = editSubjectUseCase.execute(
+                scheduleId = scheduleId,
+                scheduleSubject = scheduleSubject,
+                deleteSettings = changeSettings,
+                scheduleTerm = scheduleTerm,
+            )
+            if (result is Resource.Error || result.data == null) {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = result.statusCode,
+                ))
+                return@launch
+            }
+            val data = result.data
             when (
-                val result = scheduleSubjectUseCase.edit(
-                    scheduleId = scheduleId,
-                    scheduleSubject = scheduleSubject,
-                    deleteSettings = changeSettings
-                )
+                val saveResponse = saveScheduleUseCase.execute(data)
             ) {
                 is Resource.Success -> {
-                    val data = result.data!!
-                    when (
-                        val saveResponse = saveScheduleUseCase.execute(data)
-                    ) {
-                        is Resource.Success -> {
-                            success.postValue(StatusCode.SCHEDULE_SUBJECT_EDITED)
-                            getScheduleById(data.id, isNotUpdate = false)
-                        }
-                        is Resource.Error -> {
-                            error.postValue(StateStatus(
-                                state = StateStatus.ERROR_STATE,
-                                type = saveResponse.statusCode,
-                            ))
-                        }
-                    }
+                    success.postValue(StatusCode.SCHEDULE_SUBJECT_EDITED)
+                    getScheduleById(data.id, isNotUpdate = false)
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.statusCode,
+                        type = saveResponse.statusCode,
                     ))
                 }
             }
         }
     }
 
-    fun deleteSubject(scheduleSubject: ScheduleSubject, changeSettings: ChangeSubjectSettings) {
+    fun deleteSubject(
+        scheduleSubject: ScheduleSubject,
+        changeSettings: ChangeSubjectSettings,
+        scheduleTerm: ScheduleTerm,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (schedule.value == null || schedule.value!!.id == -1) {
+            if (schedule.value == null || schedule.value?.id == -1) {
                 error.postValue(StateStatus(
                     state = StateStatus.ERROR_STATE,
                     type = StatusCode.DATA_ERROR,
                 ))
+                return@launch
             }
 
-            val scheduleId = schedule.value!!.id
+            val scheduleId = schedule.value?.id ?: return@launch
+            val result = deleteSubjectUseCase.execute(
+                scheduleId = scheduleId,
+                scheduleSubject = scheduleSubject,
+                deleteSettings = changeSettings,
+                scheduleTerm = scheduleTerm,
+            )
+            if (result is Resource.Error || result.data == null) {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = result.statusCode,
+                ))
+                return@launch
+            }
+            val data = result.data
             when (
-                val result = scheduleSubjectUseCase.delete(
-                    scheduleId = scheduleId,
-                    scheduleSubject = scheduleSubject,
-                    deleteSettings = changeSettings
-                )
+                val saveResponse = saveScheduleUseCase.execute(data)
             ) {
                 is Resource.Success -> {
-                    val data = result.data!!
-                    when (
-                        val saveResponse = saveScheduleUseCase.execute(data)
-                    ) {
-                        is Resource.Success -> {
-                            success.postValue(StatusCode.SCHEDULE_SUBJECT_DELETED)
-                            getScheduleById(data.id, isNotUpdate = false)
-                        }
-                        is Resource.Error -> {
-                            error.postValue(StateStatus(
-                                state = StateStatus.ERROR_STATE,
-                                type = saveResponse.statusCode,
-                            ))
-                        }
-                    }
+                    success.postValue(StatusCode.SCHEDULE_SUBJECT_DELETED)
+                    getScheduleById(data.id, isNotUpdate = false)
                 }
                 is Resource.Error -> {
                     error.postValue(StateStatus(
                         state = StateStatus.ERROR_STATE,
-                        type = result.statusCode,
+                        type = saveResponse.statusCode,
                     ))
                 }
             }
@@ -295,25 +299,21 @@ class ScheduleViewModel(
 
     fun renameSchedule(scheduleId: Int, newTitle: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (
-                val result = getScheduleUseCase.getById(scheduleId)
-            ) {
-                is Resource.Success -> {
-                    val data = result.data!!
-                    if (data.isGroup()) {
-                        data.group.title = newTitle
-                    } else {
-                        data.employee.title = newTitle
-                    }
-                    saveSchedule(data)
+            val result = getScheduleUseCase.getById(scheduleId)
+            if (result is Resource.Success && result.data != null) {
+                val data = result.data
+                if (data.isGroup()) {
+                    data.group.title = newTitle
+                } else {
+                    data.employee.title = newTitle
                 }
-                is Resource.Error -> {
-                    error.postValue(StateStatus(
-                        state = StateStatus.ERROR_STATE,
-                        type = result.statusCode,
-                        message = result.message
-                    ))
-                }
+                saveSchedule(data)
+            } else {
+                error.postValue(StateStatus(
+                    state = StateStatus.ERROR_STATE,
+                    type = result.statusCode,
+                    message = result.message
+                ))
             }
         }
     }
@@ -368,7 +368,7 @@ class ScheduleViewModel(
             loading.postValue(true)
             employeeLoading.postValue(true)
             when (
-                val groupSchedule = employee.urlId?.let { getScheduleUseCase.getEmployeeAPI(it) }
+                val groupSchedule = employee.urlId.let { getScheduleUseCase.getEmployeeAPI(it) }
             ) {
                 is Resource.Success -> {
                     val data = groupSchedule.data!!
@@ -388,8 +388,8 @@ class ScheduleViewModel(
                     error.postValue(
                         StateStatus(
                             state = StateStatus.ERROR_STATE,
-                            type = groupSchedule?.statusCode ?: StatusCode.UNKNOWN_ERROR,
-                            message = groupSchedule?.message ?: ""
+                            type = groupSchedule.statusCode,
+                            message = groupSchedule.message ?: ""
                         )
                     )
                 }
@@ -499,7 +499,6 @@ class ScheduleViewModel(
                 is Resource.Success -> {
                     val data = result.data!!
                     saveScheduleToLiveData(data)
-
                 }
                 is Resource.Error -> {
                     schedule.postValue(null)
@@ -554,7 +553,7 @@ class ScheduleViewModel(
                                 val groupScheduleResponse = if (savedSchedule.isGroup)
                                     getScheduleUseCase.getGroupAPI(savedSchedule.group.name)
                                 else
-                                    savedSchedule.employee.urlId?.let {
+                                    savedSchedule.employee.urlId.let {
                                         getScheduleUseCase.getEmployeeAPI(
                                             it
                                         )
@@ -568,8 +567,8 @@ class ScheduleViewModel(
                                 else -> {
                                     error.postValue(StateStatus(
                                         state = StateStatus.ERROR_STATE,
-                                        type = groupScheduleResponse?.statusCode ?: StatusCode.UNKNOWN_ERROR,
-                                        message = groupScheduleResponse?.message
+                                        type = groupScheduleResponse.statusCode,
+                                        message = groupScheduleResponse.message
                                     ))
                                 }
                             }

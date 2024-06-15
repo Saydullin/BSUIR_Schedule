@@ -47,6 +47,7 @@ class ActiveScheduleFragment : Fragment() {
             groupScheduleVM.deleteSchedule(savedSchedule)
             if (savedSchedule.isGroup) {
                 savedSchedule.group.isSaved = false
+                Log.e("sady", "group saving ${savedSchedule.group}")
                 groupItemsVM.saveGroupItem(savedSchedule.group)
             } else {
                 savedSchedule.employee.isSaved = false
@@ -79,7 +80,7 @@ class ActiveScheduleFragment : Fragment() {
 
                 if (schedule.isGroup()) {
                     val group = schedule.group
-                    setTitle(group.getTitleOrName())
+                    setTitle(group.name ?: "")
                     setImage(R.drawable.ic_group_placeholder)
                     setDescription(group.getFacultyAndSpecialityAbbr())
                 } else {
@@ -106,20 +107,28 @@ class ActiveScheduleFragment : Fragment() {
                     setSubgroupText(selectedSubgroup.toString())
                 }
 
+                Log.e("sady", "WHEN SELECTED TERM CHECKING: $selectedTerm")
                 when(selectedTerm) {
                     ScheduleTerm.PREVIOUS_SCHEDULE -> {
                         if (schedule.previousSchedules.isNotEmpty()) {
                             setTermText(getString(R.string.previous_semester))
+                        } else {
+                            setTermText(getString(R.string.unknown))
                         }
                     }
                     ScheduleTerm.CURRENT_SCHEDULE -> {
                         if (!schedule.isScheduleNotExist()) {
+                            Log.e("sady", "IS CURRENT SEMESTER: $selectedTerm")
                             setTermText(getString(R.string.actual_semester))
+                        } else {
+                            setTermText(getString(R.string.unknown))
                         }
                     }
                     ScheduleTerm.SESSION -> {
                         if (!schedule.isExamsNotExist()) {
                             setTermText(resources.getString(R.string.session))
+                        } else {
+                            setTermText(getString(R.string.unknown))
                         }
                     }
                     else -> {

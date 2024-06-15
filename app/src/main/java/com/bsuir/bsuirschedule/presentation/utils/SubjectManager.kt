@@ -130,8 +130,11 @@ class SubjectManager(
         return getDaysLeftString()
     }
 
-    fun setSubjectTypeView(imageView: ImageView) {
-        when (subject.lessonTypeAbbrev) {
+    fun setSubjectTypeView(
+        imageView: ImageView,
+        subjectType: String,
+    ) {
+        when (subjectType) {
             ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
             }
@@ -159,9 +162,9 @@ class SubjectManager(
         }
     }
 
-    fun getSubjectType(): String {
+    fun getSubjectType(subjectType: String): String {
 
-        return when (subject.lessonTypeAbbrev) {
+        return when (subjectType) {
             ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                 context.getString(R.string.laboratory)
             }

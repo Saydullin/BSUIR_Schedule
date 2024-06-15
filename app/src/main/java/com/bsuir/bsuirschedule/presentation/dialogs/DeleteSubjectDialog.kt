@@ -33,7 +33,7 @@ class DeleteSubjectDialog(
         val deleteAllSubjects = getString(R.string.delete_subject_dialog_all, scheduleSubject.getEditedOrShortTitle())
         val deleteTypeSubjects = getString(
             R.string.delete_subject_dialog_type,
-            subjectManager.getSubjectType(),
+            subjectManager.getSubjectType(scheduleSubject.getEditedOrLessonType()),
             scheduleSubject.getEditedOrShortTitle(),
         )
         val deletePeriodSubjects = getString(

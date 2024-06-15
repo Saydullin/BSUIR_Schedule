@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
-import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.*
@@ -40,6 +38,7 @@ class ScheduleRecyclerFragment : Fragment() {
         val scheduleLoadingDialog = LoadingDialog(loadingStatus)
         scheduleLoadingDialog.isCancelable = false
         binding.scheduleDailyRecycler.visibility = View.GONE
+        var scheduleTerm = ScheduleTerm.NOTHING
 
         val onSubmitUploadSchedule = { savedSchedule: SavedSchedule ->
             groupScheduleVM.getOrUploadSchedule(savedSchedule)
@@ -61,11 +60,11 @@ class ScheduleRecyclerFragment : Fragment() {
         }
 
         val onIgnoreScheduleSubject = { scheduleSubject: ScheduleSubject, isIgnore: Boolean ->
-            groupScheduleVM.ignoreSubject(scheduleSubject, isIgnore)
+            groupScheduleVM.ignoreSubject(scheduleSubject, isIgnore, scheduleTerm)
         }
 
         val onDeleteSubmitScheduleSubject = { scheduleSubject: ScheduleSubject, deleteSettings: ChangeSubjectSettings ->
-            groupScheduleVM.deleteSubject(scheduleSubject, deleteSettings)
+            groupScheduleVM.deleteSubject(scheduleSubject, deleteSettings, scheduleTerm)
         }
 
         val onDeleteScheduleSubject = { scheduleSubject: ScheduleSubject ->
@@ -151,6 +150,7 @@ class ScheduleRecyclerFragment : Fragment() {
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
             var isEmptyList = false
+            scheduleTerm = schedule.settings.term.selectedTerm
 
             val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
             binding.noSubjectsPlaceholder.visibility = View.GONE

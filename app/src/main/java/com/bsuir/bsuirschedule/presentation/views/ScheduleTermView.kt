@@ -2,6 +2,7 @@ package com.bsuir.bsuirschedule.presentation.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.PopupMenu
@@ -60,6 +61,7 @@ class ScheduleTermView(
     }
 
     fun setTerms(terms: List<String> ) {
+        Log.e("sady", "terms list $terms")
         popupMenu.menu.clear()
         terms.forEach {
             popupMenu.menu.add(it)

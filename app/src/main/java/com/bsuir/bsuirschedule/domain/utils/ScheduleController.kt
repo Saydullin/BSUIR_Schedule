@@ -567,11 +567,9 @@ class ScheduleController {
                 regularSchedule.schedules,
                 regularSchedule.settings.schedule.isShowEmptyDays
             )
-        } else {
-//            regularSchedule.schedules = ArrayList()
         }
 
-        setScheduleTerm(regularSchedule)
+//        setScheduleTerm(regularSchedule)
 
         setSubjectsPrediction(regularSchedule)
 
@@ -616,10 +614,8 @@ class ScheduleController {
         scheduleDays.addAll(schedule)
 
         if (!isShowEmptyDays) {
-            schedule.map { day ->
-                if (day.schedule.size == 0) {
-                    scheduleDays.remove(day)
-                }
+            scheduleDays.removeIf { scheduleDay ->
+                scheduleDay.schedule.size == 0
             }
         }
 

@@ -32,14 +32,18 @@ class SubjectDialog(
 
         val subjectManager = SubjectManager(subject = subject, context = context!!)
 
-        val timeText = resources.getString(R.string.subject_time, subject.startLessonTime, subject.endLessonTime)
+        val timeText = resources.getString(
+            R.string.subject_time,
+            subject.getEditedOrStartTime(),
+            subject.getEditedOrEndTime()
+        )
         binding.subjectTime.text = timeText
 
         val weekText = resources.getString(R.string.subject_weeks, subject.weekNumber?.joinToString(", ") ?: "")
         binding.subjectWeeks.text = weekText
 
-        binding.subjectTypeName.text = subjectManager.getSubjectType()
-        subjectManager.setSubjectTypeView(binding.subjectType)
+        binding.subjectTypeName.text = subjectManager.getSubjectType(subject.getEditedOrLessonType())
+        subjectManager.setSubjectTypeView(binding.subjectType, subject.getEditedOrLessonType())
 
         if (subject.startLessonDate.isNullOrEmpty() || subject.endLessonDate.isNullOrEmpty()) {
             binding.subjectDateRangeContainer.visibility = View.GONE
@@ -62,51 +66,51 @@ class SubjectDialog(
         binding.subjectAudience.text = subject.getEditedOrAudienceInLine()
         binding.sourceRecycler.layoutManager = LinearLayoutManager(context)
 
-        if (subject.nextTimeDaysLeft != null) {
-            val daysLeft = subject.nextTimeDaysLeft!!
-            val afterText = resources.getString(R.string.after)
-            if (daysLeft >= 7) {
-                val weeksAmount = daysLeft / 7
-                val andDaysLeft = daysLeft % 7
-                var daysLeftText = ""
-                val weeksAmountText = resources.getQuantityString(
-                    R.plurals.plural_weeks_left,
-                    weeksAmount,
-                    weeksAmount
-                )
-                if (andDaysLeft != 0) {
-                    val andText = resources.getString(R.string.and)
-                    daysLeftText = "$andText " + resources.getQuantityString(
-                        R.plurals.plural_days_left,
-                        andDaysLeft,
-                        andDaysLeft
-                    )
-                }
-                val nextTimeSubjectText = resources.getString(
-                    R.string.subject_next_time,
-                    subject.getEditedOrShortTitle(),
-                    afterText
-                )
-                binding.subjectNextTime.text = "$nextTimeSubjectText $weeksAmountText $daysLeftText".trim()
-            } else {
-                val pluralDaysText = resources.getQuantityString(
-                    R.plurals.plural_days_left,
-                    subject.nextTimeDaysLeft!!,
-                    subject.nextTimeDaysLeft
-                )
-                val nextTimeSubjectText = resources.getString(
-                    R.string.subject_next_time,
-                    subject.getEditedOrShortTitle(),
-                    "$afterText $pluralDaysText"
-                )
-                binding.subjectNextTime.text = nextTimeSubjectText
-            }
-        } else {
-            val undefinedNextTimeSubjectText = resources.getString(
-                R.string.subject_next_time_undefined
-            )
-            binding.subjectNextTime.text = undefinedNextTimeSubjectText
-        }
+//        if (subject.nextTimeDaysLeft != null) {
+//            val daysLeft = subject.nextTimeDaysLeft!!
+//            val afterText = resources.getString(R.string.after)
+//            if (daysLeft >= 7) {
+//                val weeksAmount = daysLeft / 7
+//                val andDaysLeft = daysLeft % 7
+//                var daysLeftText = ""
+//                val weeksAmountText = resources.getQuantityString(
+//                    R.plurals.plural_weeks_left,
+//                    weeksAmount,
+//                    weeksAmount
+//                )
+//                if (andDaysLeft != 0) {
+//                    val andText = resources.getString(R.string.and)
+//                    daysLeftText = "$andText " + resources.getQuantityString(
+//                        R.plurals.plural_days_left,
+//                        andDaysLeft,
+//                        andDaysLeft
+//                    )
+//                }
+//                val nextTimeSubjectText = resources.getString(
+//                    R.string.subject_next_time,
+//                    subject.getEditedOrShortTitle(),
+//                    afterText
+//                )
+//                binding.subjectNextTime.text = "$nextTimeSubjectText $weeksAmountText $daysLeftText".trim()
+//            } else {
+//                val pluralDaysText = resources.getQuantityString(
+//                    R.plurals.plural_days_left,
+//                    subject.nextTimeDaysLeft!!,
+//                    subject.nextTimeDaysLeft
+//                )
+//                val nextTimeSubjectText = resources.getString(
+//                    R.string.subject_next_time,
+//                    subject.getEditedOrShortTitle(),
+//                    "$afterText $pluralDaysText"
+//                )
+//                binding.subjectNextTime.text = nextTimeSubjectText
+//            }
+//        } else {
+//            val undefinedNextTimeSubjectText = resources.getString(
+//                R.string.subject_next_time_undefined
+//            )
+//            binding.subjectNextTime.text = undefinedNextTimeSubjectText
+//        }
 
         val onClickSource = { savedSchedule: SavedSchedule ->
             if (!savedSchedule.isGroup) {
@@ -119,7 +123,7 @@ class SubjectDialog(
         }
 
         if (subject.employees != null && !subject.employees.isNullOrEmpty()) {
-            val scheduleItems = subject.employees?.map { it.toSavedSchedule() } as ArrayList<SavedSchedule>
+            val scheduleItems = subject.getEditedOrEmployees()
             val adapter = SubjectItemsAdapter(context!!, scheduleItems, onClickSource)
             binding.sourceRecycler.adapter = adapter
         }

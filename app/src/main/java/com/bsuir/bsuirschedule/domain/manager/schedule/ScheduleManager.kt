@@ -1,12 +1,18 @@
 package com.bsuir.bsuirschedule.domain.manager.schedule
 
-import android.provider.ContactsContract
-import com.bsuir.bsuirschedule.domain.manager.schedule.builder.ScheduleDaysFromSubjects
-import com.bsuir.bsuirschedule.domain.manager.schedule.builder.ScheduleExamsManager
-import com.bsuir.bsuirschedule.domain.manager.schedule.builder.ScheduleFromGroupSchedule
-import com.bsuir.bsuirschedule.domain.manager.schedule.builder.ScheduleMultiply
-import com.bsuir.bsuirschedule.domain.manager.schedule.builder.SchedulePrediction
-import com.bsuir.bsuirschedule.domain.manager.schedule.builder.ScheduleSubgroup
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ExamsScheduleEndDateFromSubjects
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ExamsScheduleStartDateFromSubjects
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleBreakTime
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleDaysFromSubjects
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleEmptyDays
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleExamsManager
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleSettingsPastDays
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleFromGroupSchedule
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleMultiply
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.SchedulePrediction
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleSettingsActualDates
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleSettingsSubgroup
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleSubgroup
 import com.bsuir.bsuirschedule.domain.manager.schedule.contract.ScheduleManagerContract
 import com.bsuir.bsuirschedule.domain.models.Employee
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
@@ -16,7 +22,10 @@ import com.bsuir.bsuirschedule.domain.models.Holiday
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettingsSchedule
 import com.bsuir.bsuirschedule.domain.utils.Resource
+import java.text.SimpleDateFormat
 
 class ScheduleManager : ScheduleManagerContract {
 
@@ -25,8 +34,7 @@ class ScheduleManager : ScheduleManagerContract {
         weekNumber: Int
     ): Resource<Schedule> {
         val scheduleFromGroupSchedule = ScheduleFromGroupSchedule(
-            groupSchedule = groupSchedule,
-            currentWeekNumber = weekNumber
+            groupSchedule = groupSchedule
         )
 
         return scheduleFromGroupSchedule.execute()
@@ -43,12 +51,16 @@ class ScheduleManager : ScheduleManagerContract {
     override fun multiplySchedule(
         scheduleDays: ArrayList<ScheduleDay>,
         holidays: ArrayList<Holiday>,
-        currentWeekNumber: Int
+        currentWeekNumber: Int,
+        startDate: String,
+        endDate: String,
     ): ArrayList<ScheduleDay> {
         val scheduleMultiply = ScheduleMultiply(
             scheduleDays = scheduleDays,
             holidays = holidays,
-            currentWeekNumber = currentWeekNumber
+            currentWeekNumber = currentWeekNumber,
+            startDate = startDate,
+            endDate = endDate
         )
 
         return scheduleMultiply.execute()
@@ -56,14 +68,33 @@ class ScheduleManager : ScheduleManagerContract {
 
     override fun getExamsSchedule(
         examsSubjects: ArrayList<ScheduleSubject>,
-        weekNumber: Int
+        weekNumber: Int,
     ): ArrayList<ScheduleDay> {
+        val startDate = ExamsScheduleStartDateFromSubjects(
+            scheduleSubjects = examsSubjects
+        ).execute()
+        val endDate = ExamsScheduleEndDateFromSubjects(
+            scheduleSubjects = examsSubjects
+        ).execute()
         val scheduleDaysFromSubjects = ScheduleDaysFromSubjects(
             scheduleSubjects = examsSubjects,
-            currentWeekNumber = weekNumber
+            currentWeekNumber = weekNumber,
+            startDate = startDate,
+            endDate = endDate
+        )
+        val scheduleDays = scheduleDaysFromSubjects.execute()
+        val removeEmptyDays = ScheduleEmptyDays(
+            scheduleDays = scheduleDays
+        )
+        val emptyDays = removeEmptyDays.execute()
+        emptyDays.map { day ->
+            day.schedule.sortBy { it.startLessonTime }
+        }
+        val breakTimeSchedule = setSubjectsBreakTime(
+            scheduleDays = emptyDays
         )
 
-        return scheduleDaysFromSubjects.execute()
+        return breakTimeSchedule
     }
 
     override fun mergeSchedule(
@@ -132,6 +163,106 @@ class ScheduleManager : ScheduleManagerContract {
                 } as ArrayList<ScheduleSubject>
             )
         } as ArrayList<ScheduleDay>
+    }
+
+    override fun setSubjectsBreakTime(scheduleDays: ArrayList<ScheduleDay>): ArrayList<ScheduleDay> {
+        val scheduleBreakTime = ScheduleBreakTime(
+            scheduleDays = scheduleDays
+        )
+
+        return scheduleBreakTime.execute()
+    }
+
+    override fun filterActualScheduleBySettings(
+        scheduleSettings: ScheduleSettingsSchedule,
+        scheduleDays: ArrayList<ScheduleDay>,
+        startDate: String,
+    ): ArrayList<ScheduleDay> {
+        val scheduleSettingsPastDays = ScheduleSettingsPastDays(
+            scheduleSettings = scheduleSettings,
+            scheduleDays = scheduleDays,
+            startDate = startDate,
+        )
+
+        return scheduleSettingsPastDays.execute()
+    }
+
+    override fun filterScheduleDatesBySettings(
+        scheduleSettings: ScheduleSettingsSchedule,
+        scheduleDays: ArrayList<ScheduleDay>,
+    ): ArrayList<ScheduleDay> {
+        val scheduleSettingsActualDates = ScheduleSettingsActualDates(
+            scheduleSettings = scheduleSettings,
+            scheduleDays = scheduleDays,
+        )
+
+        return scheduleSettingsActualDates.execute()
+    }
+
+    override fun filterScheduleSubgroupBySettings(
+        scheduleSettings: ScheduleSettings,
+        scheduleDays: ArrayList<ScheduleDay>
+    ): ArrayList<ScheduleDay> {
+        val scheduleSettingsSubgroup = ScheduleSettingsSubgroup(
+            scheduleSettings = scheduleSettings,
+            scheduleDays = scheduleDays,
+        )
+
+        return scheduleSettingsSubgroup.execute()
+    }
+
+    override fun getStartDate(scheduleDays: ArrayList<ScheduleDay>): String? {
+        val subjectsList = scheduleDays.flatMap { it.schedule }
+        val firstSubject = subjectsList.maxByOrNull { subject ->
+            val inputFormat = SimpleDateFormat("dd.MM.yyyy")
+            val subjectStartLessonDate = subject.startLessonDate
+            if (subjectStartLessonDate.isNullOrEmpty()) {
+                if (subject.dateLesson.isNullOrEmpty()) {
+                    0
+                } else {
+                    (inputFormat.parse(subject.dateLesson)?.time ?: 0) * -1
+                }
+            } else {
+                (inputFormat.parse(subjectStartLessonDate)?.time ?: 0) * -1
+            }
+        }
+
+        return firstSubject?.startLessonDate
+    }
+
+    override fun getEndDate(scheduleDays: ArrayList<ScheduleDay>): String? {
+        val subjectsList = scheduleDays.flatMap { it.schedule }
+        val lastSubject = subjectsList.maxByOrNull { subject ->
+            val inputFormat = SimpleDateFormat("dd.MM.yyyy")
+            val subjectStartLessonDate = subject.endLessonDate
+            if (subjectStartLessonDate.isNullOrEmpty()) {
+                if (subject.dateLesson.isNullOrEmpty()) {
+                    0
+                } else {
+                    inputFormat.parse(subject.dateLesson)?.time ?: 0
+                }
+            } else {
+                inputFormat.parse(subjectStartLessonDate)?.time ?: 0
+            }
+        }
+
+        return lastSubject?.endLessonDate
+    }
+
+    override fun getExamsStartDate(examsDays: ArrayList<ScheduleDay>): String? {
+        val examsStartDate = ExamsScheduleStartDateFromSubjects(
+            scheduleSubjects = examsDays.flatMap { it.schedule } as ArrayList<ScheduleSubject>
+        )
+
+        return examsStartDate.execute()
+    }
+
+    override fun getExamsEndDate(examsDays: ArrayList<ScheduleDay>): String? {
+        val examsEndDate = ExamsScheduleEndDateFromSubjects(
+            scheduleSubjects = examsDays.flatMap { it.schedule } as ArrayList<ScheduleSubject>
+        )
+
+        return examsEndDate.execute()
     }
 
 }

@@ -10,9 +10,9 @@ data class Schedule (
     var id: Int = -1,
     var startDate: String,
     var endDate: String,
-    val startExamsDate: String,
-    val endExamsDate: String,
-    val group: Group,
+    var startExamsDate: String,
+    var endExamsDate: String,
+    val group: GroupDTO,
     val employee: EmployeeSubject,
     var subgroups: List<Int>,
     val isGroup: Boolean?,
@@ -39,7 +39,7 @@ data class Schedule (
             endDate = "",
             startExamsDate = "",
             endExamsDate = "",
-            group = Group.empty,
+            group = GroupDTO.empty,
             employee = EmployeeSubject.empty,
             subgroups = listOf(),
             isGroup = null,
@@ -98,7 +98,7 @@ data class Schedule (
     fun toSavedSchedule() = SavedSchedule(
         id = id,
         employee = employee.toEmployee(),
-        group = group,
+        group = group.toGroup(),
         isGroup = isGroup(),
         lastUpdateTime = lastUpdateTime,
         lastUpdateDate = lastOriginalUpdateTime,
@@ -108,7 +108,7 @@ data class Schedule (
 
     fun getTitle(): String {
         return if (isGroup()) {
-            group.name
+            group.name ?: ""
         } else {
             employee.getName()
         }

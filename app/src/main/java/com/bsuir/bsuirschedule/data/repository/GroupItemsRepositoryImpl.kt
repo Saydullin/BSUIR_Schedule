@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.data.repository
 
+import android.util.Log
 import androidx.core.text.isDigitsOnly
 import com.bsuir.bsuirschedule.api.RetrofitBuilder
 import com.bsuir.bsuirschedule.api.services.GetGroupItemsService
@@ -90,7 +91,12 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
 
     override suspend fun saveGroupItemsList(groups: ArrayList<Group>): Resource<Unit> {
         return try {
-            val groupList = groups.map { it.toGroupTable() }
+            Log.e("sady", "saveGroupItemsList started")
+            val groupList = groups.map {
+                Log.e("sady", "groupList ${it.name} ${it.id}")
+                it.toGroupTable()
+            }
+            Log.e("sady", "groupList $groupList")
             groupDao.saveAllGroups(groupList)
             Resource.Success(null)
         } catch (e: Exception) {
@@ -102,3 +108,5 @@ class GroupItemsRepositoryImpl(override val groupDao: GroupDao) : GroupItemsRepo
     }
 
 }
+
+

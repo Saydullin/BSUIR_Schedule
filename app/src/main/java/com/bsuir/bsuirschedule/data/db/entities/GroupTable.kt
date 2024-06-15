@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.bsuir.bsuirschedule.domain.models.Group
+import com.bsuir.bsuirschedule.domain.models.GroupDTO
 
 @Entity
 data class GroupTable (
@@ -31,6 +32,21 @@ data class GroupTable (
         course = course,
         calendarId = calendarId,
         isSaved = isSaved
+    )
+
+    fun toGroupDTO() = GroupDTO(
+        id = id,
+        title = title,
+        name = name,
+        facultyId = facultyId,
+        facultyAbbrev = faculty.abbr,
+        facultyName = faculty.name,
+        specialityId = specialityId,
+        specialityName = speciality.name,
+        specialityAbbrev = speciality.abbrev,
+        course = course,
+        calendarId = calendarId,
+        educationDegree = "",
     )
 
 }

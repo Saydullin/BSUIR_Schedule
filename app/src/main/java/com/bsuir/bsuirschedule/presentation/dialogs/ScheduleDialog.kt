@@ -59,9 +59,16 @@ class ScheduleDialog(
                 schedule.getDateText(schedule.startDate),
                 schedule.getDateText(schedule.endDate)
             )
+        } else if (schedule.previousSchedules.isNotEmpty()) {
+            resources.getString(
+                R.string.previous_schedule_date_period,
+                schedule.getDateText(schedule.startDate),
+                schedule.getDateText(schedule.endDate)
+            )
         } else {
             resources.getString(R.string.schedule_empty_date_period)
         }
+
         binding.scheduleDate.text = scheduleDatePeriod
 
         if (!schedule.employee.email.isNullOrEmpty()) {
@@ -101,11 +108,11 @@ class ScheduleDialog(
         with(binding.scheduleHeaderView) {
             if (schedule.isGroup()) {
                 val group = schedule.group
-                setTitle(group.name)
+                setTitle(group.name ?: "")
                 setImage(R.drawable.ic_group_placeholder)
                 setDescription(group.getFacultyAndSpecialityAbbr())
                 setSecondTitle("${group.course} $courseText")
-                setSecondSubTitle(group.speciality?.educationForm?.name ?: "")
+                setSecondSubTitle(group.getFacultyAndSpecialityAbbr())
                 binding.scheduleSubtitles.text = group.getFacultyAndSpecialityFull()
             } else {
                 val employee = schedule.employee

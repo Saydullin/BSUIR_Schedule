@@ -48,8 +48,8 @@ class ScheduleShortSubjectsAdapter(
                 binding.subgroupInfo.visibility = View.VISIBLE
                 binding.subjectSubgroup.text = subject.getEditedOrNumSubgroup().toString()
             }
-            binding.subjectStartLesson.text = subject.startLessonTime
-            binding.subjectEndLesson.text = subject.endLessonTime
+            binding.subjectStartLesson.text = subject.getEditedOrStartTime()
+            binding.subjectEndLesson.text = subject.getEditedOrEndTime()
             binding.subjectAudience.text = subject.getEditedOrAudienceInLine()
             binding.subjectTitle.text = subject.getEditedOrShortTitle()
 
@@ -61,7 +61,7 @@ class ScheduleShortSubjectsAdapter(
 
             val imageView = binding.subjectType
 
-            when (subject.lessonTypeAbbrev) {
+            when (subject.getEditedOrLessonType()) {
                 ScheduleSubject.LESSON_TYPE_LABORATORY -> {
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lab))
                 }

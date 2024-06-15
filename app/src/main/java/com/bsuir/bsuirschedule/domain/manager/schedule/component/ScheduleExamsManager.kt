@@ -1,4 +1,4 @@
-package com.bsuir.bsuirschedule.domain.manager.schedule.builder
+package com.bsuir.bsuirschedule.domain.manager.schedule.component
 
 import com.bsuir.bsuirschedule.domain.manager.schedule.contract.ScheduleExamsManagerContract
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
@@ -10,7 +10,7 @@ class ScheduleExamsManager : ScheduleExamsManagerContract {
         examsDays: ArrayList<ScheduleDay>,
         weekNumber: Int
     ): ArrayList<ScheduleDay> {
-        TODO("Not yet implemented")
+        return arrayListOf()
     }
 
     override fun setExamsBreakTime(
@@ -22,6 +22,8 @@ class ScheduleExamsManager : ScheduleExamsManagerContract {
 
         return scheduleBreakTime.execute()
     }
+
+
 
 }
 

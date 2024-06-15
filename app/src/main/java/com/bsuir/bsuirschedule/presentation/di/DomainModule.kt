@@ -34,7 +34,19 @@ val domainModule = module {
     }
 
     factory {
-        ScheduleSubjectUseCase(
+        IgnoreSubjectUseCase(
+            scheduleRepository = get()
+        )
+    }
+
+    factory {
+        EditSubjectUseCase(
+            scheduleRepository = get()
+        )
+    }
+
+    factory {
+        DeleteSubjectUseCase(
             scheduleRepository = get()
         )
     }

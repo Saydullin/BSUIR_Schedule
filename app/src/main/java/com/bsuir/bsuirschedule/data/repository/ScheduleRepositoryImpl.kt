@@ -106,9 +106,10 @@ class ScheduleRepositoryImpl(
     }
 
     override suspend fun getScheduleById(id: Int): Resource<Schedule> {
-        return try {
+        try {
             val data = scheduleDao.getScheduleById(id)
             if (data != null) {
+                Log.e("sady", "getting schedule ${data.previousSchedules}")
                 return Resource.Success(data.toSchedule())
             }
             return Resource.Error(
@@ -136,11 +137,10 @@ class ScheduleRepositoryImpl(
 
     override suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
         return try {
+            Log.e("sady", "saving schedule ${schedule.previousSchedules}")
             scheduleDao.saveSchedule(schedule.toScheduleTable())
             Resource.Success(null)
         } catch (e: Exception) {
-            Log.e("sady", "saveSchedule")
-            Log.e("sady", e.message.toString())
             e.printStackTrace()
             Resource.Error(
                 statusCode = StatusCode.DATABASE_ERROR,

@@ -7,6 +7,8 @@ import com.bsuir.bsuirschedule.domain.models.Holiday
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettingsSchedule
 import com.bsuir.bsuirschedule.domain.utils.Resource
 
 interface ScheduleManagerContract {
@@ -54,6 +56,8 @@ interface ScheduleManagerContract {
         scheduleDays: ArrayList<ScheduleDay>,
         holidays: ArrayList<Holiday>,
         currentWeekNumber: Int,
+        startDate: String,
+        endDate: String,
     ): ArrayList<ScheduleDay>
 
     fun setSubjectsUniqueId(
@@ -73,6 +77,63 @@ interface ScheduleManagerContract {
         scheduleDays: ArrayList<ScheduleDay>,
         employees: ArrayList<Employee>
     ): ArrayList<ScheduleDay>
+
+    fun setSubjectsBreakTime(
+        scheduleDays: ArrayList<ScheduleDay>
+    ): ArrayList<ScheduleDay>
+
+    /**
+     * Get actual schedule.
+     *
+     * Filters how many past days must be shown
+     *
+     * @param scheduleSettings schedule settings where specified past days amount
+     * @param scheduleDays schedule days
+     * @param startDate start schedule date
+     *
+     * @return filtered schedule days
+     */
+    fun filterActualScheduleBySettings(
+        scheduleSettings: ScheduleSettingsSchedule,
+        scheduleDays: ArrayList<ScheduleDay>,
+        startDate: String,
+    ): ArrayList<ScheduleDay>
+
+    /**
+     * Get schedule with actual dates.
+     *
+     * Updating dates on each schedule day
+     *
+     * @param scheduleSettings schedule settings where specified past days amount
+     * @param scheduleDays schedule days
+     *
+     * @return filtered schedule days
+     */
+    fun filterScheduleDatesBySettings(
+        scheduleSettings: ScheduleSettingsSchedule,
+        scheduleDays: ArrayList<ScheduleDay>,
+    ): ArrayList<ScheduleDay>
+
+    fun filterScheduleSubgroupBySettings(
+        scheduleSettings: ScheduleSettings,
+        scheduleDays: ArrayList<ScheduleDay>,
+    ): ArrayList<ScheduleDay>
+
+    fun getStartDate(
+        scheduleDays: ArrayList<ScheduleDay>
+    ): String?
+
+    fun getEndDate(
+        scheduleDays: ArrayList<ScheduleDay>
+    ): String?
+
+    fun getExamsStartDate(
+        examsDays: ArrayList<ScheduleDay>
+    ): String?
+
+    fun getExamsEndDate(
+        examsDays: ArrayList<ScheduleDay>
+    ): String?
 
 }
 

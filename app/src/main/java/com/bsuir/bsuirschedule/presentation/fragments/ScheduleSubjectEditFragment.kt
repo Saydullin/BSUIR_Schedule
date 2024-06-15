@@ -12,6 +12,7 @@ import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubjectEdit
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.presentation.dialogs.AddScheduleItemDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -25,6 +26,7 @@ class ScheduleSubjectEditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentScheduleSubjectEditBinding.inflate(inflater)
+        var scheduleTerm: ScheduleTerm = ScheduleTerm.NOTHING
 
         binding.cancelButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
@@ -32,6 +34,7 @@ class ScheduleSubjectEditFragment : Fragment() {
 
         groupScheduleVM.activeSubjectStatus.observe(viewLifecycleOwner) { activeSubject ->
             val schedule = groupScheduleVM.getActiveSchedule() ?: return@observe
+            scheduleTerm = schedule.settings.term.selectedTerm
             binding.customSubjectView.setGroupType(!schedule.isGroup())
             binding.customSubjectView.setSubgroups(schedule.subgroups)
             binding.customSubjectView.setSelectedSubgroup(activeSubject.getEditedOrNumSubgroup())
@@ -77,7 +80,7 @@ class ScheduleSubjectEditFragment : Fragment() {
             val activeSubject = groupScheduleVM.getActiveSubject() ?: return@setOnSelectScheduleListener
             // sourceItemsText get from vm from useCase
             val subjectEdit = ScheduleSubjectEdit(
-                shortTitle = subject.subject ?: "",
+                shortTitle = subject.getEditedOrShortTitle(),
                 fullTitle = subject.getEditedOrFullTitle(),
                 audience = subject.getEditedOrAudienceInLine(),
                 startTime = subject.startLessonTime ?: "",
@@ -96,7 +99,11 @@ class ScheduleSubjectEditFragment : Fragment() {
                 forOnlyPeriod = false,
                 forOnlySubgroup = false
             )
-            groupScheduleVM.editSubject(activeSubject, changeSubjectSettings)
+            groupScheduleVM.editSubject(
+                activeSubject,
+                changeSubjectSettings,
+                scheduleTerm
+            )
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectEditFragment_to_mainScheduleFragment)
         }
 

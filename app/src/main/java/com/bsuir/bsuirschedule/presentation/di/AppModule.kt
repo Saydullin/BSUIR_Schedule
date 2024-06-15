@@ -10,7 +10,9 @@ val appModule = module {
     viewModel {
         ScheduleViewModel(
             sharedPrefsUseCase = get(),
-            scheduleSubjectUseCase = get(),
+            ignoreSubjectUseCase = get(),
+            deleteSubjectUseCase = get(),
+            editSubjectUseCase = get(),
             getCurrentWeekUseCase = get(),
             getScheduleUseCase = get(),
             saveScheduleUseCase = get(),

@@ -68,19 +68,13 @@ data class ScheduleSubject (
     }
 
     fun getEditedOrShortTitle(): String {
-        if (edited != null) {
-            return edited!!.shortTitle
-        }
 
-        return subject ?: ""
+        return edited?.shortTitle ?: subject ?: ""
     }
 
     fun getEditedOrFullTitle(): String {
-        if (edited != null) {
-            return edited!!.fullTitle
-        }
 
-        return subjectFullName ?: ""
+        return edited?.fullTitle ?: subjectFullName ?: ""
     }
 
     fun getEditedOrGroups(): ArrayList<Group> {
@@ -91,20 +85,28 @@ data class ScheduleSubject (
         return groups ?: arrayListOf()
     }
 
-    fun getEditedOrEmployees(): ArrayList<EmployeeSubject> {
-        if (edited != null) {
-            return edited!!.sourceItems.map { it.employee.toEmployeeSubject() } as ArrayList<EmployeeSubject>
-        }
+    fun getEditedOrEmployees(): ArrayList<SavedSchedule> {
 
-        return employees ?: arrayListOf()
+        return if (edited?.sourceItems.isNullOrEmpty()) {
+            employees?.map { it.toSavedSchedule() } as ArrayList<SavedSchedule>
+        } else {
+            edited?.sourceItems ?: arrayListOf()
+        }
+    }
+
+    fun getEditedOrStartTime(): String {
+
+        return edited?.startTime ?: startLessonTime ?: ""
+    }
+
+    fun getEditedOrEndTime(): String {
+
+        return edited?.endTime ?: endLessonTime ?: ""
     }
 
     fun getEditedOrLessonType(): String {
-        if (edited != null) {
-            return edited!!.lessonType
-        }
 
-        return lessonTypeAbbrev ?: LESSON_TYPE_LECTURE
+        return edited?.lessonType ?: lessonTypeAbbrev ?: LESSON_TYPE_LECTURE
     }
 
     fun getEditedOrWeeks(): ArrayList<Int> {
@@ -125,10 +127,10 @@ data class ScheduleSubject (
 
     fun getEditedOrNote(): String {
         if (edited != null) {
-            return edited?.note ?: ""
+            return edited?.note?.trim() ?: ""
         }
 
-        return note ?: ""
+        return note?.trim() ?: ""
     }
 
     fun getEditedOrAudienceInLine(): String {

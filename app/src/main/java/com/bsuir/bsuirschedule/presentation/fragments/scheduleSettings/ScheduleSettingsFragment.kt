@@ -33,7 +33,7 @@ class ScheduleSettingsFragment : Fragment() {
             } else {
                 binding.scheduleHeaderView.setTitle(schedule.employee.getFullName())
                 binding.scheduleHeaderView.setDescription(schedule.employee.getRankAndDegree())
-                binding.scheduleHeaderView.setImage(schedule.employee.photoLink)
+                binding.scheduleHeaderView.setImage(schedule.employee.photoLink ?: "")
             }
         }
 

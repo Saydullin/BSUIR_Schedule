@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             android:backgroundTint="?attr/secondaryColor"
+            android:layout_marginHorizontal="15dp"
             app:cardCornerRadius="@dimen/view_radius">
 
             <LinearLayout
@@ -136,26 +137,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:paddingHorizontal="15dp"
             android:orientation="horizontal">
 
-<!--            <ImageView-->
-<!--                android:layout_width="20dp"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:src="@drawable/ic_location" />-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="20dp"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:src="@drawable/ic_location" />-->
 
-<!--            <Space-->
-<!--                android:layout_width="5dp"-->
-<!--                android:layout_height="wrap_content" />-->
+            <!--            <Space-->
+            <!--                android:layout_width="5dp"-->
+            <!--                android:layout_height="wrap_content" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/location"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:maxLines="2"-->
-<!--                android:ellipsize="end"-->
-<!--                style="@style/Theme.BSUIRSchedule.TextView"-->
-<!--                tools:text="Сейчас ИТПЭУ, в 213-1к." />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/location"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:maxLines="2"-->
+            <!--                android:ellipsize="end"-->
+            <!--                style="@style/Theme.BSUIRSchedule.TextView"-->
+            <!--                tools:text="Сейчас ИТПЭУ, в 213-1к." />-->
 
             <com.bsuir.bsuirschedule.presentation.views.ScheduleTermView
                 android:id="@+id/scheduleTermView"
@@ -178,6 +180,13 @@
                 app:subgroupNum="1" />
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/schedule_header_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:alpha=".4"
+            android:background="?secondaryColor" />
 
     </LinearLayout>
 

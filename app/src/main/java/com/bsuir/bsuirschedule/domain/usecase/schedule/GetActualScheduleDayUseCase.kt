@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.WidgetSchedule

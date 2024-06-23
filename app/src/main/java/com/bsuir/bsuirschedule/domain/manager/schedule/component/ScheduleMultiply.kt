@@ -26,7 +26,7 @@ class ScheduleMultiply(
         while (!calendarDate.isEqualDate(endDate) && calendarDate.getIncDayCounter() < ScheduleController.DAYS_LIMIT) {
             calendarDate.incDate(daysCounter)
             val currentTimeInMillis = calendarDate.getDateInMillis()
-            val weekNumber = calendarDate.getWeekNumber()
+            val weekNumber = calendarDate.getWeekNum()
             val weekDayNumber = calendarDate.getWeekDayNumber()
             val weekNumberDays = scheduleDays.filter { it.weekDayNumber == weekDayNumber }
             val weekNumberDaysCopy = weekNumberDays.map { it.copy() }

@@ -39,6 +39,7 @@
         <attr name="android:minWidth" />
         <attr name="hint" format="string" />
         <attr name="caption" format="string" />
+        <attr name="maxLength" format="integer" />
         <attr name="action" format="string" />
     </declare-styleable>
 

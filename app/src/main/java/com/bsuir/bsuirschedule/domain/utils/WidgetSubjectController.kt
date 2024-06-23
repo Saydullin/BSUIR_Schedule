@@ -3,6 +3,7 @@ package com.bsuir.bsuirschedule.domain.utils
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,7 +64,23 @@ class WidgetSubjectController (
         val today = Date()
         val todayWithZeroTime = format.parse(format.format(today))!!.time
 
-        return schedule.schedules.filter { it.dateInMillis >= todayWithZeroTime }
+        return when(schedule.settings.term.selectedTerm) {
+            ScheduleTerm.CURRENT_SCHEDULE -> {
+                schedule.schedules
+//                schedule.schedules.filter { it.dateInMillis >= todayWithZeroTime }
+            }
+            ScheduleTerm.PREVIOUS_SCHEDULE -> {
+                schedule.previousSchedules
+//                schedule.previousSchedules.filter { it.dateInMillis >= todayWithZeroTime }
+            }
+            ScheduleTerm.SESSION -> {
+                schedule.examsSchedule
+//                schedule.examsSchedule.filter { it.dateInMillis >= todayWithZeroTime }
+            }
+            else -> {
+                listOf()
+            }
+        }
     }
 
     fun getActualScheduleDay(): ScheduleDay? {
@@ -81,7 +98,8 @@ class WidgetSubjectController (
             return actualScheduleDays[actualScheduleDayIndex]
         }
 
-        return null
+        return actualScheduleDays.firstOrNull()
+//        return null
     }
 
 }

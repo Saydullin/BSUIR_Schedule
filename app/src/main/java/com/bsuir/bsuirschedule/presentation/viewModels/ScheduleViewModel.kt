@@ -27,7 +27,8 @@ class ScheduleViewModel(
     private val editSubjectUseCase: EditSubjectUseCase,
     private val sharedPrefsUseCase: SharedPrefsUseCase,
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
-    private val addScheduleSubjectUseCase: AddScheduleSubjectUseCase
+    private val addScheduleSubjectUseCase: AddScheduleSubjectUseCase,
+    private val addSubjectUseCase: AddSubjectUseCase
 ) : ViewModel() {
 
     private val loading = MutableLiveData(false)
@@ -239,11 +240,20 @@ class ScheduleViewModel(
         }
     }
 
-    fun addCustomSubject(subject: ScheduleSubject, sourceItemsText: String) {
+    fun addCustomSubject(
+        subject: ScheduleSubject,
+        sourceItemsText: String,
+        scheduleTerm: ScheduleTerm
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val scheduleId = schedule.value?.id ?: return@launch
             when (
-                val res = addScheduleSubjectUseCase.execute(scheduleId, subject, sourceItemsText)
+                val res = addSubjectUseCase.execute(
+                    scheduleId,
+                    subject,
+                    sourceItemsText,
+                    scheduleTerm
+                )
             ) {
                 is Resource.Success -> {
                     success.postValue(StatusCode.SCHEDULE_SUBJECT_ADDED)
@@ -412,6 +422,7 @@ class ScheduleViewModel(
                         ))
                         schedule.postValue(null)
                     } else {
+                        Log.e("sady", "saving schedule VM: ${groupSchedule.schedules}")
                         getScheduleById(groupSchedule.id)
                     }
                 }
@@ -455,7 +466,7 @@ class ScheduleViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             settingsUpdated.postValue(false)
             when (
-                val saveResponse = updateScheduleSettingsUseCase.invoke(id, newSettings)
+                val saveResponse = updateScheduleSettingsUseCase.execute(id, newSettings)
             ) {
                 is Resource.Success -> {
                     settingsUpdated.postValue(true)
@@ -498,6 +509,7 @@ class ScheduleViewModel(
             ) {
                 is Resource.Success -> {
                     val data = result.data!!
+                    Log.e("sady", "getting schedule VM: ${data.schedules}")
                     saveScheduleToLiveData(data)
                 }
                 is Resource.Error -> {

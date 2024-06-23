@@ -37,6 +37,8 @@ class ScheduleSettingsPastDays(
     }
 
     private fun filterActualSchedule(schedule: ArrayList<ScheduleDay>, preDays: Int = 0, startDate: String): ArrayList<ScheduleDay> {
+        if (preDays >= schedule.size) return schedule
+
         val calendarDate = if (preDays == -1) {
             CalendarDate(startDate = startDate)
         } else {

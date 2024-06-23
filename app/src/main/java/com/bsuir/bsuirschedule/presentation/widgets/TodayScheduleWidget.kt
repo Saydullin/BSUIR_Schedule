@@ -41,8 +41,10 @@ internal fun updateAppWidget(
     val widgetText = "${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)} :${calendar.get(Calendar.SECOND)}"
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.today_schedule_widget)
-    views.setTextViewText(R.id.appwidget_text, widgetText)
+    views.setTextViewText(R.id.appwidget_texts, widgetText)
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
+
+

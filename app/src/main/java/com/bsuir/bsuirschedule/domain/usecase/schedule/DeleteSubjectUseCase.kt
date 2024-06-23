@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleBreakTime
 import com.bsuir.bsuirschedule.domain.models.ChangeSubjectSettings
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
@@ -68,15 +69,20 @@ class DeleteSubjectUseCase(
             )
         }
 
+        val scheduleBreakTime = ScheduleBreakTime(
+            scheduleDays = scheduleDays
+        )
+        val scheduleDaysWithBreakTime = scheduleBreakTime.execute()
+
         when(scheduleTerm) {
             ScheduleTerm.CURRENT_SCHEDULE -> {
-                schedule.schedules = scheduleDays
+                schedule.schedules = scheduleDaysWithBreakTime
             }
             ScheduleTerm.PREVIOUS_SCHEDULE -> {
-                schedule.previousSchedules = scheduleDays
+                schedule.previousSchedules = scheduleDaysWithBreakTime
             }
             ScheduleTerm.SESSION -> {
-                schedule.examsSchedule = scheduleDays
+                schedule.examsSchedule = scheduleDaysWithBreakTime
             }
             else -> {}
         }

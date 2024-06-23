@@ -11,8 +11,10 @@ import com.bsuir.bsuirschedule.databinding.SubjectDialogBinding
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.presentation.adapters.SubjectItemsAdapter
 import com.bsuir.bsuirschedule.presentation.utils.SubjectManager
+import com.bsuir.bsuirschedule.presentation.utils.ViewVisible
 
 class SubjectDialog(
     private val subject: ScheduleSubject,
@@ -20,6 +22,7 @@ class SubjectDialog(
         savedSchedule: SavedSchedule,
         employeeSubject: EmployeeSubject?
     ) -> Unit)?,
+    private val scheduleSettings: ScheduleSettings?
 ): DialogFragment() {
 
     override fun onCreateView(
@@ -66,6 +69,22 @@ class SubjectDialog(
         binding.subjectAudience.text = subject.getEditedOrAudienceInLine()
         binding.sourceRecycler.layoutManager = LinearLayoutManager(context)
 
+        binding.subjectHoursAmountContainer.visibility = ViewVisible.ifIs(!subject.hours.isNullOrEmpty())
+        val forSubgroupText = resources.getString(
+            R.string.for_subgroup,
+            scheduleSettings?.subgroup?.selectedNum
+        )
+        val hoursText = resources.getString(
+            R.string.subject_hours,
+            subject.hours
+        )
+        binding.subjectHoursAmount.text =
+            if (scheduleSettings?.subgroup?.selectedNum != 0 &&
+                subject.numSubgroup != 0) {
+                "$hoursText $forSubgroupText"
+            } else {
+                hoursText
+            }
 //        if (subject.nextTimeDaysLeft != null) {
 //            val daysLeft = subject.nextTimeDaysLeft!!
 //            val afterText = resources.getString(R.string.after)

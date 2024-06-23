@@ -79,6 +79,7 @@ class ScheduleHeaderView(
             if (isPreview) {
                 optionsButton.visibility = View.GONE
                 controls.visibility = View.GONE
+                scheduleHeaderDivider.visibility = View.GONE
             }
         }
 

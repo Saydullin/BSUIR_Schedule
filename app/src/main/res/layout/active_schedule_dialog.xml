@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingVertical="10dp"
+        android:paddingTop="5dp"
         android:orientation="vertical">
 
         <com.bsuir.bsuirschedule.presentation.views.ScheduleHeaderView
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:paddingHorizontal="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -53,6 +55,7 @@
             android:id="@+id/exams_date_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -80,6 +83,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:paddingHorizontal="10dp"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -106,7 +110,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp">
 
             <ImageView
                 android:layout_width="20dp"
@@ -136,7 +141,8 @@
             android:id="@+id/schedule_subtitles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Theme.BSUIRSchedule.TextView" />
+            style="@style/Theme.BSUIRSchedule.TextView"
+            android:paddingHorizontal="10dp" />
 
         <View
             android:layout_width="match_parent"
@@ -148,7 +154,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
             <ImageView
                 android:layout_width="20dp"
@@ -177,7 +184,8 @@
             android:gravity="center_vertical"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
             <Button
                 android:id="@+id/copy_letter_button"
@@ -208,7 +216,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
             <Button
                 android:id="@+id/delete_button"

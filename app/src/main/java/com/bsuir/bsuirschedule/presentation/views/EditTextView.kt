@@ -2,8 +2,10 @@ package com.bsuir.bsuirschedule.presentation.views
 
 import android.content.Context
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +47,7 @@ class EditTextView(
 
         val hint = typedArray.getString(R.styleable.EditTextView_hint) ?: ""
         val caption = typedArray.getString(R.styleable.EditTextView_caption) ?: ""
+        val maxLength = typedArray.getInt(R.styleable.EditTextView_maxLength, 0)
         val inputType = typedArray.getInt(R.styleable.EditTextView_android_inputType, EditorInfo.TYPE_NULL)
         val action = typedArray.getString(R.styleable.EditTextView_action) ?: ""
 
@@ -54,6 +57,7 @@ class EditTextView(
         setAction(action)
         setHint(hint)
         setCaption(caption)
+        setMaxLength(maxLength)
 
         typedArray.recycle()
     }
@@ -98,6 +102,12 @@ class EditTextView(
             binding.caption.visibility = View.VISIBLE
         } else {
             binding.caption.visibility = View.GONE
+        }
+    }
+
+    fun setMaxLength(length: Int) {
+        if (length != 0) {
+            binding.editTextInput.filters = arrayOf(InputFilter.LengthFilter(length))
         }
     }
 

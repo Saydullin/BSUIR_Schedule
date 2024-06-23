@@ -30,7 +30,6 @@ val dataModule = module {
             .addTypeConverter(ScheduleSettingsConverter())
             .addTypeConverter(ScheduleDayListConverter())
             .addTypeConverter(ScheduleSubjectsListConverter())
-            .fallbackToDestructiveMigration()
             .build()
     }
 

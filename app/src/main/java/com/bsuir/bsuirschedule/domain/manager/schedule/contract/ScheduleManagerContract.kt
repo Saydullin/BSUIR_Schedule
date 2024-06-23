@@ -93,7 +93,7 @@ interface ScheduleManagerContract {
      *
      * @return filtered schedule days
      */
-    fun filterActualScheduleBySettings(
+    fun filterSchedulePastDaysBySettings(
         scheduleSettings: ScheduleSettingsSchedule,
         scheduleDays: ArrayList<ScheduleDay>,
         startDate: String,

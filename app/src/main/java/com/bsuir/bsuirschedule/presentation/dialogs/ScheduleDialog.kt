@@ -53,18 +53,20 @@ class ScheduleDialog(
         }
         binding.examsDate.text = examsDatePeriod
 
-        val scheduleDatePeriod = if (!schedule.isScheduleNotExist()) {
-            resources.getString(
-                R.string.schedule_date_period,
-                schedule.getDateText(schedule.startDate),
-                schedule.getDateText(schedule.endDate)
-            )
-        } else if (schedule.previousSchedules.isNotEmpty()) {
-            resources.getString(
-                R.string.previous_schedule_date_period,
-                schedule.getDateText(schedule.startDate),
-                schedule.getDateText(schedule.endDate)
-            )
+        val scheduleDatePeriod = if (schedule.startDate.isNotEmpty() && schedule.endDate.isNotEmpty()) {
+            if (schedule.previousSchedules.isNotEmpty()) {
+                resources.getString(
+                    R.string.previous_schedule_date_period,
+                    schedule.getDateText(schedule.startDate),
+                    schedule.getDateText(schedule.endDate)
+                )
+            } else {
+                resources.getString(
+                    R.string.schedule_date_period,
+                    schedule.getDateText(schedule.startDate),
+                    schedule.getDateText(schedule.endDate)
+                )
+            }
         } else {
             resources.getString(R.string.schedule_empty_date_period)
         }
@@ -117,7 +119,7 @@ class ScheduleDialog(
             } else {
                 val employee = schedule.employee
                 setTitle(employee.getFullName())
-                setImage(employee.photoLink)
+                setImage(employee.photoLink ?: "")
                 setDescription(employee.getRankAndDegree())
                 setSecondSubTitle(employee.getShortDepartments(moreText))
                 if (employee.departmentsList.isNullOrEmpty()) {
@@ -130,7 +132,7 @@ class ScheduleDialog(
                 setImageClickListener {
                     val imageViewDialog = ImageViewDialog(
                         requireContext(),
-                        employee.photoLink,
+                        employee.photoLink ?: "",
                         employee.getFullName()
                     )
                     imageViewDialog.show()

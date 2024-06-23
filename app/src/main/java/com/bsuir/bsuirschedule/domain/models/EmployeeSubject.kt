@@ -4,20 +4,20 @@ import com.bsuir.bsuirschedule.data.db.entities.EmployeeTable
 import kotlin.collections.ArrayList
 
 data class EmployeeSubject(
-    val id: Int,
+    val id: Int?,
     var title: String?,
-    val firstName: String,
-    val lastName: String,
+    val firstName: String?,
+    val lastName: String?,
     val middleName: String?,
     val degree: String?,
     val degreeAbbrev: String?,
     val rank: String?,
-    val photoLink: String,
+    val photoLink: String?,
     val calendarId: String?,
     val email: String?,
     val department: List<String>?,
     var departmentsList: ArrayList<Department>?,
-    val urlId: String,
+    val urlId: String?,
     val jobPosition: String?
 ) {
 
@@ -42,7 +42,7 @@ data class EmployeeSubject(
     }
 
     fun toSavedSchedule() = SavedSchedule(
-        id = id,
+        id = id ?: -1,
         employee = this.toEmployeeTable().toEmployee(),
         group = Group.empty,
         isGroup = false,
@@ -53,27 +53,27 @@ data class EmployeeSubject(
     )
 
     fun toEmployeeTable() = EmployeeTable(
-        id = id,
+        id = id ?: -1,
         title = title ?: "",
-        firstName = firstName,
-        lastName = lastName,
+        firstName = firstName ?: "",
+        lastName = lastName ?: "",
         middleName = middleName ?: "",
         fullName = getFullName(),
         degree = degree ?: "",
         degreeAbbrev = degreeAbbrev ?: "",
         rank = rank ?: "",
         email = email ?: "",
-        photoLink = photoLink,
+        photoLink = photoLink ?: "",
         calendarId = calendarId ?: "",
         jobPosition = jobPosition ?: "",
         academicDepartment = department ?: listOf(),
         departments = departmentsList?.map { it.toDepartmentTable() } ?: listOf(),
         isSaved = null,
-        urlId = urlId,
+        urlId = urlId ?: "",
     )
 
     fun toEmployee() = Employee(
-        id = id,
+        id = id ?: -1,
         title = title ?: "",
         firstName = firstName,
         lastName = lastName,
@@ -86,7 +86,7 @@ data class EmployeeSubject(
         email = email,
         departmentsAbbrList = department,
         departments = departmentsList ?: arrayListOf(),
-        urlId = urlId,
+        urlId = urlId ?: "",
         isSaved = false
     )
 
@@ -117,8 +117,8 @@ data class EmployeeSubject(
     fun getFullName() = "$lastName $firstName $middleName"
 
     fun getName(): String {
-        val firstNameLetter = if (firstName != "") "${firstName[0]}." else ""
-        val middleNameLetter = if (middleName != "") "${middleName?.get(0)}" else ""
+        val firstNameLetter = if (firstName != "") "${firstName?.get(0)}." else ""
+        val middleNameLetter = if (middleName != "") "${middleName?.get(0)}." else ""
 
         return "$lastName $firstNameLetter $middleNameLetter".trim()
     }

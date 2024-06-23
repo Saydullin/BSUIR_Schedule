@@ -1,6 +1,7 @@
 package com.bsuir.bsuirschedule.domain.utils
 
 import android.util.Log
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleBreakTime
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import java.text.SimpleDateFormat
@@ -10,7 +11,7 @@ import kotlin.collections.ArrayList
 class ScheduleController {
 
     companion object {
-        const val DAYS_LIMIT = 100
+        const val DAYS_LIMIT = 150
     }
 
     private fun getNormalSchedule(groupSchedule: GroupSchedule): Schedule {
@@ -109,7 +110,12 @@ class ScheduleController {
         return newSchedule.originalSchedule
     }
 
-    fun addCustomSubject(schedule: Schedule, currentWeekNumber: Int, subject: ScheduleSubject): Schedule {
+    fun addCustomSubject(
+        schedule: Schedule,
+        currentWeekNumber: Int,
+        subject: ScheduleSubject,
+        scheduleTerm: ScheduleTerm,
+    ): Schedule {
         if (schedule.isNotExistSchedule()) {
             val calendar = Calendar.getInstance(Locale("ru", "BE"))
             val inputFormat = SimpleDateFormat("dd.MM.yyyy")
@@ -124,11 +130,25 @@ class ScheduleController {
 
         val calendarDate = CalendarDate(startDate = schedule.startDate)
         var daysCounter = 0
+        var scheduleDays = ArrayList<ScheduleDay>()
+
+        when(scheduleTerm) {
+            ScheduleTerm.CURRENT_SCHEDULE -> {
+                scheduleDays = schedule.schedules
+            }
+            ScheduleTerm.PREVIOUS_SCHEDULE -> {
+                scheduleDays = schedule.previousSchedules
+            }
+            ScheduleTerm.SESSION -> {
+                scheduleDays = schedule.examsSchedule
+            }
+            else -> {}
+        }
 
         while (!calendarDate.isEqualDate(schedule.endDate) && daysCounter != DAYS_LIMIT) {
             calendarDate.incDate(daysCounter)
 
-            val scheduleDay = schedule.schedules.find {
+            val scheduleDay = scheduleDays.find {
                 it.dateInMillis == calendarDate.getDateInMillis() &&
                         it.weekDayNumber == subject.dayNumber &&
                         subject.weekNumber?.contains(it.weekNumber) == true
@@ -145,6 +165,28 @@ class ScheduleController {
                 insertSubject(scheduleDay.schedule, arrayListOf(subjectCopy))
             }
             daysCounter++
+        }
+
+        scheduleDays.map { day ->
+            day.schedule.sortBy { it.startLessonTime }
+        }
+
+        val scheduleBreakTime = ScheduleBreakTime(
+            scheduleDays = scheduleDays
+        )
+        val scheduleDaysWithBreakTime = scheduleBreakTime.execute()
+
+        when(scheduleTerm) {
+            ScheduleTerm.CURRENT_SCHEDULE -> {
+                 schedule.schedules = scheduleDaysWithBreakTime
+            }
+            ScheduleTerm.PREVIOUS_SCHEDULE -> {
+                schedule.previousSchedules = scheduleDaysWithBreakTime
+            }
+            ScheduleTerm.SESSION -> {
+                schedule.examsSchedule = scheduleDaysWithBreakTime
+            }
+            else -> {}
         }
 
         return schedule

@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleSubjectAddBinding
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.presentation.dialogs.AddScheduleItemDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -23,10 +24,12 @@ class ScheduleSubjectAddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentScheduleSubjectAddBinding.inflate(inflater)
+        var scheduleTerm = ScheduleTerm.NOTHING
 
         scheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
             if (schedule == null) return@observe
 
+            scheduleTerm = schedule.settings.term.selectedTerm
             binding.addCustomSubjectView.setGroupType(!schedule.isGroup())
             binding.addCustomSubjectView.setSubgroups(schedule.subgroups)
         }
@@ -46,7 +49,11 @@ class ScheduleSubjectAddFragment : Fragment() {
         }
 
         binding.addCustomSubjectView.setOnSelectScheduleListener { newSubject, sourceItemsText ->
-            scheduleVM.addCustomSubject(newSubject, sourceItemsText)
+            scheduleVM.addCustomSubject(
+                newSubject,
+                sourceItemsText,
+                scheduleTerm,
+            )
             Navigation.findNavController(binding.root).navigate(R.id.action_scheduleSubjectAddFragment_to_mainScheduleFragment)
         }
 

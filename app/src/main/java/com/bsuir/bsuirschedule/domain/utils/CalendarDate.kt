@@ -4,11 +4,13 @@ import android.util.Log
 import com.bsuir.bsuirschedule.domain.models.SubjectBreakTime
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.absoluteValue
 
 class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int = 1) {
 
     private val inputDate = SimpleDateFormat("dd.MM.yyyy").parse(startDate)
-    private val calendar = Calendar.getInstance(Locale("ru", "BY"))
+    private val calendar = CalendarInstance.get()
+    private val timeZone = TimeZone.getTimeZone("Europe/Minsk")
     private var dayCounter = 0
 
     companion object {
@@ -35,18 +37,48 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
         return output.format(calendar.time)
     }
 
+    fun getWeekNum(): Int {
+        val currentCalendar = CalendarInstance.get() // today
+        val differenceCalendar = CalendarInstance.get() // difference days
+        val calendarCopy = CalendarInstance.get()
+        calendarCopy.timeInMillis = calendar.timeInMillis
+        currentCalendar.set(Calendar.DAY_OF_WEEK, 2)
+        calendarCopy.set(Calendar.DAY_OF_WEEK, 2)
+        val isPastDays = currentCalendar.get(Calendar.DAY_OF_YEAR) > calendarCopy.get(Calendar.DAY_OF_YEAR)
+
+        val differenceTimeInMillis =
+            if (isPastDays) {
+                currentCalendar.timeInMillis - calendarCopy.timeInMillis
+            } else {
+                calendarCopy.timeInMillis - currentCalendar.timeInMillis
+            }
+        differenceCalendar.timeInMillis = differenceTimeInMillis
+        val days = differenceCalendar.get(Calendar.DAY_OF_YEAR)
+
+        var weekNum = (days / 7)
+        if (isPastDays) {
+            weekNum = 4 - ((weekNumber - weekNum) % 4).absoluteValue
+        } else {
+            weekNum = (weekNum + weekNumber) % 4
+        }
+        if (weekNum == 0) { weekNum = 4 }
+
+        return weekNum
+    }
+
+    @Deprecated("Past weeks shows incorrectly. Instead use function getWeekNum()")
     fun getWeekNumber(): Int {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-        val nowDate = Calendar.getInstance(Locale("ru", "BY"))
-        val calendarDate = Calendar.getInstance(Locale("ru", "BY"))
+        val currentDate = CalendarInstance.get()
+        val calendarDate = CalendarInstance.get()
         calendarDate.time = calendar.time
-        nowDate.set(Calendar.DAY_OF_WEEK, 1) // now date
+        currentDate.set(Calendar.DAY_OF_WEEK, 1) // current date
         calendarDate.set(Calendar.DAY_OF_WEEK, 1) // increment date
         var counter = weekNumber
-        val amount = if (nowDate.time.time > calendarDate.time.time) -7 else 7
+        val amount = if (currentDate.time.time > calendarDate.time.time) -7 else 7
 
-        while (dateFormat.format(nowDate.time) != dateFormat.format(calendarDate.time) && counter < 20) {
-            nowDate.add(Calendar.DATE, amount)
+        while (dateFormat.format(currentDate.time) != dateFormat.format(calendarDate.time) && counter < 20) {
+            currentDate.add(Calendar.DATE, amount)
             counter++
         }
 
@@ -62,7 +94,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun isHoliday(date: Long): Boolean {
-        val holidayCalendar = Calendar.getInstance(Locale("ru", "BY"))
+        val holidayCalendar = CalendarInstance.get()
         val yearsNow = holidayCalendar.get(Calendar.YEAR)
         holidayCalendar.timeInMillis = date
         val yearsOld = holidayCalendar.get(Calendar.YEAR)
@@ -91,7 +123,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
 
     fun getDateStatus(): String {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-        val calendarNow = Calendar.getInstance(Locale("ru", "BY"))
+        val calendarNow = CalendarInstance.get()
         calendarNow.add(Calendar.DATE, -1)
         if (dateFormat.format(calendar.time) == dateFormat.format(calendarNow.time)) {
             return YESTERDAY
@@ -109,7 +141,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun resetMillisTime(millisTime: Long): Long {
-        val calMillis = Calendar.getInstance()
+        val calMillis = CalendarInstance.get()
         calMillis.timeInMillis = millisTime
         calMillis.set(Calendar.HOUR, 0)
         calMillis.set(Calendar.HOUR_OF_DAY, 0)
@@ -129,6 +161,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     fun getTimeInMillis(timePattern: String): Long {
         val inputFormat = SimpleDateFormat("dd.MM.yyyy")
         val timeFormat = SimpleDateFormat("dd.MM.yyyy kk:mm")
+        timeFormat.timeZone = timeZone
         val resultFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $timePattern")
             ?: return 0
 
@@ -142,7 +175,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun getIncDayCounter(): Int {
-        val beginDateCalendar = Calendar.getInstance()
+        val beginDateCalendar = CalendarInstance.get()
         beginDateCalendar.time = inputDate as Date
         beginDateCalendar.timeInMillis.minus(calendar.timeInMillis)
         return beginDateCalendar.get(Calendar.DATE)
@@ -157,7 +190,7 @@ class CalendarDate(startDate: String = "00.00.0000", private val weekNumber: Int
     }
 
     fun isCurrentSubject(startTime: String, endTime: String): Boolean {
-        val currCalendar = Calendar.getInstance(Locale("ru", "BY"))
+        val currCalendar = CalendarInstance.get()
         val inputFormat = SimpleDateFormat("dd.MM.yyyy")
         val timeFormat = SimpleDateFormat("dd.MM.yyyy kk:mm")
         val startFormat = timeFormat.parse("${inputFormat.format(calendar.time)} $startTime")

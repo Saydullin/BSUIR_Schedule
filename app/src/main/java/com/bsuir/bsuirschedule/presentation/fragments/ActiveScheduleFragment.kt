@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.collection.arraySetOf
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleDialog
@@ -27,7 +28,6 @@ import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
 import com.bsuir.bsuirschedule.presentation.views.ScheduleAction
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ActiveScheduleFragment : Fragment() {
 
@@ -87,12 +87,12 @@ class ActiveScheduleFragment : Fragment() {
                     val employee = schedule.employee
                     val moreText = getString(R.string.more)
                     setTitle(employee.getTitleOrFullName())
-                    setImage(employee.photoLink)
+                    setImage(employee.photoLink ?: "")
                     setDescription(employee.getShortDepartments(moreText))
                     setImageClickListener {
                         val imageViewDialog = ImageViewDialog(
                             requireContext(),
-                            employee.photoLink,
+                            employee.photoLink ?: "",
                             employee.getFullName(),
                         )
                         imageViewDialog.show()
@@ -107,29 +107,15 @@ class ActiveScheduleFragment : Fragment() {
                     setSubgroupText(selectedSubgroup.toString())
                 }
 
-                Log.e("sady", "WHEN SELECTED TERM CHECKING: $selectedTerm")
                 when(selectedTerm) {
                     ScheduleTerm.PREVIOUS_SCHEDULE -> {
-                        if (schedule.previousSchedules.isNotEmpty()) {
-                            setTermText(getString(R.string.previous_semester))
-                        } else {
-                            setTermText(getString(R.string.unknown))
-                        }
+                        setTermText(getString(R.string.previous_semester))
                     }
                     ScheduleTerm.CURRENT_SCHEDULE -> {
-                        if (!schedule.isScheduleNotExist()) {
-                            Log.e("sady", "IS CURRENT SEMESTER: $selectedTerm")
-                            setTermText(getString(R.string.actual_semester))
-                        } else {
-                            setTermText(getString(R.string.unknown))
-                        }
+                        setTermText(getString(R.string.actual_semester))
                     }
                     ScheduleTerm.SESSION -> {
-                        if (!schedule.isExamsNotExist()) {
-                            setTermText(resources.getString(R.string.session))
-                        } else {
-                            setTermText(getString(R.string.unknown))
-                        }
+                        setTermText(resources.getString(R.string.session))
                     }
                     else -> {
                         setTermText(resources.getString(R.string.unknown))
@@ -146,12 +132,12 @@ class ActiveScheduleFragment : Fragment() {
 
                 // Term
                 val semester = arrayListOf<String>()
-                if (!schedule.isScheduleNotExist()) {
-                    semester.add(getString(R.string.actual_semester))
-                }
-                Log.e("sady", "previous Schedule ${schedule.previousSchedules}")
-                if (schedule.previousSchedules.isNotEmpty()) {
-                    semester.add(getString(R.string.previous_semester))
+                if (schedule.startDate.isNotEmpty() && schedule.endDate.isNotEmpty()) {
+                    if (schedule.previousSchedules.isNotEmpty()) {
+                        semester.add(getString(R.string.previous_semester))
+                    } else {
+                        semester.add(getString(R.string.actual_semester))
+                    }
                 }
                 if (!schedule.isExamsNotExist()) {
                     semester.add(resources.getString(R.string.session))
@@ -182,6 +168,9 @@ class ActiveScheduleFragment : Fragment() {
             binding.scheduleHeaderView.setMenuListener {
                 when (it) {
                     ScheduleAction.DIALOG_OPEN -> {
+                        Log.e("sady", "DIALOG OPEN ${schedule.startDate}")
+                        Log.e("sady", "DIALOG OPEN ${schedule.endDate}")
+                        Log.e("sady", "DIALOG OPEN ${schedule.schedules}")
                         val scheduleDialog = ScheduleDialog(
                             schedule = schedule,
                             delete = deleteWarning,

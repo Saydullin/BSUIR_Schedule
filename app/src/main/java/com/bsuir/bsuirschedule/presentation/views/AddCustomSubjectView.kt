@@ -388,6 +388,7 @@ class AddCustomSubjectView(
             isActual = false,
             isIgnored = false,
             audience = arrayListOf(getAudience()),
+            hours = "",
         )
     }
 

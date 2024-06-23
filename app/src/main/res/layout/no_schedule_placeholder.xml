@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:alpha=".7"
         android:src="@drawable/ic_no_subjects_placeholder" />
 
@@ -18,10 +18,25 @@
         android:layout_height="20dp" />
 
     <TextView
+        android:id="@+id/no_schedule_placeholder_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Theme.BSUIRSchedule.TextView.Hint"
         android:text="@string/no_schedule_placeholder" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/no_schedule_placeholder_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingHorizontal="10dp"
+        style="@style/Theme.BSUIRSchedule.TextView.Hint"
+        android:textAlignment="center"
+        android:text="@string/no_actual_schedule_placeholder" />
 
 </LinearLayout>
 

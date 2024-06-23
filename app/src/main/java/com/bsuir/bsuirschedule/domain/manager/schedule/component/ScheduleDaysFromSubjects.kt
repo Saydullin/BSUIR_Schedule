@@ -35,7 +35,7 @@ class ScheduleDaysFromSubjects(
                     dateInMillis = calendarDate.getDateInMillis(),
                     weekDayTitle = calendarDate.getWeekDayTitle(),
                     weekDayNumber = calendarDate.getWeekDayNumber(),
-                    weekNumber = calendarDate.getWeekNumber(),
+                    weekNumber = calendarDate.getWeekNum(),
                     schedule = subjectsDay as ArrayList<ScheduleSubject>
                 )
             )

@@ -114,6 +114,14 @@ data class Schedule (
         }
     }
 
+    fun getFullTitle(): String {
+        return if (isGroup()) {
+            group.name ?: ""
+        } else {
+            employee.getFullName()
+        }
+    }
+
     fun getDescription(): String {
         return if (isGroup()) {
             group.getFacultyAndSpecialityAbbr()
@@ -126,7 +134,7 @@ data class Schedule (
         return if (isGroup()) {
             ""
         } else {
-            employee.photoLink
+            employee.photoLink ?: ""
         }
     }
 

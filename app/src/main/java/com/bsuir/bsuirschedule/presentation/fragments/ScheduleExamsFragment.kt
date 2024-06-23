@@ -12,6 +12,7 @@ import com.bsuir.bsuirschedule.databinding.FragmentScheduleExamsBinding
 import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.UploadScheduleDialog
@@ -27,6 +28,7 @@ class ScheduleExamsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentScheduleExamsBinding.inflate(inflater)
+        var scheduleSettings: ScheduleSettings? = null
 
         val onSubmitUploadSchedule = { savedSchedule: SavedSchedule ->
             groupScheduleVM.getOrUploadSchedule(savedSchedule)
@@ -41,7 +43,11 @@ class ScheduleExamsFragment : Fragment() {
             uploadScheduleDialog.show(parentFragmentManager, "uploadScheduleDialog")
         }
         val showSubjectDialog = { subject: ScheduleSubject ->
-            val subjectDialog = SubjectDialog(subject, onSubjectSourceClick)
+            val subjectDialog = SubjectDialog(
+                subject = subject,
+                onClickSubjectSource = onSubjectSourceClick,
+                scheduleSettings = scheduleSettings
+            )
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
@@ -66,6 +72,7 @@ class ScheduleExamsFragment : Fragment() {
         }
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
+            scheduleSettings = schedule.settings
             adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
             adapter.updateScheduleData(schedule.examsSchedule, schedule.isGroup())
             binding.scheduleExamsRecycler.adapter = adapter

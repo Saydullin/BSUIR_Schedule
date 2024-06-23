@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/appwidget_text"
+            android:id="@+id/appwidget_texts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"

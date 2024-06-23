@@ -137,7 +137,6 @@ class ScheduleRepositoryImpl(
 
     override suspend fun saveSchedule(schedule: Schedule): Resource<Unit> {
         return try {
-            Log.e("sady", "saving schedule ${schedule.previousSchedules}")
             scheduleDao.saveSchedule(schedule.toScheduleTable())
             Resource.Success(null)
         } catch (e: Exception) {

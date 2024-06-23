@@ -11,6 +11,7 @@ import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.domain.models.Schedule
+import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.domain.models.WidgetSettings
 import com.bsuir.bsuirschedule.domain.usecase.schedule.GetActualScheduleDayUseCase
 import com.bsuir.bsuirschedule.domain.usecase.schedule.WidgetManagerUseCase
@@ -61,14 +62,30 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
             } else {
                 remoteViews.setTextViewText(R.id.subgroup_number, scheduleSubgroup.toString())
             }
+            val termText = when(currentSchedule.settings.term.selectedTerm) {
+                ScheduleTerm.CURRENT_SCHEDULE -> {
+                    context.getString(R.string.actual_semester)
+                }
+                ScheduleTerm.PREVIOUS_SCHEDULE -> {
+                    context.getString(R.string.previous_semester)
+                }
+                ScheduleTerm.SESSION -> {
+                    context.getString(R.string.session)
+                }
+                else -> {
+                    context.getString(R.string.unknown)
+                }
+            }
             if (!widgetSchedule.isScheduleEmpty) {
                 val noScheduleText = context.getString(R.string.no_schedule, currentSchedule.getTitle())
                 remoteViews.setTextViewText(R.id.appwidget_text, noScheduleText)
+                remoteViews.setTextViewText(R.id.appwidget_schedule_term, termText)
                 remoteViews.setViewVisibility(R.id.schedule_listView, View.GONE)
                 remoteViews.setViewVisibility(R.id.schedule_day_header, View.GONE)
                 return@runBlocking
             }
-            remoteViews.setTextViewText(R.id.appwidget_text, currentSchedule.getTitle())
+            remoteViews.setTextViewText(R.id.appwidget_text, currentSchedule.getFullTitle())
+            remoteViews.setTextViewText(R.id.appwidget_schedule_term, termText)
             if (actualScheduleDay != null) {
                 when (actualScheduleDay.date) {
                     CalendarDate.YESTERDAY -> {
@@ -112,11 +129,13 @@ class ScheduleWidget : AppWidgetProvider(), KoinComponent {
             remoteViews.setInt(R.id.schedule_widget_body, "setBackgroundResource", R.drawable.widget_dark_holder)
             remoteViews.setInt(R.id.subgroup_number_icon, "setBackgroundResource", R.drawable.widget_subgroup)
             remoteViews.setInt(R.id.appwidget_text, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
+            remoteViews.setInt(R.id.appwidget_schedule_term, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
             remoteViews.setInt(R.id.subgroup_number, "setTextColor", ContextCompat.getColor(context, R.color.white_hint))
         } else {
             remoteViews.setInt(R.id.schedule_widget_body, "setBackgroundResource", R.drawable.widget_holder)
             remoteViews.setInt(R.id.subgroup_number_icon, "setBackgroundResource", R.drawable.widget_dark_subgroup)
             remoteViews.setInt(R.id.appwidget_text, "setTextColor", ContextCompat.getColor(context, R.color.dark))
+            remoteViews.setInt(R.id.appwidget_schedule_term, "setTextColor", ContextCompat.getColor(context, R.color.dark))
             remoteViews.setInt(R.id.subgroup_number, "setTextColor", ContextCompat.getColor(context, R.color.dark))
         }
     }

@@ -173,7 +173,7 @@ class ScheduleManager : ScheduleManagerContract {
         return scheduleBreakTime.execute()
     }
 
-    override fun filterActualScheduleBySettings(
+    override fun filterSchedulePastDaysBySettings(
         scheduleSettings: ScheduleSettingsSchedule,
         scheduleDays: ArrayList<ScheduleDay>,
         startDate: String,

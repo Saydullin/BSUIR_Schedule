@@ -8,7 +8,7 @@ class UpdateScheduleSettingsUseCase(
     private val scheduleRepository: ScheduleRepository,
 ) {
 
-    suspend fun invoke(id: Int, newSchedule: ScheduleSettings): Resource<Unit> {
+    suspend fun execute(id: Int, newSchedule: ScheduleSettings): Resource<Unit> {
         return scheduleRepository.updateScheduleSettings(id, newSchedule)
     }
 

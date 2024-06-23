@@ -55,21 +55,39 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_daily_recycler"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/scroll_down_button"
             style="@style/Theme.BSUIRSchedule.ImageButton"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_margin="50dp"
-            android:id="@+id/scroll_up_button"
-            android:src="@drawable/ic_arrow_up"
-            android:translationY="100dp"
             android:alpha="0"
-            android:contentDescription="@string/cd_schedule_list" />
+            android:contentDescription="@string/cd_schedule_list"
+            android:src="@drawable/ic_arrow_down"
+            android:translationY="100dp"  />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/scroll_up_button"
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_margin="50dp"
+            android:alpha="0"
+            android:contentDescription="@string/cd_schedule_list"
+            android:src="@drawable/ic_arrow_up"
+            android:translationY="100dp" />
 
     </LinearLayout>
 

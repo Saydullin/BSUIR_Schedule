@@ -17,10 +17,13 @@ import com.bsuir.bsuirschedule.domain.models.EmployeeSubject
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
+import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.*
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleSubjectPopupMenu
+import com.bsuir.bsuirschedule.presentation.utils.ViewVisible
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleViewModel
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import kotlin.collections.ArrayList
@@ -36,6 +39,7 @@ class ScheduleRecyclerFragment : Fragment() {
         val binding = FragmentScheduleRecyclerBinding.inflate(inflater)
         val loadingStatus = LoadingStatus(LoadingStatus.LOAD_SCHEDULE)
         val scheduleLoadingDialog = LoadingDialog(loadingStatus)
+        var scheduleSettings: ScheduleSettings? = null
         scheduleLoadingDialog.isCancelable = false
         binding.scheduleDailyRecycler.visibility = View.GONE
         var scheduleTerm = ScheduleTerm.NOTHING
@@ -85,7 +89,11 @@ class ScheduleRecyclerFragment : Fragment() {
         }
 
         val showSubjectDialog = { subject: ScheduleSubject ->
-            val subjectDialog = SubjectDialog(subject, onSubjectSourceClick)
+            val subjectDialog = SubjectDialog(
+                subject = subject,
+                onClickSubjectSource = onSubjectSourceClick,
+                scheduleSettings
+            )
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
         }
@@ -109,12 +117,22 @@ class ScheduleRecyclerFragment : Fragment() {
                 } else if (recyclerViewHeight > 15) {
                     binding.scrollUpButton.animate().translationY(0f).alpha(1f).duration = 200
                 }
+                if (recyclerViewHeight < 25 || recyclerViewHeight >= recyclerViewsAmount - 15) {
+                    binding.scrollDownButton.animate().translationY(300f).alpha(0f).duration = 200
+                } else if (recyclerViewHeight > 25) {
+                    binding.scrollDownButton.animate().translationY(0f).alpha(1f).duration = 200
+                }
             }
         }
         binding.scheduleDailyRecycler.addOnScrollListener(scrollListener)
 
         binding.scrollUpButton.setOnClickListener {
             binding.scheduleDailyRecycler.smoothScrollToPosition(0)
+        }
+
+        binding.scrollDownButton.setOnClickListener {
+            val itemCount = recyclerViewLayoutManager.itemCount
+            binding.scheduleDailyRecycler.smoothScrollToPosition(itemCount - 1)
         }
 
         groupScheduleVM.errorStatus.observe(viewLifecycleOwner) { errorStatus ->
@@ -151,6 +169,7 @@ class ScheduleRecyclerFragment : Fragment() {
             if (schedule == null) return@observe
             var isEmptyList = false
             scheduleTerm = schedule.settings.term.selectedTerm
+            scheduleSettings = schedule.settings
 
             val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
             binding.noSubjectsPlaceholder.visibility = View.GONE
@@ -177,11 +196,17 @@ class ScheduleRecyclerFragment : Fragment() {
             }
             (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onRestoreInstanceState(scrollState)
             binding.scheduleDailyRecycler.adapter = adapter
+            binding.scheduleDailyRecycler.alpha = 0f
+            binding.scheduleDailyRecycler.animate().alpha(1f).duration = 300
             if (isEmptyList) {
+                binding.noSchedulePlaceholder.noSchedulePlaceholderCaption.visibility = ViewVisible.ifIs(
+                    schedule.startDate.isNotEmpty() && schedule.endDate.isNotEmpty()
+                )
                 adapter.updateScheduleData(ArrayList())
                 binding.noSubjectsPlaceholder.visibility = View.VISIBLE
                 binding.scheduleDailyRecycler.visibility = View.GONE
                 binding.scrollUpButton.visibility = View.GONE
+                binding.scrollDownButton.visibility = View.GONE
             }
         }
 

@@ -68,6 +68,16 @@ val domainModule = module {
     }
 
     factory {
+        AddSubjectUseCase(
+            getScheduleUseCase = get(),
+            saveScheduleUseCase = get(),
+            getCurrentWeekUseCase = get(),
+            getGroupItemsUseCase = get(),
+            getEmployeeItemsUseCase = get(),
+        )
+    }
+
+    factory {
         UpdateScheduleSettingsUseCase(
             scheduleRepository = get()
         )

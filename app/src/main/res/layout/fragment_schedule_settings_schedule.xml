@@ -80,8 +80,9 @@
                 android:layout_marginHorizontal="10dp"
                 app:caption="@string/settings_show_past_days_caption"
                 app:hint="0"
+                app:maxLength="3"
                 android:inputType="number" />
-s
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

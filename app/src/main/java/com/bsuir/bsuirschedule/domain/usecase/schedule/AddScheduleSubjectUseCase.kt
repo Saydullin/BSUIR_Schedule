@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleBreakTime
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
 import com.bsuir.bsuirschedule.domain.usecase.GetEmployeeItemsUseCase
@@ -20,13 +21,21 @@ class AddScheduleSubjectUseCase(
         schedule: Schedule,
         currentWeekNumber: Int,
         subject: ScheduleSubject,
-        sourceItemsText: String
+        sourceItemsText: String,
+        scheduleTerm: ScheduleTerm,
     ): Schedule {
         val scheduleController = ScheduleController()
 
         setSubjectSourceItems(schedule.isGroup(), sourceItemsText, subject)
 
-        return scheduleController.addCustomSubject(schedule, currentWeekNumber, subject)
+        val scheduleRes = scheduleController.addCustomSubject(
+            schedule,
+            currentWeekNumber,
+            subject,
+            scheduleTerm
+        )
+
+        return scheduleRes
     }
 
     private suspend fun setSubjectSourceItems(isGroup: Boolean, sourceItemsText: String, subject: ScheduleSubject) {
@@ -76,8 +85,13 @@ class AddScheduleSubjectUseCase(
         }
     }
 
-    suspend fun execute(scheduleId: Int, subject: ScheduleSubject, sourceItemsText: String): Resource<Unit> {
-        val schedule = getScheduleUseCase.getById(scheduleId, ignoreSettings = true)
+    suspend fun execute(
+        scheduleId: Int,
+        subject: ScheduleSubject,
+        sourceItemsText: String,
+        scheduleTerm: ScheduleTerm,
+    ): Resource<Unit> {
+        val schedule = getScheduleUseCase.getById(scheduleId)
         val currentWeekNumber = getCurrentWeekUseCase.getCurrentWeek()
 
         if (currentWeekNumber is Resource.Error || currentWeekNumber.data == null) {
@@ -87,7 +101,15 @@ class AddScheduleSubjectUseCase(
         return try {
             if (schedule is Resource.Success) {
                 if (schedule.data != null) {
-                    val newSchedule = addCustomSubject(schedule.data, currentWeekNumber.data, subject, sourceItemsText)
+                    val newSchedule = addCustomSubject(
+                        schedule.data,
+                        currentWeekNumber.data,
+                        subject,
+                        sourceItemsText,
+                        scheduleTerm,
+                    )
+                    // set break time, set sort
+
                     return saveScheduleUseCase.execute(newSchedule)
                 } else {
                     Resource.Error(StatusCode.DATA_ERROR)

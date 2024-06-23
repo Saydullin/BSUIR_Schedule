@@ -75,7 +75,13 @@ data class Employee (
         return "${getName()} ($title)"
     }
 
-    fun getName() = "$lastName ${firstName?.get(0)}. ${middleName?.get(0)}.".trim()
+    fun getName(): String {
+        return if (!firstName.isNullOrEmpty() && !middleName.isNullOrEmpty()) {
+            "$lastName ${firstName[0]}. ${middleName[0]}.".trim()
+        } else {
+            "$lastName $firstName $middleName".trim()
+        }
+    }
 
     fun getShortDepartmentsAbbr(): String {
         if (departmentsAbbrList.isNullOrEmpty()) return ""

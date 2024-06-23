@@ -7,19 +7,16 @@ class ScheduleSubgroup(
 ) {
 
     fun execute(): List<Int> {
-        val amount = ArrayList<Int>()
+        val weeks = ArrayList<Int>()
+        val subjects = scheduleDays.flatMap { it.schedule }
 
-        amount.add(0)
+        weeks.add(0)
 
-        if (scheduleDays.isNotEmpty()) {
-            scheduleDays.forEach { day ->
-                day.schedule.forEach { subject ->
-                    amount.add(subject.numSubgroup ?: 0)
-                }
-            }
+        subjects.forEach { subject ->
+            weeks.add(subject.numSubgroup ?: 0)
         }
 
-        return amount.toSet().toList().sorted()
+        return weeks.toSet().toList().sorted()
     }
 
 }

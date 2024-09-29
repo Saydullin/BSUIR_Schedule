@@ -1,11 +1,14 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +17,10 @@ import com.bsuir.bsuirschedule.databinding.FragmentAllGroupItemsBinding
 import com.bsuir.bsuirschedule.domain.models.Group
 import com.bsuir.bsuirschedule.domain.models.LoadingStatus
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
+import com.bsuir.bsuirschedule.notification.ScheduleNotification
 import com.bsuir.bsuirschedule.presentation.adapters.GroupItemsAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.LoadingDialog
+import com.bsuir.bsuirschedule.presentation.dialogs.PermissionDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleItemPreviewDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.GroupItemsViewModel
@@ -38,11 +43,6 @@ class AllGroupItemsFragment : Fragment() {
         val saveGroupCallback = { savedSchedule: SavedSchedule ->
             if (savedSchedule.isGroup) {
                 groupScheduleVM.getGroupScheduleAPI(savedSchedule.group)
-                try {
-                } catch (e: Exception) {
-                    Log.e("sady", e.message.toString())
-                    e.printStackTrace()
-                }
             }
         }
         val showScheduleCallback = { savedSchedule: SavedSchedule ->

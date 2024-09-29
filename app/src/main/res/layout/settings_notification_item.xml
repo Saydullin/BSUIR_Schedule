@@ -22,17 +22,17 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_trending_up" />
+                android:src="@drawable/ic_notifications" />
 
             <Space
-                android:layout_width="10dp"
+                android:layout_width="5dp"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Theme.BSUIRSchedule.TextView.Title"
-                android:text="@string/settings_rate_title" />
+                style="@style/Theme.BSUIRSchedule.TextView.Medium"
+                android:text="@string/settings_notifications_title" />
 
         </LinearLayout>
 
@@ -44,18 +44,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.TextView.Hint"
-            android:text="@string/settings_rate_caption" />
+            android:text="@string/settings_notifications_caption" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
         <Button
-            android:id="@+id/rate_button"
+            android:id="@+id/set_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Theme.BSUIRSchedule.Button"
-            android:text="@string/rate" />
+            android:text="@string/set" />
 
     </LinearLayout>
 

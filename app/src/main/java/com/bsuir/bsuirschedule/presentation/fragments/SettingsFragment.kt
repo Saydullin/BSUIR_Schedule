@@ -1,14 +1,18 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
@@ -30,7 +34,6 @@ class SettingsFragment : Fragment(), KoinComponent {
         super.onResume()
 
         setThemeUI(binding.nestedThemeSettings, sharedPrefsUseCase.getThemeType())
-        binding.notificationCheckbox.setChecked(sharedPrefsUseCase.isNotificationsEnabled())
     }
 
     override fun onCreateView(
@@ -67,18 +70,11 @@ class SettingsFragment : Fragment(), KoinComponent {
             Toast.makeText(context, chosenThemeText, Toast.LENGTH_SHORT).show()
         }
 
-        binding.notificationCheckbox.setOnCheckListener { isChecked ->
-            val isNotificationsEnabled = sharedPrefsUseCase.isNotificationsEnabled()
-
-            if (isNotificationsEnabled != isChecked) {
-                val notificationsText = if (isChecked)
-                    resources.getString(R.string.settings_notifications_enabled)
-                else
-                    resources.getString(R.string.settings_notifications_disabled)
-
-                sharedPrefsUseCase.setNotificationsEnabled(isChecked)
-                Toast.makeText(context, notificationsText, Toast.LENGTH_SHORT).show()
+        binding.nestedNotificationItem.setButton.setOnClickListener {
+            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
             }
+            startActivity(intent)
         }
 
         binding.nestedRate.rateButton.setOnClickListener {

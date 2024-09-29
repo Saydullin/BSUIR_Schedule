@@ -22,6 +22,7 @@ class GroupItemsViewModel(
     private val isUpdating = MutableLiveData(false)
     private val error = MutableLiveData<StateStatus>(null)
     private val allGroupItems = MutableLiveData<ArrayList<Group>>(null)
+    private val isFirstTime = MutableLiveData(true)
     val isUpdatingStatus = isUpdating
     val errorStatus = error
     val allGroupItemsStatus = allGroupItems
@@ -93,6 +94,13 @@ class GroupItemsViewModel(
 //                )
 //                FIXME Send Error
             }
+        }
+    }
+
+    fun updateIfFirstTime() {
+        if (isFirstTime.value == true) {
+            updateInitDataAndGroups()
+            isFirstTime.postValue(false)
         }
     }
 

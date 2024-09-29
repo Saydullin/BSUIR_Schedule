@@ -1,4 +1,4 @@
-package com.bsuir.bsuirschedule.presentation.di
+package com.bsuir.bsuirschedule.di
 
 import com.bsuir.bsuirschedule.domain.usecase.*
 import com.bsuir.bsuirschedule.domain.usecase.schedule.*
@@ -10,8 +10,13 @@ val domainModule = module {
         GetScheduleUseCase(
             groupItemsRepository = get(),
             currentWeekUseCase = get(),
-            employeeItemsRepository = get(),
             scheduleRepository = get(),
+            getHolidaysUseCase = get(),
+        )
+    }
+
+    factory {
+        GetHolidaysUseCase(
             holidayRepository = get(),
         )
     }
@@ -19,7 +24,7 @@ val domainModule = module {
     factory {
         GetActualScheduleDayUseCase(
             getScheduleUseCase = get(),
-            sharedPrefsUseCase = get()
+            sharedPrefsUseCase = get(),
         )
     }
 

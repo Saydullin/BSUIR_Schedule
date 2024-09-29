@@ -103,6 +103,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
 
+                <com.bsuir.bsuirschedule.presentation.views.EditTextView
+                    android:id="@+id/subject_hours_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:inputType="number"
+                    app:caption="@string/subject_hours_label" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

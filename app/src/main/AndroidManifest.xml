@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"
+        tools:node="replace"/>
 
     <application
         android:name="com.bsuir.bsuirschedule.app.App"
@@ -39,13 +45,13 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".receiver.ScheduleUpdater"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="com.bsuir.bsuirschedule.action.scheduleUpdater" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver-->
+<!--            android:name=".receiver.ScheduleUpdater"-->
+<!--            android:exported="true" >-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.bsuir.bsuirschedule.action.scheduleUpdater" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
         <receiver
             android:name=".presentation.widgets.ScheduleWidget"
             android:exported="true" >
@@ -57,9 +63,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/today_schedule_widget_info" />
         </receiver>
-        <receiver
-            android:name=".service.ScheduleUpdateService"
-            android:enabled="true" />
+<!--        <receiver-->
+<!--            android:name=".service.ScheduleUpdateService"-->
+<!--            android:enabled="true" />-->
         <receiver
             android:name=".service.ScheduleWidgetService"
             android:enabled="true" />

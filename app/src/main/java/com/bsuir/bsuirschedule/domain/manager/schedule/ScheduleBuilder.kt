@@ -1,7 +1,5 @@
 package com.bsuir.bsuirschedule.domain.manager.schedule
 
-import android.util.Log
-import com.bsuir.bsuirschedule.domain.manager.schedule.component.ScheduleEmptyDays
 import com.bsuir.bsuirschedule.domain.manager.schedule.component.SubjectHoursCounter
 import com.bsuir.bsuirschedule.domain.models.Employee
 import com.bsuir.bsuirschedule.domain.models.Group
@@ -11,11 +9,8 @@ import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
-import com.bsuir.bsuirschedule.domain.utils.CalendarInstance
 import com.bsuir.bsuirschedule.domain.utils.Resource
 import com.bsuir.bsuirschedule.domain.utils.StatusCode
-import java.text.SimpleDateFormat
-import java.util.Calendar
 
 class ScheduleBuilder {
 
@@ -87,39 +82,12 @@ class ScheduleBuilder {
         return groupsInjected
     }
 
-    private fun scheduleFilterBySettings(
-        scheduleSettings: ScheduleSettings,
-        scheduleManager: ScheduleManager,
-        scheduleDays: ArrayList<ScheduleDay>,
-        startDate: String,
-    ): ArrayList<ScheduleDay> {
-
-        val filteredActualDays = scheduleManager.filterSchedulePastDaysBySettings(
-            scheduleSettings = scheduleSettings.schedule,
-            scheduleDays = scheduleDays,
-            startDate = startDate
-        )
-
-        val filteredActualDates = scheduleManager.filterScheduleDatesBySettings(
-            scheduleSettings = scheduleSettings.schedule,
-            scheduleDays = filteredActualDays,
-        )
-
-        val filteredSubgroups = scheduleManager.filterScheduleSubgroupBySettings(
-            scheduleSettings = scheduleSettings,
-            scheduleDays = filteredActualDates
-        )
-
-        return filteredSubgroups
-    }
-
     private fun initSchedule(
         scheduleManager: ScheduleManager,
         scheduleDays: ArrayList<ScheduleDay>,
         weekNumber: Int,
         startDate: String,
         endDate: String,
-        scheduleSettings: ScheduleSettings? = null,
         holidays: ArrayList<Holiday> = arrayListOf(),
     ): ArrayList<ScheduleDay> {
         val examsEmployeeAndGroupsInjected = injectDTOInSubjects(
@@ -127,50 +95,21 @@ class ScheduleBuilder {
             scheduleDays = scheduleDays,
         )
 
-        val calendar = CalendarInstance.get()
-        calendar.add(Calendar.DATE, 21)
-        val output = SimpleDateFormat("dd.MM.yyyy")
-        val todayEndDate = output.format(calendar.time)
-
         val multipliedDays = scheduleManager.multiplySchedule(
             scheduleDays = examsEmployeeAndGroupsInjected,
             holidays = holidays,
             currentWeekNumber = weekNumber,
             startDate = startDate,
-            endDate = todayEndDate,
+            endDate = endDate,
         )
 
         val scheduleDayWithUniqueSubjectId = scheduleManager.setSubjectsUniqueId(
             scheduleDays = multipliedDays
         )
 
-        val scheduleWithSubjectBreakTime = scheduleManager.setSubjectsBreakTime(
-            scheduleDays = scheduleDayWithUniqueSubjectId
-        )
-
-        val removeEmptyDays = if (scheduleSettings?.schedule?.isShowEmptyDays == false) {
-                val removeEmptyDays = ScheduleEmptyDays(
-                    scheduleDays = scheduleWithSubjectBreakTime
-                )
-                removeEmptyDays.execute()
-            } else {
-                scheduleWithSubjectBreakTime
-            }
-
-        val filteredScheduleBySettings = if (scheduleSettings != null) {
-            scheduleFilterBySettings(
-                scheduleManager = scheduleManager,
-                scheduleSettings = scheduleSettings,
-                scheduleDays = removeEmptyDays,
-                startDate = startDate
-            )
-        } else {
-            removeEmptyDays
-        }
-
         val subjectHoursCounter = SubjectHoursCounter()
 
-        return subjectHoursCounter.execute(filteredScheduleBySettings)
+        return subjectHoursCounter.execute(scheduleDayWithUniqueSubjectId)
     }
 
     private fun initExamsSchedule(
@@ -228,8 +167,6 @@ class ScheduleBuilder {
         val scheduleDays = schedule.schedules
         val previousScheduleDays = schedule.previousSchedules
 
-        Log.e("sady", "BUILDING: ${scheduleRes.data.previousSchedules}")
-
         val examsDays = scheduleManager.getExamsSchedule(
             examsSubjects = schedule.exams,
             weekNumber = mWeekNumber,
@@ -275,7 +212,6 @@ class ScheduleBuilder {
                 weekNumber = mWeekNumber,
                 startDate = startScheduleDate,
                 endDate = endScheduleDate,
-                scheduleSettings = mScheduleSettings,
                 holidays = mHolidays,
             )
         } else {
@@ -289,7 +225,6 @@ class ScheduleBuilder {
                 weekNumber = mWeekNumber,
                 startDate = startPreviousScheduleDate,
                 endDate = endPreviousScheduleDate,
-                scheduleSettings = null,
                 holidays = mHolidays,
             )
         } else {
@@ -307,7 +242,6 @@ class ScheduleBuilder {
 
         schedule.settings = mScheduleSettings ?: ScheduleSettings.empty
 
-        Log.e("sady", "ScheduleTerm before ${schedule.settings.term}")
         if (schedule.settings.term.selectedTerm == ScheduleTerm.NOTHING) {
             if (startScheduleDate.isNullOrEmpty()) {
                 if (!schedule.isExamsNotExist()) {
@@ -321,9 +255,6 @@ class ScheduleBuilder {
                 }
             }
         }
-        Log.e("sady", "startScheduleDate $startScheduleDate")
-        Log.e("sady", "endScheduleDate $endScheduleDate")
-        Log.e("sady", "schedules $initSchedule")
 
         schedule.subgroups = subgroups
         schedule.schedules = initSchedule

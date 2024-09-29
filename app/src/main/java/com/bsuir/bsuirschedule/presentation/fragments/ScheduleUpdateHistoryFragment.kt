@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.FragmentScheduleUpdateHistoryBinding
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
-import com.bsuir.bsuirschedule.domain.models.ScheduleUpdatedDay
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
-import com.bsuir.bsuirschedule.presentation.adapters.ScheduleUpdatedDayAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.SubjectDialog
 import com.bsuir.bsuirschedule.presentation.viewModels.ScheduleUpdatedHistoryViewModel
@@ -30,11 +27,9 @@ class ScheduleUpdateHistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentScheduleUpdateHistoryBinding.inflate(inflater)
-        var scheduleSettings: ScheduleSettings? = null
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) {
 //            updatedActionsVM.getActions(it)
-            scheduleSettings = it.settings
             binding.scheduleHeaderView.setTitle(it.getTitle())
             binding.scheduleHeaderView.setDescription(it.getDescription())
             binding.scheduleHeaderView.setImage(it.getImage())
@@ -44,7 +39,6 @@ class ScheduleUpdateHistoryFragment : Fragment() {
             val subjectDialog = SubjectDialog(
                 subject,
                 onClickSubjectSource = null,
-                scheduleSettings = scheduleSettings
             )
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")

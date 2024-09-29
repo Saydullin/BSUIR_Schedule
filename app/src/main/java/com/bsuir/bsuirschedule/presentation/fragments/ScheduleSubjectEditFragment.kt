@@ -41,12 +41,20 @@ class ScheduleSubjectEditFragment : Fragment() {
             binding.customSubjectView.setSubjectType(activeSubject.lessonTypeAbbrev ?: ScheduleSubject.LESSON_TYPE_LECTURE)
             binding.customSubjectView.setStartTime(activeSubject.startLessonTime ?: "00:00")
             binding.customSubjectView.setEndTime(activeSubject.endLessonTime ?: "00:00")
+            binding.customSubjectView.setTotalHours(activeSubject.hours?.total ?: 0)
             binding.customSubjectView.setShortTitle(activeSubject.getEditedOrShortTitle())
             binding.customSubjectView.setFullTitle(activeSubject.getEditedOrFullTitle())
             binding.customSubjectView.setNote(activeSubject.getEditedOrNote())
             binding.customSubjectView.setAudience(activeSubject.getEditedOrAudienceInLine())
             binding.customSubjectView.setWeeks(activeSubject.weekNumber ?: arrayListOf())
             binding.customSubjectView.setWeekDay(activeSubject.dayNumber)
+            if (schedule.isGroup()) {
+                val dtoText = activeSubject.employees?.joinToString(", ") { it.getName() } ?: ""
+                binding.customSubjectView.setSourceScheduleItem(dtoText)
+            } else {
+                val dtoText = activeSubject.groups?.joinToString(", ") { it.name } ?: ""
+                binding.customSubjectView.setSourceScheduleItem(dtoText)
+            }
 
             if (activeSubject.employees != null) {
                 val employees = activeSubject.employees!!

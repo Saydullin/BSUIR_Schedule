@@ -31,9 +31,11 @@
             style="@style/Theme.BSUIRSchedule.TextView.Medium.Title"
             android:layout_weight="1" />
 
-        <Space
-            android:layout_width="35dp"
-            android:layout_height="wrap_content" />
+        <ImageButton
+            style="@style/Theme.BSUIRSchedule.ImageButton"
+            android:id="@+id/update_button"
+            android:src="@drawable/ic_update_white"
+            android:contentDescription="@string/cd_schedule_list" />
 
     </LinearLayout>
 

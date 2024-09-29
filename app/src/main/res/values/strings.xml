@@ -165,11 +165,15 @@
     <string name="subject_time">с %s до %s</string>
     <string name="subject_weeks">на %s нед.</string>
     <string name="subject_note">*</string>
-    <string name="subject_hours">%s часов</string>
+    <string name="subject_hours">%s/%s часов</string>
     <string name="for_subgroup">для %s подгруппы</string>
     <string name="schedule_week_number">%d неделя</string>
     <string name="exams">Экзамены</string>
     <string name="subject_date_range">C %s по %s</string>
+
+    <string name="notification_update_channel_id">Автообновление расписания</string>
+    <string name="notification_update_channel_name">Автообновление расписаний</string>
+    <string name="notification_update_channel_description">Эта категория уведомлений отображает информацию об автообновленных расписаниях</string>
 
     <!--  About texts  -->
     <string name="about_search_title">Поиск расписаний</string>
@@ -183,6 +187,8 @@
     <string name="about_schedule_settings_text">Автообновление, изменение вида, показ прошедших дней и отображение пустых дней.\n\nПриложение ежедневно проверяет каждое скачанное вами расписание на обновление. И в случае обновлении, уведомляет вас об этом и показывает, что именно было изменено в разделе (История обновлений).\n\nЕсть два вида расписаний, короткий и полный. Отличие в том, что в занятиях не отображается подробная информация о преподавателе, который будет вести это занятие или о группах, которые будут его посещать.\n\nУ преподавателей бывают много пустых дней, которые могут занимать лишнее пространство. В таком случае, можно скрыть пустые дни в расписании.\n\nЧтобы изменить настройки расписания, перейдите на главный экран, вызовите контекстное меню, нажав на три точки, а затем выберите “Настройки”.</string>
     <string name="about_language_title">Приложение поддерживает 4 языка</string>
     <string name="about_language_text">Поддерживаются русский, английский, белорусский и китайский язык.\n\nНужный язык автоматически подстроится под вашу операционную систему на устройстве.\n\nНазвания занятий, кафедр, факультетов, специальностей и имен преподавателей всегда остаётся на русском.</string>
+
+    <string name="schedule_update_service">This service daily automatically update schedule</string>
 
     <!--  Errors  -->
     <string name="data_error">Ошибка обработки данных</string>
@@ -274,7 +280,7 @@
     <string name="settings_theme_title">Цветовая тема</string>
     <string name="settings_theme_caption">Выберите темную или светлую тему</string>
     <string name="settings_notifications_title">Уведомления</string>
-    <string name="settings_notifications_caption">Уведомления работают только при автообновлении расписаний</string>
+    <string name="settings_notifications_caption">Уведомления работают только при автообновлении расписаний\nВы можете настроить уведомление, отключив звук, вибрацию и т.д.</string>
     <string name="settings_rate_title">Оценить</string>
     <string name="settings_share_title">Поделиться</string>
     <string name="settings_share_caption">Вы можете поделиться приложением с другими людьми</string>
@@ -488,6 +494,7 @@
     <string name="rename_schedule_dialog_caption">Новое название будет в помечено скобках</string>
     <string name="rename_schedule_dialog_title">Введите название</string>
     <string name="done">Готово</string>
+    <string name="give_permission">Дать разрешение</string>
     <string name="schedule_success_loaded">Расписание загружено</string>
     <string name="schedule_success_loaded_caption">Расписание загружено и смоделировано успешно</string>
     <string name="delete_subject_dialog_all">Все занятия по %s</string>
@@ -500,6 +507,7 @@
     <string name="week_day">День недели</string>
     <string name="note_label">Примечание</string>
     <string name="audience_label">Аудитория</string>
+    <string name="subject_hours_label">Часов за семестр</string>
     <string name="start_time_label">Время начало</string>
     <string name="end_time_label">Время конца</string>
     <string name="week_label">Неделя</string>
@@ -532,9 +540,12 @@
     <string name="write">Написать</string>
     <string name="text_copied">Скопировано в буфер обмена</string>
 
+    <string name="notification_permission_title">Разрешаю уведомлять</string>
+    <string name="notification_permission_description">Во всех расписаниях по умолчанию включено автообновление.\nПри обновлении расписания, приложение НЕ сможет уведомить вас об этом.\n\nВ настройках приложения вы всегда сможете отключить или настроить уведомление, как вам удобно (без звука, вибрации и т.д.). </string>
     <string name="update_info_title">Почта преподавателя</string>
     <string name="update_info_description">Теперь вы можете легко получить доступ к контактной информации преподавателя.\n\nЧтобы узнать почту преподавателя, просто загрузите его расписание или нажмите на него в любом занятии.\n\nПри наличии информации о почте, она будет отображена на экране вместе с кнопкой для написания письма.
     </string>
+    <string name="set">Настроить</string>
 
 </resources>
 

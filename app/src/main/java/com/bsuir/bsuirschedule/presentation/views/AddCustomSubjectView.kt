@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.databinding.AddCustomSubjectBinding
 import com.bsuir.bsuirschedule.domain.models.*
@@ -154,7 +155,6 @@ class AddCustomSubjectView(
     }
 
     fun setSubgroup(subgroupText: String) {
-
         if (subgroupText == context.getString(R.string.all_subgroups_select)) {
             binding.nestedSubject.subgroupInfo.visibility = View.GONE
         } else {
@@ -208,6 +208,15 @@ class AddCustomSubjectView(
 
     fun getAudience(): String {
         return binding.audienceEditText.getText()
+    }
+
+    fun getHours(): Int {
+        val hoursText = binding.subjectHoursEditText.getText()
+        return if (hoursText.isDigitsOnly()) {
+            hoursText.toInt()
+        } else {
+            0
+        }
     }
 
     fun setSourceScheduleItem(title: String) {
@@ -333,6 +342,14 @@ class AddCustomSubjectView(
         binding.fullTitleEditText.setText(fullTitle)
     }
 
+    fun setGroupSourceText(dtoText: String) {
+        binding.groupEditText.setText(dtoText)
+    }
+
+    fun setEmployeeSourceText(dtoText: String) {
+        binding.employeeEditText.setText(dtoText)
+    }
+
     fun setStartTime(startTime: String) {
         binding.startTimeEditText.setText(startTime)
         binding.nestedSubject.subjectStartLesson.text = startTime
@@ -341,6 +358,10 @@ class AddCustomSubjectView(
     fun setEndTime(endTime: String) {
         binding.endTimeEditText.setText(endTime)
         binding.nestedSubject.subjectEndLesson.text = endTime
+    }
+
+    fun setTotalHours(hours: Int) {
+        binding.subjectHoursEditText.setText(hours.toString())
     }
 
     fun setAudience(audience: String) {
@@ -388,7 +409,10 @@ class AddCustomSubjectView(
             isActual = false,
             isIgnored = false,
             audience = arrayListOf(getAudience()),
-            hours = "",
+            hours = ScheduleSubjectHours(
+                past = -1,
+                total = getHours()
+            ),
         )
     }
 

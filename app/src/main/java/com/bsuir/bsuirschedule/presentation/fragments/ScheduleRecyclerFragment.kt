@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.domain.models.Schedule
 import com.bsuir.bsuirschedule.domain.models.ScheduleTerm
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
+import com.bsuir.bsuirschedule.notification.ScheduleNotification
 import com.bsuir.bsuirschedule.presentation.adapters.MainScheduleAdapter
 import com.bsuir.bsuirschedule.presentation.dialogs.*
 import com.bsuir.bsuirschedule.presentation.popupMenu.ScheduleSubjectPopupMenu
@@ -39,7 +41,6 @@ class ScheduleRecyclerFragment : Fragment() {
         val binding = FragmentScheduleRecyclerBinding.inflate(inflater)
         val loadingStatus = LoadingStatus(LoadingStatus.LOAD_SCHEDULE)
         val scheduleLoadingDialog = LoadingDialog(loadingStatus)
-        var scheduleSettings: ScheduleSettings? = null
         scheduleLoadingDialog.isCancelable = false
         binding.scheduleDailyRecycler.visibility = View.GONE
         var scheduleTerm = ScheduleTerm.NOTHING
@@ -92,7 +93,6 @@ class ScheduleRecyclerFragment : Fragment() {
             val subjectDialog = SubjectDialog(
                 subject = subject,
                 onClickSubjectSource = onSubjectSourceClick,
-                scheduleSettings
             )
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
@@ -169,7 +169,6 @@ class ScheduleRecyclerFragment : Fragment() {
             if (schedule == null) return@observe
             var isEmptyList = false
             scheduleTerm = schedule.settings.term.selectedTerm
-            scheduleSettings = schedule.settings
 
             val scrollState = (binding.scheduleDailyRecycler.layoutManager as LinearLayoutManager).onSaveInstanceState()
             binding.noSubjectsPlaceholder.visibility = View.GONE

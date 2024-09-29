@@ -112,9 +112,9 @@ class ScheduleDialog(
                 val group = schedule.group
                 setTitle(group.name ?: "")
                 setImage(R.drawable.ic_group_placeholder)
-                setDescription(group.getFacultyAndSpecialityAbbr())
+                setDescription(group.facultyAbbrev ?: "")
                 setSecondTitle("${group.course} $courseText")
-                setSecondSubTitle(group.getFacultyAndSpecialityAbbr())
+                setSecondSubTitle(group.specialityAbbrev ?: "")
                 binding.scheduleSubtitles.text = group.getFacultyAndSpecialityFull()
             } else {
                 val employee = schedule.employee

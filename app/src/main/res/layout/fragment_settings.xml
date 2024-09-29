@@ -60,15 +60,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="10dp" />
 
-            <com.bsuir.bsuirschedule.presentation.views.CheckBoxView
-                android:id="@+id/notification_checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:translationZ="2dp"
-                app:checkbox_icon="@drawable/ic_notifications"
-                app:checkbox_title="@string/settings_notifications_title"
-                app:checkbox_description="@string/settings_notifications_caption"
-                app:checkbox_caption="@string/settings_notification" />
+            <include
+                android:id="@+id/nested_notification_item"
+                layout="@layout/settings_notification_item" />
 
             <Space
                 android:layout_width="wrap_content"

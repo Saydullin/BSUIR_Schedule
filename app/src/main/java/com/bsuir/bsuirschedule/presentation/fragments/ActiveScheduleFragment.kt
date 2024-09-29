@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.collection.arraySetOf
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.domain.models.SavedSchedule
 import com.bsuir.bsuirschedule.presentation.dialogs.ScheduleDialog
@@ -47,7 +46,6 @@ class ActiveScheduleFragment : Fragment() {
             groupScheduleVM.deleteSchedule(savedSchedule)
             if (savedSchedule.isGroup) {
                 savedSchedule.group.isSaved = false
-                Log.e("sady", "group saving ${savedSchedule.group}")
                 groupItemsVM.saveGroupItem(savedSchedule.group)
             } else {
                 savedSchedule.employee.isSaved = false
@@ -75,6 +73,9 @@ class ActiveScheduleFragment : Fragment() {
             val selectedSubgroup = schedule.settings.subgroup.selectedNum
             val selectedTerm = schedule.settings.term.selectedTerm
 
+            Log.e("sady", "PROFILE IMAGE 1 ${schedule.getTitle()}")
+            Log.e("sady", "PROFILE IMAGE 2 ${schedule.employee.photoLink}")
+
             with (binding.scheduleHeaderView) {
                 setSubgroupItems(schedule.subgroups)
 
@@ -83,6 +84,7 @@ class ActiveScheduleFragment : Fragment() {
                     setTitle(group.name ?: "")
                     setImage(R.drawable.ic_group_placeholder)
                     setDescription(group.getFacultyAndSpecialityAbbr())
+                    setImageClickListener(null)
                 } else {
                     val employee = schedule.employee
                     val moreText = getString(R.string.more)
@@ -90,6 +92,7 @@ class ActiveScheduleFragment : Fragment() {
                     setImage(employee.photoLink ?: "")
                     setDescription(employee.getShortDepartments(moreText))
                     setImageClickListener {
+                        Log.e("sady", "PROFILE IMAGE ${employee.photoLink}")
                         val imageViewDialog = ImageViewDialog(
                             requireContext(),
                             employee.photoLink ?: "",
@@ -154,7 +157,6 @@ class ActiveScheduleFragment : Fragment() {
                             scheduleSettings.term.selectedTerm = ScheduleTerm.PREVIOUS_SCHEDULE
                         }
                         resources.getString(R.string.session).lowercase() -> {
-                            Log.e("sady", "exams setting")
                             scheduleSettings.term.selectedTerm = ScheduleTerm.SESSION
                         }
                         else -> {
@@ -168,9 +170,6 @@ class ActiveScheduleFragment : Fragment() {
             binding.scheduleHeaderView.setMenuListener {
                 when (it) {
                     ScheduleAction.DIALOG_OPEN -> {
-                        Log.e("sady", "DIALOG OPEN ${schedule.startDate}")
-                        Log.e("sady", "DIALOG OPEN ${schedule.endDate}")
-                        Log.e("sady", "DIALOG OPEN ${schedule.schedules}")
                         val scheduleDialog = ScheduleDialog(
                             schedule = schedule,
                             delete = deleteWarning,

@@ -1,19 +1,24 @@
 package com.bsuir.bsuirschedule.presentation.fragments
 
+import android.Manifest
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bsuir.bsuirschedule.R
 import com.bsuir.bsuirschedule.data.logger.Logger
 import com.bsuir.bsuirschedule.databinding.FragmentMainScheduleBinding
 import com.bsuir.bsuirschedule.domain.usecase.SharedPrefsUseCase
+import com.bsuir.bsuirschedule.notification.ScheduleNotification
+import com.bsuir.bsuirschedule.presentation.dialogs.PermissionDialog
 import com.bsuir.bsuirschedule.presentation.dialogs.StateDialog
 import com.bsuir.bsuirschedule.presentation.utils.ErrorMessage
 import com.bsuir.bsuirschedule.presentation.viewModels.*

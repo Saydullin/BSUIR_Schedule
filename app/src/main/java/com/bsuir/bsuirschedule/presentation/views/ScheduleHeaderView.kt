@@ -130,7 +130,7 @@ class ScheduleHeaderView(
         this.termListener = listener
     }
 
-    fun setImageClickListener(listener: OnScheduleImageListener) {
+    fun setImageClickListener(listener: OnScheduleImageListener?) {
         this.imageClickListener = listener
     }
 

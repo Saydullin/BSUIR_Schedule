@@ -1,26 +1,21 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
-import android.util.Log
 import com.bsuir.bsuirschedule.domain.manager.schedule.ScheduleBuilder
 import com.bsuir.bsuirschedule.domain.manager.schedule.ScheduleUIBuilder
 import com.bsuir.bsuirschedule.domain.models.*
 import com.bsuir.bsuirschedule.domain.models.scheduleSettings.ScheduleSettings
-import com.bsuir.bsuirschedule.domain.repository.EmployeeItemsRepository
 import com.bsuir.bsuirschedule.domain.repository.GroupItemsRepository
-import com.bsuir.bsuirschedule.domain.repository.HolidayRepository
 import com.bsuir.bsuirschedule.domain.repository.ScheduleRepository
 import com.bsuir.bsuirschedule.domain.usecase.GetCurrentWeekUseCase
+import com.bsuir.bsuirschedule.domain.usecase.GetHolidaysUseCase
 import com.bsuir.bsuirschedule.domain.utils.Resource
-import com.bsuir.bsuirschedule.domain.utils.ScheduleController
 import com.bsuir.bsuirschedule.domain.utils.StatusCode
-import java.util.*
 import kotlin.collections.ArrayList
 
 class GetScheduleUseCase(
     private val scheduleRepository: ScheduleRepository,
     private val groupItemsRepository: GroupItemsRepository,
-    private val employeeItemsRepository: EmployeeItemsRepository,
-    private val holidayRepository: HolidayRepository,
+    private val getHolidaysUseCase: GetHolidaysUseCase,
     private val currentWeekUseCase: GetCurrentWeekUseCase,
 ) {
 
@@ -32,7 +27,6 @@ class GetScheduleUseCase(
             ) {
                 is Resource.Success -> {
                     val data = apiSchedule.data!!
-                    Log.e("sady", "exams check ${data.exams.toString()}")
                     val currentWeek = currentWeekUseCase.getCurrentWeek()
                     if (currentWeek is Resource.Error || currentWeek.data == null) {
                         return Resource.Error(
@@ -40,7 +34,7 @@ class GetScheduleUseCase(
                             message = currentWeek.message
                         )
                     }
-                    val holidays = holidayRepository.getHolidays()
+                    val holidays = getHolidaysUseCase.execute()
                     if (holidays is Resource.Error || holidays.data == null) {
                         return Resource.Error(
                             statusCode = holidays.statusCode,
@@ -92,7 +86,7 @@ class GetScheduleUseCase(
                             message = currentWeek.message
                         )
                     }
-                    val holidays = holidayRepository.getHolidays()
+                    val holidays = getHolidaysUseCase.execute()
                     if (holidays is Resource.Error) {
                         return Resource.Error(
                             statusCode = holidays.statusCode,
@@ -145,7 +139,7 @@ class GetScheduleUseCase(
         }
     }
 
-    suspend fun getById(groupId: Int, ignoreSettings: Boolean = false): Resource<Schedule> {
+    suspend fun getById(groupId: Int): Resource<Schedule> {
         return try {
             when (
                 val result = scheduleRepository.getScheduleById(groupId)
@@ -155,7 +149,6 @@ class GetScheduleUseCase(
                         return Resource.Error(
                             statusCode = StatusCode.DATABASE_ERROR
                         )
-                    Log.e("sady", "schedule term: ${data.currentTerm}")
                     val schedule = ScheduleUIBuilder()
                         .setSchedule(data)
                         .build()

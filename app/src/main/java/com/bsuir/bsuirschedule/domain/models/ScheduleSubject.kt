@@ -18,7 +18,7 @@ data class ScheduleSubject (
     val startLessonTime: String?,
     val endLessonTime: String?,
     var numSubgroup: Int? = 0,
-    var hours: String?, /** 2/44 (2 hours passed from 44) */
+    var hours: ScheduleSubjectHours?,
     var note: String?,
     var breakTime: SubjectBreakTime?,
     val weekNumber: ArrayList<Int>?,
@@ -54,7 +54,7 @@ data class ScheduleSubject (
             dateLesson = "",
             startLessonDate = "",
             endLessonDate = "",
-            hours = "",
+            hours = ScheduleSubjectHours.empty,
             isActual = false,
             isIgnored = false,
             audience = ArrayList(),
@@ -155,8 +155,8 @@ data class ScheduleSubject (
         return (
             subject +
             subjectFullName +
-            employees?.joinToString(",") +
-            groups?.joinToString(",") +
+            employees?.joinToString(",") { it.getFullName() } +
+            groups?.joinToString(",") { it.name } +
             lessonTypeAbbrev
         ).hashCode()
     }

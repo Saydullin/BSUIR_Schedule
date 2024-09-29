@@ -12,12 +12,12 @@ class ScheduleSettingsActualDates(
     fun execute(): ArrayList<ScheduleDay> {
 
         return setActualDateStatuses(
-            isShowPastDays = scheduleSettings.isShowPastDays
+            isShowPastDays = scheduleSettings.isShowPastDays,
         )
     }
 
     private fun setActualDateStatuses(
-        isShowPastDays: Boolean
+        isShowPastDays: Boolean,
     ): ArrayList<ScheduleDay> {
         val calendarDate = CalendarDate(startDate = CalendarDate.TODAY_DATE)
 
@@ -39,3 +39,5 @@ class ScheduleSettingsActualDates(
     }
 
 }
+
+

@@ -28,7 +28,6 @@ class ScheduleExamsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentScheduleExamsBinding.inflate(inflater)
-        var scheduleSettings: ScheduleSettings? = null
 
         val onSubmitUploadSchedule = { savedSchedule: SavedSchedule ->
             groupScheduleVM.getOrUploadSchedule(savedSchedule)
@@ -46,7 +45,6 @@ class ScheduleExamsFragment : Fragment() {
             val subjectDialog = SubjectDialog(
                 subject = subject,
                 onClickSubjectSource = onSubjectSourceClick,
-                scheduleSettings = scheduleSettings
             )
             subjectDialog.isCancelable = true
             subjectDialog.show(parentFragmentManager, "subjectDialog")
@@ -72,7 +70,6 @@ class ScheduleExamsFragment : Fragment() {
         }
 
         groupScheduleVM.scheduleStatus.observe(viewLifecycleOwner) { schedule ->
-            scheduleSettings = schedule.settings
             adapter.setShortSchedule(schedule.settings.schedule.isShowShortSchedule)
             adapter.updateScheduleData(schedule.examsSchedule, schedule.isGroup())
             binding.scheduleExamsRecycler.adapter = adapter

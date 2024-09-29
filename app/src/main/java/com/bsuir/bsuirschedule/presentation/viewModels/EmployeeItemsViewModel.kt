@@ -19,6 +19,7 @@ class EmployeeItemsViewModel(
     private val employeeItems = MutableLiveData<ArrayList<Employee>>(null)
     private val error = MutableLiveData<StateStatus>(null)
     private val loading = MutableLiveData(false)
+    private val isFirstTime = MutableLiveData(true)
     private val isUpdating = MutableLiveData(false)
     val isUpdatingStatus = isUpdating
     val errorStatus = error
@@ -46,6 +47,13 @@ class EmployeeItemsViewModel(
 //                FIXME Send Error
 
             }
+        }
+    }
+
+    fun updateIfFirstTime() {
+        if (isFirstTime.value == true) {
+            updateDepartmentsAndEmployeeItems()
+            isFirstTime.postValue(false)
         }
     }
 

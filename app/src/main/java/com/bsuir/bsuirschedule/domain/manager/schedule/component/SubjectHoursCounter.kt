@@ -2,6 +2,7 @@ package com.bsuir.bsuirschedule.domain.manager.schedule.component
 
 import com.bsuir.bsuirschedule.domain.models.ScheduleDay
 import com.bsuir.bsuirschedule.domain.models.ScheduleSubject
+import com.bsuir.bsuirschedule.domain.models.ScheduleSubjectHours
 import kotlin.collections.ArrayList
 
 class SubjectHoursCounter {
@@ -20,7 +21,11 @@ class SubjectHoursCounter {
             }
             val totalHours = matchedSubjects.size * hoursPerSubject
             matchedSubjects.mapIndexed { index, matchedSubject ->
-                matchedSubject.hours = "${(index + 1) * hoursPerSubject}/$totalHours"
+                val subjectHours = ScheduleSubjectHours(
+                    past = (index + 1) * hoursPerSubject,
+                    total = totalHours
+                )
+                matchedSubject.hours = subjectHours
             }
         }
 

@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.*
 import com.bsuir.bsuirschedule.data.repository.SharedPrefsRepositoryImpl
 import com.bsuir.bsuirschedule.data.repository.ThemeType
-import com.bsuir.bsuirschedule.presentation.di.appModule
-import com.bsuir.bsuirschedule.presentation.di.dataModule
-import com.bsuir.bsuirschedule.presentation.di.domainModule
+import com.bsuir.bsuirschedule.di.appModule
+import com.bsuir.bsuirschedule.di.dataModule
+import com.bsuir.bsuirschedule.di.domainModule
 import com.bsuir.bsuirschedule.worker.ScheduleUpdateWorker
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

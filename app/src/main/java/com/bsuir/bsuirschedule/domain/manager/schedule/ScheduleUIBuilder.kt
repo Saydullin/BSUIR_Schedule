@@ -22,15 +22,17 @@ class ScheduleUIBuilder {
         startDate: String,
         filterPastDays: Boolean = true
     ): ArrayList<ScheduleDay> {
+        val subjectHoursCounter = SubjectHoursCounter()
+        val scheduleSubjectHours = subjectHoursCounter.execute(scheduleDays)
 
         val filteredScheduleByActualDates = if (filterPastDays) {
             scheduleManager.filterSchedulePastDaysBySettings(
                 scheduleSettings = scheduleSettings.schedule,
-                scheduleDays = scheduleDays,
+                scheduleDays = scheduleSubjectHours,
                 startDate = startDate
             )
         } else {
-            scheduleDays
+            scheduleSubjectHours
         }
         val filteredScheduleBySubgroup = scheduleManager.filterScheduleSubgroupBySettings(
             scheduleSettings = scheduleSettings,
@@ -49,7 +51,12 @@ class ScheduleUIBuilder {
             scheduleBreakTime
         }
 
-        return removeEmptyDays
+        val filteredActualDates = scheduleManager.filterScheduleDatesBySettings(
+            scheduleSettings = scheduleSettings.schedule,
+            scheduleDays = removeEmptyDays,
+        )
+
+        return filteredActualDates
     }
 
     private fun initExamsSchedule(
@@ -57,17 +64,19 @@ class ScheduleUIBuilder {
         scheduleDays: ArrayList<ScheduleDay>,
         scheduleSettings: ScheduleSettings,
         startDate: String,
-        filterPastDays: Boolean = true
+        filterPastDays: Boolean = false,
     ): ArrayList<ScheduleDay> {
+        val subjectHoursCounter = SubjectHoursCounter()
+        val scheduleSubjectHours = subjectHoursCounter.execute(scheduleDays)
 
         val filteredScheduleByActualDates = if (filterPastDays) {
             scheduleManager.filterSchedulePastDaysBySettings(
                 scheduleSettings = scheduleSettings.schedule,
-                scheduleDays = scheduleDays,
+                scheduleDays = scheduleSubjectHours,
                 startDate = startDate
             )
         } else {
-            scheduleDays
+            scheduleSubjectHours
         }
         val filteredScheduleBySubgroup = scheduleManager.filterScheduleSubgroupBySettings(
             scheduleSettings = scheduleSettings,
@@ -77,9 +86,12 @@ class ScheduleUIBuilder {
             scheduleDays = filteredScheduleBySubgroup
         )
 
-        val subjectHoursCounter = SubjectHoursCounter()
+        val filteredActualDates = scheduleManager.filterScheduleDatesBySettings(
+            scheduleSettings = scheduleSettings.schedule,
+            scheduleDays = scheduleBreakTime,
+        )
 
-        return subjectHoursCounter.execute(scheduleBreakTime)
+        return filteredActualDates
     }
 
     fun build(): Schedule {
@@ -106,7 +118,6 @@ class ScheduleUIBuilder {
             scheduleDays = schedule.examsSchedule,
             scheduleSettings = schedule.settings,
             startDate = schedule.startExamsDate,
-            filterPastDays = false
         )
 
         schedule.schedules = initSchedule

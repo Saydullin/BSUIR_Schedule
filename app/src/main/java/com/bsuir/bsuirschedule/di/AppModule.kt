@@ -1,4 +1,4 @@
-package com.bsuir.bsuirschedule.presentation.di
+package com.bsuir.bsuirschedule.di
 
 import com.bsuir.bsuirschedule.domain.utils.ScheduleUpdateManager
 import com.bsuir.bsuirschedule.presentation.viewModels.*

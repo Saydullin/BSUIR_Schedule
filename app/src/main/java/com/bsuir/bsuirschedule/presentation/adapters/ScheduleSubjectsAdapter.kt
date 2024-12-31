@@ -74,6 +74,12 @@ class ScheduleSubjectsAdapter(
                 ScheduleSubject.LESSON_TYPE_LECTURE -> {
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
                 }
+                ScheduleSubject.LESSON_TYPE_PRACTISE2 -> {
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
+                }
+                ScheduleSubject.LESSON_TYPE_LECTURE2 -> {
+                    imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
+                }
                 ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                     imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                     imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))

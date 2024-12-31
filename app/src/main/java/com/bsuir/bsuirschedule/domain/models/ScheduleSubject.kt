@@ -65,7 +65,9 @@ data class ScheduleSubject (
         const val LESSON_TYPE_EXAM = "Экзамен"
         const val LESSON_TYPE_PRETEST = "Зачёт"
         const val LESSON_TYPE_LECTURE = "ЛК"
+        const val LESSON_TYPE_LECTURE2 = "УЛк"
         const val LESSON_TYPE_PRACTISE = "ПЗ"
+        const val LESSON_TYPE_PRACTISE2 = "УПз"
         const val LESSON_TYPE_LABORATORY = "ЛР"
     }
 

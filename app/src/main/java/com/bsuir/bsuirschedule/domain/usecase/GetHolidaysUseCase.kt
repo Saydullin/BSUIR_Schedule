@@ -26,10 +26,12 @@ class GetHolidaysUseCase(
             val easterHoliday = Holiday(
                 id = holidays.data.size + 1,
                 date = easterHolidayDate.time,
-                title = ""
+                title = "Пасха"
             )
 
-            val holidaysList = listOf(*holidays.data.toTypedArray(), easterHoliday)
+            val holidaysList = mutableListOf<Holiday>()
+            holidaysList.addAll(holidays.data)
+            holidaysList.add(easterHoliday)
 
             Resource.Success(holidaysList)
         } catch (e: Exception) {
@@ -51,7 +53,7 @@ class GetHolidaysUseCase(
         val month = if (f <= 26) 4 else 5
         val date = if (f <= 26) 4 + f else f - 26
 
-        currentCalendar.set(year, month, date)
+        currentCalendar.set(1970, month, date)
 
         return currentCalendar.time
     }

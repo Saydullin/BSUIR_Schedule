@@ -162,7 +162,6 @@ class ScheduleBuilder {
         }
 
         // exams
-
         val schedule = scheduleRes.data
         val scheduleDays = schedule.schedules
         val previousScheduleDays = schedule.previousSchedules

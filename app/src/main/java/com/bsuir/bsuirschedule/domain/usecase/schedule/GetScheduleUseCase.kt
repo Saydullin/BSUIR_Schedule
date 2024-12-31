@@ -1,5 +1,6 @@
 package com.bsuir.bsuirschedule.domain.usecase.schedule
 
+import android.util.Log
 import com.bsuir.bsuirschedule.domain.manager.schedule.ScheduleBuilder
 import com.bsuir.bsuirschedule.domain.manager.schedule.ScheduleUIBuilder
 import com.bsuir.bsuirschedule.domain.models.*
@@ -36,16 +37,19 @@ class GetScheduleUseCase(
                     }
                     val holidays = getHolidaysUseCase.execute()
                     if (holidays is Resource.Error || holidays.data == null) {
-                        return Resource.Error(
-                            statusCode = holidays.statusCode,
-                            message = holidays.message
-                        )
+                        Log.e("sady", "holidays is Resource.Error || holidays.data == null ${holidays.data}")
+                        Log.e("sady", "${holidays.message}")
+//                        return Resource.Error(
+//                            statusCode = holidays.statusCode,
+//                            message = holidays.message
+//                        )
                     }
                     val actualSettings = if (data.group?.id != null) {
                         getActualSettings(data.group.id)
                     } else {
                         null
                     }
+                    Log.d("sady", "HOLIDAYS ${holidays.data}")
                     val schedule = ScheduleBuilder()
                         .setGroupSchedule(data)
                         .setHolidays(holidays.data as ArrayList<Holiday>)

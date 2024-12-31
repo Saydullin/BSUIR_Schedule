@@ -144,6 +144,12 @@ class SubjectManager(
             ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
             }
+            ScheduleSubject.LESSON_TYPE_PRACTISE2 -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_practise))
+            }
+            ScheduleSubject.LESSON_TYPE_LECTURE2 -> {
+                imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_lecture))
+            }
             ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                 imageView.setImageDrawable(context.getDrawable(R.drawable.ic_flag))
                 imageView.setColorFilter(ContextCompat.getColor(context, R.color.subject_consultation))
@@ -171,7 +177,13 @@ class SubjectManager(
             ScheduleSubject.LESSON_TYPE_PRACTISE -> {
                 context.getString(R.string.practise)
             }
+            ScheduleSubject.LESSON_TYPE_PRACTISE2 -> {
+                context.getString(R.string.practise)
+            }
             ScheduleSubject.LESSON_TYPE_LECTURE -> {
+                context.getString(R.string.lecture)
+            }
+            ScheduleSubject.LESSON_TYPE_LECTURE2 -> {
                 context.getString(R.string.lecture)
             }
             ScheduleSubject.LESSON_TYPE_CONSULTATION -> {

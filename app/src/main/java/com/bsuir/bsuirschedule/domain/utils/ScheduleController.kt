@@ -37,7 +37,9 @@ class ScheduleController {
 
         val subjectTypes = listOf(
             ScheduleSubject.LESSON_TYPE_LECTURE,
+            ScheduleSubject.LESSON_TYPE_LECTURE2,
             ScheduleSubject.LESSON_TYPE_PRACTISE,
+            ScheduleSubject.LESSON_TYPE_PRACTISE2,
             ScheduleSubject.LESSON_TYPE_LABORATORY,
         )
         filterSubjectsByType(schedule.schedules, subjectTypes)
@@ -377,10 +379,16 @@ class ScheduleController {
             ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_CONSULTATION
             }
+            ScheduleSubject.LESSON_TYPE_LECTURE2 -> {
+                subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_CONSULTATION
+            }
             ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                 subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_CONSULTATION
             }
             ScheduleSubject.LESSON_TYPE_PRACTISE -> {
+                subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_EXAM
+            }
+            ScheduleSubject.LESSON_TYPE_PRACTISE2 -> {
                 subject.lessonTypeAbbrev = ScheduleSubject.LESSON_TYPE_EXAM
             }
             else -> {

@@ -275,8 +275,7 @@ class AddCustomSubjectView(
         }
     }
 
-    fun getSubjectType(): String {
-
+    private fun getSubjectType(): String {
         return when(
             binding.lessonTypeAutoCompleteTextView.text.toString()
         ) {
@@ -310,6 +309,16 @@ class AddCustomSubjectView(
                 setLessonType(typeText)
             }
             ScheduleSubject.LESSON_TYPE_PRACTISE -> {
+                val typeText = context.getString(R.string.practise)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            ScheduleSubject.LESSON_TYPE_LECTURE2 -> {
+                val typeText = context.getString(R.string.lecture)
+                binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
+                setLessonType(typeText)
+            }
+            ScheduleSubject.LESSON_TYPE_PRACTISE2 -> {
                 val typeText = context.getString(R.string.practise)
                 binding.lessonTypeAutoCompleteTextView.setText(typeText, false)
                 setLessonType(typeText)

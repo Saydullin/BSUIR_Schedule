@@ -53,7 +53,9 @@ class ScheduleFromGroupSchedule(
 
         val subjectTypes = listOf(
             ScheduleSubject.LESSON_TYPE_LECTURE,
+            ScheduleSubject.LESSON_TYPE_LECTURE2,
             ScheduleSubject.LESSON_TYPE_PRACTISE,
+            ScheduleSubject.LESSON_TYPE_PRACTISE2,
             ScheduleSubject.LESSON_TYPE_LABORATORY,
         )
         filterSubjectsByType(schedule.schedules, subjectTypes)

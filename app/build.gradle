@@ -10,8 +10,8 @@ android {
         applicationId "com.bsuir.bsuirschedule"
         minSdk 26
         targetSdk 34
-        versionCode 102
-        versionName "2.0.2"
+        versionCode 103
+        versionName "2.0.3"
         resourceConfigurations += ['en', 'ru', 'be', 'zh']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

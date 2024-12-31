@@ -106,6 +106,12 @@ class StackRemoteViewsFactory(
             ScheduleSubject.LESSON_TYPE_LECTURE -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
             }
+            ScheduleSubject.LESSON_TYPE_PRACTISE2 -> {
+                remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_practise)
+            }
+            ScheduleSubject.LESSON_TYPE_LECTURE2 -> {
+                remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
+            }
             ScheduleSubject.LESSON_TYPE_CONSULTATION -> {
                 remoteViews.setImageViewResource(R.id.subject_type_icon, R.drawable.ic_subject_lecture)
             }

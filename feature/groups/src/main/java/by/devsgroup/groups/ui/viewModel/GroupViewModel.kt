@@ -2,38 +2,65 @@ package by.devsgroup.groups.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import by.devsgroup.domain.model.groups.Group
 import by.devsgroup.domain.repository.groups.GroupDatabaseRepository
+import by.devsgroup.domain.repository.groups.GroupServerRepository
+import by.devsgroup.groups.data.db.dao.GroupDao
+import by.devsgroup.groups.data.mapper.GroupEntityToDomainMapper
+import by.devsgroup.groups.paging.GroupPagingSource
+import by.devsgroup.groups.ui.mapper.GroupToUiMapper
+import by.devsgroup.groups.ui.model.GroupUI
+import by.devsgroup.groups.usecase.GetAndSaveAllGroupsUseCase
 import by.devsgroup.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GroupViewModel @Inject constructor(
-    private val groupDatabaseRepository: GroupDatabaseRepository
+    private val groupDao: GroupDao,
+    private val getAndSaveAllGroupsUseCase: GetAndSaveAllGroupsUseCase,
+    private val groupEntityToDomainMapper: GroupEntityToDomainMapper,
 ): ViewModel() {
-
-    private val _groups = MutableStateFlow<List<Group>?>(null)
-    val groups: StateFlow<List<Group>?> = _groups
-
-    private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
-    val error: SharedFlow<Resource.Error<Unit>?> = _error
 
     init {
         loadAllGroups()
     }
 
+    private val _groups = MutableStateFlow<List<GroupUI>?>(null)
+    val groups: StateFlow<List<GroupUI>?> = _groups
+
+    private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
+    val error: SharedFlow<Resource.Error<Unit>?> = _error
+
+    val groupsPagingFlow: Flow<PagingData<Group>> = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            initialLoadSize = 40,
+            enablePlaceholders = true
+        ),
+        pagingSourceFactory = {
+            GroupPagingSource(
+                dao = groupDao,
+                groupEntityToDomainMapper = groupEntityToDomainMapper,
+            )
+        }
+    ).flow.cachedIn(viewModelScope)
+
     fun loadAllGroups() {
         viewModelScope.launch {
-            val groups = groupDatabaseRepository.getAllGroups()
-                .onSuspendError { _error.emit(it) } ?: return@launch
-
-            _groups.value = groups
+            getAndSaveAllGroupsUseCase.execute()
+                .onSuspendError { _error.emit(it) }
         }
     }
 

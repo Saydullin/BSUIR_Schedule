@@ -13,4 +13,6 @@ interface GroupDatabaseRepository {
 
     suspend fun getGroupListByLikeName(name: String): Resource<List<Group>>
 
+    suspend fun saveGroups(groups: List<Group>): Resource<Unit>
+
 }

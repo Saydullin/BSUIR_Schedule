@@ -21,7 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "iis"
 include(":app")
-include(":feature")
 include(":feature:groups")
 include(":feature:employees")
 include(":domain")
@@ -29,3 +28,4 @@ include(":data")
 include(":core")
 include(":core:database")
 include(":core:resource")
+include(":ui-kit")

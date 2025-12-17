@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             IisTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     GroupsList(
-                        groupViewModel = groupViewModel
+                        groupViewModel = groupViewModel,
                     )
                     Greeting(
                         name = "Android",

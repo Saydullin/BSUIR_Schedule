@@ -48,6 +48,7 @@ dependencies {
 
     implementation(project(":core:database"))
     implementation(project(":feature:groups"))
+    implementation(project(":ui-kit"))
 
     // Dagger Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")

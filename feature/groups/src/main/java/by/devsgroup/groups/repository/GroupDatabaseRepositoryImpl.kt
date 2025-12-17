@@ -4,6 +4,7 @@ import by.devsgroup.domain.model.groups.Group
 import by.devsgroup.domain.repository.groups.GroupDatabaseRepository
 import by.devsgroup.groups.data.db.dao.GroupDao
 import by.devsgroup.groups.data.mapper.GroupEntityToDomainMapper
+import by.devsgroup.groups.data.mapper.GroupToEntityMapper
 import by.devsgroup.resource.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class GroupDatabaseRepositoryImpl @Inject constructor(
     private val groupDao: GroupDao,
     private val groupEntityToDomainMapper: GroupEntityToDomainMapper,
+    private val groupToEntityMapper: GroupToEntityMapper,
 ): GroupDatabaseRepository {
 
     override suspend fun getAllGroups(): Resource<List<Group>> {
@@ -43,6 +45,14 @@ class GroupDatabaseRepositoryImpl @Inject constructor(
             val groupEntityList = withContext(Dispatchers.IO) { groupDao.getListByName("%$name%") }
 
             groupEntityList.map { groupEntityToDomainMapper.map(it) }
+        }
+    }
+
+    override suspend fun saveGroups(groups: List<Group>): Resource<Unit> {
+        return Resource.tryWithSuspend {
+            val groupsEntity = groups.map { groupToEntityMapper.map(it) }
+
+            withContext(Dispatchers.IO) { groupDao.save(groupsEntity) }
         }
     }
 

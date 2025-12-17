@@ -9,8 +9,11 @@ import by.devsgroup.groups.data.db.entity.GroupEntity
 @Dao
 interface GroupDao {
 
-    @Query("SELECT * FROM `group`")
+    @Query("SELECT * FROM `group` ORDER BY name ASC")
     fun getAllGroups(): List<GroupEntity>
+
+    @Query("SELECT * FROM `group` ORDER BY name ASC LIMIT :limit OFFSET :offset")
+    fun getPagingGroups(limit: Int, offset: Int): List<GroupEntity>
 
     @Query("SELECT * FROM `group` WHERE id = :id")
     fun getById(id: Int): GroupEntity?

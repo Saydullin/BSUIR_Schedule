@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/employees" />
             <option value="$PROJECT_DIR$/feature/groups" />
+            <option value="$PROJECT_DIR$/ui-kit" />
           </set>
         </option>
       </GradleProjectSettings>

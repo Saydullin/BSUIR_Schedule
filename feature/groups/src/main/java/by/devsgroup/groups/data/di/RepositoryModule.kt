@@ -1,0 +1,21 @@
+package by.devsgroup.groups.data.di
+
+import by.devsgroup.domain.repository.groups.GroupDatabaseRepository
+import by.devsgroup.groups.repository.GroupDatabaseRepositoryImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindGroupDatabaseRepository(
+        groupDatabaseRepository: GroupDatabaseRepositoryImpl
+    ): GroupDatabaseRepository
+
+}

@@ -1,10 +1,17 @@
 package by.devsgroup.groups.data.db.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "group"
+    tableName = "group",
+    indices = [
+        Index(
+            value = ["name"],
+            unique = true
+        )
+    ]
 )
 data class GroupEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Long = 0,
@@ -20,3 +27,5 @@ data class GroupEntity(
     val calendarId: String?,
     val educationDegree: Int?,
 )
+
+

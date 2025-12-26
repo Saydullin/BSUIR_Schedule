@@ -15,6 +15,7 @@ import androidx.room.PrimaryKey
 )
 data class EmployeeEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Long = 0,
+    val departmentKeyId: String,
     val firstName: String?,
     val lastName: String?,
     val middleName: String?,
@@ -22,7 +23,6 @@ data class EmployeeEntity(
     val rank: String?,
     val photoLink: String?,
     val calendarId: String?,
-    val academicDepartment: List<String>?,
     val id: Int?,
     val urlId: String?,
     val fio: String?,

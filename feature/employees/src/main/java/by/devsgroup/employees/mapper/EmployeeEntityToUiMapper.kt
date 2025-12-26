@@ -18,7 +18,7 @@ class EmployeeEntityToUiMapper @Inject constructor(
             rank = from.rank,
             photoLink = from.photoLink,
             calendarId = from.calendarId,
-            academicDepartment = from.academicDepartment,
+            academicDepartment = listOf(),
             id = from.id,
             urlId = from.urlId,
             fio = from.fio,

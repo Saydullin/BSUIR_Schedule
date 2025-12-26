@@ -5,6 +5,7 @@ import androidx.room.Room
 import by.devsgroup.database.AppDatabase
 import by.devsgroup.employees.data.db.dao.EmployeeDao
 import by.devsgroup.groups.data.db.dao.GroupDao
+import com.saydullin.departments.data.db.dao.DepartmentDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,6 +45,14 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): EmployeeDao {
         return appDatabase.getEmployeeDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDepartmentDao(
+        appDatabase: AppDatabase
+    ): DepartmentDao {
+        return appDatabase.getDepartmentDao()
     }
 
 }

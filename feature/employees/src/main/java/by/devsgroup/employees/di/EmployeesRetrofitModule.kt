@@ -14,15 +14,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class EmployeesRetrofitModule {
 
-    @Singleton
-    @Provides
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(Config.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
     @Provides
     @Singleton
     fun provideStudentGroupsApi(

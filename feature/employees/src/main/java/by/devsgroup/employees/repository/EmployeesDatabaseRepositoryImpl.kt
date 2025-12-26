@@ -18,25 +18,27 @@ class EmployeesDatabaseRepositoryImpl @Inject constructor(
 
     override suspend fun getAllEmployees(): Resource<List<Employee>> {
         return Resource.tryWithSuspend {
-            val groupEntityList = withContext(Dispatchers.IO) { employeeDao.getAllEmployees() }
+            val employeeEntityList = withContext(Dispatchers.IO) { employeeDao.getAllEmployees() }
 
-            groupEntityList.map { employeeEntityToDomainMapper.map(it) }
+            employeeEntityList.map { employeeEntityToDomainMapper.map(it) }
         }
     }
 
     override suspend fun getEmployeeById(id: Int): Resource<Employee?> {
         return Resource.tryWithSuspend {
-            val groupEntity = withContext(Dispatchers.IO) { employeeDao.getById(id) }
+            val employeeEntity = withContext(Dispatchers.IO) { employeeDao.getById(id) }
 
-            groupEntity?.let { employeeEntityToDomainMapper.map(it) }
+            employeeEntity?.let { employeeEntityToDomainMapper.map(it) }
         }
     }
 
     override suspend fun getEmployeeListByLikeName(name: String): Resource<List<Employee>> {
         return Resource.tryWithSuspend {
-            val groupEntityList = withContext(Dispatchers.IO) { employeeDao.getListByName("%$name%") }
+            val employeeEntityList = withContext(Dispatchers.IO) {
+                employeeDao.getListByName("%$name%")
+            }
 
-            groupEntityList.map { employeeEntityToDomainMapper.map(it) }
+            employeeEntityList.map { employeeEntityToDomainMapper.map(it) }
         }
     }
 

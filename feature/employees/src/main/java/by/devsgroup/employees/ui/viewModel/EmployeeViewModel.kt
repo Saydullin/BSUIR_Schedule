@@ -12,6 +12,7 @@ import by.devsgroup.employees.paging.EmployeePagingSource
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.usecase.GetAndSaveAllEmployeesUseCase
 import by.devsgroup.resource.Resource
+import com.saydullin.departments.usecase.GetAndSaveAllDepartmentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,13 +22,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EmployeeViewModel @Inject constructor(
-    private val employeeDao: EmployeeDao,
+    private val getAndSaveAllDepartmentsUseCase: GetAndSaveAllDepartmentsUseCase,
     private val getAndSaveAllEmployeesUseCase: GetAndSaveAllEmployeesUseCase,
     private val employeeEntityToUiMapper: EmployeeEntityToUiMapper,
+    private val employeeDao: EmployeeDao,
 ): ViewModel() {
 
     init {
-        loadAllEmployees()
+        loadAllDepartmentsAndEmployees()
     }
 
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
@@ -47,10 +49,13 @@ class EmployeeViewModel @Inject constructor(
         }
     ).flow.cachedIn(viewModelScope)
 
-    fun loadAllEmployees() {
+    fun loadAllDepartmentsAndEmployees() {
         viewModelScope.launch {
+            getAndSaveAllDepartmentsUseCase.execute()
+                .onSuspendError { _error.emit(it) } ?: return@launch
+
             getAndSaveAllEmployeesUseCase.execute()
-                .onSuspendError { _error.emit(it) }
+                .onSuspendError { _error.emit(it) } ?: return@launch
         }
     }
 

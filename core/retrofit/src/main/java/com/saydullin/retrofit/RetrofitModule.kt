@@ -1,7 +1,6 @@
-package com.saydullin.departments.di
+package com.saydullin.retrofit
 
 import by.devsgroup.domain.config.Config
-import com.saydullin.departments.data.server.service.DepartmentsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,14 +11,15 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DepartmentsRetrofitModule {
+class RetrofitModule {
 
-    @Provides
     @Singleton
-    fun provideStudentGroupsApi(
-        retrofit: Retrofit
-    ): DepartmentsService {
-        return retrofit.create(DepartmentsService::class.java)
+    @Provides
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Config.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
 }

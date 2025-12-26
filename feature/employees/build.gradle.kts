@@ -50,6 +50,8 @@ dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":domain"))
     implementation(project(":core:resource"))
+    implementation(project(":core:retrofit"))
+    implementation(project(":feature:departments"))
 
     // Room
     implementation("androidx.room:room-runtime:2.8.4")
@@ -77,7 +79,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

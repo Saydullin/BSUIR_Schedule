@@ -49,6 +49,7 @@ android {
 dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":domain"))
+    implementation(project(":core:retrofit"))
     implementation(project(":core:resource"))
 
     // Room

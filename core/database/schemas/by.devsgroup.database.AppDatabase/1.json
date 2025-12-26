@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d2c75f61361bdff8e5b96a2a9de219c2",
+    "identityHash": "2fbe8da5b27ce34c0fc17136f9964769",
     "entities": [
       {
         "tableName": "group",
@@ -99,12 +99,18 @@
       },
       {
         "tableName": "employee",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `academicDepartment` TEXT, `id` INTEGER, `urlId` TEXT, `fio` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `departmentKeyId` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `id` INTEGER, `urlId` TEXT, `fio` TEXT)",
         "fields": [
           {
             "fieldPath": "tableId",
             "columnName": "tableId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "departmentKeyId",
+            "columnName": "departmentKeyId",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -143,11 +149,6 @@
             "affinity": "TEXT"
           },
           {
-            "fieldPath": "academicDepartment",
-            "columnName": "academicDepartment",
-            "affinity": "TEXT"
-          },
-          {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER"
@@ -180,11 +181,49 @@
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_employee_id` ON `${TABLE_NAME}` (`id`)"
           }
         ]
+      },
+      {
+        "tableName": "department",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT, `abbrev` TEXT, `urlId` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "abbrev",
+            "columnName": "abbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "urlId",
+            "columnName": "urlId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd2c75f61361bdff8e5b96a2a9de219c2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2fbe8da5b27ce34c0fc17136f9964769')"
     ]
   }
 }

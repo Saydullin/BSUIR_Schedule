@@ -10,6 +10,7 @@ class EmployeeToEntityMapper @Inject constructor(
 
     override fun map(from: Employee): EmployeeEntity {
         return EmployeeEntity(
+            departmentKeyId = "",
             firstName = from.firstName,
             lastName = from.lastName,
             middleName = from.middleName,
@@ -17,7 +18,6 @@ class EmployeeToEntityMapper @Inject constructor(
             rank = from.rank,
             photoLink = from.photoLink,
             calendarId = from.calendarId,
-            academicDepartment = from.academicDepartment,
             id = from.id,
             urlId = from.urlId,
             fio = from.fio,

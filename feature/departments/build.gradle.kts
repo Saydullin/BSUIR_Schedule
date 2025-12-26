@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":domain"))
     implementation(project(":core:resource"))
+    implementation(project(":core:retrofit"))
 
     // Room
     implementation("androidx.room:room-runtime:2.8.4")

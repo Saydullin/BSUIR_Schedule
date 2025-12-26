@@ -13,3 +13,5 @@ data class Group(
     val calendarId: String?,
     val educationDegree: Int?,
 )
+
+

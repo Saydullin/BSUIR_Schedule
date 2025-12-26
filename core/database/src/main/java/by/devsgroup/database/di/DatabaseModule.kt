@@ -3,6 +3,7 @@ package by.devsgroup.database.di
 import android.content.Context
 import androidx.room.Room
 import by.devsgroup.database.AppDatabase
+import by.devsgroup.employees.data.db.dao.EmployeeDao
 import by.devsgroup.groups.data.db.dao.GroupDao
 import dagger.Module
 import dagger.Provides
@@ -35,6 +36,14 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): GroupDao {
         return appDatabase.getGroupDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEmployeeDao(
+        appDatabase: AppDatabase
+    ): EmployeeDao {
+        return appDatabase.getEmployeeDao()
     }
 
 }

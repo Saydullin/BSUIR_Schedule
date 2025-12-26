@@ -7,7 +7,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import by.devsgroup.groups.data.db.dao.GroupDao
-import by.devsgroup.groups.mapper.GroupEntityToDomainMapper
 import by.devsgroup.groups.mapper.GroupEntityToUiMapper
 import by.devsgroup.groups.paging.GroupPagingSource
 import by.devsgroup.groups.ui.model.GroupUI
@@ -24,7 +23,6 @@ import javax.inject.Inject
 class GroupViewModel @Inject constructor(
     private val groupDao: GroupDao,
     private val getAndSaveAllGroupsUseCase: GetAndSaveAllGroupsUseCase,
-    private val groupEntityToDomainMapper: GroupEntityToDomainMapper,
     private val groupEntityToUiMapper: GroupEntityToUiMapper,
 ): ViewModel() {
 

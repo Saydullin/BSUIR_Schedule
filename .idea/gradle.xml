@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/departments" />
             <option value="$PROJECT_DIR$/feature/employees" />
             <option value="$PROJECT_DIR$/feature/groups" />
             <option value="$PROJECT_DIR$/ui-kit" />

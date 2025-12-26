@@ -12,12 +12,14 @@ import by.devsgroup.employees.paging.EmployeePagingSource
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.usecase.GetAndSaveAllEmployeesUseCase
 import by.devsgroup.resource.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class EmployeeViewModel @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val getAndSaveAllEmployeesUseCase: GetAndSaveAllEmployeesUseCase,

@@ -47,7 +47,6 @@ android {
 }
 
 dependencies {
-
     implementation(project(":ui-kit"))
     implementation(project(":domain"))
     implementation(project(":core:resource"))

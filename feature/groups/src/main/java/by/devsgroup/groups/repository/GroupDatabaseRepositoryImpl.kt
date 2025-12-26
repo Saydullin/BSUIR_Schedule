@@ -56,6 +56,12 @@ class GroupDatabaseRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun clear(): Resource<Unit> {
+        return Resource.tryWithSuspend {
+            withContext(Dispatchers.IO) { groupDao.clear() }
+        }
+    }
+
 }
 
 

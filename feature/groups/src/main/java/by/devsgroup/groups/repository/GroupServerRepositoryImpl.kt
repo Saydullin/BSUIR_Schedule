@@ -16,7 +16,9 @@ class GroupServerRepositoryImpl @Inject constructor(
 
     override suspend fun getAllGroups(): Resource<List<Group>> {
         return Resource.tryWithSuspend {
-            val groups = withContext(Dispatchers.IO) { groupsService.getAllStudentGroups() }
+            val groups = withContext(Dispatchers.IO) {
+                groupsService.getAllStudentGroups()
+            }
 
             groups.map { groupDataToDomainMapper.map(it) }
         }

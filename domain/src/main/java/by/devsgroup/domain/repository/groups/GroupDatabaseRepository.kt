@@ -15,4 +15,6 @@ interface GroupDatabaseRepository {
 
     suspend fun saveGroups(groups: List<Group>): Resource<Unit>
 
+    suspend fun clear(): Resource<Unit>
+
 }

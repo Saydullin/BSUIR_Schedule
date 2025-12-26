@@ -10,6 +10,10 @@ import androidx.room.PrimaryKey
         Index(
             value = ["name"],
             unique = true
+        ),
+        Index(
+            value = ["id"],
+            unique = true
         )
     ]
 )

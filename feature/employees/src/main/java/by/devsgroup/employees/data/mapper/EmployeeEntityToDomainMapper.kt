@@ -1,0 +1,29 @@
+package by.devsgroup.employees.data.mapper
+
+import by.devsgroup.domain.mapper.Mapper
+import by.devsgroup.domain.model.employees.Employee
+import by.devsgroup.employees.data.db.entity.EmployeeEntity
+import javax.inject.Inject
+
+class EmployeeEntityToDomainMapper @Inject constructor(
+): Mapper<EmployeeEntity, Employee> {
+
+    override fun map(from: EmployeeEntity): Employee {
+        return Employee(
+            firstName = from.firstName,
+            lastName = from.lastName,
+            middleName = from.middleName,
+            degree = from.degree,
+            rank = from.rank,
+            photoLink = from.photoLink,
+            calendarId = from.calendarId,
+            academicDepartment = from.academicDepartment,
+            id = from.id,
+            urlId = from.urlId,
+            fio = from.fio,
+        )
+    }
+
+}
+
+

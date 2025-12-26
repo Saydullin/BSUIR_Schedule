@@ -2,7 +2,7 @@ package by.devsgroup.groups.repository
 
 import by.devsgroup.domain.model.groups.Group
 import by.devsgroup.domain.repository.groups.GroupServerRepository
-import by.devsgroup.groups.data.mapper.GroupDataToDomainMapper
+import by.devsgroup.groups.mapper.GroupDataToDomainMapper
 import by.devsgroup.groups.data.server.service.GroupsService
 import by.devsgroup.resource.Resource
 import kotlinx.coroutines.Dispatchers

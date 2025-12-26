@@ -1,16 +1,16 @@
-package by.devsgroup.groups.ui.mapper
+package by.devsgroup.groups.mapper
 
-import by.devsgroup.domain.mapper.MapperIndexed
+import by.devsgroup.domain.mapper.Mapper
 import by.devsgroup.domain.model.groups.Group
-import by.devsgroup.groups.ui.model.GroupUI
+import by.devsgroup.groups.data.server.model.GroupData
 import javax.inject.Inject
 
-class GroupToUiMapper @Inject constructor(
-): MapperIndexed<Group, GroupUI> {
+class GroupDataToDomainMapper @Inject constructor(
+): Mapper<GroupData, Group> {
 
-    override fun map(from: Group, index: Int): GroupUI {
-        return GroupUI(
-            uniqueListId = index,
+    override fun map(from: GroupData): Group {
+        return Group(
+            id = from.id,
             name = from.name,
             facultyId = from.facultyId,
             facultyAbbrev = from.facultyAbbrev,
@@ -19,10 +19,11 @@ class GroupToUiMapper @Inject constructor(
             specialityName = from.specialityName,
             specialityAbbrev = from.specialityAbbrev,
             course = from.course,
-            id = from.id,
             calendarId = from.calendarId,
             educationDegree = from.educationDegree,
         )
     }
 
 }
+
+

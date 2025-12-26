@@ -1,7 +1,7 @@
-package by.devsgroup.groups.data.di
+package by.devsgroup.employees.di
 
 import by.devsgroup.domain.config.Config
-import by.devsgroup.groups.data.server.service.GroupsService
+import by.devsgroup.employees.data.server.service.EmployeesService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class GroupsRetrofitModule {
+class EmployeesRetrofitModule {
 
     @Singleton
     @Provides
@@ -27,8 +27,8 @@ class GroupsRetrofitModule {
     @Singleton
     fun provideStudentGroupsApi(
         retrofit: Retrofit
-    ): GroupsService {
-        return retrofit.create(GroupsService::class.java)
+    ): EmployeesService {
+        return retrofit.create(EmployeesService::class.java)
     }
 
 }

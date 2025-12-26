@@ -1,4 +1,4 @@
-package by.devsgroup.groups.ui.component
+package by.devsgroup.employees.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,15 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
-import by.devsgroup.groups.ui.viewModel.GroupViewModel
+import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.ui_kit.item.ListItem
 
 @Composable
-fun GroupsList(
-    groupViewModel: GroupViewModel,
+fun EmployeesList(
+    employeeViewModel: EmployeeViewModel,
 ) {
 
-    val groups = groupViewModel.groupsPagingFlow.collectAsLazyPagingItems()
+    val groups = employeeViewModel.employeesPagingFlow.collectAsLazyPagingItems()
 
     LazyColumn(
         modifier = Modifier
@@ -30,7 +30,7 @@ fun GroupsList(
                     .padding(horizontal = 16.dp)
             ) {
                 Text(
-                    text = groups[index]?.name ?: "---"
+                    text = groups[index]?.firstName ?: "---"
                 )
             }
         }

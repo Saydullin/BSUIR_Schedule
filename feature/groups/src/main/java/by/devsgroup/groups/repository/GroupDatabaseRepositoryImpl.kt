@@ -3,8 +3,8 @@ package by.devsgroup.groups.repository
 import by.devsgroup.domain.model.groups.Group
 import by.devsgroup.domain.repository.groups.GroupDatabaseRepository
 import by.devsgroup.groups.data.db.dao.GroupDao
-import by.devsgroup.groups.data.mapper.GroupEntityToDomainMapper
-import by.devsgroup.groups.data.mapper.GroupToEntityMapper
+import by.devsgroup.groups.mapper.GroupEntityToDomainMapper
+import by.devsgroup.groups.mapper.GroupToEntityMapper
 import by.devsgroup.resource.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,4 +1,4 @@
-package by.devsgroup.groups.data.di
+package by.devsgroup.groups.di
 
 import by.devsgroup.domain.repository.groups.GroupDatabaseRepository
 import by.devsgroup.domain.repository.groups.GroupServerRepository

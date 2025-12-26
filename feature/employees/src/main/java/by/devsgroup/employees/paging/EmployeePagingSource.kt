@@ -1,37 +1,37 @@
-package by.devsgroup.groups.paging
+package by.devsgroup.employees.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import by.devsgroup.groups.data.db.dao.GroupDao
-import by.devsgroup.groups.mapper.GroupEntityToUiMapper
-import by.devsgroup.groups.ui.model.GroupUI
+import by.devsgroup.employees.data.db.dao.EmployeeDao
+import by.devsgroup.employees.mapper.EmployeeEntityToUiMapper
+import by.devsgroup.employees.ui.model.EmployeeUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GroupPagingSource(
-    private val dao: GroupDao,
-    private val groupEntityToUiMapper: GroupEntityToUiMapper,
-) : PagingSource<Int, GroupUI>() {
+class EmployeePagingSource(
+    private val dao: EmployeeDao,
+    private val employeeEntityToUiMapper: EmployeeEntityToUiMapper,
+) : PagingSource<Int, EmployeeUI>() {
 
     override suspend fun load(
         params: LoadParams<Int>
-    ): LoadResult<Int, GroupUI> {
+    ): LoadResult<Int, EmployeeUI> {
         return try {
             val page = params.key ?: 0
             val pageSize = params.loadSize
             val offset = page * pageSize
 
             val data = withContext(Dispatchers.IO) {
-                dao.getPagingGroups(
+                dao.getPagingEmployees(
                     limit = pageSize,
                     offset = offset
                 )
             }
 
-            val groups = data.map { groupEntityToUiMapper.map(it) }
+            val employees = data.map { employeeEntityToUiMapper.map(it) }
 
             LoadResult.Page(
-                data = groups,
+                data = employees,
                 prevKey = if (page == 0) null else page - 1,
                 nextKey = if (data.size < pageSize) null else page + 1
             )
@@ -42,7 +42,7 @@ class GroupPagingSource(
     }
 
     override fun getRefreshKey(
-        state: PagingState<Int, GroupUI>
+        state: PagingState<Int, EmployeeUI>
     ): Int? {
         val anchor = state.anchorPosition ?: return null
         val page = state.closestPageToPosition(anchor)

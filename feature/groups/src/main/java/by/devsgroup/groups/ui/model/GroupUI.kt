@@ -1,7 +1,7 @@
 package by.devsgroup.groups.ui.model
 
 data class GroupUI(
-    val uniqueListId: Int,
+    val uniqueListId: Long,
     val name: String?,
     val facultyId: Int?,
     val facultyAbbrev: String?,

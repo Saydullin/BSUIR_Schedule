@@ -1,4 +1,4 @@
-package by.devsgroup.employees.data.di
+package by.devsgroup.employees.di
 
 import by.devsgroup.domain.repository.employees.EmployeesDatabaseRepository
 import by.devsgroup.domain.repository.employees.EmployeesServerRepository

@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.navController.navigateFinal
 import by.devsgroup.iis.navigation.ScreenNav
@@ -21,6 +22,7 @@ import by.devsgroup.iis.navigation.ScreenNav
 @Composable
 fun GroupsAndEmployeesScreen(
     groupViewModel: GroupViewModel,
+    employeeViewModel: EmployeeViewModel,
 ) {
     val navController = rememberNavController()
 
@@ -54,6 +56,7 @@ fun GroupsAndEmployeesScreen(
         Spacer(Modifier.height(16.dp))
 
         GroupsAndEmployeesNavHost(
+            employeeViewModel = employeeViewModel,
             groupViewModel = groupViewModel,
             navController = navController,
         )

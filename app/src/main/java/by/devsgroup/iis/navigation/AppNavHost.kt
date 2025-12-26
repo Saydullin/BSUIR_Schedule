@@ -8,12 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    employeeViewModel: EmployeeViewModel,
     groupViewModel: GroupViewModel,
 ) {
 
@@ -44,6 +46,7 @@ fun AppNavHost(
             route = ScreenNav.AllGroupsAndEmployees.route
         ) {
             GroupsAndEmployeesScreen(
+                employeeViewModel = employeeViewModel,
                 groupViewModel = groupViewModel,
             )
         }

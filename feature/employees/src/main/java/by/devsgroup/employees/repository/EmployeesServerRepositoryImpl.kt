@@ -2,7 +2,7 @@ package by.devsgroup.employees.repository
 
 import by.devsgroup.domain.model.employees.Employee
 import by.devsgroup.domain.repository.employees.EmployeesServerRepository
-import by.devsgroup.employees.data.mapper.EmployeeDataToDomainMapper
+import by.devsgroup.employees.mapper.EmployeeDataToDomainMapper
 import by.devsgroup.employees.data.server.service.EmployeesService
 import by.devsgroup.resource.Resource
 import kotlinx.coroutines.Dispatchers

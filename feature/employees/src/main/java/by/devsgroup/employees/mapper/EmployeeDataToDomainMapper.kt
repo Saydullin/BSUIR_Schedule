@@ -1,4 +1,4 @@
-package by.devsgroup.employees.data.mapper
+package by.devsgroup.employees.mapper
 
 import by.devsgroup.domain.mapper.Mapper
 import by.devsgroup.domain.model.employees.Employee

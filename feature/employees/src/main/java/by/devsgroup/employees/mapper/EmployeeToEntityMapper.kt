@@ -1,15 +1,15 @@
-package by.devsgroup.employees.data.mapper
+package by.devsgroup.employees.mapper
 
 import by.devsgroup.domain.mapper.Mapper
 import by.devsgroup.domain.model.employees.Employee
 import by.devsgroup.employees.data.db.entity.EmployeeEntity
 import javax.inject.Inject
 
-class EmployeeEntityToDomainMapper @Inject constructor(
-): Mapper<EmployeeEntity, Employee> {
+class EmployeeToEntityMapper @Inject constructor(
+): Mapper<Employee, EmployeeEntity> {
 
-    override fun map(from: EmployeeEntity): Employee {
-        return Employee(
+    override fun map(from: Employee): EmployeeEntity {
+        return EmployeeEntity(
             firstName = from.firstName,
             lastName = from.lastName,
             middleName = from.middleName,

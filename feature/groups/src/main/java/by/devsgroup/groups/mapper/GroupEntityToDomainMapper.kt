@@ -1,4 +1,4 @@
-package by.devsgroup.groups.data.mapper
+package by.devsgroup.groups.mapper
 
 import by.devsgroup.domain.mapper.Mapper
 import by.devsgroup.domain.model.groups.Group

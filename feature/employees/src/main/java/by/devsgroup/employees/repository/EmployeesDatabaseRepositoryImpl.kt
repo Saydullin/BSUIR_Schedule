@@ -3,8 +3,8 @@ package by.devsgroup.employees.repository
 import by.devsgroup.domain.model.employees.Employee
 import by.devsgroup.domain.repository.employees.EmployeesDatabaseRepository
 import by.devsgroup.employees.data.db.dao.EmployeeDao
-import by.devsgroup.employees.data.mapper.EmployeeEntityToDomainMapper
-import by.devsgroup.employees.data.mapper.EmployeeToEntityMapper
+import by.devsgroup.employees.mapper.EmployeeEntityToDomainMapper
+import by.devsgroup.employees.mapper.EmployeeToEntityMapper
 import by.devsgroup.resource.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

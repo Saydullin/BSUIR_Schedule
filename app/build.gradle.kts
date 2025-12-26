@@ -49,6 +49,7 @@ dependencies {
 
     implementation(project(":core:database"))
     implementation(project(":feature:groups"))
+    implementation(project(":feature:employees"))
     implementation(project(":ui-kit"))
 
     // Dagger Hilt

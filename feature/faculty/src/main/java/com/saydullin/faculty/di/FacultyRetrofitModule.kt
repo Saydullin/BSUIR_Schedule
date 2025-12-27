@@ -1,6 +1,6 @@
-package com.saydullin.departments.di
+package com.saydullin.faculty.di
 
-import com.saydullin.departments.server.service.DepartmentService
+import com.saydullin.faculty.server.service.FacultyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,14 +10,14 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DepartmentsRetrofitModule {
+class FacultyRetrofitModule {
 
     @Provides
     @Singleton
     fun provideStudentGroupsApi(
         retrofit: Retrofit
-    ): DepartmentService {
-        return retrofit.create(DepartmentService::class.java)
+    ): FacultyService {
+        return retrofit.create(FacultyService::class.java)
     }
 
 }

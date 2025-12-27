@@ -2,8 +2,10 @@ package com.saydullin.departments.di
 
 import by.devsgroup.domain.repository.department.DepartmentsDatabaseRepository
 import by.devsgroup.domain.repository.department.DepartmentsServerRepository
+import by.devsgroup.domain.repository.department.EmployeeDepartmentsDatabaseRepository
 import com.saydullin.departments.repository.DepartmentsDatabaseRepositoryImpl
 import com.saydullin.departments.repository.DepartmentsServerRepositoryImpl
+import com.saydullin.departments.repository.EmployeeDepartmentsDatabaseRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,5 +27,11 @@ abstract class DepartmentsRepositoryModule {
     abstract fun bindDepartmentsDatabaseRepository(
         departmentsDatabaseRepository: DepartmentsDatabaseRepositoryImpl
     ): DepartmentsDatabaseRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindEmployeeDepartmentsDatabaseRepository(
+        employeeDepartmentsDatabaseRepository: EmployeeDepartmentsDatabaseRepositoryImpl
+    ): EmployeeDepartmentsDatabaseRepository
 
 }

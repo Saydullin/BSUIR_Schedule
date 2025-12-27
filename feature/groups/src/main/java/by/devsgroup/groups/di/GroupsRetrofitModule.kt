@@ -1,6 +1,6 @@
 package by.devsgroup.groups.di
 
-import by.devsgroup.groups.data.server.service.GroupsService
+import by.devsgroup.groups.server.service.GroupsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

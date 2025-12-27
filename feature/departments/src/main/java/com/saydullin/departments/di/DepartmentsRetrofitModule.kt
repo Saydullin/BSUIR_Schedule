@@ -1,13 +1,11 @@
 package com.saydullin.departments.di
 
-import by.devsgroup.domain.config.Config
-import com.saydullin.departments.data.server.service.DepartmentsService
+import com.saydullin.departments.server.service.DepartmentsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module

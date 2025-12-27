@@ -1,8 +1,8 @@
 package by.devsgroup.employees.repository
 
+import by.devsgroup.database.employees.dao.EmployeeDao
 import by.devsgroup.domain.model.employees.Employee
 import by.devsgroup.domain.repository.employees.EmployeesDatabaseRepository
-import by.devsgroup.employees.data.db.dao.EmployeeDao
 import by.devsgroup.employees.mapper.EmployeeEntityToDomainMapper
 import by.devsgroup.employees.mapper.EmployeeToEntityMapper
 import by.devsgroup.resource.Resource
@@ -42,9 +42,9 @@ class EmployeesDatabaseRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveEmployees(employees: List<Employee>): Resource<Unit> {
+    override suspend fun saveEmployeeWithId(employeeId: String, employee: Employee): Resource<Unit> {
         return Resource.tryWithSuspend {
-            val employeesEntity = employees.map { employeeToEntityMapper.map(it) }
+            val employeesEntity = employeeToEntityMapper.map(employee).copy(departmentKeyId = employeeId)
 
             withContext(Dispatchers.IO) { employeeDao.save(employeesEntity) }
         }

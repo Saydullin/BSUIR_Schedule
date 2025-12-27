@@ -1,5 +1,7 @@
 package by.devsgroup.employees.ui.model
 
+import by.devsgroup.domain.model.departments.Department
+
 data class EmployeeUI(
     val uniqueListId: Long,
     val firstName: String?,
@@ -9,7 +11,7 @@ data class EmployeeUI(
     val rank: String?,
     val photoLink: String?,
     val calendarId: String?,
-    val academicDepartment: List<String>?,
+    val departments: List<Department>,
     val id: Int?,
     val urlId: String?,
     val fio: String?,

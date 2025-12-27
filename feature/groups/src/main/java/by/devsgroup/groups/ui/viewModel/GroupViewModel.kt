@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import by.devsgroup.groups.data.db.dao.GroupDao
+import by.devsgroup.database.groups.dao.GroupDao
 import by.devsgroup.groups.mapper.GroupEntityToUiMapper
 import by.devsgroup.groups.paging.GroupPagingSource
 import by.devsgroup.groups.ui.model.GroupUI

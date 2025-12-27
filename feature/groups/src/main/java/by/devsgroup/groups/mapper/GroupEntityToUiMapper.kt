@@ -1,7 +1,7 @@
 package by.devsgroup.groups.mapper
 
+import by.devsgroup.database.groups.entity.GroupEntity
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.groups.data.db.entity.GroupEntity
 import by.devsgroup.groups.ui.model.GroupUI
 import javax.inject.Inject
 

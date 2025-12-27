@@ -2,7 +2,7 @@ package by.devsgroup.groups.mapper
 
 import by.devsgroup.domain.mapper.Mapper
 import by.devsgroup.domain.model.groups.Group
-import by.devsgroup.groups.data.server.model.GroupData
+import by.devsgroup.groups.server.model.GroupData
 import javax.inject.Inject
 
 class GroupDataToDomainMapper @Inject constructor(

@@ -3,9 +3,10 @@ package by.devsgroup.database.di
 import android.content.Context
 import androidx.room.Room
 import by.devsgroup.database.AppDatabase
-import by.devsgroup.employees.data.db.dao.EmployeeDao
-import by.devsgroup.groups.data.db.dao.GroupDao
-import com.saydullin.departments.data.db.dao.DepartmentDao
+import by.devsgroup.database.departments.dao.DepartmentDao
+import by.devsgroup.database.departments.dao.EmployeeDepartmentDao
+import by.devsgroup.database.employees.dao.EmployeeDao
+import by.devsgroup.database.groups.dao.GroupDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,6 +54,14 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): DepartmentDao {
         return appDatabase.getDepartmentDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEmployeeDepartmentDao(
+        appDatabase: AppDatabase
+    ): EmployeeDepartmentDao {
+        return appDatabase.getEmployeeDepartmentDao()
     }
 
 }

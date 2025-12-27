@@ -2,15 +2,15 @@ package by.devsgroup.employees.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import by.devsgroup.employees.data.db.dao.EmployeeDao
-import by.devsgroup.employees.mapper.EmployeeEntityToUiMapper
+import by.devsgroup.database.employees.dao.EmployeeDao
+import by.devsgroup.employees.mapper.EmployeeWithDepartmentsEntityToUiMapper
 import by.devsgroup.employees.ui.model.EmployeeUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class EmployeePagingSource(
     private val dao: EmployeeDao,
-    private val employeeEntityToUiMapper: EmployeeEntityToUiMapper,
+    private val employeeWithDepartmentsEntityToUiMapper: EmployeeWithDepartmentsEntityToUiMapper,
 ) : PagingSource<Int, EmployeeUI>() {
 
     override suspend fun load(
@@ -28,7 +28,7 @@ class EmployeePagingSource(
                 )
             }
 
-            val employees = data.map { employeeEntityToUiMapper.map(it) }
+            val employees = data.map { employeeWithDepartmentsEntityToUiMapper.map(it) }
 
             LoadResult.Page(
                 data = employees,

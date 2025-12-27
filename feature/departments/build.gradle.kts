@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
-    id("androidx.room")
 }
 
 android {
@@ -43,10 +42,6 @@ android {
     buildFeatures {
         compose = true
     }
-
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
 }
 
 dependencies {
@@ -54,12 +49,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":core:resource"))
     implementation(project(":core:retrofit"))
-
-    // Room
-    implementation("androidx.room:room-runtime:2.8.4")
-    implementation("androidx.room:room-ktx:2.8.4")
-    ksp("androidx.room:room-compiler:2.8.4")
-    implementation("androidx.room:room-paging:2.8.4")
+    implementation(project(":core:database"))
 
     // Paging
     implementation("androidx.paging:paging-runtime:3.4.0-alpha04")

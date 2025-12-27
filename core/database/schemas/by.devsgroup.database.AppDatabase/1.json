@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2fbe8da5b27ce34c0fc17136f9964769",
+    "identityHash": "ddabcb25ecf6c88d07d3974acf42b4de",
     "entities": [
       {
         "tableName": "group",
@@ -179,6 +179,15 @@
             ],
             "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_employee_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_employee_departmentKeyId",
+            "unique": true,
+            "columnNames": [
+              "departmentKeyId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_employee_departmentKeyId` ON `${TABLE_NAME}` (`departmentKeyId`)"
           }
         ]
       },
@@ -219,11 +228,88 @@
             "tableId"
           ]
         }
+      },
+      {
+        "tableName": "employee_department",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT, `abbrev` TEXT, `urlId` TEXT, `employeeId` TEXT NOT NULL, FOREIGN KEY(`employeeId`) REFERENCES `employee`(`departmentKeyId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "abbrev",
+            "columnName": "abbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "urlId",
+            "columnName": "urlId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employeeId",
+            "columnName": "employeeId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_employee_department_employeeId",
+            "unique": true,
+            "columnNames": [
+              "employeeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_employee_department_employeeId` ON `${TABLE_NAME}` (`employeeId`)"
+          },
+          {
+            "name": "index_employee_department_abbrev",
+            "unique": false,
+            "columnNames": [
+              "abbrev"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_employee_department_abbrev` ON `${TABLE_NAME}` (`abbrev`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "employee",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "employeeId"
+            ],
+            "referencedColumns": [
+              "departmentKeyId"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2fbe8da5b27ce34c0fc17136f9964769')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ddabcb25ecf6c88d07d3974acf42b4de')"
     ]
   }
 }

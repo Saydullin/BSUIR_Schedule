@@ -6,8 +6,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import by.devsgroup.employees.data.db.dao.EmployeeDao
-import by.devsgroup.employees.mapper.EmployeeEntityToUiMapper
+import by.devsgroup.database.employees.dao.EmployeeDao
+import by.devsgroup.employees.mapper.EmployeeWithDepartmentsEntityToUiMapper
 import by.devsgroup.employees.paging.EmployeePagingSource
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.usecase.GetAndSaveAllEmployeesUseCase
@@ -22,9 +22,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EmployeeViewModel @Inject constructor(
+    private val employeeWithDepartmentsEntityToUiMapper: EmployeeWithDepartmentsEntityToUiMapper,
     private val getAndSaveAllDepartmentsUseCase: GetAndSaveAllDepartmentsUseCase,
     private val getAndSaveAllEmployeesUseCase: GetAndSaveAllEmployeesUseCase,
-    private val employeeEntityToUiMapper: EmployeeEntityToUiMapper,
     private val employeeDao: EmployeeDao,
 ): ViewModel() {
 
@@ -44,7 +44,7 @@ class EmployeeViewModel @Inject constructor(
         pagingSourceFactory = {
             EmployeePagingSource(
                 dao = employeeDao,
-                employeeEntityToUiMapper = employeeEntityToUiMapper,
+                employeeWithDepartmentsEntityToUiMapper = employeeWithDepartmentsEntityToUiMapper,
             )
         }
     ).flow.cachedIn(viewModelScope)

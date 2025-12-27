@@ -1,8 +1,8 @@
 package by.devsgroup.groups.repository
 
+import by.devsgroup.database.groups.dao.GroupDao
 import by.devsgroup.domain.model.groups.Group
 import by.devsgroup.domain.repository.groups.GroupDatabaseRepository
-import by.devsgroup.groups.data.db.dao.GroupDao
 import by.devsgroup.groups.mapper.GroupEntityToDomainMapper
 import by.devsgroup.groups.mapper.GroupToEntityMapper
 import by.devsgroup.resource.Resource

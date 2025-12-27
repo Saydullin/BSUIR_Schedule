@@ -43,11 +43,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":feature:groups"))
-    implementation(project(":feature:employees"))
-    implementation(project(":feature:departments"))
-
     // Dagger Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
     implementation("com.google.dagger:hilt-android:2.57.2")

@@ -2,7 +2,7 @@ package by.devsgroup.groups.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import by.devsgroup.groups.data.db.dao.GroupDao
+import by.devsgroup.database.groups.dao.GroupDao
 import by.devsgroup.groups.mapper.GroupEntityToUiMapper
 import by.devsgroup.groups.ui.model.GroupUI
 import kotlinx.coroutines.Dispatchers

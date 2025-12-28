@@ -47,6 +47,9 @@ android {
 
 dependencies {
     implementation(project(":core:database"))
+    implementation(project(":feature:faculty"))
+    implementation(project(":feature:specialty"))
+    implementation(project(":feature:groups"))
     implementation(project(":feature:groups"))
     implementation(project(":feature:employees"))
     implementation(project(":ui-kit"))

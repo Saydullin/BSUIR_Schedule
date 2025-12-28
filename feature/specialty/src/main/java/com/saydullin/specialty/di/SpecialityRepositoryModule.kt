@@ -1,6 +1,8 @@
 package com.saydullin.specialty.di
 
+import by.devsgroup.domain.repository.specialty.SpecialtyDatabaseRepository
 import by.devsgroup.domain.repository.specialty.SpecialtyServerRepository
+import com.saydullin.specialty.repository.SpecialtyDatabaseRepositoryImpl
 import com.saydullin.specialty.repository.SpecialtyServerRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -17,5 +19,11 @@ abstract class SpecialityRepositoryModule {
     abstract fun bindSpecialtyServerRepository(
         specialtyServerRepository: SpecialtyServerRepositoryImpl
     ): SpecialtyServerRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSpecialtyDatabaseRepository(
+        specialtyServerRepository: SpecialtyDatabaseRepositoryImpl
+    ): SpecialtyDatabaseRepository
 
 }

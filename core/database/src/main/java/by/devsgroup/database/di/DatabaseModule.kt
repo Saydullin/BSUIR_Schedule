@@ -8,6 +8,7 @@ import by.devsgroup.database.departments.dao.EmployeeDepartmentDao
 import by.devsgroup.database.employees.dao.EmployeeDao
 import by.devsgroup.database.faculty.dao.FacultyDao
 import by.devsgroup.database.groups.dao.GroupDao
+import by.devsgroup.database.specialty.dao.SpecialtyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +48,14 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): EmployeeDao {
         return appDatabase.getEmployeeDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSpecialtyDao(
+        appDatabase: AppDatabase
+    ): SpecialtyDao {
+        return appDatabase.getSpecialtyDao()
     }
 
     @Provides

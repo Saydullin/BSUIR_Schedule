@@ -5,6 +5,10 @@ import by.devsgroup.resource.Resource
 
 interface FacultyDatabaseRepository {
 
-    suspend fun getAllFaculties(): Resource<List<Faculty>>
+    suspend fun getById(id: Long): Resource<Faculty?>
+
+    suspend fun saveList(faculties: List<Faculty>): Resource<Unit>
+
+    suspend fun clear(): Resource<Unit>
 
 }

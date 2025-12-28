@@ -2,6 +2,7 @@ package by.devsgroup.iis.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MotionScheme
@@ -12,6 +13,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 
 private val LightColorScheme = lightColorScheme(
     primary = Color(0xFF2F46E0),
@@ -148,9 +150,15 @@ fun IisTheme(
         else -> LightColorScheme
     }
 
+    val shapes = MaterialTheme.shapes.copy(
+        small = RoundedCornerShape(4.dp),
+        medium = RoundedCornerShape(6.dp),
+    )
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = shapes,
         motionScheme = MotionScheme.expressive(),
         content = content
     )

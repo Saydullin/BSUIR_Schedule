@@ -1,6 +1,7 @@
 package by.devsgroup.employees.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,12 +23,16 @@ fun EmployeesList(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth(),
+        contentPadding = PaddingValues(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(groups.itemCount, { groups[it]?.uniqueListId ?: it }) { index ->
             ListItem(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp),
+                onClick = {
+
+                }
             ) {
                 Text(
                     text = groups[index]?.firstName ?: "---"

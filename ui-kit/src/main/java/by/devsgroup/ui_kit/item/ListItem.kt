@@ -13,12 +13,14 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ListItem(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
 
     Card(
         modifier = modifier
             .fillMaxWidth(),
+        onClick = onClick,
     ) {
         Column(
             modifier = Modifier

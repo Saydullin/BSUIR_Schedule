@@ -24,6 +24,14 @@ sealed class ScreenNav(
         route = "Settings"
     )
 
+    object Schedule: ScreenNav(
+        route = "Schedule"
+    )
+
+    object Exams: ScreenNav(
+        route = "Exams"
+    )
+
     object Auth: ScreenNav(
         route = "Auth"
     )

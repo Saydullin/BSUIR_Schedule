@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.dagger.hilt.android")
@@ -9,27 +9,22 @@ plugins {
 }
 
 android {
-    namespace = "by.devsgroup.iis"
+    namespace = "by.devsgroup.schedule"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "by.devsgroup.iis"
         minSdk = 26
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -47,19 +42,24 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:database"))
-    implementation(project(":feature:faculty"))
-    implementation(project(":feature:specialty"))
-    implementation(project(":feature:groups"))
-    implementation(project(":feature:groups"))
-    implementation(project(":feature:employees"))
-    implementation(project(":feature:schedule"))
     implementation(project(":ui-kit"))
+    implementation(project(":domain"))
+    implementation(project(":core:resource"))
+    implementation(project(":core:retrofit"))
+    implementation(project(":core:database"))
+
+    // Paging
+    implementation("androidx.paging:paging-runtime:3.4.0-alpha04")
+    implementation("androidx.paging:paging-compose:3.4.0-alpha04")
 
     // Dagger Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
     implementation("com.google.dagger:hilt-android:2.57.2")
     ksp("com.google.dagger:hilt-android-compiler:2.57.2")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
 
     // Compose
     implementation(libs.androidx.activity.compose)
@@ -68,15 +68,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("androidx.navigation:navigation-compose:2.9.6")
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

@@ -43,19 +43,6 @@ fun TopNavigationBar(
                 contentDescription = "Menu"
             )
         }
-
-
-
-        IconButton(
-            onClick = {
-
-            }
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_settings),
-                contentDescription = "Settings"
-            )
-        }
     }
 
 }

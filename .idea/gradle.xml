@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/feature/employees" />
             <option value="$PROJECT_DIR$/feature/faculty" />
             <option value="$PROJECT_DIR$/feature/groups" />
+            <option value="$PROJECT_DIR$/feature/schedule" />
             <option value="$PROJECT_DIR$/feature/specialty" />
             <option value="$PROJECT_DIR$/ui-kit" />
           </set>

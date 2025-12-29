@@ -16,14 +16,14 @@ data class ScheduleEntity(
     val currentTerm: String?,
     val nextTerm: String?,
     val currentPeriod: String?,
-    val isZaochOrDist: Boolean?,
+    val partTimeOrRemote: Boolean?,
     @Embedded(
         prefix = "employee_"
     )
-    val employee: ScheduleEmployeeEntity,
+    val employee: ScheduleEmployeeEntity?,
     @Embedded(
         prefix = "group_"
     )
-    val group: ScheduleGroupEntity,
+    val group: ScheduleGroupEntity?,
 
 )

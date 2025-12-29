@@ -15,6 +15,6 @@ data class Schedule(
     val currentTerm: String?,
     val nextTerm: String?,
     val exams: List<ScheduleDay>?,
-    val currentPeriod: String,
-    val partTimeOrRemote: Boolean,
+    val currentPeriod: String?,
+    val partTimeOrRemote: Boolean?,
 )

@@ -3,28 +3,25 @@ package by.devsgroup.schedule.repository
 import by.devsgroup.domain.model.schedule.Schedule
 import by.devsgroup.domain.repository.schedule.ScheduleServerRepository
 import by.devsgroup.resource.Resource
+import by.devsgroup.schedule.mapper.ScheduleDataToDomainMapper
 import by.devsgroup.schedule.server.service.ScheduleService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ScheduleServerRepositoryImpl @Inject constructor(
-    private val scheduleService: ScheduleService
+    private val scheduleService: ScheduleService,
+    private val scheduleDataToDomainMapper: ScheduleDataToDomainMapper,
 ): ScheduleServerRepository {
 
-    override suspend fun getGroupSchedule(groupName: String): Resource<Schedule?> {
-        println("getGroupSchedule $groupName")
-        try {
-            val schedule = withContext(Dispatchers.IO) {
+    override suspend fun getGroupSchedule(groupName: String): Resource<Schedule> {
+        return Resource.tryWithSuspend {
+            val scheduleData = withContext(Dispatchers.IO) {
                 scheduleService.getGroupSchedule(groupName)
-            }
+            } ?: throw Exception("Not found")
 
-            println("schedule $schedule")
-        } catch (e: Exception) {
-            e.printStackTrace()
+            scheduleDataToDomainMapper.map(scheduleData)
         }
-
-        return Resource.Success(null)
     }
 
     override suspend fun getEmployeeSchedule(urlId: String): Resource<Schedule> {

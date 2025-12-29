@@ -10,14 +10,13 @@ class GetAndSaveGroupScheduleUseCase @Inject constructor(
     private val scheduleDatabaseRepository: ScheduleDatabaseRepository,
 ) {
 
-    suspend fun execute(groupName: String) {
+    suspend fun execute(groupName: String): Resource<Unit> {
         return Resource.tryWithSuspend {
             val groupSchedule = scheduleServerRepository.getGroupSchedule(groupName)
                 .getOrThrow()
 
             scheduleDatabaseRepository.clear()
-
-
+            scheduleDatabaseRepository.saveSchedule(groupSchedule)
         }
     }
 

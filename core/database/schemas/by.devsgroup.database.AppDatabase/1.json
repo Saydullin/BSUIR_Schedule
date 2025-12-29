@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "596247698b9792afcdf62994deaaea2b",
+    "identityHash": "f69d6b3bccaad9dea690c248f5a89e12",
     "entities": [
       {
         "tableName": "group",
@@ -124,6 +124,199 @@
             "columnName": "abbrev",
             "affinity": "TEXT",
             "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
+      {
+        "tableName": "schedule",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_jobPositions` TEXT, `employee_chief` INTEGER, `employee_id` INTEGER, `employee_urlId` TEXT, `employee_fio` TEXT, `group_tableId` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_id` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startExamsDate",
+            "columnName": "startExamsDate",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "endExamsDate",
+            "columnName": "endExamsDate",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "currentTerm",
+            "columnName": "currentTerm",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "nextTerm",
+            "columnName": "nextTerm",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "currentPeriod",
+            "columnName": "currentPeriod",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "partTimeOrRemote",
+            "columnName": "partTimeOrRemote",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "employee.tableId",
+            "columnName": "employee_tableId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "employee.firstName",
+            "columnName": "employee_firstName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.lastName",
+            "columnName": "employee_lastName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.middleName",
+            "columnName": "employee_middleName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.degree",
+            "columnName": "employee_degree",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.degreeAbbrev",
+            "columnName": "employee_degreeAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.email",
+            "columnName": "employee_email",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.rank",
+            "columnName": "employee_rank",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.photoLink",
+            "columnName": "employee_photoLink",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.calendarId",
+            "columnName": "employee_calendarId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.jobPositions",
+            "columnName": "employee_jobPositions",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.chief",
+            "columnName": "employee_chief",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "employee.id",
+            "columnName": "employee_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "employee.urlId",
+            "columnName": "employee_urlId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employee.fio",
+            "columnName": "employee_fio",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.tableId",
+            "columnName": "group_tableId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.name",
+            "columnName": "group_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.facultyId",
+            "columnName": "group_facultyId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.facultyAbbrev",
+            "columnName": "group_facultyAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.facultyName",
+            "columnName": "group_facultyName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.specialityDepartmentEducationFormId",
+            "columnName": "group_specialityDepartmentEducationFormId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.specialityName",
+            "columnName": "group_specialityName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.specialityAbbrev",
+            "columnName": "group_specialityAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.course",
+            "columnName": "group_course",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.id",
+            "columnName": "group_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.calendarId",
+            "columnName": "group_calendarId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "group.educationDegree",
+            "columnName": "group_educationDegree",
+            "affinity": "INTEGER"
           }
         ],
         "primaryKey": {
@@ -332,6 +525,268 @@
         }
       },
       {
+        "tableName": "schedule_group",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `id` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "facultyId",
+            "columnName": "facultyId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "facultyAbbrev",
+            "columnName": "facultyAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "facultyName",
+            "columnName": "facultyName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "specialityDepartmentEducationFormId",
+            "columnName": "specialityDepartmentEducationFormId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "specialityName",
+            "columnName": "specialityName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "specialityAbbrev",
+            "columnName": "specialityAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "course",
+            "columnName": "course",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "calendarId",
+            "columnName": "calendarId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "educationDegree",
+            "columnName": "educationDegree",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
+      {
+        "tableName": "schedule_lesson_entity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT, `audiences` TEXT NOT NULL, `endLessonTime` TEXT NOT NULL, `startLessonTime` TEXT NOT NULL, `lessonTypeAbbrev` TEXT NOT NULL, `subject` TEXT NOT NULL, `subjectFullName` TEXT NOT NULL, `dateLesson` TEXT, `startLessonDate` TEXT NOT NULL, `studentGroups` INTEGER NOT NULL, `employees` INTEGER NOT NULL, `endLessonDate` TEXT NOT NULL, `announcement` TEXT NOT NULL, `split` INTEGER NOT NULL, `dateMillis` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "audiences",
+            "columnName": "audiences",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endLessonTime",
+            "columnName": "endLessonTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startLessonTime",
+            "columnName": "startLessonTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lessonTypeAbbrev",
+            "columnName": "lessonTypeAbbrev",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subject",
+            "columnName": "subject",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subjectFullName",
+            "columnName": "subjectFullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateLesson",
+            "columnName": "dateLesson",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startLessonDate",
+            "columnName": "startLessonDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "studentGroups",
+            "columnName": "studentGroups",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employees",
+            "columnName": "employees",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endLessonDate",
+            "columnName": "endLessonDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "announcement",
+            "columnName": "announcement",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "split",
+            "columnName": "split",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateMillis",
+            "columnName": "dateMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
+      {
+        "tableName": "schedule_employee",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `jobPositions` TEXT, `chief` INTEGER NOT NULL, `id` INTEGER, `urlId` TEXT, `fio` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "middleName",
+            "columnName": "middleName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "degree",
+            "columnName": "degree",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "degreeAbbrev",
+            "columnName": "degreeAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "photoLink",
+            "columnName": "photoLink",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "calendarId",
+            "columnName": "calendarId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "jobPositions",
+            "columnName": "jobPositions",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "chief",
+            "columnName": "chief",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "urlId",
+            "columnName": "urlId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fio",
+            "columnName": "fio",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
+      {
         "tableName": "employee_department",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT, `abbrev` TEXT, `urlId` TEXT, `employeeId` TEXT NOT NULL, FOREIGN KEY(`employeeId`) REFERENCES `employee`(`departmentKeyId`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
@@ -441,7 +896,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '596247698b9792afcdf62994deaaea2b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f69d6b3bccaad9dea690c248f5a89e12')"
     ]
   }
 }

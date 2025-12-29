@@ -1,6 +1,5 @@
 package by.devsgroup.schedule.server.model
 
-import by.devsgroup.domain.model.employees.Employee
 import by.devsgroup.domain.model.groups.Group
 
 data class ScheduleData(
@@ -8,7 +7,7 @@ data class ScheduleData(
     val endDate: String?,
     val startExamsDate: String?,
     val endExamsDate: String?,
-    val employeeDto: Employee?,
+    val employeeDto: ScheduleLessonEmployeeData?,
     val studentGroupDto: Group?,
     val schedules: ScheduleWeekData?,
     val nextSchedules: ScheduleWeekData?,

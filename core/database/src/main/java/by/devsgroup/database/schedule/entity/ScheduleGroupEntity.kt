@@ -1,0 +1,22 @@
+package by.devsgroup.database.schedule.entity
+
+import androidx.room.Entity
+
+@Entity(
+    tableName = "schedule_group"
+)
+data class ScheduleGroupEntity(
+    val name: String?,
+    val facultyId: Int?,
+    val facultyAbbrev: String?,
+    val facultyName: String?,
+    val specialityDepartmentEducationFormId: Int?,
+    val specialityName: String?,
+    val specialityAbbrev: String?,
+    val course: Int?,
+    val id: Int?,
+    val calendarId: String?,
+    val educationDegree: Int?,
+)
+
+

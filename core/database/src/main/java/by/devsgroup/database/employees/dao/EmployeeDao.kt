@@ -40,4 +40,10 @@ interface EmployeeDao {
     @Query("DELETE FROM `employee`")
     fun clear(): Int
 
+    @Transaction
+    fun clearAndSaveList(employees: List<EmployeeEntity>) {
+        clear()
+        saveList(employees)
+    }
+
 }

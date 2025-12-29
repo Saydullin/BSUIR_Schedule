@@ -52,7 +52,7 @@ class GroupDatabaseRepositoryImpl @Inject constructor(
         return Resource.tryWithSuspend {
             val groupsEntity = groups.map { groupToEntityMapper.map(it) }
 
-            withContext(Dispatchers.IO) { groupDao.save(groupsEntity) }
+            withContext(Dispatchers.IO) { groupDao.clearAndSave(groupsEntity) }
         }
     }
 

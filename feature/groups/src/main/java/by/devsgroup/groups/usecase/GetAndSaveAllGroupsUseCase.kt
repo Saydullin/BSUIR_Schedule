@@ -15,7 +15,6 @@ class GetAndSaveAllGroupsUseCase @Inject constructor(
             val groups = groupServerRepository.getAllGroups()
                 .getOrThrow()
 
-            groupDatabaseRepository.clear()
             groupDatabaseRepository.saveGroups(groups)
         }
     }

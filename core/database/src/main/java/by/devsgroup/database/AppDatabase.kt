@@ -12,6 +12,10 @@ import by.devsgroup.database.faculty.dao.FacultyDao
 import by.devsgroup.database.faculty.entity.FacultyEntity
 import by.devsgroup.database.groups.dao.GroupDao
 import by.devsgroup.database.groups.entity.GroupEntity
+import by.devsgroup.database.schedule.entity.ScheduleEmployeeEntity
+import by.devsgroup.database.schedule.entity.ScheduleEntity
+import by.devsgroup.database.schedule.entity.ScheduleGroupEntity
+import by.devsgroup.database.schedule.entity.ScheduleLessonEntity
 import by.devsgroup.database.specialty.dao.SpecialtyDao
 import by.devsgroup.database.specialty.entity.SpecialtyEducationFormEntity
 import by.devsgroup.database.specialty.entity.SpecialtyEntity
@@ -22,9 +26,13 @@ import by.devsgroup.database.specialty.entity.SpecialtyEntity
     entities = [
         GroupEntity::class,
         FacultyEntity::class,
+        ScheduleEntity::class,
         EmployeeEntity::class,
         SpecialtyEntity::class,
         DepartmentEntity::class,
+        ScheduleGroupEntity::class,
+        ScheduleLessonEntity::class,
+        ScheduleEmployeeEntity::class,
         EmployeeDepartmentEntity::class,
         SpecialtyEducationFormEntity::class,
     ]
@@ -39,8 +47,12 @@ abstract class AppDatabase() : RoomDatabase() {
 
     abstract fun getSpecialtyDao(): SpecialtyDao
 
+    abstract fun getScheduleDao(): DepartmentDao
+
     abstract fun getDepartmentDao(): DepartmentDao
 
     abstract fun getEmployeeDepartmentDao(): EmployeeDepartmentDao
 
 }
+
+

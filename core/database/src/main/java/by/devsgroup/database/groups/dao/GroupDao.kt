@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import by.devsgroup.database.groups.entity.GroupEntity
 
 @Dao
@@ -29,5 +30,11 @@ interface GroupDao {
 
     @Query("DELETE FROM `group`")
     fun clear(): Int
+
+    @Transaction
+    fun clearAndSave(groups: List<GroupEntity>) {
+        clear()
+        save(groups)
+    }
 
 }

@@ -1,10 +1,14 @@
 package by.devsgroup.iis.navigation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,12 +20,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
+import by.devsgroup.iis.screen.home.HomeScreen
 import by.devsgroup.iis.screen.splash.SplashScreen
-import by.devsgroup.iis.ui.component.bottomNavigationBar.BottomNavigationBar
+import by.devsgroup.iis.ui.component.bottomBar.BottomNavigationBar
+import by.devsgroup.iis.ui.component.topBar.TopNavigationBar
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    drawerState: DrawerState,
     employeeViewModel: EmployeeViewModel,
     groupViewModel: GroupViewModel,
 ) {
@@ -29,13 +36,41 @@ fun AppNavHost(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val bottomBarExcludes = listOf(
-        ScreenNav.Splash.route
+    val topBarIncluded = listOf(
+        ScreenNav.Home.route,
+    )
+
+    val bottomBarIncluded = listOf(
+        ScreenNav.Home.route,
     )
 
     Scaffold(
+        topBar = {
+            AnimatedVisibility(
+                visible = topBarIncluded.contains(currentRoute),
+                enter = slideInVertically(
+                    initialOffsetY = { -it }
+                ) + fadeIn(),
+                exit = slideOutVertically(
+                    targetOffsetY = { -it }
+                ) + fadeOut()
+            ) {
+                TopNavigationBar(
+                    navController = navController,
+                    drawerState = drawerState,
+                )
+            }
+        },
         bottomBar = {
-            if (!bottomBarExcludes.contains(currentRoute)) {
+            AnimatedVisibility(
+                visible = bottomBarIncluded.contains(currentRoute),
+                enter = slideInVertically(
+                    initialOffsetY = { it }
+                ) + fadeIn(),
+                exit = slideOutVertically(
+                    targetOffsetY = { it }
+                ) + fadeOut()
+            ) {
                 BottomNavigationBar(
                     navController = navController
                 )
@@ -68,6 +103,11 @@ fun AppNavHost(
                     SplashScreen(
                         navController = navController,
                     )
+                }
+                composable(
+                    route = ScreenNav.Home.route
+                ) {
+                    HomeScreen()
                 }
                 composable(
                     route = ScreenNav.Schedule.route

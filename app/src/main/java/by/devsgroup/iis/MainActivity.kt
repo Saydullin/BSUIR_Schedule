@@ -5,10 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.rememberDrawerState
 import androidx.navigation.compose.rememberNavController
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.navigation.AppNavHost
+import by.devsgroup.iis.ui.component.drawerSheet.AppModalDrawerSheet
 import by.devsgroup.iis.ui.theme.IisTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,13 +27,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
+            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
             IisTheme {
-                AppNavHost(
-                    navController = navController,
-                    groupViewModel = groupViewModel,
-                    employeeViewModel = employeeViewModel,
-                )
+                ModalNavigationDrawer(
+                    drawerState = drawerState,
+                    drawerContent = {
+                        AppModalDrawerSheet()
+                    }
+                ) {
+                    AppNavHost(
+                        navController = navController,
+                        drawerState = drawerState,
+                        groupViewModel = groupViewModel,
+                        employeeViewModel = employeeViewModel,
+                    )
+                }
             }
         }
     }

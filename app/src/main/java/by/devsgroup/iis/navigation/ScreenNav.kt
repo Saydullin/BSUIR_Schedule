@@ -32,8 +32,8 @@ sealed class ScreenNav(
         route = "Exams"
     )
 
-    object Auth: ScreenNav(
-        route = "Auth"
+    object Home: ScreenNav(
+        route = "Home"
     )
 
     object Status: ScreenNav(

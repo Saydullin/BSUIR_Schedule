@@ -25,7 +25,7 @@ fun SplashScreen(
     LaunchedEffect(Unit) {
         delay(1100)
 
-        navController.navigateFinal(ScreenNav.AllGroupsAndEmployees.route)
+        navController.navigateFinal(ScreenNav.Home.route)
     }
 
     Box(

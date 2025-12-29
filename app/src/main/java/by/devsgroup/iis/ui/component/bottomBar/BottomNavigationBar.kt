@@ -1,4 +1,4 @@
-package by.devsgroup.iis.ui.component.bottomNavigationBar
+package by.devsgroup.iis.ui.component.bottomBar
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme

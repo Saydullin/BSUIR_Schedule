@@ -1,14 +1,12 @@
 package by.devsgroup.schedule.server.model
 
-import by.devsgroup.domain.model.groups.Group
-
 data class ScheduleData(
     val startDate: String?,
     val endDate: String?,
     val startExamsDate: String?,
     val endExamsDate: String?,
-    val employeeDto: ScheduleLessonEmployeeData?,
-    val studentGroupDto: Group?,
+    val employeeDto: ScheduleEmployeeData?,
+    val studentGroupDto: ScheduleGroupData?,
     val schedules: ScheduleWeekData?,
     val nextSchedules: ScheduleWeekData?,
     val currentTerm: String?,

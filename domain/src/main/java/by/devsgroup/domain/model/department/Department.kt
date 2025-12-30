@@ -1,4 +1,4 @@
-package by.devsgroup.domain.model.departments
+package by.devsgroup.domain.model.department
 
 data class Department(
     val id: Int?,

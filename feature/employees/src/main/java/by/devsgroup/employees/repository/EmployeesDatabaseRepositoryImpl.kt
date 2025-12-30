@@ -1,7 +1,7 @@
 package by.devsgroup.employees.repository
 
 import by.devsgroup.database.employees.dao.EmployeeDao
-import by.devsgroup.domain.model.employees.Employee
+import by.devsgroup.domain.model.employee.Employee
 import by.devsgroup.domain.repository.employees.EmployeesDatabaseRepository
 import by.devsgroup.employees.mapper.EmployeeEntityToDomainMapper
 import by.devsgroup.employees.mapper.EmployeeToEntityMapper

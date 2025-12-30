@@ -1,4 +1,4 @@
-package by.devsgroup.domain.model.employees
+package by.devsgroup.domain.model.employee
 
 data class Employee(
     val firstName: String?,

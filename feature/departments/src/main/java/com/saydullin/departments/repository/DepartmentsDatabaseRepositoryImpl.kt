@@ -1,7 +1,7 @@
 package com.saydullin.departments.repository
 
 import by.devsgroup.database.departments.dao.DepartmentDao
-import by.devsgroup.domain.model.departments.Department
+import by.devsgroup.domain.model.department.Department
 import by.devsgroup.domain.repository.department.DepartmentsDatabaseRepository
 import by.devsgroup.resource.Resource
 import com.saydullin.departments.mapper.DepartmentEntityToDomainMapper

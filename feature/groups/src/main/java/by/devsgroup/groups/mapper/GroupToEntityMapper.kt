@@ -2,7 +2,7 @@ package by.devsgroup.groups.mapper
 
 import by.devsgroup.database.groups.entity.GroupEntity
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.groups.Group
+import by.devsgroup.domain.model.group.Group
 import javax.inject.Inject
 
 class GroupToEntityMapper @Inject constructor(

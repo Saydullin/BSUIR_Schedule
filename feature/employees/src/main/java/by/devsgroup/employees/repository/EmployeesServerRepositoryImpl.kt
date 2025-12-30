@@ -1,6 +1,6 @@
 package by.devsgroup.employees.repository
 
-import by.devsgroup.domain.model.employees.Employee
+import by.devsgroup.domain.model.employee.Employee
 import by.devsgroup.domain.repository.employees.EmployeesServerRepository
 import by.devsgroup.employees.mapper.EmployeeDataToDomainMapper
 import by.devsgroup.employees.server.service.EmployeesService

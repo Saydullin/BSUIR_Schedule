@@ -1,6 +1,6 @@
 package by.devsgroup.employees.ui.model
 
-import by.devsgroup.domain.model.departments.Department
+import by.devsgroup.domain.model.department.Department
 
 data class EmployeeUI(
     val uniqueListId: Long,

@@ -1,15 +1,15 @@
 package by.devsgroup.schedule.mapper
 
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.schedule.common.ScheduleLessonEmployee
-import by.devsgroup.schedule.server.model.ScheduleLessonEmployeeData
+import by.devsgroup.domain.model.schedule.common.ScheduleEmployee
+import by.devsgroup.schedule.server.model.ScheduleEmployeeData
 import javax.inject.Inject
 
-class ScheduleLessonEmployeeDataToDomainMapper @Inject constructor(
-): Mapper<ScheduleLessonEmployeeData, ScheduleLessonEmployee> {
+class ScheduleEmployeeDataToDomainMapper @Inject constructor(
+): Mapper<ScheduleEmployeeData, ScheduleEmployee> {
 
-    override fun map(from: ScheduleLessonEmployeeData): ScheduleLessonEmployee {
-        return ScheduleLessonEmployee(
+    override fun map(from: ScheduleEmployeeData): ScheduleEmployee {
+        return ScheduleEmployee(
             id = from.id,
             firstName = from.firstName,
             lastName = from.lastName,

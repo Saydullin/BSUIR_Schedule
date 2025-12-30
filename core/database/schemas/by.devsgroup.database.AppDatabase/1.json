@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f69d6b3bccaad9dea690c248f5a89e12",
+    "identityHash": "72683de14375aea5ac97f471c0bae6c6",
     "entities": [
       {
         "tableName": "group",
@@ -135,7 +135,7 @@
       },
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_jobPositions` TEXT, `employee_chief` INTEGER, `employee_id` INTEGER, `employee_urlId` TEXT, `employee_fio` TEXT, `group_tableId` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_id` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_chief` INTEGER, `employee_id` INTEGER, `employee_urlId` TEXT, `group_tableId` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_id` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -234,11 +234,6 @@
             "affinity": "TEXT"
           },
           {
-            "fieldPath": "employee.jobPositions",
-            "columnName": "employee_jobPositions",
-            "affinity": "TEXT"
-          },
-          {
             "fieldPath": "employee.chief",
             "columnName": "employee_chief",
             "affinity": "INTEGER"
@@ -251,11 +246,6 @@
           {
             "fieldPath": "employee.urlId",
             "columnName": "employee_urlId",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "employee.fio",
-            "columnName": "employee_fio",
             "affinity": "TEXT"
           },
           {
@@ -699,7 +689,7 @@
       },
       {
         "tableName": "schedule_employee",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `jobPositions` TEXT, `chief` INTEGER NOT NULL, `id` INTEGER, `urlId` TEXT, `fio` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `chief` INTEGER, `id` INTEGER, `urlId` TEXT)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -753,15 +743,9 @@
             "affinity": "TEXT"
           },
           {
-            "fieldPath": "jobPositions",
-            "columnName": "jobPositions",
-            "affinity": "TEXT"
-          },
-          {
             "fieldPath": "chief",
             "columnName": "chief",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "INTEGER"
           },
           {
             "fieldPath": "id",
@@ -771,11 +755,6 @@
           {
             "fieldPath": "urlId",
             "columnName": "urlId",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "fio",
-            "columnName": "fio",
             "affinity": "TEXT"
           }
         ],
@@ -896,7 +875,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f69d6b3bccaad9dea690c248f5a89e12')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '72683de14375aea5ac97f471c0bae6c6')"
     ]
   }
 }

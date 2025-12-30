@@ -1,16 +1,15 @@
-package by.devsgroup.groups.mapper
+package by.devsgroup.schedule.mapper
 
-import by.devsgroup.database.groups.entity.GroupEntity
+import by.devsgroup.database.schedule.entity.ScheduleGroupEntity
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.group.Group
+import by.devsgroup.domain.model.schedule.common.ScheduleGroup
 import javax.inject.Inject
 
-class GroupEntityToDomainMapper @Inject constructor(
-): Mapper<GroupEntity, Group> {
+class ScheduleGroupToEntityMapper @Inject constructor(
+): Mapper<ScheduleGroup, ScheduleGroupEntity> {
 
-    override fun map(from: GroupEntity): Group {
-        return Group(
-            id = from.id,
+    override fun map(from: ScheduleGroup): ScheduleGroupEntity {
+        return ScheduleGroupEntity(
             name = from.name,
             facultyId = from.facultyId,
             facultyAbbrev = from.facultyAbbrev,
@@ -19,11 +18,10 @@ class GroupEntityToDomainMapper @Inject constructor(
             specialityName = from.specialityName,
             specialityAbbrev = from.specialityAbbrev,
             course = from.course,
+            id = from.id,
             calendarId = from.calendarId,
             educationDegree = from.educationDegree,
         )
     }
 
 }
-
-

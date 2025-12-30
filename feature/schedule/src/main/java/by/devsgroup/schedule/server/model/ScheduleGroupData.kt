@@ -1,6 +1,6 @@
-package by.devsgroup.domain.model.groups
+package by.devsgroup.schedule.server.model
 
-data class Group(
+data class ScheduleGroupData(
     val name: String?,
     val facultyId: Int?,
     val facultyAbbrev: String?,
@@ -13,5 +13,3 @@ data class Group(
     val calendarId: String?,
     val educationDegree: Int?,
 )
-
-

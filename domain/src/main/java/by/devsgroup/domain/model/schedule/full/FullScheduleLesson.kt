@@ -1,6 +1,6 @@
-package by.devsgroup.domain.model.schedule
+package by.devsgroup.domain.model.schedule.full
 
-data class ScheduleDay(
+data class FullScheduleLesson(
     val audiences: List<String>?,
     val endLessonTime: String,
     val startLessonTime: String,
@@ -16,3 +16,5 @@ data class ScheduleDay(
     val announcement: String,
     val split: Boolean,
 )
+
+

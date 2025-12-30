@@ -1,6 +1,6 @@
 package by.devsgroup.schedule.server.model
 
-data class ScheduleLessonEmployeeData(
+data class ScheduleEmployeeData(
     val id: Long?,
     val firstName: String?,
     val lastName: String?,

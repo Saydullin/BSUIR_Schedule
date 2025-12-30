@@ -2,13 +2,15 @@ package by.devsgroup.schedule.mapper
 
 import by.devsgroup.database.schedule.entity.ScheduleEntity
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.schedule.Schedule
+import by.devsgroup.domain.model.schedule.template.ScheduleTemplate
 import javax.inject.Inject
 
 class ScheduleToEntityMapper @Inject constructor(
-): Mapper<Schedule, ScheduleEntity> {
+    private val scheduleEmployeeToEntityMapper: ScheduleEmployeeToEntityMapper,
+    private val scheduleGroupToEntityMapper: ScheduleGroupToEntityMapper,
+): Mapper<ScheduleTemplate, ScheduleEntity> {
 
-    override fun map(from: Schedule): ScheduleEntity {
+    override fun map(from: ScheduleTemplate): ScheduleEntity {
         return ScheduleEntity(
             startDate = from.startDate,
             endDate = from.endDate,
@@ -18,8 +20,8 @@ class ScheduleToEntityMapper @Inject constructor(
             nextTerm = from.nextTerm,
             currentPeriod = from.currentPeriod,
             partTimeOrRemote = from.partTimeOrRemote,
-            employee = null,
-            group = null,
+            employee = from.employeeDto?.let { scheduleEmployeeToEntityMapper.map(it) },
+            group = from.studentGroupDto?.let { scheduleGroupToEntityMapper.map(it) },
         )
     }
 

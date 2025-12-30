@@ -2,7 +2,7 @@ package by.devsgroup.employees.mapper
 
 import by.devsgroup.database.employees.entity.EmployeeEntity
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.employees.Employee
+import by.devsgroup.domain.model.employee.Employee
 import javax.inject.Inject
 
 class EmployeeToEntityMapper @Inject constructor(

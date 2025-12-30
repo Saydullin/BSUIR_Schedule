@@ -25,5 +25,4 @@ data class ScheduleEntity(
         prefix = "group_"
     )
     val group: ScheduleGroupEntity?,
-
 )

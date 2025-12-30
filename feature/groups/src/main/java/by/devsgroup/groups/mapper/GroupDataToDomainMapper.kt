@@ -1,7 +1,7 @@
 package by.devsgroup.groups.mapper
 
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.groups.Group
+import by.devsgroup.domain.model.group.Group
 import by.devsgroup.groups.server.model.GroupData
 import javax.inject.Inject
 

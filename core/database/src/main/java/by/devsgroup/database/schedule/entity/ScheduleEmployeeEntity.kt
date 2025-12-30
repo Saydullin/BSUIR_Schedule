@@ -17,11 +17,9 @@ data class ScheduleEmployeeEntity(
     val rank: String?,
     val photoLink: String?,
     val calendarId: String?,
-    val jobPositions: String?,
-    val chief: Boolean,
-    val id: Int?,
+    val chief: Boolean?,
+    val id: Long?,
     val urlId: String?,
-    val fio: String?,
 )
 
 

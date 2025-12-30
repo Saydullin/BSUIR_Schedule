@@ -1,6 +1,6 @@
 package by.devsgroup.domain.repository.department
 
-import by.devsgroup.domain.model.departments.Department
+import by.devsgroup.domain.model.department.Department
 import by.devsgroup.resource.Resource
 
 interface DepartmentsDatabaseRepository {

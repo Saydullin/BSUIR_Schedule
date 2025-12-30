@@ -1,6 +1,6 @@
 package by.devsgroup.schedule.repository
 
-import by.devsgroup.domain.model.schedule.Schedule
+import by.devsgroup.domain.model.schedule.template.ScheduleTemplate
 import by.devsgroup.domain.repository.schedule.ScheduleServerRepository
 import by.devsgroup.resource.Resource
 import by.devsgroup.schedule.mapper.ScheduleDataToDomainMapper
@@ -14,7 +14,7 @@ class ScheduleServerRepositoryImpl @Inject constructor(
     private val scheduleDataToDomainMapper: ScheduleDataToDomainMapper,
 ): ScheduleServerRepository {
 
-    override suspend fun getGroupSchedule(groupName: String): Resource<Schedule> {
+    override suspend fun getGroupSchedule(groupName: String): Resource<ScheduleTemplate> {
         return Resource.tryWithSuspend {
             val scheduleData = withContext(Dispatchers.IO) {
                 scheduleService.getGroupSchedule(groupName)
@@ -24,7 +24,7 @@ class ScheduleServerRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getEmployeeSchedule(urlId: String): Resource<Schedule> {
+    override suspend fun getEmployeeSchedule(urlId: String): Resource<ScheduleTemplate> {
         TODO("Not yet implemented")
     }
 

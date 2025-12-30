@@ -1,6 +1,6 @@
 package by.devsgroup.groups.repository
 
-import by.devsgroup.domain.model.groups.Group
+import by.devsgroup.domain.model.group.Group
 import by.devsgroup.domain.repository.groups.GroupServerRepository
 import by.devsgroup.groups.mapper.GroupDataToDomainMapper
 import by.devsgroup.groups.server.service.GroupsService

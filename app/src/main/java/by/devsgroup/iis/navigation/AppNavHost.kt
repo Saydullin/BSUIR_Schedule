@@ -1,11 +1,9 @@
 package by.devsgroup.iis.navigation
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
@@ -45,36 +43,16 @@ fun AppNavHost(
     )
 
     Scaffold(
+        modifier = Modifier
+            .animateContentSize(),
         topBar = {
-            AnimatedVisibility(
-                visible = topBarIncluded.contains(currentRoute),
-                enter = slideInVertically(
-                    initialOffsetY = { -it }
-                ) + fadeIn(),
-                exit = slideOutVertically(
-                    targetOffsetY = { -it }
-                ) + fadeOut()
-            ) {
-                TopNavigationBar(
-                    navController = navController,
-                    drawerState = drawerState,
-                )
-            }
+            TopNavigationBar(
+                navController = navController,
+                drawerState = drawerState
+            )
         },
         bottomBar = {
-            AnimatedVisibility(
-                visible = bottomBarIncluded.contains(currentRoute),
-                enter = slideInVertically(
-                    initialOffsetY = { it }
-                ) + fadeIn(),
-                exit = slideOutVertically(
-                    targetOffsetY = { it }
-                ) + fadeOut()
-            ) {
-                BottomNavigationBar(
-                    navController = navController
-                )
-            }
+            BottomNavigationBar(navController)
         }
     ) { paddingValues ->
         Box(

@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import by.devsgroup.database.schedule.entity.ScheduleEntity
+import by.devsgroup.database.schedule.relation.ScheduleWithDays
 
 @Dao
 interface ScheduleDao {
 
-    @Query("SELECT * FROM `schedule` WHERE `group_name` = :groupName")
-    fun getGroupSchedule(groupName: String): ScheduleEntity?
-
-    @Query("SELECT * FROM `schedule` WHERE `employee_urlId` = :urlId")
-    fun getEmployeeSchedule(urlId: String): ScheduleEntity?
+    @Transaction
+    @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
+    fun getFullSchedule(scheduleId: Long): ScheduleWithDays?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(schedule: ScheduleEntity): Long
@@ -22,3 +22,5 @@ interface ScheduleDao {
     fun clear(): Int
 
 }
+
+

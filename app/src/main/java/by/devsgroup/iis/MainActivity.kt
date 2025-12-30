@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
@@ -35,10 +36,14 @@ class MainActivity : ComponentActivity() {
 
             IisTheme {
                 ModalNavigationDrawer(
-                    modifier = Modifier
-                        .clickable {
-                            scheduleViewModel.loadSchedule()
-                        },
+//                    modifier = Modifier.combinedClickable(
+//                        onClick = {
+//                            scheduleViewModel.loadSchedule()
+//                        },
+//                        onLongClick = {
+//                            scheduleViewModel.getSchedule()
+//                        }
+//                    ),
                     drawerState = drawerState,
                     drawerContent = {
                         AppModalDrawerSheet()

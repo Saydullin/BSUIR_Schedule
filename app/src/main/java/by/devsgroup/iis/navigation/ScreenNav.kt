@@ -4,10 +4,6 @@ sealed class ScreenNav(
     val route: String
 ) {
 
-    object Splash: ScreenNav(
-        route = "Splash"
-    )
-
     object AllGroupsAndEmployees: ScreenNav(
         route = "AllGroupsAndEmployees"
     )

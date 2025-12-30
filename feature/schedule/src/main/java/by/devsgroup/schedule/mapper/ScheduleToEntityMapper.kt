@@ -2,15 +2,15 @@ package by.devsgroup.schedule.mapper
 
 import by.devsgroup.database.schedule.entity.ScheduleEntity
 import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.schedule.template.ScheduleTemplate
+import by.devsgroup.domain.model.schedule.full.FullSchedule
 import javax.inject.Inject
 
 class ScheduleToEntityMapper @Inject constructor(
     private val scheduleEmployeeToEntityMapper: ScheduleEmployeeToEntityMapper,
     private val scheduleGroupToEntityMapper: ScheduleGroupToEntityMapper,
-): Mapper<ScheduleTemplate, ScheduleEntity> {
+): Mapper<FullSchedule, ScheduleEntity> {
 
-    override fun map(from: ScheduleTemplate): ScheduleEntity {
+    override fun map(from: FullSchedule): ScheduleEntity {
         val scheduleId = from.employeeDto?.id ?: from.studentGroupDto?.id ?: 0
 
         return ScheduleEntity(

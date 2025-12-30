@@ -9,6 +9,7 @@ import by.devsgroup.database.employees.dao.EmployeeDao
 import by.devsgroup.database.faculty.dao.FacultyDao
 import by.devsgroup.database.groups.dao.GroupDao
 import by.devsgroup.database.schedule.dao.ScheduleDao
+import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonDao
 import by.devsgroup.database.specialty.dao.SpecialtyDao
 import dagger.Module
@@ -90,6 +91,14 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): EmployeeDepartmentDao {
         return appDatabase.getEmployeeDepartmentDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideScheduleDayDao(
+        appDatabase: AppDatabase
+    ): ScheduleDayDao {
+        return appDatabase.getScheduleDayDao()
     }
 
     @Provides

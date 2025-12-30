@@ -9,9 +9,9 @@ import androidx.room.PrimaryKey
     tableName = "schedule_lesson_entity",
     foreignKeys = [
         ForeignKey(
-            entity = ScheduleEntity::class,
-            parentColumns = ["scheduleId"],
-            childColumns = ["scheduleId"],
+            entity = ScheduleDayEntity::class,
+            parentColumns = ["dayId"],
+            childColumns = ["dayId"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.NO_ACTION
         )
@@ -19,6 +19,7 @@ import androidx.room.PrimaryKey
     indices = [
         Index("scheduleId"),
         Index("lessonId"),
+        Index("dayId"),
         Index(
             value = ["scheduleId", "lessonId"],
             unique = true
@@ -28,11 +29,14 @@ import androidx.room.PrimaryKey
 data class ScheduleLessonEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Long = 0,
     val scheduleId: Long,
+    val dayOfWeek: String?,
     val lessonId: String,
+    val dayId: String,
     val audiences: String?,
     val endLessonTime: String?,
     val startLessonTime: String?,
     val lessonTypeAbbrev: String?,
+    val weekNumber: String?,
     val subject: String?,
     val subjectFullName: String?,
     val dateLesson: String?,

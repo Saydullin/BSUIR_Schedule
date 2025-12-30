@@ -10,7 +10,7 @@ fun NavController.navigatePopUp(
     singleTop: Boolean = true
 ) {
     navigate(route) {
-        popUpTo(popUpTo ?: ScreenNav.Splash.route) {
+        popUpTo(popUpTo ?: ScreenNav.Home.route) {
             inclusive = popUpToInclusive
         }
         launchSingleTop = singleTop

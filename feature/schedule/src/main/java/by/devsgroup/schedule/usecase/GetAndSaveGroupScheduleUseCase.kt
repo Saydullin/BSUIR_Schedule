@@ -21,10 +21,9 @@ class GetAndSaveGroupScheduleUseCase @Inject constructor(
                 scheduleTemplate = groupSchedule
             )
 
-            scheduleManager.createFullSchedule()
+            val fullSchedule = scheduleManager.getFullSchedule()
 
-            scheduleDatabaseRepository.clear()
-            scheduleDatabaseRepository.saveSchedule(groupSchedule)
+            scheduleDatabaseRepository.saveSchedule(fullSchedule)
         }
     }
 

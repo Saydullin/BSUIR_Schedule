@@ -19,7 +19,6 @@ import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
 import by.devsgroup.iis.screen.home.HomeScreen
-import by.devsgroup.iis.screen.splash.SplashScreen
 import by.devsgroup.iis.ui.component.bottomBar.BottomNavigationBar
 import by.devsgroup.iis.ui.component.topBar.TopNavigationBar
 
@@ -61,7 +60,7 @@ fun AppNavHost(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = ScreenNav.Splash.route,
+                startDestination = ScreenNav.Home.route,
                 enterTransition = {
                     fadeIn(animationSpec = tween(200))
                 },
@@ -75,13 +74,6 @@ fun AppNavHost(
                     fadeOut(animationSpec = tween(200))
                 }
             ) {
-                composable(
-                    route = ScreenNav.Splash.route
-                ) {
-                    SplashScreen(
-                        navController = navController,
-                    )
-                }
                 composable(
                     route = ScreenNav.Home.route
                 ) {

@@ -1,17 +1,19 @@
 package by.devsgroup.schedule.mapper
 
-import by.devsgroup.domain.mapper.Mapper
+import by.devsgroup.domain.mapper.MapperWithContext
 import by.devsgroup.domain.model.schedule.template.ScheduleLessonTemplate
 import by.devsgroup.schedule.server.model.ScheduleLessonData
+import java.time.DayOfWeek
 import javax.inject.Inject
 
 class ScheduleLessonDataToDomainTemplateMapper @Inject constructor(
     private val scheduleLessonGroupDataToDomainTemplate: ScheduleLessonGroupDataToDomainTemplate,
     private val scheduleLessonEmployeeDataToDomainMapper: ScheduleLessonEmployeeDataToDomainMapper,
-): Mapper<ScheduleLessonData, ScheduleLessonTemplate> {
+): MapperWithContext<ScheduleLessonData, ScheduleLessonTemplate, DayOfWeek?> {
 
-    override fun map(from: ScheduleLessonData): ScheduleLessonTemplate {
+    override fun map(from: ScheduleLessonData, context: DayOfWeek?): ScheduleLessonTemplate {
         return ScheduleLessonTemplate(
+            dayOfWeek = context,
             audiences = from.audiences,
             endLessonTime = from.endLessonTime,
             startLessonTime = from.startLessonTime,

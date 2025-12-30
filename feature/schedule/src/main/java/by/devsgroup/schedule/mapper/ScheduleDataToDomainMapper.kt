@@ -1,8 +1,13 @@
 package by.devsgroup.schedule.mapper
 
 import by.devsgroup.domain.mapper.Mapper
+import by.devsgroup.domain.model.schedule.template.ScheduleLessonTemplate
 import by.devsgroup.domain.model.schedule.template.ScheduleTemplate
 import by.devsgroup.schedule.server.model.ScheduleData
+import by.devsgroup.schedule.server.model.ScheduleLessonData
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class ScheduleDataToDomainMapper @Inject constructor(
@@ -12,34 +17,28 @@ class ScheduleDataToDomainMapper @Inject constructor(
 ): Mapper<ScheduleData, ScheduleTemplate> {
 
     override fun map(from: ScheduleData): ScheduleTemplate {
-        val allSchedulesDays = listOf(
-            from.schedules?.monday,
-            from.schedules?.tuesday,
-            from.schedules?.wednesday,
-            from.schedules?.thursday,
-            from.schedules?.friday,
-            from.schedules?.saturday,
-        )
+        val schedules = listOfNotNull(
+            from.schedules?.monday?.let { mapLessons(it, DayOfWeek.MONDAY) },
+            from.schedules?.tuesday?.let { mapLessons(it, DayOfWeek.TUESDAY) },
+            from.schedules?.wednesday?.let { mapLessons(it, DayOfWeek.WEDNESDAY) },
+            from.schedules?.thursday?.let { mapLessons(it, DayOfWeek.THURSDAY) },
+            from.schedules?.friday?.let { mapLessons(it, DayOfWeek.FRIDAY) },
+            from.schedules?.saturday?.let { mapLessons(it, DayOfWeek.SATURDAY) },
+        ).flatten()
 
-        val allNextSchedulesDays = listOf(
-            from.nextSchedules?.monday,
-            from.nextSchedules?.tuesday,
-            from.nextSchedules?.wednesday,
-            from.nextSchedules?.thursday,
-            from.nextSchedules?.friday,
-            from.nextSchedules?.saturday,
-        )
+        val nextSchedules = listOfNotNull(
+            from.nextSchedules?.monday?.let { mapLessons(it, DayOfWeek.MONDAY) },
+            from.nextSchedules?.tuesday?.let { mapLessons(it, DayOfWeek.TUESDAY) },
+            from.nextSchedules?.wednesday?.let { mapLessons(it, DayOfWeek.WEDNESDAY) },
+            from.nextSchedules?.thursday?.let { mapLessons(it, DayOfWeek.THURSDAY) },
+            from.nextSchedules?.friday?.let { mapLessons(it, DayOfWeek.FRIDAY) },
+            from.nextSchedules?.saturday?.let { mapLessons(it, DayOfWeek.SATURDAY) },
+        ).flatten()
 
-        val schedules = allSchedulesDays.mapNotNull { day ->
-            day?.map { scheduleLessonDataToDomainTemplateMapper.map(it) }
-        }.flatten()
+        val exams = from.exams?.map { exam ->
+            val dayOfWeek = exam.dateLesson?.let { getWeekFromDate(it) }
 
-        val nextSchedules = allNextSchedulesDays.mapNotNull { day ->
-            day?.map { scheduleLessonDataToDomainTemplateMapper.map(it) }
-        }.flatten()
-
-        val exams = from.exams?.map {
-            scheduleLessonDataToDomainTemplateMapper.map(it)
+            scheduleLessonDataToDomainTemplateMapper.map(exam, dayOfWeek)
         }
 
         return ScheduleTemplate(
@@ -57,6 +56,23 @@ class ScheduleDataToDomainMapper @Inject constructor(
             currentPeriod = from.currentPeriod,
             partTimeOrRemote = from.isZaochOrDist,
         )
+    }
+
+    fun mapLessons(lessons: List<ScheduleLessonData>, dayOfWeek: DayOfWeek): List<ScheduleLessonTemplate> {
+        return lessons.map { scheduleLessonDataToDomainTemplateMapper.map(it, dayOfWeek) }
+    }
+
+    fun getWeekFromDate(dateString: String): DayOfWeek? {
+        return try {
+            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+            val date = LocalDate.parse(dateString, formatter)
+
+            date.dayOfWeek
+        } catch (e: Exception) {
+            e.printStackTrace()
+
+            null
+        }
     }
 
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9ef38258539911ce07a310a0b139db20",
+    "identityHash": "4c4c793e6cbca6f66dfaa68ef9feff0f",
     "entities": [
       {
         "tableName": "group",
@@ -888,7 +888,7 @@
         ]
       },
       {
-        "tableName": "SpecialtyEducationFormEntity",
+        "tableName": "specialty_education_form",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
@@ -920,7 +920,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ef38258539911ce07a310a0b139db20')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4c4c793e6cbca6f66dfaa68ef9feff0f')"
     ]
   }
 }

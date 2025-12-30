@@ -2,9 +2,11 @@ package by.devsgroup.domain.model.schedule.template
 
 import by.devsgroup.domain.model.schedule.common.ScheduleLessonEmployee
 import by.devsgroup.domain.model.schedule.common.ScheduleLessonGroup
+import java.time.DayOfWeek
 
 data class ScheduleLessonTemplate(
     val audiences: List<String>?,
+    val dayOfWeek: DayOfWeek?,
     val endLessonTime: String?,
     val startLessonTime: String?,
     val lessonTypeAbbrev: String?,

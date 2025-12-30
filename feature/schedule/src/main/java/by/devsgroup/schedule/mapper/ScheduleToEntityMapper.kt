@@ -11,7 +11,10 @@ class ScheduleToEntityMapper @Inject constructor(
 ): Mapper<ScheduleTemplate, ScheduleEntity> {
 
     override fun map(from: ScheduleTemplate): ScheduleEntity {
+        val scheduleId = from.employeeDto?.id ?: from.studentGroupDto?.id ?: 0
+
         return ScheduleEntity(
+            scheduleId = scheduleId,
             startDate = from.startDate,
             endDate = from.endDate,
             startExamsDate = from.startExamsDate,

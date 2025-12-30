@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import by.devsgroup.database.schedule.entity.ScheduleEntity
 
 @Dao
@@ -21,11 +20,5 @@ interface ScheduleDao {
 
     @Query("DELETE FROM `schedule`")
     fun clear(): Int
-
-    @Transaction
-    fun clearAndSave(schedule: ScheduleEntity) {
-        clear()
-        save(schedule)
-    }
 
 }

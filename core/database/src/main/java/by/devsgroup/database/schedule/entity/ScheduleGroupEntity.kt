@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 )
 data class ScheduleGroupEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Long = 0,
+    val id: Long?,
     val name: String?,
     val facultyId: Int?,
     val facultyAbbrev: String?,
@@ -16,7 +17,6 @@ data class ScheduleGroupEntity(
     val specialityName: String?,
     val specialityAbbrev: String?,
     val course: Int?,
-    val id: Int?,
     val calendarId: String?,
     val educationDegree: Int?,
 )

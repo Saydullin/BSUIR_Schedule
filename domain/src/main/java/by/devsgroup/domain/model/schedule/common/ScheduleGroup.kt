@@ -1,6 +1,7 @@
 package by.devsgroup.domain.model.schedule.common
 
 data class ScheduleGroup(
+    val id: Long?,
     val name: String?,
     val facultyId: Int?,
     val facultyAbbrev: String?,
@@ -9,7 +10,6 @@ data class ScheduleGroup(
     val specialityName: String?,
     val specialityAbbrev: String?,
     val course: Int?,
-    val id: Int?,
     val calendarId: String?,
     val educationDegree: Int?,
 )

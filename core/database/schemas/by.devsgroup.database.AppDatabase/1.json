@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "72683de14375aea5ac97f471c0bae6c6",
+    "identityHash": "9ef38258539911ce07a310a0b139db20",
     "entities": [
       {
         "tableName": "group",
@@ -135,11 +135,17 @@
       },
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_chief` INTEGER, `employee_id` INTEGER, `employee_urlId` TEXT, `group_tableId` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_id` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scheduleId` INTEGER NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_id` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_chief` INTEGER, `employee_urlId` TEXT, `group_tableId` INTEGER, `group_id` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
         "fields": [
           {
             "fieldPath": "tableId",
             "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scheduleId",
+            "columnName": "scheduleId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -186,6 +192,11 @@
           {
             "fieldPath": "employee.tableId",
             "columnName": "employee_tableId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "employee.id",
+            "columnName": "employee_id",
             "affinity": "INTEGER"
           },
           {
@@ -239,11 +250,6 @@
             "affinity": "INTEGER"
           },
           {
-            "fieldPath": "employee.id",
-            "columnName": "employee_id",
-            "affinity": "INTEGER"
-          },
-          {
             "fieldPath": "employee.urlId",
             "columnName": "employee_urlId",
             "affinity": "TEXT"
@@ -251,6 +257,11 @@
           {
             "fieldPath": "group.tableId",
             "columnName": "group_tableId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.id",
+            "columnName": "group_id",
             "affinity": "INTEGER"
           },
           {
@@ -294,11 +305,6 @@
             "affinity": "INTEGER"
           },
           {
-            "fieldPath": "group.id",
-            "columnName": "group_id",
-            "affinity": "INTEGER"
-          },
-          {
             "fieldPath": "group.calendarId",
             "columnName": "group_calendarId",
             "affinity": "TEXT"
@@ -314,7 +320,18 @@
           "columnNames": [
             "tableId"
           ]
-        }
+        },
+        "indices": [
+          {
+            "name": "index_schedule_scheduleId",
+            "unique": true,
+            "columnNames": [
+              "scheduleId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_schedule_scheduleId` ON `${TABLE_NAME}` (`scheduleId`)"
+          }
+        ]
       },
       {
         "tableName": "employee",
@@ -516,13 +533,18 @@
       },
       {
         "tableName": "schedule_group",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `id` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
         "fields": [
           {
             "fieldPath": "tableId",
             "columnName": "tableId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
           },
           {
             "fieldPath": "name",
@@ -565,11 +587,6 @@
             "affinity": "INTEGER"
           },
           {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER"
-          },
-          {
             "fieldPath": "calendarId",
             "columnName": "calendarId",
             "affinity": "TEXT"
@@ -589,48 +606,55 @@
       },
       {
         "tableName": "schedule_lesson_entity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT, `audiences` TEXT NOT NULL, `endLessonTime` TEXT NOT NULL, `startLessonTime` TEXT NOT NULL, `lessonTypeAbbrev` TEXT NOT NULL, `subject` TEXT NOT NULL, `subjectFullName` TEXT NOT NULL, `dateLesson` TEXT, `startLessonDate` TEXT NOT NULL, `studentGroups` INTEGER NOT NULL, `employees` INTEGER NOT NULL, `endLessonDate` TEXT NOT NULL, `announcement` TEXT NOT NULL, `split` INTEGER NOT NULL, `dateMillis` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scheduleId` INTEGER NOT NULL, `lessonId` TEXT NOT NULL, `audiences` TEXT, `endLessonTime` TEXT, `startLessonTime` TEXT, `lessonTypeAbbrev` TEXT, `subject` TEXT, `subjectFullName` TEXT, `dateLesson` TEXT, `startLessonDate` TEXT, `endLessonDate` TEXT, `announcement` TEXT, `split` INTEGER, FOREIGN KEY(`scheduleId`) REFERENCES `schedule`(`scheduleId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "tableId",
             "columnName": "tableId",
-            "affinity": "INTEGER"
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scheduleId",
+            "columnName": "scheduleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "audiences",
             "columnName": "audiences",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "endLessonTime",
             "columnName": "endLessonTime",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "startLessonTime",
             "columnName": "startLessonTime",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "lessonTypeAbbrev",
             "columnName": "lessonTypeAbbrev",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "subject",
             "columnName": "subject",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "subjectFullName",
             "columnName": "subjectFullName",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "dateLesson",
@@ -640,44 +664,22 @@
           {
             "fieldPath": "startLessonDate",
             "columnName": "startLessonDate",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "studentGroups",
-            "columnName": "studentGroups",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "employees",
-            "columnName": "employees",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "endLessonDate",
             "columnName": "endLessonDate",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "announcement",
             "columnName": "announcement",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "split",
             "columnName": "split",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "dateMillis",
-            "columnName": "dateMillis",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "INTEGER"
           }
         ],
         "primaryKey": {
@@ -685,17 +687,65 @@
           "columnNames": [
             "tableId"
           ]
-        }
+        },
+        "indices": [
+          {
+            "name": "index_schedule_lesson_entity_scheduleId",
+            "unique": false,
+            "columnNames": [
+              "scheduleId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_schedule_lesson_entity_scheduleId` ON `${TABLE_NAME}` (`scheduleId`)"
+          },
+          {
+            "name": "index_schedule_lesson_entity_lessonId",
+            "unique": false,
+            "columnNames": [
+              "lessonId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_schedule_lesson_entity_lessonId` ON `${TABLE_NAME}` (`lessonId`)"
+          },
+          {
+            "name": "index_schedule_lesson_entity_scheduleId_lessonId",
+            "unique": true,
+            "columnNames": [
+              "scheduleId",
+              "lessonId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_schedule_lesson_entity_scheduleId_lessonId` ON `${TABLE_NAME}` (`scheduleId`, `lessonId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "schedule",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "scheduleId"
+            ],
+            "referencedColumns": [
+              "scheduleId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "schedule_employee",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `chief` INTEGER, `id` INTEGER, `urlId` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `chief` INTEGER, `urlId` TEXT)",
         "fields": [
           {
             "fieldPath": "tableId",
             "columnName": "tableId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
           },
           {
             "fieldPath": "firstName",
@@ -745,11 +795,6 @@
           {
             "fieldPath": "chief",
             "columnName": "chief",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
             "affinity": "INTEGER"
           },
           {
@@ -875,7 +920,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '72683de14375aea5ac97f471c0bae6c6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ef38258539911ce07a310a0b139db20')"
     ]
   }
 }

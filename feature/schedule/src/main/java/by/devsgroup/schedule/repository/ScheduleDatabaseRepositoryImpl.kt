@@ -5,11 +5,13 @@ import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonDao
 import by.devsgroup.database.schedule.entity.ScheduleDayEntity
 import by.devsgroup.domain.model.schedule.full.FullSchedule
+import by.devsgroup.domain.model.schedule.preview.PreviewSchedule
 import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.resource.Resource
 import by.devsgroup.schedule.mapper.ScheduleLessonTemplateToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleToEntityMapper
 import by.devsgroup.schedule.mapper.context.ScheduleLessonContext
+import by.devsgroup.schedule.mapper.entityToDomain.ScheduleEntityToDomainMapper
 import by.devsgroup.schedule.mapper.entityToDomain.ScheduleWithDaysEntityToDomainMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,11 +23,21 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
     private val scheduleDayDao: ScheduleDayDao,
     private val scheduleLessonDao: ScheduleLessonDao,
     private val scheduleToEntityMapper: ScheduleToEntityMapper,
+    private val scheduleEntityToDomainMapper: ScheduleEntityToDomainMapper,
     private val scheduleWithDaysEntityToDomainMapper: ScheduleWithDaysEntityToDomainMapper,
     private val scheduleLessonTemplateToEntityMapper: ScheduleLessonTemplateToEntityMapper,
 ): ScheduleDatabaseRepository {
 
-    override suspend fun getScheduleById(id: Long): Resource<FullSchedule?> {
+    override suspend fun getScheduleById(id: Long): Resource<PreviewSchedule?> {
+        return Resource.tryWithSuspend {
+            val schedule = withContext(Dispatchers.IO) { scheduleDao.getSchedule(id) }
+                ?: throw Exception("not found")
+
+            scheduleEntityToDomainMapper.map(schedule)
+        }
+    }
+
+    override suspend fun getFullScheduleById(id: Long): Resource<FullSchedule?> {
         return Resource.tryWithSuspend {
             val schedule = withContext(Dispatchers.IO) { scheduleDao.getFullSchedule(id) }
                 ?: throw Exception("not found")

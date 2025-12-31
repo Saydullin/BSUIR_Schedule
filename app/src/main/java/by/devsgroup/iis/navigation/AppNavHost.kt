@@ -33,18 +33,18 @@ fun AppNavHost(
 
     Scaffold(
         topBar = {
-            TopNavigationBar(
-                navController = navController,
-                drawerState = drawerState
-            )
+//            TopNavigationBar(
+//                navController = navController,
+//                drawerState = drawerState
+//            )
         },
         bottomBar = {
-            BottomNavigationBar(navController)
+//            BottomNavigationBar(navController)
         }
     ) { paddingValues ->
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.surfaceContainer)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
         ) {
             NavHost(

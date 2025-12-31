@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.devsgroup.database.schedule.entity.ScheduleDayEntity
+import by.devsgroup.database.schedule.relation.DaysWithLessons
 
 @Dao
 interface ScheduleDayDao {
@@ -21,7 +22,7 @@ interface ScheduleDayDao {
         scheduleId: Long,
         limit: Int,
         offset: Int,
-    ): List<ScheduleDayEntity>
+    ): List<DaysWithLessons>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(day: ScheduleDayEntity): Long

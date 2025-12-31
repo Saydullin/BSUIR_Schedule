@@ -13,6 +13,10 @@ interface ScheduleDao {
 
     @Transaction
     @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
+    fun getSchedule(scheduleId: Long): ScheduleEntity?
+
+    @Transaction
+    @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
     fun getFullSchedule(scheduleId: Long): ScheduleWithDays?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

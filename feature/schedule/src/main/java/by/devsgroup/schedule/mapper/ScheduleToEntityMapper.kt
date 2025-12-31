@@ -11,7 +11,7 @@ class ScheduleToEntityMapper @Inject constructor(
 ): Mapper<FullSchedule, ScheduleEntity> {
 
     override fun map(from: FullSchedule): ScheduleEntity {
-        val scheduleId = from.employeeDto?.id ?: from.studentGroupDto?.id ?: 0
+        val scheduleId = from.employee?.id ?: from.group?.id ?: 0
 
         return ScheduleEntity(
             scheduleId = scheduleId,
@@ -23,8 +23,8 @@ class ScheduleToEntityMapper @Inject constructor(
             nextTerm = from.nextTerm,
             currentPeriod = from.currentPeriod,
             partTimeOrRemote = from.partTimeOrRemote,
-            employee = from.employeeDto?.let { scheduleEmployeeToEntityMapper.map(it) },
-            group = from.studentGroupDto?.let { scheduleGroupToEntityMapper.map(it) },
+            employee = from.employee?.let { scheduleEmployeeToEntityMapper.map(it) },
+            group = from.group?.let { scheduleGroupToEntityMapper.map(it) },
         )
     }
 

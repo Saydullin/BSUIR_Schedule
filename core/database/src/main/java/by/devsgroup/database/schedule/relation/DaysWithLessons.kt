@@ -15,3 +15,5 @@ data class DaysWithLessons(
     )
     val lessons: List<ScheduleLessonEntity>
 )
+
+

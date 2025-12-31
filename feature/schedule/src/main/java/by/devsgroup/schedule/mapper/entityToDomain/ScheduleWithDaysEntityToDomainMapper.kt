@@ -17,8 +17,8 @@ class ScheduleWithDaysEntityToDomainMapper @Inject constructor(
             endDate = from.schedule.endDate,
             startExamsDate = from.schedule.startExamsDate,
             endExamsDate = from.schedule.endExamsDate,
-            employeeDto = from.schedule.employee?.let { scheduleEmployeeEntityToDomainMapper.map(it) },
-            studentGroupDto = from.schedule.group?.let { scheduleGroupEntityToDomainMapper.map(it) },
+            employee = from.schedule.employee?.let { scheduleEmployeeEntityToDomainMapper.map(it) },
+            group = from.schedule.group?.let { scheduleGroupEntityToDomainMapper.map(it) },
             schedules = from.days.map { daysWithLessonsEntityToDomainMapper.map(it) },
             nextSchedules = listOf(), // TODO
             currentTerm = from.schedule.currentTerm,

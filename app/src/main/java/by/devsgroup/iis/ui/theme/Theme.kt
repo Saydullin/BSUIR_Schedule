@@ -31,9 +31,9 @@ private val LightColorScheme = lightColorScheme(
     tertiaryContainer = Color(0xFFFFF6FF),
     onTertiaryContainer = Color(0xFF321B54),
 
-    background = Color(0xFFFFFFFF),
+    background = Color(0xFFF1F3F8),
     onBackground = Color(0xFF111216),
-    surface = Color(0xFFF6F7FB),
+    surface = Color(0xFFFFFFFF),
     onSurface = Color(0xFF111216),
     surfaceVariant = Color(0xFFE9E6EF),
     onSurfaceVariant = Color(0xFF4B4650),
@@ -52,7 +52,7 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainerLow = Color(0xFFF8F9FB),
     surfaceContainer = Color(0xFFF2F3F6),
     surfaceContainerHigh = Color(0xFFEEEFF2),
-    surfaceContainerHighest = Color(0xFFECEEF5),
+    surfaceContainerHighest = Color(0xFFFFFFFF),
     surfaceDim = Color(0xFFDDE1E9),
 
     primaryFixed = Color(0xFF2F46E0),
@@ -141,10 +141,10 @@ fun IisTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+//        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+//            val context = LocalContext.current
+//            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//        }
 
         darkTheme -> DarkColorScheme
         else -> LightColorScheme

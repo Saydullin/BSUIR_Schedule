@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
-import by.devsgroup.ui_kit.item.ListItem
+import by.devsgroup.ui_kit.item.ListItemCard
 
 @Composable
 fun EmployeesList(
@@ -27,7 +27,7 @@ fun EmployeesList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(groups.itemCount, { groups[it]?.uniqueListId ?: it }) { index ->
-            ListItem(
+            ListItemCard(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
                 onClick = {

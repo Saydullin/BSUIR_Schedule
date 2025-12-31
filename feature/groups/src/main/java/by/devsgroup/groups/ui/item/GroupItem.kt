@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import by.devsgroup.groups.ui.model.GroupUI
-import by.devsgroup.ui_kit.item.ListItem
+import by.devsgroup.ui_kit.item.ListItemCard
 
 @Composable
 fun GroupItem(
@@ -23,7 +23,7 @@ fun GroupItem(
 
     if (group.name.isNullOrBlank()) return
 
-    ListItem(
+    ListItemCard(
         modifier = Modifier
             .padding(horizontal = 16.dp),
         onClick = {

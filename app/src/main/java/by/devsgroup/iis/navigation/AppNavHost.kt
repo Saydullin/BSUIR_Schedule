@@ -1,49 +1,37 @@
 package by.devsgroup.iis.navigation
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
 import by.devsgroup.iis.screen.home.HomeScreen
 import by.devsgroup.iis.ui.component.bottomBar.BottomNavigationBar
 import by.devsgroup.iis.ui.component.topBar.TopNavigationBar
+import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
     drawerState: DrawerState,
     employeeViewModel: EmployeeViewModel,
+    scheduleViewModel: ScheduleViewModel,
     groupViewModel: GroupViewModel,
 ) {
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-
-    val topBarIncluded = listOf(
-        ScreenNav.Home.route,
-    )
-
-    val bottomBarIncluded = listOf(
-        ScreenNav.Home.route,
-    )
-
     Scaffold(
-        modifier = Modifier
-            .animateContentSize(),
         topBar = {
             TopNavigationBar(
                 navController = navController,
@@ -56,6 +44,7 @@ fun AppNavHost(
     ) { paddingValues ->
         Box(
             modifier = Modifier
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(paddingValues)
         ) {
             NavHost(
@@ -77,7 +66,9 @@ fun AppNavHost(
                 composable(
                     route = ScreenNav.Home.route
                 ) {
-                    HomeScreen()
+                    HomeScreen(
+                        scheduleViewModel = scheduleViewModel,
+                    )
                 }
                 composable(
                     route = ScreenNav.Schedule.route

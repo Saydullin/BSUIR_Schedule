@@ -20,7 +20,7 @@ import androidx.room.PrimaryKey
 data class GroupEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Long = 0,
     val id: Int?,
-    val name: String?,
+    val name: String,
     val facultyId: Int?,
     val facultyAbbrev: String?,
     val facultyName: String?,

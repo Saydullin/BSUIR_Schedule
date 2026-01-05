@@ -50,7 +50,7 @@ class GroupDatabaseRepositoryImpl @Inject constructor(
 
     override suspend fun saveGroups(groups: List<Group>): Resource<Unit> {
         return Resource.tryWithSuspend {
-            val groupsEntity = groups.map { groupToEntityMapper.map(it) }
+            val groupsEntity = groups.mapNotNull { groupToEntityMapper.map(it) }
 
             withContext(Dispatchers.IO) { groupDao.clearAndSave(groupsEntity) }
         }

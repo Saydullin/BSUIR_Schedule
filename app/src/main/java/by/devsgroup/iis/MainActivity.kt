@@ -38,6 +38,11 @@ class MainActivity : ComponentActivity() {
             val scope = rememberCoroutineScope()
 
             LaunchedEffect(Unit) {
+                groupViewModel.loadAllGroups()
+                employeeViewModel.loadAllDepartmentsAndEmployees()
+            }
+
+            LaunchedEffect(Unit) {
                 scheduleViewModel.scheduleLoaded.collect {
                     if (it != null) {
                         previewScheduleViewModel.getAllSchedules()

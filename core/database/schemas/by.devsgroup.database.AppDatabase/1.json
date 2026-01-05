@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1e8b1efe5766404bd0d294de7ff84e59",
+    "identityHash": "d5eb3fa585d63f90314a53663c165ca4",
     "entities": [
       {
         "tableName": "group",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT NOT NULL, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -22,7 +22,8 @@
           {
             "fieldPath": "name",
             "columnName": "name",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "facultyId",
@@ -1030,7 +1031,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1e8b1efe5766404bd0d294de7ff84e59')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd5eb3fa585d63f90314a53663c165ca4')"
     ]
   }
 }

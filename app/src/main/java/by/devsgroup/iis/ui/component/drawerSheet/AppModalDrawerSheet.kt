@@ -20,6 +20,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import by.devsgroup.iis.R
 import by.devsgroup.iis.navController.navigateFinal
+import by.devsgroup.iis.navController.navigatePopUp
+import by.devsgroup.iis.navController.navigateUntil
 import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.schedule.ext.fullName
 import by.devsgroup.schedule.ui.model.PreviewScheduleType
@@ -59,53 +61,55 @@ fun AppModalDrawerSheet(
             text = "Расписание БГУИР",
             style = MaterialTheme.typography.titleSmall,
         )
-        HorizontalDivider(
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-        )
-        schedules.forEach { schedule ->
-            NavigationDrawerItem(
+        if (schedules.isNotEmpty()) {
+            HorizontalDivider(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp),
-                label = {
-                    when(schedule) {
-                        is PreviewScheduleType.Employee -> {
-                            Text(
-                                text = schedule.fullName(),
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
-                        is PreviewScheduleType.Group -> {
-                            Text(
-                                text = schedule.name,
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
-                    }
-                },
-                icon = {
-                    when(schedule) {
-                        is PreviewScheduleType.Employee -> {
-                            AsyncImage(
-                                model = schedule.image,
-                                contentDescription = null
-                            )
-                        }
-                        is PreviewScheduleType.Group -> {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_group),
-                                contentDescription = null
-                            )
-                        }
-                    }
-                },
-                selected = false,
-                onClick = {
-                    onClose()
-                    onSelectedScheduleId(schedule.scheduleId)
-                    navController.navigateFinal(ScreenNav.Home.route)
-                }
+                    .padding(vertical = 8.dp)
             )
+            schedules.forEach { schedule ->
+                NavigationDrawerItem(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    label = {
+                        when(schedule) {
+                            is PreviewScheduleType.Employee -> {
+                                Text(
+                                    text = schedule.fullName(),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                            is PreviewScheduleType.Group -> {
+                                Text(
+                                    text = schedule.name,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                        }
+                    },
+                    icon = {
+                        when(schedule) {
+                            is PreviewScheduleType.Employee -> {
+                                AsyncImage(
+                                    model = schedule.image,
+                                    contentDescription = null
+                                )
+                            }
+                            is PreviewScheduleType.Group -> {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_group),
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                    },
+                    selected = false,
+                    onClick = {
+                        onClose()
+                        onSelectedScheduleId(schedule.scheduleId)
+                        navController.navigateFinal(ScreenNav.Home.route)
+                    }
+                )
+            }
         }
         HorizontalDivider(
             modifier = Modifier
@@ -129,7 +133,7 @@ fun AppModalDrawerSheet(
             selected = false,
             onClick = {
                 onClose()
-                navController.navigateFinal(ScreenNav.AllGroupsAndEmployees.route)
+                navController.navigateUntil(ScreenNav.AllGroupsAndEmployees.route)
             }
         )
         NavigationDrawerItem(

@@ -28,23 +28,19 @@ class GroupViewModel @Inject constructor(
     private val groupEntityToUiMapper: GroupEntityToUiMapper,
 ): ViewModel() {
 
-    init {
-        loadAllGroups()
-    }
-
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
 
-    private val trigger = MutableSharedFlow<Unit>()
+    private val trigger = MutableSharedFlow<Unit>(replay = 1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val groupsPagingFlow: Flow<PagingData<GroupUI>> =
         trigger.flatMapLatest {
                 Pager(
                     config = PagingConfig(
-                        pageSize = 15,
+                        pageSize = 10,
                         initialLoadSize = 20,
-                        enablePlaceholders = true
+                        enablePlaceholders = false
                     ),
                     pagingSourceFactory = {
                         GroupPagingSource(

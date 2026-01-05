@@ -17,23 +17,24 @@ class GroupPagingSource(
         params: LoadParams<Int>
     ): LoadResult<Int, GroupUI> {
         return try {
-            val page = params.key ?: 0
-            val pageSize = params.loadSize
-            val offset = page * pageSize
+            val offset = params.key ?: 0
+            val limit = params.loadSize
+
+            println("GroupPagingSource limit = $limit, offset = $offset")
 
             val data = withContext(Dispatchers.IO) {
                 dao.getPagingGroups(
-                    limit = pageSize,
+                    limit = limit,
                     offset = offset
                 )
             }
 
-            val groups = data.map { groupEntityToUiMapper.map(it) }
+            val groups = data.map(groupEntityToUiMapper::map)
 
             LoadResult.Page(
                 data = groups,
-                prevKey = if (page == 0) null else page - 1,
-                nextKey = if (data.size < pageSize) null else page + 1
+                prevKey = if (offset == 0) null else maxOf(0, offset - limit),
+                nextKey = if (data.size < limit) null else offset + data.size
             )
         } catch (e: Exception) {
             e.printStackTrace()
@@ -45,9 +46,12 @@ class GroupPagingSource(
         state: PagingState<Int, GroupUI>
     ): Int? {
         val anchor = state.anchorPosition ?: return null
-        val page = state.closestPageToPosition(anchor)
+        val page = state.closestPageToPosition(anchor) ?: return null
 
-        return page?.prevKey?.plus(1)
-            ?: page?.nextKey?.minus(1)
+        return page.prevKey?.plus(state.config.pageSize)
+            ?: page.nextKey?.minus(state.config.pageSize)
     }
+
 }
+
+

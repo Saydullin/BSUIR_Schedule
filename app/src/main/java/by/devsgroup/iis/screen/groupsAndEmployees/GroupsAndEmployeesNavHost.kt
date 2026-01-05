@@ -4,6 +4,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,11 +13,14 @@ import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.iis.screen.employees.EmployeesScreen
 import by.devsgroup.iis.screen.groups.GroupsScreen
+import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
 fun GroupsAndEmployeesNavHost(
+    scheduleViewModel: ScheduleViewModel,
     employeeViewModel: EmployeeViewModel,
     groupViewModel: GroupViewModel,
+    mainNavController: NavController,
     navController: NavHostController,
 ) {
 
@@ -40,7 +44,9 @@ fun GroupsAndEmployeesNavHost(
             route = ScreenNav.AllGroups.route
         ) {
             GroupsScreen(
+                navController = mainNavController,
                 groupViewModel = groupViewModel,
+                scheduleViewModel = scheduleViewModel,
             )
         }
         composable(

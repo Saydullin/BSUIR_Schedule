@@ -18,8 +18,6 @@ import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
 import by.devsgroup.iis.screen.home.HomeScreen
-import by.devsgroup.iis.ui.component.bottomBar.BottomNavigationBar
-import by.devsgroup.iis.ui.component.topBar.TopNavigationBar
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
@@ -74,7 +72,9 @@ fun AppNavHost(
                     route = ScreenNav.Schedule.route
                 ) {
                     GroupsAndEmployeesScreen(
+                        scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
+                        mainNavController = navController,
                         groupViewModel = groupViewModel,
                     )
                 }
@@ -82,7 +82,9 @@ fun AppNavHost(
                     route = ScreenNav.Exams.route
                 ) {
                     GroupsAndEmployeesScreen(
+                        scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
+                        mainNavController = navController,
                         groupViewModel = groupViewModel,
                     )
                 }
@@ -90,7 +92,9 @@ fun AppNavHost(
                     route = ScreenNav.AllGroupsAndEmployees.route
                 ) {
                     GroupsAndEmployeesScreen(
+                        scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
+                        mainNavController = navController,
                         groupViewModel = groupViewModel,
                     )
                 }

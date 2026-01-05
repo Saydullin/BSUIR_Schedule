@@ -37,6 +37,9 @@ class ScheduleViewModel @Inject constructor(
     private val _currentSchedule = MutableStateFlow<FullSchedule?>(null)
     val currentSchedule: StateFlow<FullSchedule?> = _currentSchedule
 
+    private val _scheduleLoaded = MutableSharedFlow<Unit?>()
+    val scheduleLoaded: SharedFlow<Unit?> = _scheduleLoaded
+
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
 
@@ -64,9 +67,12 @@ class ScheduleViewModel @Inject constructor(
                 ).flow
             }.cachedIn(viewModelScope)
 
-    fun loadSchedule() {
+    fun loadGroupSchedule(groupName: String) {
         viewModelScope.launch {
-            getAndSaveGroupScheduleUseCase.execute("253505")
+            getAndSaveGroupScheduleUseCase.execute(groupName)
+                .onSuspendError { _error.emit(it) } ?: return@launch
+
+            _scheduleLoaded.emit(Unit)
         }
     }
 

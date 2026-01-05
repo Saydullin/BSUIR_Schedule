@@ -1,7 +1,6 @@
 package by.devsgroup.iis.ui.component.drawerSheet
 
 import android.annotation.SuppressLint
-import android.provider.Settings
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
@@ -19,7 +18,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import by.devsgroup.iis.R
+import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.schedule.ext.fullName
 import by.devsgroup.schedule.ui.model.PreviewScheduleType
 import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
@@ -28,7 +29,10 @@ import coil.compose.AsyncImage
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun AppModalDrawerSheet(
-    previewScheduleViewModel: PreviewScheduleViewModel
+    navController: NavController,
+    onClose: () -> Unit,
+    onSelectedScheduleId: (Long) -> Unit,
+    previewScheduleViewModel: PreviewScheduleViewModel,
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
@@ -37,12 +41,6 @@ fun AppModalDrawerSheet(
     val drawerWidth = remember(screenWidthDp) {
         minOf(screenWidthDp * 0.8f, 400.dp)
     }
-
-    @SuppressLint("HardwareIds")
-    val androidId = Settings.Secure.getString(
-        context.contentResolver,
-        Settings.Secure.ANDROID_ID
-    )
 
     val previewSchedules = previewScheduleViewModel.previewSchedules.collectAsStateWithLifecycle()
 
@@ -59,7 +57,7 @@ fun AppModalDrawerSheet(
         Text(
             modifier = Modifier
                 .padding(16.dp),
-            text = "Расписание БГУИР ($androidId)",
+            text = "Расписание БГУИР",
             style = MaterialTheme.typography.titleSmall,
         )
         HorizontalDivider(
@@ -103,7 +101,9 @@ fun AppModalDrawerSheet(
                     }
                 },
                 selected = false,
-                onClick = { false }
+                onClick = {
+                    onSelectedScheduleId(schedule.scheduleId)
+                }
             )
         }
         HorizontalDivider(
@@ -126,7 +126,10 @@ fun AppModalDrawerSheet(
                 )
             },
             selected = false,
-            onClick = { false }
+            onClick = {
+                onClose()
+                navController.navigate(ScreenNav.AllGroupsAndEmployees.route)
+            }
         )
         NavigationDrawerItem(
             modifier = Modifier

@@ -17,7 +17,8 @@ import by.devsgroup.ui_kit.item.ListItemCard
 
 @Composable
 fun GroupItem(
-    group: GroupUI
+    group: GroupUI,
+    onClick: () -> Unit,
 ) {
     val course = if (group.course != null) "${group.course} курс" else ""
 
@@ -26,9 +27,7 @@ fun GroupItem(
     ListItemCard(
         modifier = Modifier
             .padding(horizontal = 16.dp),
-        onClick = {
-
-        }
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier

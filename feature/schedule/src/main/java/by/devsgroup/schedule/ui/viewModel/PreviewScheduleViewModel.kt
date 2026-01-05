@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import by.devsgroup.domain.model.schedule.common.ScheduleType
 import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.resource.Resource
+import by.devsgroup.schedule.ext.getScheduleId
 import by.devsgroup.schedule.ext.getScheduleType
 import by.devsgroup.schedule.ui.model.PreviewScheduleType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,21 +37,28 @@ class PreviewScheduleViewModel @Inject constructor(
 
                 when (type) {
                     ScheduleType.GROUP -> {
+                        val id = schedule.getScheduleId()
                         val name = schedule.group?.name
-                        name?.let {
+
+                        if (!name.isNullOrEmpty() && id != null) {
                             PreviewScheduleType.Group(
-                                name = it
+                                id = id,
+                                name = name
                             )
+                        } else {
+                            null
                         }
                     }
 
                     ScheduleType.EMPLOYEE -> {
+                        val id = schedule.getScheduleId()
                         val firstName = schedule.employee?.firstName
                         val middleName = schedule.employee?.middleName
                         val lastName = schedule.employee?.lastName
 
-                        if (!firstName.isNullOrEmpty() && !middleName.isNullOrEmpty() && !lastName.isNullOrEmpty()) {
+                        if (id != null && !firstName.isNullOrEmpty() && !middleName.isNullOrEmpty() && !lastName.isNullOrEmpty()) {
                             PreviewScheduleType.Employee(
+                                id = id,
                                 firstName = firstName,
                                 middleName = middleName,
                                 lastName = lastName,

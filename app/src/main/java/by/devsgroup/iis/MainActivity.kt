@@ -5,11 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
@@ -19,6 +19,7 @@ import by.devsgroup.iis.ui.theme.IisTheme
 import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -34,20 +35,34 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+            val scope = rememberCoroutineScope()
+
+            LaunchedEffect(Unit) {
+                scheduleViewModel.scheduleLoaded.collect {
+                    if (it != null) {
+                        previewScheduleViewModel.getAllSchedules()
+                    }
+                }
+            }
 
             IisTheme {
                 ModalNavigationDrawer(
-                    modifier = Modifier.combinedClickable(
-                        onClick = {
-                            scheduleViewModel.loadSchedule()
-                        },
-                        onLongClick = {
-                            scheduleViewModel.getSchedule()
-                        }
-                    ),
                     drawerState = drawerState,
                     drawerContent = {
                         AppModalDrawerSheet(
+                            navController = navController,
+                            onClose = {
+                                scope.launch {
+                                    drawerState.close()
+                                }
+                            },
+                            onSelectedScheduleId = { scheduleId ->
+                                scope.launch {
+                                    drawerState.close()
+                                }
+
+                                scheduleViewModel.setCurrentScheduleId(scheduleId)
+                            },
                             previewScheduleViewModel = previewScheduleViewModel
                         )
                     }

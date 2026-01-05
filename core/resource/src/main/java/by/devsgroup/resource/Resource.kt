@@ -35,6 +35,7 @@ sealed class Resource<T>(
                 e.printStackTrace()
                 Error(e.e, e.status, e.description)
             } catch (e: Exception) {
+                e.printStackTrace()
                 Error(e)
             }
         }
@@ -47,6 +48,7 @@ sealed class Resource<T>(
                 e.printStackTrace()
                 Error(e.e, e.status, e.description)
             } catch (e: Exception) {
+                e.printStackTrace()
                 Error(e, statusType)
             }
         }
@@ -56,7 +58,7 @@ sealed class Resource<T>(
     @SuppressWarnings
     fun interruptWith(
         e: Throwable? = null,
-        status: String = StatusType.Companion.UNKNOWN_ERROR,
+        status: String = StatusType.UNKNOWN_ERROR,
         description: String = "null",
     ) {
         throw ResourceErrorException(e, status, description)

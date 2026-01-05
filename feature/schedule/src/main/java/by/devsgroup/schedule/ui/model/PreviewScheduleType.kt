@@ -1,16 +1,24 @@
 package by.devsgroup.schedule.ui.model
 
-sealed class PreviewScheduleType() {
+sealed class PreviewScheduleType(
+    val scheduleId: Long,
+) {
 
     class Group(
+        val id: Long,
         val name: String
-    ): PreviewScheduleType()
+    ): PreviewScheduleType(
+        scheduleId = id
+    )
 
     class Employee(
+        val id: Long,
         val firstName: String,
         val middleName: String,
         val lastName: String,
         val image: String?,
-    ): PreviewScheduleType()
+    ): PreviewScheduleType(
+        scheduleId = id
+    )
 
 }

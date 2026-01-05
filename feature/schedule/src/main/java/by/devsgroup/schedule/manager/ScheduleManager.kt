@@ -92,22 +92,28 @@ class ScheduleManager(
         val today = LocalDate.now()
         val result = mutableListOf<FullScheduleDay>()
 
-        var currentDate = if (today.isAfter(startDate)) today else startDate
+        var currentDate = startDate
 
         while (!currentDate.isAfter(endDate)) {
-            val weeksSinceStart = ChronoUnit.WEEKS.between(startDate, currentDate).toInt()
-            val weekNumber = ((currentWeek - 1 + weeksSinceStart) % 4) + 1
+
+            val weekOffset = ChronoUnit.WEEKS.between(today, currentDate).toInt()
+
+            val weekNumber = ((currentWeek - 1 + weekOffset) % 4 + 4) % 4 + 1
 
             val dayOfWeek = currentDate.dayOfWeek
+
             if (dayOfWeek != DayOfWeek.SUNDAY) {
+
                 val dayLessons = lessons.filter { lesson ->
-                    lesson.dayOfWeek == dayOfWeek && lesson.weekNumber.contains(weekNumber)
+                    lesson.dayOfWeek == dayOfWeek &&
+                            lesson.weekNumber.contains(weekNumber)
                 }
 
                 result.add(
                     FullScheduleDay(
                         lessons = dayLessons.ifEmpty { emptyList() },
-                        date = currentDate.atStartOfDay(ZoneId.systemDefault())
+                        date = currentDate
+                            .atStartOfDay(ZoneId.systemDefault())
                             .toInstant()
                             .toEpochMilli(),
                         week = weekNumber

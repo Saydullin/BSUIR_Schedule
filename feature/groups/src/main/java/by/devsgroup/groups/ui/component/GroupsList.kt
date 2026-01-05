@@ -9,11 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import by.devsgroup.groups.ui.item.GroupItem
+import by.devsgroup.groups.ui.model.GroupUI
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 
 @Composable
 fun GroupsList(
     groupViewModel: GroupViewModel,
+    onClick: (GroupUI) -> Unit,
 ) {
     val groups = groupViewModel.groupsPagingFlow.collectAsLazyPagingItems()
 
@@ -28,7 +30,10 @@ fun GroupsList(
 
             if (group != null && !group.name.isNullOrBlank()) {
                 GroupItem(
-                    group = group
+                    group = group,
+                    onClick = {
+                        onClick(group)
+                    },
                 )
             }
         }

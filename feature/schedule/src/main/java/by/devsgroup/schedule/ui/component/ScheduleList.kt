@@ -38,7 +38,8 @@ fun ScheduleList(
     }
 
     val schedule = currentSchedule.value
-    val scheduleDays = schedule?.schedules
+//    val scheduleDays = schedule?.schedules
+    val scheduleDays = schedule?.exams
 
     if (scheduleDays.isNullOrEmpty()) {
         Text(

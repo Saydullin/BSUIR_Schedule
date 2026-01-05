@@ -57,10 +57,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                             onSelectedScheduleId = { scheduleId ->
-                                scope.launch {
-                                    drawerState.close()
-                                }
-
                                 scheduleViewModel.setCurrentScheduleId(scheduleId)
                             },
                             previewScheduleViewModel = previewScheduleViewModel

@@ -25,14 +25,14 @@ class GetAndSaveAllEmployeesUseCase @Inject constructor(
             employees.map { employee ->
                 val employeeId = UUID.randomUUID().toString()
 
+                employeesDatabaseRepository.saveEmployeeWithId(employeeId, employee)
+
                 employee.academicDepartment?.map { departmentAbbrev ->
                     val department = departmentsDatabaseRepository.getByAbbrev(departmentAbbrev)
                         .getOrNull() ?: return@map
 
                     employeeDepartmentsDatabaseRepository.save(employeeId, department)
                 }
-
-                employeesDatabaseRepository.saveEmployeeWithId(employeeId, employee)
             }
         }
     }

@@ -18,6 +18,7 @@ import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
 import by.devsgroup.iis.screen.home.HomeScreen
+import by.devsgroup.iis.ui.component.topBar.TopNavigationBar
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
@@ -31,10 +32,10 @@ fun AppNavHost(
 
     Scaffold(
         topBar = {
-//            TopNavigationBar(
-//                navController = navController,
-//                drawerState = drawerState
-//            )
+            TopNavigationBar(
+                navController = navController,
+                drawerState = drawerState
+            )
         },
         bottomBar = {
 //            BottomNavigationBar(navController)
@@ -49,16 +50,16 @@ fun AppNavHost(
                 navController = navController,
                 startDestination = ScreenNav.Home.route,
                 enterTransition = {
-                    fadeIn(animationSpec = tween(200))
+                    fadeIn(animationSpec = tween(300))
                 },
                 exitTransition = {
-                    fadeOut(animationSpec = tween(200))
+                    fadeOut(animationSpec = tween(300))
                 },
                 popEnterTransition = {
-                    fadeIn(animationSpec = tween(200))
+                    fadeIn(animationSpec = tween(300))
                 },
                 popExitTransition = {
-                    fadeOut(animationSpec = tween(200))
+                    fadeOut(animationSpec = tween(300))
                 }
             ) {
                 composable(

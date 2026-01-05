@@ -14,12 +14,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import by.devsgroup.iis.R
+import by.devsgroup.iis.navController.navigateFinal
 import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.schedule.ext.fullName
 import by.devsgroup.schedule.ui.model.PreviewScheduleType
@@ -34,7 +34,6 @@ fun AppModalDrawerSheet(
     onSelectedScheduleId: (Long) -> Unit,
     previewScheduleViewModel: PreviewScheduleViewModel,
 ) {
-    val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val screenWidthDp = configuration.screenWidthDp.dp
 
@@ -56,7 +55,7 @@ fun AppModalDrawerSheet(
     ) {
         Text(
             modifier = Modifier
-                .padding(16.dp),
+                .padding(vertical = 16.dp, horizontal = 32.dp),
             text = "Расписание БГУИР",
             style = MaterialTheme.typography.titleSmall,
         )
@@ -102,7 +101,9 @@ fun AppModalDrawerSheet(
                 },
                 selected = false,
                 onClick = {
+                    onClose()
                     onSelectedScheduleId(schedule.scheduleId)
+                    navController.navigateFinal(ScreenNav.Home.route)
                 }
             )
         }
@@ -128,7 +129,7 @@ fun AppModalDrawerSheet(
             selected = false,
             onClick = {
                 onClose()
-                navController.navigate(ScreenNav.AllGroupsAndEmployees.route)
+                navController.navigateFinal(ScreenNav.AllGroupsAndEmployees.route)
             }
         )
         NavigationDrawerItem(

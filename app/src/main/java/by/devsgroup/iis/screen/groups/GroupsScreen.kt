@@ -1,5 +1,11 @@
 package by.devsgroup.iis.screen.groups
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,6 +20,7 @@ import by.devsgroup.iis.navController.navigateFinal
 import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 import by.devsgroup.ui_kit.dialog.DialogModal
+import kotlinx.coroutines.delay
 
 @Composable
 fun GroupsScreen(
@@ -21,12 +28,18 @@ fun GroupsScreen(
     groupViewModel: GroupViewModel,
     scheduleViewModel: ScheduleViewModel,
 ) {
+    var groupsVisible by remember { mutableStateOf(false) }
     var selectedGroup by remember { mutableStateOf<GroupUI?>(null) }
 
     LaunchedEffect(Unit) {
         scheduleViewModel.scheduleLoaded.collect {
             navController.navigateFinal(ScreenNav.Home.route)
         }
+    }
+
+    LaunchedEffect(Unit) {
+        delay(100)
+        groupsVisible = true
     }
 
     selectedGroup?.let { group ->
@@ -46,14 +59,26 @@ fun GroupsScreen(
         )
     }
 
-    GroupsList(
-        groupViewModel = groupViewModel,
-        onClick = { group ->
-            group.name?.let { groupName ->
-                selectedGroup = group
+    AnimatedVisibility(
+        visible = groupsVisible,
+        enter = slideInVertically(
+            initialOffsetY = { -40 },
+            animationSpec = tween(durationMillis = 300)
+        ) + fadeIn(animationSpec = tween(durationMillis = 300)),
+        exit = slideOutVertically(
+            targetOffsetY = { -40 },
+            animationSpec = tween(durationMillis = 300)
+        ) + fadeOut(animationSpec = tween(durationMillis = 300))
+    ) {
+        GroupsList(
+            groupViewModel = groupViewModel,
+            onClick = { group ->
+                group.name?.let { groupName ->
+                    selectedGroup = group
+                }
             }
-        }
-    )
+        )
+    }
 
 }
 

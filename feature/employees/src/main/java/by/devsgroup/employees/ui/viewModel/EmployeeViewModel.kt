@@ -14,9 +14,11 @@ import by.devsgroup.employees.usecase.GetAndSaveAllEmployeesUseCase
 import by.devsgroup.resource.Resource
 import com.saydullin.departments.usecase.GetAndSaveAllDepartmentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,19 +37,25 @@ class EmployeeViewModel @Inject constructor(
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
 
-    val employeesPagingFlow: Flow<PagingData<EmployeeUI>> = Pager(
-        config = PagingConfig(
-            pageSize = 20,
-            initialLoadSize = 40,
-            enablePlaceholders = true
-        ),
-        pagingSourceFactory = {
-            EmployeePagingSource(
-                dao = employeeDao,
-                employeeWithDepartmentsEntityToUiMapper = employeeWithDepartmentsEntityToUiMapper,
-            )
-        }
-    ).flow.cachedIn(viewModelScope)
+    private val trigger = MutableSharedFlow<Unit>()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val employeesPagingFlow: Flow<PagingData<EmployeeUI>> =
+        trigger.flatMapLatest {
+            Pager(
+                config = PagingConfig(
+                    pageSize = 15,
+                    initialLoadSize = 20,
+                    enablePlaceholders = true
+                ),
+                pagingSourceFactory = {
+                    EmployeePagingSource(
+                        dao = employeeDao,
+                        employeeWithDepartmentsEntityToUiMapper = employeeWithDepartmentsEntityToUiMapper,
+                    )
+                }
+            ).flow
+        }.cachedIn(viewModelScope)
 
     fun loadAllDepartmentsAndEmployees() {
         viewModelScope.launch {
@@ -56,6 +64,8 @@ class EmployeeViewModel @Inject constructor(
 
             getAndSaveAllEmployeesUseCase.execute()
                 .onSuspendError { _error.emit(it) } ?: return@launch
+
+            trigger.emit(Unit)
         }
     }
 

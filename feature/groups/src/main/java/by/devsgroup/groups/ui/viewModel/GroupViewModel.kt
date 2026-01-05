@@ -16,9 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,12 +39,11 @@ class GroupViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val groupsPagingFlow: Flow<PagingData<GroupUI>> =
-        trigger.filterNotNull()
-            .flatMapLatest {
+        trigger.flatMapLatest {
                 Pager(
                     config = PagingConfig(
-                        pageSize = 20,
-                        initialLoadSize = 40,
+                        pageSize = 15,
+                        initialLoadSize = 20,
                         enablePlaceholders = true
                     ),
                     pagingSourceFactory = {

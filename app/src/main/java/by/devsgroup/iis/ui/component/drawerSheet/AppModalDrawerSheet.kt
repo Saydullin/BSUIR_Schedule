@@ -2,7 +2,9 @@ package by.devsgroup.iis.ui.component.drawerSheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -20,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import by.devsgroup.iis.R
 import by.devsgroup.iis.navController.navigateFinal
-import by.devsgroup.iis.navController.navigatePopUp
 import by.devsgroup.iis.navController.navigateUntil
 import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.schedule.ext.fullName
@@ -90,12 +92,18 @@ fun AppModalDrawerSheet(
                         when(schedule) {
                             is PreviewScheduleType.Employee -> {
                                 AsyncImage(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .clip(RoundedCornerShape(12.dp)),
                                     model = schedule.image,
                                     contentDescription = null
                                 )
                             }
                             is PreviewScheduleType.Group -> {
                                 Icon(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .padding(4.dp),
                                     painter = painterResource(R.drawable.ic_group),
                                     contentDescription = null
                                 )

@@ -26,7 +26,7 @@ class GroupViewModel @Inject constructor(
     private val groupDao: GroupDao,
     private val getAndSaveAllGroupsUseCase: GetAndSaveAllGroupsUseCase,
     private val groupEntityToUiMapper: GroupEntityToUiMapper,
-): ViewModel() {
+) : ViewModel() {
 
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
@@ -36,20 +36,20 @@ class GroupViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val groupsPagingFlow: Flow<PagingData<GroupUI>> =
         trigger.flatMapLatest {
-                Pager(
-                    config = PagingConfig(
-                        pageSize = 10,
-                        initialLoadSize = 20,
-                        enablePlaceholders = false
-                    ),
-                    pagingSourceFactory = {
-                        GroupPagingSource(
-                            dao = groupDao,
-                            groupEntityToUiMapper = groupEntityToUiMapper,
-                        )
-                    }
-                ).flow
-            }.cachedIn(viewModelScope)
+            Pager(
+                config = PagingConfig(
+                    pageSize = 10,
+                    initialLoadSize = 20,
+                    enablePlaceholders = false
+                ),
+                pagingSourceFactory = {
+                    GroupPagingSource(
+                        dao = groupDao,
+                        groupEntityToUiMapper = groupEntityToUiMapper,
+                    )
+                }
+            ).flow
+        }.cachedIn(viewModelScope)
 
     fun loadAllGroups() {
         viewModelScope.launch {

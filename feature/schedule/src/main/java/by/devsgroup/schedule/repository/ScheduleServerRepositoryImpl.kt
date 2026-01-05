@@ -26,7 +26,14 @@ class ScheduleServerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getEmployeeSchedule(urlId: String): Resource<ScheduleTemplate> {
-        TODO("Not yet implemented")
+        println("getEmployeeSchedule $urlId")
+        return Resource.tryWithSuspend {
+            val scheduleData = withContext(Dispatchers.IO) {
+                scheduleService.getEmployeeSchedule(urlId)
+            } ?: throw Exception("Not found")
+
+            scheduleDataToDomainMapper.map(scheduleData)
+        }
     }
 
 }

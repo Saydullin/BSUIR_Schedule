@@ -1,0 +1,75 @@
+package by.devsgroup.employees.ui.item
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ListItemShapes
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SegmentedListItem
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import by.devsgroup.employees.ui.model.EmployeeUI
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun EmployeeItem(
+    employeeUI: EmployeeUI,
+    shapes: ListItemShapes,
+    onClick: () -> Unit
+) {
+
+    val departmentsText = employeeUI.departments
+        .mapNotNull { it.name }
+        .joinToString(", ")
+        .trim()
+
+    SegmentedListItem(
+        modifier = Modifier
+            .padding(horizontal = 16.dp),
+        onClick = onClick,
+        shapes = shapes,
+        supportingContent = {
+            Row(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = departmentsText,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                modifier = Modifier
+                    .weight(1f),
+                text = employeeUI.getFullName(),
+                style = MaterialTheme.typography.titleSmall
+            )
+            employeeUI.degree?.let { degree ->
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = degree,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+    }
+
+}

@@ -13,6 +13,7 @@ import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.resource.Resource
 import by.devsgroup.schedule.mapper.entityToDomain.DaysWithLessonsEntityToDomainMapper
 import by.devsgroup.schedule.paging.SchedulePagingSource
+import by.devsgroup.schedule.usecase.GetAndSaveEmployeeScheduleUseCase
 import by.devsgroup.schedule.usecase.GetAndSaveGroupScheduleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,6 +32,7 @@ class ScheduleViewModel @Inject constructor(
     private val scheduleDayDao: ScheduleDayDao,
     private val scheduleDatabaseRepository: ScheduleDatabaseRepository,
     private val getAndSaveGroupScheduleUseCase: GetAndSaveGroupScheduleUseCase,
+    private val getAndSaveEmployeeScheduleUseCase: GetAndSaveEmployeeScheduleUseCase,
     private val daysWithLessonsEntityToDomainMapper: DaysWithLessonsEntityToDomainMapper,
 ) : ViewModel() {
 
@@ -70,6 +72,15 @@ class ScheduleViewModel @Inject constructor(
     fun loadGroupSchedule(groupName: String) {
         viewModelScope.launch {
             getAndSaveGroupScheduleUseCase.execute(groupName)
+                .onSuspendError { _error.emit(it) } ?: return@launch
+
+            _scheduleLoaded.emit(Unit)
+        }
+    }
+
+    fun loadEmployeeSchedule(urlId: String) {
+        viewModelScope.launch {
+            getAndSaveEmployeeScheduleUseCase.execute(urlId)
                 .onSuspendError { _error.emit(it) } ?: return@launch
 
             _scheduleLoaded.emit(Unit)

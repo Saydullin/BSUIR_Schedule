@@ -28,7 +28,7 @@ class EmployeeViewModel @Inject constructor(
     private val getAndSaveAllDepartmentsUseCase: GetAndSaveAllDepartmentsUseCase,
     private val getAndSaveAllEmployeesUseCase: GetAndSaveAllEmployeesUseCase,
     private val employeeDao: EmployeeDao,
-): ViewModel() {
+) : ViewModel() {
 
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error

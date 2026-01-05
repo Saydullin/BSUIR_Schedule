@@ -15,4 +15,12 @@ data class EmployeeUI(
     val id: Int?,
     val urlId: String?,
     val fio: String?,
-)
+) {
+
+    fun getFullName(): String {
+        return listOfNotNull(lastName, firstName, middleName)
+            .joinToString(" ")
+            .trim()
+    }
+
+}

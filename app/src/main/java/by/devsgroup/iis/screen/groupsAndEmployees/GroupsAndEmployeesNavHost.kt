@@ -3,6 +3,8 @@ package by.devsgroup.iis.screen.groupsAndEmployees
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -28,16 +30,28 @@ fun GroupsAndEmployeesNavHost(
         navController = navController,
         startDestination = ScreenNav.AllGroups.route,
         enterTransition = {
-            fadeIn(animationSpec = tween(200))
+            slideInVertically(
+                initialOffsetY = { -40 },
+                animationSpec = tween(300)
+            ) + fadeIn(animationSpec = tween(300))
         },
         exitTransition = {
-            fadeOut(animationSpec = tween(200))
+            slideOutVertically(
+                targetOffsetY = { -40 },
+                animationSpec = tween(300)
+            ) + fadeOut(animationSpec = tween(300))
         },
         popEnterTransition = {
-            fadeIn(animationSpec = tween(200))
+            slideInVertically(
+                initialOffsetY = { -40 },
+                animationSpec = tween(300)
+            ) + fadeIn(animationSpec = tween(300))
         },
         popExitTransition = {
-            fadeOut(animationSpec = tween(200))
+            slideOutVertically(
+                targetOffsetY = { -40 },
+                animationSpec = tween(300)
+            ) + fadeOut(animationSpec = tween(300))
         }
     ) {
         composable(
@@ -54,8 +68,11 @@ fun GroupsAndEmployeesNavHost(
         ) {
             EmployeesScreen(
                 employeeViewModel = employeeViewModel,
+                scheduleViewModel = scheduleViewModel,
             )
         }
     }
 
 }
+
+

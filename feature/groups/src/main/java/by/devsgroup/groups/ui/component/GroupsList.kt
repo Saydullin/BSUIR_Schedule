@@ -31,7 +31,7 @@ fun GroupsList(
         items(groups.itemCount, { groups[it]?.uniqueListId ?: it }) { index ->
             val group = groups[index]
 
-            if (group != null && !group.name.isNullOrBlank()) {
+            if (!group?.name.isNullOrBlank()) {
                 GroupItem(
                     group = group,
                     shapes = ListItemDefaults.segmentedShapes(

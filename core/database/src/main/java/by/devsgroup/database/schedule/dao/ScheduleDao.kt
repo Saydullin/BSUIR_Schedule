@@ -11,8 +11,11 @@ import by.devsgroup.database.schedule.relation.ScheduleWithDays
 @Dao
 interface ScheduleDao {
 
+    @Query("SELECT * FROM `schedule`")
+    fun getAllSchedules(): List<ScheduleEntity>
+
     @Transaction
-    @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
+    @Query("SELECT * FROM `schedule` WHERE `scheduleId` = :scheduleId")
     fun getSchedule(scheduleId: Long): ScheduleEntity?
 
     @Transaction

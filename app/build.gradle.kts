@@ -47,6 +47,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
     implementation(project(":core:database"))
     implementation(project(":feature:faculty"))
     implementation(project(":feature:specialty"))
@@ -55,6 +56,9 @@ dependencies {
     implementation(project(":feature:employees"))
     implementation(project(":feature:schedule"))
     implementation(project(":ui-kit"))
+
+    // Coil
+    implementation(libs.coil.compose)
 
     // Dagger Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")

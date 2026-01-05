@@ -6,6 +6,8 @@ import by.devsgroup.resource.Resource
 
 interface ScheduleDatabaseRepository {
 
+    suspend fun getAllPreviewSchedules(): Resource<List<PreviewSchedule>>
+
     suspend fun getScheduleById(id: Long): Resource<PreviewSchedule?>
 
     suspend fun getFullScheduleById(id: Long): Resource<FullSchedule?>

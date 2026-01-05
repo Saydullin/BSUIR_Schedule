@@ -28,6 +28,14 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
     private val scheduleLessonTemplateToEntityMapper: ScheduleLessonTemplateToEntityMapper,
 ): ScheduleDatabaseRepository {
 
+    override suspend fun getAllPreviewSchedules(): Resource<List<PreviewSchedule>> {
+        return Resource.tryWithSuspend {
+            val scheduleList = withContext(Dispatchers.IO) { scheduleDao.getAllSchedules() }
+
+            scheduleList.map { scheduleEntityToDomainMapper.map(it) }
+        }
+    }
+
     override suspend fun getScheduleById(id: Long): Resource<PreviewSchedule?> {
         return Resource.tryWithSuspend {
             val schedule = withContext(Dispatchers.IO) { scheduleDao.getSchedule(id) }

@@ -72,6 +72,7 @@ class MainActivity : ComponentActivity() {
                         groupViewModel = groupViewModel,
                         employeeViewModel = employeeViewModel,
                         scheduleViewModel = scheduleViewModel,
+                        previewScheduleViewModel = previewScheduleViewModel,
                     )
                 }
             }

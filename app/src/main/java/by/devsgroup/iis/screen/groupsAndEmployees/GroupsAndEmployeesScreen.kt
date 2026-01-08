@@ -15,12 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.navController.navigateFinal
 import by.devsgroup.iis.navigation.ScreenNav
+import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
@@ -28,9 +29,12 @@ fun GroupsAndEmployeesScreen(
     groupViewModel: GroupViewModel,
     employeeViewModel: EmployeeViewModel,
     scheduleViewModel: ScheduleViewModel,
-    mainNavController: NavController,
+    previewScheduleViewModel: PreviewScheduleViewModel,
 ) {
     val navController = rememberNavController()
+
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
 
     val tabs = listOf(
         "Группы" to ScreenNav.AllGroups.route,
@@ -50,8 +54,10 @@ fun GroupsAndEmployeesScreen(
                 Tab(
                     selected = selectedTabIndex == index,
                     onClick = {
-                        selectedTabIndex = index
-                        navController.navigateFinal(route)
+                        if (currentRoute != route) {
+                            selectedTabIndex = index
+                            navController.navigateFinal(route)
+                        }
                     },
                     text = {
                         Text(
@@ -64,9 +70,9 @@ fun GroupsAndEmployeesScreen(
         }
 
         GroupsAndEmployeesNavHost(
+            previewScheduleViewModel = previewScheduleViewModel,
             scheduleViewModel = scheduleViewModel,
             employeeViewModel = employeeViewModel,
-            mainNavController = mainNavController,
             groupViewModel = groupViewModel,
             navController = navController,
         )

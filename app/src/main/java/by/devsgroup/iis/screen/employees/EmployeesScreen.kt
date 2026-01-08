@@ -12,9 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import by.devsgroup.employees.ui.component.EmployeesList
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
+import by.devsgroup.schedule.ui.model.PreviewScheduleType
+import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 import by.devsgroup.ui_kit.dialog.DialogModal
 import by.devsgroup.ui_kit.search.TextSearch
@@ -23,8 +26,15 @@ import by.devsgroup.ui_kit.search.TextSearch
 fun EmployeesScreen(
     employeeViewModel: EmployeeViewModel,
     scheduleViewModel: ScheduleViewModel,
+    previewScheduleViewModel: PreviewScheduleViewModel,
 ) {
     val focusManager = LocalFocusManager.current
+
+    val previewScheduleList = previewScheduleViewModel.previewSchedules.collectAsStateWithLifecycle()
+
+    val existingEmployeeUrls: List<String> = previewScheduleList.value
+        ?.filterIsInstance<PreviewScheduleType.Employee>()
+        ?.mapNotNull { it.urlId } ?: listOf()
 
     var search by remember { mutableStateOf("") }
 
@@ -69,6 +79,7 @@ fun EmployeesScreen(
         )
         EmployeesList(
             employeeViewModel = employeeViewModel,
+            existingEmployeeUrls = existingEmployeeUrls,
             onClick = {
                 selectedEmployee = it
             }

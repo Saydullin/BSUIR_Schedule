@@ -17,6 +17,7 @@ import by.devsgroup.groups.ui.viewModel.GroupViewModel
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun GroupsList(
+    existingGroupNames: List<String>,
     groupViewModel: GroupViewModel,
     onClick: (GroupUI) -> Unit,
 ) {
@@ -34,6 +35,7 @@ fun GroupsList(
             if (!group?.name.isNullOrBlank()) {
                 GroupItem(
                     group = group,
+                    downloaded = existingGroupNames.contains(group.name),
                     shapes = ListItemDefaults.segmentedShapes(
                         index = index,
                         count = groups.itemCount

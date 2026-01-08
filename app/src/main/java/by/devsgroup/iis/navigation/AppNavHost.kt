@@ -19,6 +19,7 @@ import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.screen.groupsAndEmployees.GroupsAndEmployeesScreen
 import by.devsgroup.iis.screen.home.HomeScreen
 import by.devsgroup.iis.ui.component.topBar.TopNavigationBar
+import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
@@ -28,6 +29,7 @@ fun AppNavHost(
     employeeViewModel: EmployeeViewModel,
     scheduleViewModel: ScheduleViewModel,
     groupViewModel: GroupViewModel,
+    previewScheduleViewModel: PreviewScheduleViewModel
 ) {
 
     Scaffold(
@@ -72,8 +74,8 @@ fun AppNavHost(
                     GroupsAndEmployeesScreen(
                         scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
-                        mainNavController = navController,
                         groupViewModel = groupViewModel,
+                        previewScheduleViewModel = previewScheduleViewModel,
                     )
                 }
                 composable(
@@ -82,8 +84,8 @@ fun AppNavHost(
                     GroupsAndEmployeesScreen(
                         scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
-                        mainNavController = navController,
                         groupViewModel = groupViewModel,
+                        previewScheduleViewModel = previewScheduleViewModel,
                     )
                 }
                 composable(
@@ -92,8 +94,8 @@ fun AppNavHost(
                     GroupsAndEmployeesScreen(
                         scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
-                        mainNavController = navController,
                         groupViewModel = groupViewModel,
+                        previewScheduleViewModel = previewScheduleViewModel,
                     )
                 }
             }

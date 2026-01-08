@@ -12,7 +12,8 @@ class GetAndSaveAllGroupsUseCase @Inject constructor(
 
     suspend fun execute(): Resource<Unit> {
         return Resource.tryWithSuspend {
-            val groups = groupServerRepository.getAllGroups()
+            val groups = groupServerRepository
+                .getAllGroups()
                 .getOrThrow()
 
             groupDatabaseRepository.saveGroups(groups)

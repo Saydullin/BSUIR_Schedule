@@ -15,14 +15,15 @@ import by.devsgroup.groups.ui.viewModel.GroupViewModel
 import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.iis.screen.employees.EmployeesScreen
 import by.devsgroup.iis.screen.groups.GroupsScreen
+import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
 fun GroupsAndEmployeesNavHost(
+    previewScheduleViewModel: PreviewScheduleViewModel,
     scheduleViewModel: ScheduleViewModel,
     employeeViewModel: EmployeeViewModel,
     groupViewModel: GroupViewModel,
-    mainNavController: NavController,
     navController: NavHostController,
 ) {
 
@@ -58,9 +59,9 @@ fun GroupsAndEmployeesNavHost(
             route = ScreenNav.AllGroups.route
         ) {
             GroupsScreen(
-                navController = mainNavController,
                 groupViewModel = groupViewModel,
                 scheduleViewModel = scheduleViewModel,
+                previewScheduleViewModel = previewScheduleViewModel,
             )
         }
         composable(
@@ -69,6 +70,7 @@ fun GroupsAndEmployeesNavHost(
             EmployeesScreen(
                 employeeViewModel = employeeViewModel,
                 scheduleViewModel = scheduleViewModel,
+                previewScheduleViewModel = previewScheduleViewModel,
             )
         }
     }

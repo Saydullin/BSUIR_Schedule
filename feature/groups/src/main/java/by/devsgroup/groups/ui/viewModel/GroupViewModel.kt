@@ -72,6 +72,12 @@ class GroupViewModel @Inject constructor(
         }
     }
 
+    fun updateGroupsList() {
+        viewModelScope.launch {
+            trigger.emit(Unit)
+        }
+    }
+
     fun setSearch(search: String) {
         _currentSearch.value = search
     }

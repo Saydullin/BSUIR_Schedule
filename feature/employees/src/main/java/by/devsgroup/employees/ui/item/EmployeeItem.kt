@@ -28,6 +28,7 @@ import coil.compose.AsyncImage
 @Composable
 fun EmployeeItem(
     employeeUI: EmployeeUI,
+    downloaded: Boolean,
     shapes: ListItemShapes,
     onClick: () -> Unit
 ) {
@@ -42,6 +43,15 @@ fun EmployeeItem(
             .padding(horizontal = 16.dp),
         onClick = onClick,
         shapes = shapes,
+        overlineContent = if (downloaded) {
+            {
+                Text(
+                    modifier = Modifier
+                        .padding(bottom = 8.dp),
+                    text = "загружено"
+                )
+            }
+        } else null,
         supportingContent = {
             Row(
                 modifier = Modifier

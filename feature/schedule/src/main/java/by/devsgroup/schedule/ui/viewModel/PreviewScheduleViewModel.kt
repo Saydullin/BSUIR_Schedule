@@ -55,6 +55,7 @@ class PreviewScheduleViewModel @Inject constructor(
                         val firstName = schedule.employee?.firstName
                         val middleName = schedule.employee?.middleName
                         val lastName = schedule.employee?.lastName
+                        val urlId = schedule.employee?.urlId
 
                         if (id != null && !firstName.isNullOrEmpty() && !middleName.isNullOrEmpty() && !lastName.isNullOrEmpty()) {
                             PreviewScheduleType.Employee(
@@ -62,7 +63,8 @@ class PreviewScheduleViewModel @Inject constructor(
                                 firstName = firstName,
                                 middleName = middleName,
                                 lastName = lastName,
-                                image = schedule.employee?.photoLink
+                                image = schedule.employee?.photoLink,
+                                urlId = urlId
                             )
                         } else {
                             null

@@ -13,21 +13,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import by.devsgroup.groups.ui.component.GroupsList
 import by.devsgroup.groups.ui.model.GroupUI
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
-import by.devsgroup.iis.navController.navigateFinal
-import by.devsgroup.iis.navigation.ScreenNav
+import by.devsgroup.schedule.ui.model.PreviewScheduleType
+import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 import by.devsgroup.ui_kit.dialog.DialogModal
 import by.devsgroup.ui_kit.search.TextSearch
 
 @Composable
 fun GroupsScreen(
-    navController: NavController,
     groupViewModel: GroupViewModel,
     scheduleViewModel: ScheduleViewModel,
+    previewScheduleViewModel: PreviewScheduleViewModel,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -35,9 +36,15 @@ fun GroupsScreen(
 
     var selectedGroup by remember { mutableStateOf<GroupUI?>(null) }
 
+    val previewScheduleList = previewScheduleViewModel.previewSchedules.collectAsStateWithLifecycle()
+
+    val existingGroupNames: List<String> = previewScheduleList.value
+            ?.filterIsInstance<PreviewScheduleType.Group>()
+            ?.map { it.name } ?: listOf()
+
     LaunchedEffect(Unit) {
         scheduleViewModel.scheduleLoaded.collect {
-            navController.navigateFinal(ScreenNav.Home.route)
+            groupViewModel.updateGroupsList()
         }
     }
 
@@ -81,6 +88,7 @@ fun GroupsScreen(
 
         GroupsList(
             groupViewModel = groupViewModel,
+            existingGroupNames = existingGroupNames,
             onClick = { group ->
                 group.name?.let { groupName ->
                     selectedGroup = group

@@ -17,6 +17,7 @@ import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun EmployeesList(
+    existingEmployeeUrls: List<String>,
     employeeViewModel: EmployeeViewModel,
     onClick: (EmployeeUI) -> Unit,
 ) {
@@ -34,6 +35,7 @@ fun EmployeesList(
             if (!employee?.urlId.isNullOrEmpty()) {
                 EmployeeItem(
                     employeeUI = employee,
+                    downloaded = existingEmployeeUrls.contains(employee.urlId),
                     shapes = ListItemDefaults.segmentedShapes(
                         index = index,
                         count = employees.itemCount

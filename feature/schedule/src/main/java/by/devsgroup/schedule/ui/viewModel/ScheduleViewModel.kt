@@ -9,7 +9,6 @@ import androidx.paging.cachedIn
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.domain.model.schedule.full.FullSchedule
 import by.devsgroup.domain.model.schedule.full.FullScheduleDay
-import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.resource.Resource
 import by.devsgroup.schedule.mapper.entityToDomain.DaysWithLessonsEntityToDomainMapper
 import by.devsgroup.schedule.paging.SchedulePagingSource
@@ -30,7 +29,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
     private val scheduleDayDao: ScheduleDayDao,
-    private val scheduleDatabaseRepository: ScheduleDatabaseRepository,
     private val getAndSaveGroupScheduleUseCase: GetAndSaveGroupScheduleUseCase,
     private val getAndSaveEmployeeScheduleUseCase: GetAndSaveEmployeeScheduleUseCase,
     private val daysWithLessonsEntityToDomainMapper: DaysWithLessonsEntityToDomainMapper,

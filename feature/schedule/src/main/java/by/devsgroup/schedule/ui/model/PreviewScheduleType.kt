@@ -16,6 +16,7 @@ sealed class PreviewScheduleType(
         val firstName: String,
         val middleName: String,
         val lastName: String,
+        val urlId: String?,
         val image: String?,
     ): PreviewScheduleType(
         scheduleId = id

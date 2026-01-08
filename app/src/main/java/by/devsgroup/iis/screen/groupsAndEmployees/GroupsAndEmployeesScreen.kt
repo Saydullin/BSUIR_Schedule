@@ -1,6 +1,8 @@
 package by.devsgroup.iis.screen.groupsAndEmployees
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
@@ -10,6 +12,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
@@ -36,6 +41,9 @@ fun GroupsAndEmployeesScreen(
 
     Column {
         PrimaryTabRow(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(14.dp, 14.dp, 4.dp, 4.dp)),
             selectedTabIndex = selectedTabIndex,
         ) {
             tabs.forEachIndexed { index, (title, route) ->

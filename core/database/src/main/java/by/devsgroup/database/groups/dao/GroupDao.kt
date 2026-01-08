@@ -13,8 +13,12 @@ interface GroupDao {
     @Query("SELECT * FROM `group` ORDER BY name ASC")
     fun getAllGroups(): List<GroupEntity>
 
-    @Query("SELECT * FROM `group` ORDER BY name ASC LIMIT :limit OFFSET :offset")
-    fun getPagingGroups(limit: Int, offset: Int): List<GroupEntity>
+    @Query("SELECT * FROM `group` WHERE name LIKE :searchLike ORDER BY name ASC LIMIT :limit OFFSET :offset")
+    fun getPagingGroups(
+        searchLike: String,
+        limit: Int,
+        offset: Int
+    ): List<GroupEntity>
 
     @Query("SELECT * FROM `group` WHERE id = :id")
     fun getById(id: Int): GroupEntity?

@@ -34,7 +34,6 @@ fun ScheduleList(
     }
 
     val schedule = currentSchedule.value
-    val scheduleDays = schedule?.schedules
 
     if (scheduleDaysPaging.itemCount == 0) {
         Text(

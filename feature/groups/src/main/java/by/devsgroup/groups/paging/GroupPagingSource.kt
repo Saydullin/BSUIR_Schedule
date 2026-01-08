@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 
 class GroupPagingSource(
     private val dao: GroupDao,
+    private val search: String,
     private val groupEntityToUiMapper: GroupEntityToUiMapper,
 ) : PagingSource<Int, GroupUI>() {
 
@@ -24,6 +25,7 @@ class GroupPagingSource(
 
             val data = withContext(Dispatchers.IO) {
                 dao.getPagingGroups(
+                    searchLike = "%$search%",
                     limit = limit,
                     offset = offset
                 )

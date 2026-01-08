@@ -2,6 +2,7 @@ package by.devsgroup.iis.ui.component.drawerSheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,6 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,7 @@ import by.devsgroup.iis.navigation.ScreenNav
 import by.devsgroup.schedule.ext.fullName
 import by.devsgroup.schedule.ui.model.PreviewScheduleType
 import by.devsgroup.schedule.ui.viewModel.PreviewScheduleViewModel
+import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 import coil.compose.AsyncImage
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -39,7 +42,7 @@ import coil.compose.AsyncImage
 fun AppModalDrawerSheet(
     navController: NavController,
     onClose: () -> Unit,
-    onSelectedScheduleId: (Long) -> Unit,
+    scheduleViewModel: ScheduleViewModel,
     previewScheduleViewModel: PreviewScheduleViewModel,
 ) {
     val configuration = LocalConfiguration.current
@@ -59,9 +62,12 @@ fun AppModalDrawerSheet(
 
     val schedules = previewSchedules.value ?: listOf()
 
+    val currentScheduleId = scheduleViewModel.currentScheduleId.collectAsStateWithLifecycle()
+
     ModalDrawerSheet(
         modifier = Modifier
             .width(drawerWidth)
+            .fillMaxHeight()
             .verticalScroll(scrollState),
     ) {
         Text(
@@ -79,6 +85,7 @@ fun AppModalDrawerSheet(
                 NavigationDrawerItem(
                     modifier = Modifier
                         .padding(horizontal = 16.dp),
+                    selected = currentScheduleId.value == schedule.scheduleId,
                     label = {
                         when(schedule) {
                             is PreviewScheduleType.Employee -> {
@@ -100,9 +107,10 @@ fun AppModalDrawerSheet(
                             is PreviewScheduleType.Employee -> {
                                 AsyncImage(
                                     modifier = Modifier
-                                        .size(32.dp)
-                                        .clip(RoundedCornerShape(12.dp)),
+                                        .size(40.dp)
+                                        .clip(RoundedCornerShape(32.dp)),
                                     model = schedule.image,
+                                    contentScale = ContentScale.Crop,
                                     contentDescription = null
                                 )
                             }
@@ -117,10 +125,9 @@ fun AppModalDrawerSheet(
                             }
                         }
                     },
-                    selected = false,
                     onClick = {
                         onClose()
-                        onSelectedScheduleId(schedule.scheduleId)
+                        scheduleViewModel.setCurrentScheduleId(schedule.scheduleId)
                         navController.navigateFinal(ScreenNav.Home.route)
                     }
                 )

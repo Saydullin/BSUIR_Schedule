@@ -14,7 +14,10 @@ import androidx.room.PrimaryKey
         Index(
             value = ["departmentKeyId"],
             unique = true
-        )
+        ),
+        Index("firstName"),
+        Index("lastName"),
+        Index("middleName")
     ]
 )
 data class EmployeeEntity(
@@ -23,6 +26,7 @@ data class EmployeeEntity(
     val firstName: String?,
     val lastName: String?,
     val middleName: String?,
+    val fullName: String?,
     val degree: String?,
     val rank: String?,
     val photoLink: String?,

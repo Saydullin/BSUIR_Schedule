@@ -61,10 +61,8 @@ class MainActivity : ComponentActivity() {
                                     drawerState.close()
                                 }
                             },
-                            onSelectedScheduleId = { scheduleId ->
-                                scheduleViewModel.setCurrentScheduleId(scheduleId)
-                            },
-                            previewScheduleViewModel = previewScheduleViewModel
+                            scheduleViewModel = scheduleViewModel,
+                            previewScheduleViewModel = previewScheduleViewModel,
                         )
                     }
                 ) {

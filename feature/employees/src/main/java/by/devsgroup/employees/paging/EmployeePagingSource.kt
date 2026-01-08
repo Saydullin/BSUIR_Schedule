@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 
 class EmployeePagingSource(
     private val dao: EmployeeDao,
+    private val search: String,
     private val employeeWithDepartmentsEntityToUiMapper: EmployeeWithDepartmentsEntityToUiMapper,
 ) : PagingSource<Int, EmployeeUI>() {
 
@@ -24,6 +25,7 @@ class EmployeePagingSource(
 
             val data = withContext(Dispatchers.IO) {
                 dao.getPagingEmployees(
+                    searchLike = "%$search%",
                     limit = limit,
                     offset = offset
                 )

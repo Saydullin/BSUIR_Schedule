@@ -45,11 +45,12 @@ class ScheduleViewModel @Inject constructor(
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
 
-    private val currentScheduleId = MutableStateFlow<Long?>(null)
+    private val _currentScheduleId = MutableStateFlow<Long?>(null)
+    val currentScheduleId: StateFlow<Long?> = _currentScheduleId
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val scheduleDaysFlow: Flow<PagingData<FullScheduleDay>> =
-        currentScheduleId
+        _currentScheduleId
             .filterNotNull()
             .flatMapLatest { scheduleId ->
                 Pager(
@@ -90,7 +91,7 @@ class ScheduleViewModel @Inject constructor(
     fun setCurrentScheduleId(scheduleId: Long) {
         viewModelScope.launch {
             println("setCurrentScheduleId $scheduleId")
-            currentScheduleId.value = scheduleId
+            _currentScheduleId.value = scheduleId
         }
     }
 

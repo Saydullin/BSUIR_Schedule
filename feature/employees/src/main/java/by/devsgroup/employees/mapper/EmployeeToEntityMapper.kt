@@ -9,11 +9,21 @@ class EmployeeToEntityMapper @Inject constructor(
 ): Mapper<Employee, EmployeeEntity> {
 
     override fun map(from: Employee): EmployeeEntity {
+        val fullName = listOfNotNull(
+            from.lastName,
+            from.firstName,
+            from.middleName
+        )
+            .takeIf { it.isNotEmpty() }
+            ?.joinToString(" ")
+            ?.lowercase()
+
         return EmployeeEntity(
-            departmentKeyId = "",
+            departmentKeyId = "", // TODO
             firstName = from.firstName,
             lastName = from.lastName,
             middleName = from.middleName,
+            fullName = fullName,
             degree = from.degree,
             rank = from.rank,
             photoLink = from.photoLink,

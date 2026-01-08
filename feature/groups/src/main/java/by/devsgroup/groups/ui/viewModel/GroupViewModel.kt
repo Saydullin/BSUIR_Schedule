@@ -16,7 +16,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,11 +35,18 @@ class GroupViewModel @Inject constructor(
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
 
+    private val _currentSearch = MutableStateFlow("")
+    val currentSearch: StateFlow<String> = _currentSearch
+
     private val trigger = MutableSharedFlow<Unit>(replay = 1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val groupsPagingFlow: Flow<PagingData<GroupUI>> =
-        trigger.flatMapLatest {
+    val groupsPagingFlow: Flow<PagingData<GroupUI>> = combine(
+        trigger,
+        _currentSearch
+    ) { trigger, currentSearch ->
+        Pair(trigger, currentSearch)
+    }.flatMapLatest { (_, search) ->
             Pager(
                 config = PagingConfig(
                     pageSize = 10,
@@ -45,6 +56,7 @@ class GroupViewModel @Inject constructor(
                 pagingSourceFactory = {
                     GroupPagingSource(
                         dao = groupDao,
+                        search = search,
                         groupEntityToUiMapper = groupEntityToUiMapper,
                     )
                 }
@@ -58,6 +70,10 @@ class GroupViewModel @Inject constructor(
 
             trigger.emit(Unit)
         }
+    }
+
+    fun setSearch(search: String) {
+        _currentSearch.value = search
     }
 
 }

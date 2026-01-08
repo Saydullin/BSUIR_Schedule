@@ -17,7 +17,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,11 +36,18 @@ class EmployeeViewModel @Inject constructor(
     private val _error = MutableSharedFlow<Resource.Error<Unit>?>()
     val error: SharedFlow<Resource.Error<Unit>?> = _error
 
+    private val _currentSearch = MutableStateFlow("")
+    val currentSearch: StateFlow<String> = _currentSearch
+
     private val trigger = MutableSharedFlow<Unit>(replay = 1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val employeesPagingFlow: Flow<PagingData<EmployeeUI>> =
-        trigger.flatMapLatest {
+    val employeesPagingFlow: Flow<PagingData<EmployeeUI>> = combine(
+        trigger,
+        _currentSearch
+    ) { trigger, search ->
+       Pair(trigger, search)
+    }.flatMapLatest { (_, search) ->
             Pager(
                 config = PagingConfig(
                     pageSize = 10,
@@ -47,6 +57,7 @@ class EmployeeViewModel @Inject constructor(
                 pagingSourceFactory = {
                     EmployeePagingSource(
                         dao = employeeDao,
+                        search = search,
                         employeeWithDepartmentsEntityToUiMapper = employeeWithDepartmentsEntityToUiMapper,
                     )
                 }
@@ -63,6 +74,10 @@ class EmployeeViewModel @Inject constructor(
 
             trigger.emit(Unit)
         }
+    }
+
+    fun setSearch(search: String) {
+        _currentSearch.value = search
     }
 
 }

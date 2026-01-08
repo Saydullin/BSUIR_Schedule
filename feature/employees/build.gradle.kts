@@ -49,6 +49,9 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":feature:departments"))
 
+    // Coil
+    implementation(libs.coil.compose)
+
     // Paging
     implementation("androidx.paging:paging-runtime:3.4.0-alpha04")
     implementation("androidx.paging:paging-compose:3.4.0-alpha04")

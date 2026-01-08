@@ -37,9 +37,6 @@ fun AppNavHost(
                 drawerState = drawerState
             )
         },
-        bottomBar = {
-//            BottomNavigationBar(navController)
-        }
     ) { paddingValues ->
         Box(
             modifier = Modifier

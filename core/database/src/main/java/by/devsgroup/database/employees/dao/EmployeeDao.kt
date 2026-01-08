@@ -18,8 +18,12 @@ interface EmployeeDao {
     @Query("SELECT * FROM `employee` ORDER BY firstName ASC")
     fun getAllFullEmployees(): List<EmployeeWithDepartments>
 
-    @Query("SELECT * FROM `employee` ORDER BY firstName ASC LIMIT :limit OFFSET :offset")
-    fun getPagingEmployees(limit: Int, offset: Int): List<EmployeeWithDepartments>
+    @Query("SELECT * FROM `employee` WHERE fullName LIKE :searchLike ORDER BY firstName ASC LIMIT :limit OFFSET :offset")
+    fun getPagingEmployees(
+        searchLike: String,
+        limit: Int,
+        offset: Int
+    ): List<EmployeeWithDepartments>
 
     @Query("SELECT * FROM `employee` WHERE id = :id")
     fun getById(id: Int): EmployeeEntity?

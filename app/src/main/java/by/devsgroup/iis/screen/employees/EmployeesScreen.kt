@@ -1,21 +1,33 @@
 package by.devsgroup.iis.screen.employees
 
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.unit.dp
 import by.devsgroup.employees.ui.component.EmployeesList
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
 import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 import by.devsgroup.ui_kit.dialog.DialogModal
+import by.devsgroup.ui_kit.search.TextSearch
 
 @Composable
 fun EmployeesScreen(
     employeeViewModel: EmployeeViewModel,
     scheduleViewModel: ScheduleViewModel,
 ) {
+    val focusManager = LocalFocusManager.current
+
+    var search by remember { mutableStateOf("") }
+
     var selectedEmployee by remember { mutableStateOf<EmployeeUI?>(null) }
 
     selectedEmployee?.let { group ->
@@ -35,11 +47,32 @@ fun EmployeesScreen(
         )
     }
 
-    EmployeesList(
-        employeeViewModel = employeeViewModel,
-        onClick = {
-            selectedEmployee = it
-        }
-    )
+    Column(
+        modifier = Modifier
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = {
+                        focusManager.clearFocus()
+                    }
+                )
+            },
+    ) {
+        TextSearch(
+            modifier = Modifier
+                .padding(16.dp),
+            search = search,
+            onSearchChange = {
+                search = it
+
+                employeeViewModel.setSearch(it)
+            }
+        )
+        EmployeesList(
+            employeeViewModel = employeeViewModel,
+            onClick = {
+                selectedEmployee = it
+            }
+        )
+    }
 
 }

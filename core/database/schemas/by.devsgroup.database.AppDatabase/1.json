@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d5eb3fa585d63f90314a53663c165ca4",
+    "identityHash": "98dcac5345617b9a03fe39f7ad22db05",
     "entities": [
       {
         "tableName": "group",
@@ -336,7 +336,7 @@
       },
       {
         "tableName": "employee",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `departmentKeyId` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `id` INTEGER, `urlId` TEXT, `fio` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `departmentKeyId` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `fullName` TEXT, `degree` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `id` INTEGER, `urlId` TEXT, `fio` TEXT)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -363,6 +363,11 @@
           {
             "fieldPath": "middleName",
             "columnName": "middleName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
             "affinity": "TEXT"
           },
           {
@@ -425,6 +430,33 @@
             ],
             "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_employee_departmentKeyId` ON `${TABLE_NAME}` (`departmentKeyId`)"
+          },
+          {
+            "name": "index_employee_firstName",
+            "unique": false,
+            "columnNames": [
+              "firstName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_employee_firstName` ON `${TABLE_NAME}` (`firstName`)"
+          },
+          {
+            "name": "index_employee_lastName",
+            "unique": false,
+            "columnNames": [
+              "lastName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_employee_lastName` ON `${TABLE_NAME}` (`lastName`)"
+          },
+          {
+            "name": "index_employee_middleName",
+            "unique": false,
+            "columnNames": [
+              "middleName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_employee_middleName` ON `${TABLE_NAME}` (`middleName`)"
           }
         ]
       },
@@ -1031,7 +1063,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd5eb3fa585d63f90314a53663c165ca4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '98dcac5345617b9a03fe39f7ad22db05')"
     ]
   }
 }

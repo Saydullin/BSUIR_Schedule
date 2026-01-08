@@ -1,5 +1,6 @@
 package by.devsgroup.iis.screen.groups
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -26,6 +27,7 @@ import by.devsgroup.ui_kit.search.TextSearch
 
 @Composable
 fun GroupsScreen(
+    navController: NavController,
     groupViewModel: GroupViewModel,
     scheduleViewModel: ScheduleViewModel,
     previewScheduleViewModel: PreviewScheduleViewModel,
@@ -48,10 +50,16 @@ fun GroupsScreen(
         }
     }
 
+    BackHandler {
+        groupViewModel.setSearch("")
+
+        navController.popBackStack()
+    }
+
     selectedGroup?.let { group ->
         DialogModal(
-            title = "Загрузить расписание?",
-            description = "Расписание группы ${group.name} можно будет смотреть оффлайн",
+            title = group.name ?: "Неизвестная группа",
+            description = "Загрузить расписание этой группы?",
             positiveButtonText = "Загрузить",
             negativeButtonText = "Отмена",
             onSkip = { selectedGroup = null },

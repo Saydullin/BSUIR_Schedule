@@ -7,6 +7,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import by.devsgroup.database.groups.dao.GroupDao
+import by.devsgroup.domain.model.error.ErrorType
+import by.devsgroup.domain.status.loading.LoadingStatus
 import by.devsgroup.groups.mapper.GroupEntityToUiMapper
 import by.devsgroup.groups.paging.GroupPagingSource
 import by.devsgroup.groups.ui.model.GroupUI
@@ -38,6 +40,9 @@ class GroupViewModel @Inject constructor(
     private val _currentSearch = MutableStateFlow("")
     val currentSearch: StateFlow<String> = _currentSearch
 
+    private val _allGroupsLoading = MutableStateFlow<LoadingStatus<Unit>?>(null)
+    val allGroupsLoading: StateFlow<LoadingStatus<Unit>?> = _allGroupsLoading
+
     private val trigger = MutableSharedFlow<Unit>(replay = 1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -65,9 +70,15 @@ class GroupViewModel @Inject constructor(
 
     fun loadAllGroups() {
         viewModelScope.launch {
-            getAndSaveAllGroupsUseCase.execute()
-                .onSuspendError { _error.emit(it) } ?: return@launch
+            _allGroupsLoading.value = LoadingStatus.Loading
 
+            getAndSaveAllGroupsUseCase.execute()
+                .onSuspendError {
+                    _error.emit(it)
+                    _allGroupsLoading.value = LoadingStatus.Error(ErrorType.UnknownError)
+                } ?: return@launch
+
+            _allGroupsLoading.value = LoadingStatus.Success(Unit)
             trigger.emit(Unit)
         }
     }

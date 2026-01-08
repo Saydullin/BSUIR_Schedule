@@ -17,7 +17,7 @@ class GetAndSaveEmployeeScheduleUseCase @Inject constructor(
                 .getOrThrow()
 
             val scheduleManager = ScheduleManager(
-                currentWeek = 1,
+                currentWeek = 3,
                 scheduleTemplate = employeeSchedule
             )
 

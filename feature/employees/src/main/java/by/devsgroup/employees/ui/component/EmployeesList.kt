@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
+import by.devsgroup.domain.status.loading.LoadingStatus
 import by.devsgroup.employees.ui.item.EmployeeItem
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
@@ -23,27 +26,34 @@ fun EmployeesList(
 ) {
     val employees = employeeViewModel.employeesPagingFlow.collectAsLazyPagingItems()
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
-    ) {
-        items(employees.itemCount, { employees[it]?.uniqueListId ?: it }) { index ->
-            val employee = employees[index]
+    val loadingStatus = employeeViewModel.allEmployeesLoading.collectAsStateWithLifecycle()
 
-            if (!employee?.urlId.isNullOrEmpty()) {
-                EmployeeItem(
-                    employeeUI = employee,
-                    downloaded = existingEmployeeUrls.contains(employee.urlId),
-                    shapes = ListItemDefaults.segmentedShapes(
-                        index = index,
-                        count = employees.itemCount
-                    ),
-                    onClick = {
-                        onClick(employee)
-                    },
-                )
+    PullToRefreshBox(
+        isRefreshing = loadingStatus.value is LoadingStatus.Loading,
+        onRefresh = { employeeViewModel.loadAllDepartmentsAndEmployees() }
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            items(employees.itemCount, { employees[it]?.uniqueListId ?: it }) { index ->
+                val employee = employees[index]
+
+                if (!employee?.urlId.isNullOrEmpty()) {
+                    EmployeeItem(
+                        employeeUI = employee,
+                        downloaded = existingEmployeeUrls.contains(employee.urlId),
+                        shapes = ListItemDefaults.segmentedShapes(
+                            index = index,
+                            count = employees.itemCount
+                        ),
+                        onClick = {
+                            onClick(employee)
+                        },
+                    )
+                }
             }
         }
     }

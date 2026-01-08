@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
+import by.devsgroup.domain.status.loading.LoadingStatus
 import by.devsgroup.groups.ui.item.GroupItem
 import by.devsgroup.groups.ui.model.GroupUI
 import by.devsgroup.groups.ui.viewModel.GroupViewModel
@@ -23,27 +26,34 @@ fun GroupsList(
 ) {
     val groups = groupViewModel.groupsPagingFlow.collectAsLazyPagingItems()
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
-    ) {
-        items(groups.itemCount, { groups[it]?.uniqueListId ?: it }) { index ->
-            val group = groups[index]
+    val loadingStatus = groupViewModel.allGroupsLoading.collectAsStateWithLifecycle()
 
-            if (!group?.name.isNullOrBlank()) {
-                GroupItem(
-                    group = group,
-                    downloaded = existingGroupNames.contains(group.name),
-                    shapes = ListItemDefaults.segmentedShapes(
-                        index = index,
-                        count = groups.itemCount
-                    ),
-                    onClick = {
-                        onClick(group)
-                    },
-                )
+    PullToRefreshBox(
+        isRefreshing = loadingStatus.value is LoadingStatus.Loading,
+        onRefresh = { groupViewModel.loadAllGroups() }
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            items(groups.itemCount, { groups[it]?.uniqueListId ?: it }) { index ->
+                val group = groups[index]
+
+                if (!group?.name.isNullOrBlank()) {
+                    GroupItem(
+                        group = group,
+                        downloaded = existingGroupNames.contains(group.name),
+                        shapes = ListItemDefaults.segmentedShapes(
+                            index = index,
+                            count = groups.itemCount
+                        ),
+                        onClick = {
+                            onClick(group)
+                        },
+                    )
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package by.devsgroup.iis.screen.employees
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import by.devsgroup.employees.ui.component.EmployeesList
 import by.devsgroup.employees.ui.model.EmployeeUI
 import by.devsgroup.employees.ui.viewModel.EmployeeViewModel
@@ -24,6 +26,7 @@ import by.devsgroup.ui_kit.search.TextSearch
 
 @Composable
 fun EmployeesScreen(
+    navController: NavController,
     employeeViewModel: EmployeeViewModel,
     scheduleViewModel: ScheduleViewModel,
     previewScheduleViewModel: PreviewScheduleViewModel,
@@ -42,8 +45,8 @@ fun EmployeesScreen(
 
     selectedEmployee?.let { group ->
         DialogModal(
-            title = "Загрузить расписание?",
-            description = "Расписание преподавателя ${selectedEmployee?.getFullName()} можно будет смотреть оффлайн",
+            title = selectedEmployee?.getFullName() ?: "Неизвестный преподаватель",
+            description = "Загрузить расписание преподавателя?",
             positiveButtonText = "Загрузить",
             negativeButtonText = "Отмена",
             onSkip = { selectedEmployee = null },
@@ -55,6 +58,12 @@ fun EmployeesScreen(
                 }
             }
         )
+    }
+
+    BackHandler {
+        employeeViewModel.setSearch("")
+
+        navController.popBackStack()
     }
 
     Column(

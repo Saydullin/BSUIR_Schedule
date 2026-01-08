@@ -7,6 +7,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import by.devsgroup.database.employees.dao.EmployeeDao
+import by.devsgroup.domain.model.error.ErrorType
+import by.devsgroup.domain.status.loading.LoadingStatus
 import by.devsgroup.employees.mapper.EmployeeWithDepartmentsEntityToUiMapper
 import by.devsgroup.employees.paging.EmployeePagingSource
 import by.devsgroup.employees.ui.model.EmployeeUI
@@ -39,6 +41,9 @@ class EmployeeViewModel @Inject constructor(
     private val _currentSearch = MutableStateFlow("")
     val currentSearch: StateFlow<String> = _currentSearch
 
+    private val _allEmployeesLoading = MutableStateFlow<LoadingStatus<Unit>?>(null)
+    val allEmployeesLoading: StateFlow<LoadingStatus<Unit>?> = _allEmployeesLoading
+
     private val trigger = MutableSharedFlow<Unit>(replay = 1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -66,12 +71,21 @@ class EmployeeViewModel @Inject constructor(
 
     fun loadAllDepartmentsAndEmployees() {
         viewModelScope.launch {
+            _allEmployeesLoading.value = LoadingStatus.Loading
+
             getAndSaveAllDepartmentsUseCase.execute()
-                .onSuspendError { _error.emit(it) } ?: return@launch
+                .onSuspendError {
+                    _error.emit(it)
+                    _allEmployeesLoading.value = LoadingStatus.Error(ErrorType.UnknownError)
+                } ?: return@launch
 
             getAndSaveAllEmployeesUseCase.execute()
-                .onSuspendError { _error.emit(it) } ?: return@launch
+                .onSuspendError {
+                    _error.emit(it)
+                    _allEmployeesLoading.value = LoadingStatus.Error(ErrorType.UnknownError)
+                } ?: return@launch
 
+            _allEmployeesLoading.value = LoadingStatus.Success(Unit)
             trigger.emit(Unit)
         }
     }

@@ -20,10 +20,6 @@ fun ScheduleList(
     val currentSchedule = scheduleViewModel.currentSchedule.collectAsStateWithLifecycle()
     val scheduleDaysPaging = scheduleViewModel.scheduleDaysFlow.collectAsLazyPagingItems()
 
-    LaunchedEffect(Unit) {
-        scheduleViewModel.getSchedule()
-    }
-
     LaunchedEffect(currentSchedule.value) {
         val schedule = currentSchedule.value
         println("setCurrentScheduleId schedule $schedule")
@@ -38,10 +34,9 @@ fun ScheduleList(
     }
 
     val schedule = currentSchedule.value
-//    val scheduleDays = schedule?.schedules
-    val scheduleDays = schedule?.exams
+    val scheduleDays = schedule?.schedules
 
-    if (scheduleDays.isNullOrEmpty()) {
+    if (scheduleDaysPaging.itemCount == 0) {
         Text(
             text = "Расписание пустое пока"
         )
@@ -52,12 +47,6 @@ fun ScheduleList(
                 vertical = 16.dp
             )
         ) {
-            item {
-                SchedulePreview(
-                    schedule = schedule
-                )
-            }
-
             items(scheduleDaysPaging.itemCount) { index ->
                 val scheduleDay = scheduleDaysPaging[index]
 

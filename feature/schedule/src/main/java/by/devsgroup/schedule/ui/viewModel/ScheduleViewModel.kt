@@ -87,19 +87,6 @@ class ScheduleViewModel @Inject constructor(
         }
     }
 
-    fun getSchedule() {
-        viewModelScope.launch {
-            val schedule = scheduleDatabaseRepository.getFullScheduleById(23875)
-                .onSuspendError {
-                    _error.emit(it)
-
-                    println(it.getStatusAndMessage())
-                }
-
-            _currentSchedule.value = schedule
-        }
-    }
-
     fun setCurrentScheduleId(scheduleId: Long) {
         viewModelScope.launch {
             println("setCurrentScheduleId $scheduleId")

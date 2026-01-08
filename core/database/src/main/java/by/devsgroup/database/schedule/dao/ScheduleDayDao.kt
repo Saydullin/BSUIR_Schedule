@@ -13,16 +13,28 @@ interface ScheduleDayDao {
     @Query("""
         SELECT * FROM `schedule_day`
         WHERE scheduleId = :scheduleId
-        AND dateMillis >= :filterMillis
         ORDER BY dateMillis
         LIMIT :limit OFFSET :offset
         """)
     fun getPagingDays(
-        filterMillis: Long,
         scheduleId: Long,
         limit: Int,
         offset: Int,
     ): List<DaysWithLessons>
+
+//    @Query("""
+//        SELECT * FROM `schedule_day`
+//        WHERE scheduleId = :scheduleId
+//        AND dateMillis >= :filterMillis
+//        ORDER BY dateMillis
+//        LIMIT :limit OFFSET :offset
+//        """)
+//    fun getPagingDays(
+//        filterMillis: Long,
+//        scheduleId: Long,
+//        limit: Int,
+//        offset: Int,
+//    ): List<DaysWithLessons>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(day: ScheduleDayEntity): Long

@@ -1,10 +1,14 @@
 package by.devsgroup.iis.ui.component.drawerSheet
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +45,8 @@ fun AppModalDrawerSheet(
     val configuration = LocalConfiguration.current
     val screenWidthDp = configuration.screenWidthDp.dp
 
+    val scrollState = rememberScrollState()
+
     val drawerWidth = remember(screenWidthDp) {
         minOf(screenWidthDp * 0.8f, 400.dp)
     }
@@ -56,6 +62,7 @@ fun AppModalDrawerSheet(
     ModalDrawerSheet(
         modifier = Modifier
             .width(drawerWidth)
+            .verticalScroll(scrollState),
     ) {
         Text(
             modifier = Modifier
@@ -162,6 +169,7 @@ fun AppModalDrawerSheet(
             selected = false,
             onClick = { false }
         )
+        Spacer(Modifier.height(32.dp))
     }
 
 }

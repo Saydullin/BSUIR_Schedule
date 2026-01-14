@@ -155,16 +155,18 @@ class ScheduleManager(
                     }
                 }
 
-                result.add(
-                    FullScheduleDay(
-                        lessons = dayLessons.ifEmpty { emptyList() },
-                        date = currentDate
-                            .atStartOfDay(ZoneId.systemDefault())
-                            .toInstant()
-                            .toEpochMilli(),
-                        week = weekNumber
+                if (dayLessons.isNotEmpty()) {
+                    result.add(
+                        FullScheduleDay(
+                            lessons = dayLessons,
+                            date = currentDate
+                                .atStartOfDay(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli(),
+                            week = weekNumber
+                        )
                     )
-                )
+                }
             }
 
             currentDate = currentDate.plusDays(1)

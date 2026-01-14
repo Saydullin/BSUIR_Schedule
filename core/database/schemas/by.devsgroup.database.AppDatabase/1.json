@@ -2,8 +2,38 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "98dcac5345617b9a03fe39f7ad22db05",
+    "identityHash": "3dcbc79e076510a85dafb926b82abf2a",
     "entities": [
+      {
+        "tableName": "week",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER NOT NULL, `week` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`tableId`))",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "week",
+            "columnName": "week",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
       {
         "tableName": "group",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT NOT NULL, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
@@ -1063,7 +1093,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '98dcac5345617b9a03fe39f7ad22db05')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3dcbc79e076510a85dafb926b82abf2a')"
     ]
   }
 }

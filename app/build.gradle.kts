@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":feature:groups"))
     implementation(project(":feature:employees"))
     implementation(project(":feature:schedule"))
+    implementation(project(":feature:week"))
     implementation(project(":ui-kit"))
 
     // Coil

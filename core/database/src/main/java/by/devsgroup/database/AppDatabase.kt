@@ -23,11 +23,14 @@ import by.devsgroup.database.schedule.entity.ScheduleLessonEntity
 import by.devsgroup.database.specialty.dao.SpecialtyDao
 import by.devsgroup.database.specialty.entity.SpecialtyEducationFormEntity
 import by.devsgroup.database.specialty.entity.SpecialtyEntity
+import by.devsgroup.database.week.dao.WeekDao
+import by.devsgroup.database.week.entity.WeekEntity
 
 @Database(
     version = 1,
     exportSchema = true,
     entities = [
+        WeekEntity::class,
         GroupEntity::class,
         FacultyEntity::class,
         ScheduleEntity::class,
@@ -43,6 +46,8 @@ import by.devsgroup.database.specialty.entity.SpecialtyEntity
     ]
 )
 abstract class AppDatabase() : RoomDatabase() {
+
+    abstract fun getWeekDao(): WeekDao
 
     abstract fun getGroupDao(): GroupDao
 

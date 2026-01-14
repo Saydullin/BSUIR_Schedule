@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -9,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "by.devsgroup.schedule"
+    namespace = "by.devsgroup.week"
     compileSdk {
         version = release(36)
     }
@@ -31,30 +29,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
-        }
-    }
-    buildFeatures {
-        compose = true
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
 dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":domain"))
-    implementation(project(":feature:week"))
     implementation(project(":core:resource"))
     implementation(project(":core:retrofit"))
     implementation(project(":core:database"))
-
-    // Coil
-    implementation(libs.coil.compose)
-
-    // Paging
-    implementation("androidx.paging:paging-runtime:3.4.0-alpha04")
-    implementation("androidx.paging:paging-compose:3.4.0-alpha04")
 
     // Dagger Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
@@ -64,14 +49,6 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-
-    // Compose
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/feature/groups" />
             <option value="$PROJECT_DIR$/feature/schedule" />
             <option value="$PROJECT_DIR$/feature/specialty" />
+            <option value="$PROJECT_DIR$/feature/week" />
             <option value="$PROJECT_DIR$/ui-kit" />
           </set>
         </option>

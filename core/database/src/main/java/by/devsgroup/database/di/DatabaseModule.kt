@@ -12,6 +12,7 @@ import by.devsgroup.database.schedule.dao.ScheduleDao
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonDao
 import by.devsgroup.database.specialty.dao.SpecialtyDao
+import by.devsgroup.database.week.dao.WeekDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +44,14 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): GroupDao {
         return appDatabase.getGroupDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeekDao(
+        appDatabase: AppDatabase
+    ): WeekDao {
+        return appDatabase.getWeekDao()
     }
 
     @Provides

@@ -61,14 +61,21 @@ fun ScheduleLessonGroupItem(
         },
         supportingContent = {
             Column(
+                modifier = Modifier
+                    .padding(start = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
+                    Text(
+                        text = subject,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
                     Box(
                         modifier = Modifier
-                            .padding(bottom = 7.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(subjectTypeColor),
                     ) {
@@ -76,14 +83,9 @@ fun ScheduleLessonGroupItem(
                             modifier = Modifier
                                 .padding(vertical = 3.dp, horizontal = 7.dp),
                             text = subjectType.lowercase(),
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.labelLarge
                         )
                     }
-
-                    Text(
-                        text = subject,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
                 }
                 if (subjectEmployees.isNotEmpty()) {
                     Text(

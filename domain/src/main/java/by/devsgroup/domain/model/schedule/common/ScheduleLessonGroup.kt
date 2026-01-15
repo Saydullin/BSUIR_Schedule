@@ -7,3 +7,5 @@ data class ScheduleLessonGroup(
     val name: String?,
     val educationDegree: Int?,
 )
+
+

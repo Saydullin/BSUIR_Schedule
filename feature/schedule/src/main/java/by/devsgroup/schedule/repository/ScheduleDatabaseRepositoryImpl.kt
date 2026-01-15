@@ -3,11 +3,15 @@ package by.devsgroup.schedule.repository
 import by.devsgroup.database.schedule.dao.ScheduleDao
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonDao
+import by.devsgroup.database.schedule.dao.ScheduleLessonEmployeeDao
+import by.devsgroup.database.schedule.dao.ScheduleLessonGroupDao
 import by.devsgroup.database.schedule.entity.ScheduleDayEntity
 import by.devsgroup.domain.model.schedule.full.FullSchedule
 import by.devsgroup.domain.model.schedule.preview.PreviewSchedule
 import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.resource.Resource
+import by.devsgroup.schedule.mapper.ScheduleLessonEmployeeToEntityMapper
+import by.devsgroup.schedule.mapper.ScheduleLessonGroupToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleLessonTemplateToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleToEntityMapper
 import by.devsgroup.schedule.mapper.context.ScheduleLessonContext
@@ -22,10 +26,14 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
     private val scheduleDao: ScheduleDao,
     private val scheduleDayDao: ScheduleDayDao,
     private val scheduleLessonDao: ScheduleLessonDao,
+    private val scheduleLessonGroupDao: ScheduleLessonGroupDao,
+    private val scheduleLessonEmployeeDao: ScheduleLessonEmployeeDao,
     private val scheduleToEntityMapper: ScheduleToEntityMapper,
     private val scheduleEntityToDomainMapper: ScheduleEntityToDomainMapper,
+    private val scheduleLessonGroupToEntityMapper: ScheduleLessonGroupToEntityMapper,
     private val scheduleWithDaysEntityToDomainMapper: ScheduleWithDaysEntityToDomainMapper,
     private val scheduleLessonTemplateToEntityMapper: ScheduleLessonTemplateToEntityMapper,
+    private val scheduleLessonEmployeeToEntityMapper: ScheduleLessonEmployeeToEntityMapper,
 ): ScheduleDatabaseRepository {
 
     override suspend fun getAllPreviewSchedules(): Resource<List<PreviewSchedule>> {
@@ -86,6 +94,26 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
                         lessonId = lessonId,
                         dayId = dayId,
                     )
+
+                    val lessonEmployeeEntityList = lesson.employees?.map {
+                        scheduleLessonEmployeeToEntityMapper.map(it, lessonId)
+                    }
+
+                    val lessonGroupEntityList = lesson.studentGroups?.map {
+                        scheduleLessonGroupToEntityMapper.map(it, lessonId)
+                    }
+
+                    lessonEmployeeEntityList?.let { lessonEmployeesList ->
+                        withContext(Dispatchers.IO) {
+                            scheduleLessonEmployeeDao.save(lessonEmployeesList)
+                        }
+                    }
+
+                    lessonGroupEntityList?.let { lessonGroupList ->
+                        withContext(Dispatchers.IO) {
+                            scheduleLessonGroupDao.save(lessonGroupList)
+                        }
+                    }
 
                     scheduleLessonTemplateToEntityMapper.map(lesson, lessonMapperContext)
                 }

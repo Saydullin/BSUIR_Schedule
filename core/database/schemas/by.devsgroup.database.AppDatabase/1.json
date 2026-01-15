@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3dcbc79e076510a85dafb926b82abf2a",
+    "identityHash": "c54817214d52451fbeef0da061f2e8f1",
     "entities": [
       {
         "tableName": "week",
@@ -1061,6 +1061,139 @@
         ]
       },
       {
+        "tableName": "schedule_lesson_group",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `lessonId` TEXT NOT NULL, `specialityName` TEXT, `specialityCode` TEXT, `numberOfStudents` INTEGER, `name` TEXT, `educationDegree` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "specialityName",
+            "columnName": "specialityName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "specialityCode",
+            "columnName": "specialityCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "numberOfStudents",
+            "columnName": "numberOfStudents",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "educationDegree",
+            "columnName": "educationDegree",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
+      {
+        "tableName": "schedule_lesson_employee",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `lessonId` TEXT NOT NULL, `id` INTEGER, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `photoLink` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `rank` TEXT, `email` TEXT, `urlId` TEXT, `calendarId` TEXT, `chief` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "tableId",
+            "columnName": "tableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "middleName",
+            "columnName": "middleName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "photoLink",
+            "columnName": "photoLink",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "degree",
+            "columnName": "degree",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "degreeAbbrev",
+            "columnName": "degreeAbbrev",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "urlId",
+            "columnName": "urlId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "calendarId",
+            "columnName": "calendarId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "chief",
+            "columnName": "chief",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tableId"
+          ]
+        }
+      },
+      {
         "tableName": "specialty_education_form",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
@@ -1093,7 +1226,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3dcbc79e076510a85dafb926b82abf2a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c54817214d52451fbeef0da061f2e8f1')"
     ]
   }
 }

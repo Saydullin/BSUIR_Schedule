@@ -1,6 +1,5 @@
 package by.devsgroup.schedule.ui.item
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,9 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import by.devsgroup.domain.model.schedule.common.ScheduleType
 import by.devsgroup.domain.model.schedule.full.FullScheduleDay
 import java.time.Instant
 import java.time.ZoneId
@@ -59,13 +58,24 @@ fun ScheduleDayItem(
 
         if (!lessons.isNullOrEmpty()) {
             lessons.forEachIndexed { index, lesson ->
-                ScheduleLessonItem(
-                    shapes = ListItemDefaults.segmentedShapes(
-                        index = index,
-                        count = lessons.size
-                    ),
-                    scheduleLesson = lesson
-                )
+                if (lesson.scheduleType == ScheduleType.EMPLOYEE) {
+                    ScheduleLessonEmployeeItem(
+                        shapes = ListItemDefaults.segmentedShapes(
+                            index = index,
+                            count = lessons.size
+                        ),
+                        scheduleLesson = lesson
+                    )
+                }
+                if (lesson.scheduleType == ScheduleType.GROUP) {
+                    ScheduleLessonGroupItem(
+                        shapes = ListItemDefaults.segmentedShapes(
+                            index = index,
+                            count = lessons.size
+                        ),
+                        scheduleLesson = lesson
+                    )
+                }
             }
         }
     }

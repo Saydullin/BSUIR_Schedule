@@ -10,6 +10,8 @@ import by.devsgroup.database.faculty.dao.FacultyDao
 import by.devsgroup.database.groups.dao.GroupDao
 import by.devsgroup.database.schedule.dao.ScheduleDao
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
+import by.devsgroup.database.schedule.dao.ScheduleEmployeeDao
+import by.devsgroup.database.schedule.dao.ScheduleGroupDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonEmployeeDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonGroupDao
@@ -126,6 +128,22 @@ class DatabaseModule {
         appDatabase: AppDatabase
     ): ScheduleDayDao {
         return appDatabase.getScheduleDayDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideScheduleGroupDao(
+        appDatabase: AppDatabase
+    ): ScheduleGroupDao {
+        return appDatabase.getScheduleGroupDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideScheduleEmployeeDao(
+        appDatabase: AppDatabase
+    ): ScheduleEmployeeDao {
+        return appDatabase.getScheduleEmployeeDao()
     }
 
     @Provides

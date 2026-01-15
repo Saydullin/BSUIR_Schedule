@@ -1,5 +1,6 @@
 package by.devsgroup.schedule.usecase
 
+import by.devsgroup.domain.model.schedule.common.ScheduleType
 import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.domain.repository.schedule.ScheduleServerRepository
 import by.devsgroup.resource.Resource
@@ -21,6 +22,7 @@ class GetAndSaveGroupScheduleUseCase @Inject constructor(
 
             val scheduleManager = ScheduleManager(
                 currentWeek = currentWeek,
+                scheduleType = ScheduleType.GROUP,
                 scheduleTemplate = groupSchedule
             )
 

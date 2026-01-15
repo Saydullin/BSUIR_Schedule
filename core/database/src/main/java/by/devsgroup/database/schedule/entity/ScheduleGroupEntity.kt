@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey
 data class ScheduleGroupEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Long = 0,
     val id: Long?,
+    val scheduleId: Long,
     val name: String?,
     val facultyId: Int?,
     val facultyAbbrev: String?,

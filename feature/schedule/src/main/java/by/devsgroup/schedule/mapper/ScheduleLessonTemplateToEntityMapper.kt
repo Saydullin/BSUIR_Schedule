@@ -3,13 +3,13 @@ package by.devsgroup.schedule.mapper
 import by.devsgroup.database.schedule.entity.ScheduleLessonEntity
 import by.devsgroup.domain.mapper.MapperWithContext
 import by.devsgroup.domain.model.schedule.full.FullScheduleLesson
-import by.devsgroup.schedule.mapper.context.ScheduleLessonContext
+import by.devsgroup.schedule.mapper.context.ScheduleLessonToEntityMapperContext
 import javax.inject.Inject
 
 class ScheduleLessonTemplateToEntityMapper @Inject constructor(
-): MapperWithContext<FullScheduleLesson, ScheduleLessonEntity, ScheduleLessonContext> {
+): MapperWithContext<FullScheduleLesson, ScheduleLessonEntity, ScheduleLessonToEntityMapperContext> {
 
-    override fun map(from: FullScheduleLesson, context: ScheduleLessonContext): ScheduleLessonEntity {
+    override fun map(from: FullScheduleLesson, context: ScheduleLessonToEntityMapperContext): ScheduleLessonEntity {
         return ScheduleLessonEntity(
             scheduleId = context.scheduleId,
             lessonId = context.lessonId,
@@ -27,6 +27,7 @@ class ScheduleLessonTemplateToEntityMapper @Inject constructor(
             endLessonDate = from.endLessonDate,
             announcement = from.announcement,
             split = from.split,
+            scheduleType = from.scheduleType.toString(),
         )
     }
 

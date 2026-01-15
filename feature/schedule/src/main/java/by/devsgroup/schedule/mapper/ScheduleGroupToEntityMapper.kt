@@ -1,16 +1,17 @@
 package by.devsgroup.schedule.mapper
 
 import by.devsgroup.database.schedule.entity.ScheduleGroupEntity
-import by.devsgroup.domain.mapper.Mapper
+import by.devsgroup.domain.mapper.MapperWithContext
 import by.devsgroup.domain.model.schedule.common.ScheduleGroup
 import javax.inject.Inject
 
 class ScheduleGroupToEntityMapper @Inject constructor(
-): Mapper<ScheduleGroup, ScheduleGroupEntity> {
+): MapperWithContext<ScheduleGroup, ScheduleGroupEntity, Long> {
 
-    override fun map(from: ScheduleGroup): ScheduleGroupEntity {
+    override fun map(from: ScheduleGroup, context: Long): ScheduleGroupEntity {
         return ScheduleGroupEntity(
             name = from.name,
+            scheduleId = context,
             facultyId = from.facultyId,
             facultyAbbrev = from.facultyAbbrev,
             facultyName = from.facultyName,
@@ -25,3 +26,5 @@ class ScheduleGroupToEntityMapper @Inject constructor(
     }
 
 }
+
+

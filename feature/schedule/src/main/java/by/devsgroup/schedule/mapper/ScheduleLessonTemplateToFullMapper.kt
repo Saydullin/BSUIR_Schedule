@@ -1,14 +1,15 @@
 package by.devsgroup.schedule.mapper
 
-import by.devsgroup.domain.mapper.Mapper
+import by.devsgroup.domain.mapper.MapperWithContext
 import by.devsgroup.domain.model.schedule.full.FullScheduleLesson
 import by.devsgroup.domain.model.schedule.template.ScheduleLessonTemplate
+import by.devsgroup.schedule.mapper.context.ScheduleLessonToFullMapperContext
 import javax.inject.Inject
 
 class ScheduleLessonTemplateToFullMapper @Inject constructor(
-): Mapper<ScheduleLessonTemplate, FullScheduleLesson> {
+): MapperWithContext<ScheduleLessonTemplate, FullScheduleLesson, ScheduleLessonToFullMapperContext> {
 
-    override fun map(from: ScheduleLessonTemplate): FullScheduleLesson {
+    override fun map(from: ScheduleLessonTemplate, context: ScheduleLessonToFullMapperContext): FullScheduleLesson {
         return FullScheduleLesson(
             audiences = from.audiences,
             dayOfWeek = from.dayOfWeek,
@@ -25,6 +26,9 @@ class ScheduleLessonTemplateToFullMapper @Inject constructor(
             endLessonDate = from.endLessonDate,
             announcement = from.announcement,
             split = from.split,
+            scheduleType = context.scheduleType,
+            scheduleGroup = context.group,
+            scheduleEmployee = context.employee
         )
     }
 

@@ -2,13 +2,14 @@ package by.devsgroup.schedule.mapper
 
 import by.devsgroup.database.schedule.entity.ScheduleEmployeeEntity
 import by.devsgroup.domain.mapper.Mapper
+import by.devsgroup.domain.mapper.MapperWithContext
 import by.devsgroup.domain.model.schedule.common.ScheduleEmployee
 import javax.inject.Inject
 
 class ScheduleEmployeeToEntityMapper @Inject constructor(
-): Mapper<ScheduleEmployee, ScheduleEmployeeEntity> {
+): MapperWithContext<ScheduleEmployee, ScheduleEmployeeEntity, Long> {
 
-    override fun map(from: ScheduleEmployee): ScheduleEmployeeEntity {
+    override fun map(from: ScheduleEmployee, context: Long): ScheduleEmployeeEntity {
         return ScheduleEmployeeEntity(
             firstName = from.firstName,
             lastName = from.lastName,
@@ -22,6 +23,7 @@ class ScheduleEmployeeToEntityMapper @Inject constructor(
             chief = from.chief,
             id = from.id,
             urlId = from.urlId,
+            scheduleId = context,
         )
     }
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -22,17 +23,21 @@ import by.devsgroup.schedule.ext.lessonTypeColorParse
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ScheduleLessonItem(
+fun ScheduleLessonGroupItem(
     shapes: ListItemShapes,
     scheduleLesson: FullScheduleLesson
 ) {
 
     val subject = scheduleLesson.subject ?: "---"
-    val subjectFull = scheduleLesson.subjectFullName ?: "---"
-    val subjectEmployees = scheduleLesson.employees?.joinToString(", ") { it.middleName ?: "" } ?: ""
-    val subjectGroups = scheduleLesson.studentGroups?.joinToString(", ") { it.name ?: "" } ?: ""
     val subjectType = scheduleLesson.lessonTypeAbbrevParse()
     val subjectTypeColor = scheduleLesson.lessonTypeColorParse()
+    val subjectEmployees = scheduleLesson.employees
+        ?.filterNot { it.urlId == scheduleLesson.scheduleEmployee?.urlId }
+        ?.joinToString(", ") { it.fullName() } ?: ""
+    val subjectGroups = scheduleLesson.studentGroups
+        ?.filterNot { it.name == scheduleLesson.scheduleGroup?.name }
+        ?.joinToString(", ") { it.name.orEmpty() }
+        .orEmpty()
 
     SegmentedListItem(
         modifier = Modifier
@@ -54,28 +59,32 @@ fun ScheduleLessonItem(
                 )
             }
         },
-        overlineContent = {
-            Box(
-                modifier = Modifier
-                    .padding(bottom = 7.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(subjectTypeColor),
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(vertical = 3.dp, horizontal = 7.dp),
-                    text = subjectType.lowercase(),
-                )
-            }
-        },
         supportingContent = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                Text(
-                    text = subject,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(bottom = 7.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(subjectTypeColor),
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(vertical = 3.dp, horizontal = 7.dp),
+                            text = subjectType.lowercase(),
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+
+                    Text(
+                        text = subject,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
                 if (subjectEmployees.isNotEmpty()) {
                     Text(
                         text = subjectEmployees,

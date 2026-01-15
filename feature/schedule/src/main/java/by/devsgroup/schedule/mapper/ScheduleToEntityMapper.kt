@@ -23,8 +23,8 @@ class ScheduleToEntityMapper @Inject constructor(
             nextTerm = from.nextTerm,
             currentPeriod = from.currentPeriod,
             partTimeOrRemote = from.partTimeOrRemote,
-            employee = from.employee?.let { scheduleEmployeeToEntityMapper.map(it) },
-            group = from.group?.let { scheduleGroupToEntityMapper.map(it) },
+            employee = from.employee?.let { scheduleEmployeeToEntityMapper.map(it, scheduleId) },
+            group = from.group?.let { scheduleGroupToEntityMapper.map(it, scheduleId) },
         )
     }
 

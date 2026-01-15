@@ -2,6 +2,8 @@ package by.devsgroup.schedule.repository
 
 import by.devsgroup.database.schedule.dao.ScheduleDao
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
+import by.devsgroup.database.schedule.dao.ScheduleEmployeeDao
+import by.devsgroup.database.schedule.dao.ScheduleGroupDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonEmployeeDao
 import by.devsgroup.database.schedule.dao.ScheduleLessonGroupDao
@@ -10,11 +12,13 @@ import by.devsgroup.domain.model.schedule.full.FullSchedule
 import by.devsgroup.domain.model.schedule.preview.PreviewSchedule
 import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.resource.Resource
+import by.devsgroup.schedule.mapper.ScheduleEmployeeToEntityMapper
+import by.devsgroup.schedule.mapper.ScheduleGroupToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleLessonEmployeeToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleLessonGroupToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleLessonTemplateToEntityMapper
 import by.devsgroup.schedule.mapper.ScheduleToEntityMapper
-import by.devsgroup.schedule.mapper.context.ScheduleLessonContext
+import by.devsgroup.schedule.mapper.context.ScheduleLessonToEntityMapperContext
 import by.devsgroup.schedule.mapper.entityToDomain.ScheduleEntityToDomainMapper
 import by.devsgroup.schedule.mapper.entityToDomain.ScheduleWithDaysEntityToDomainMapper
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +29,15 @@ import javax.inject.Inject
 class ScheduleDatabaseRepositoryImpl @Inject constructor(
     private val scheduleDao: ScheduleDao,
     private val scheduleDayDao: ScheduleDayDao,
+    private val scheduleGroupDao: ScheduleGroupDao,
     private val scheduleLessonDao: ScheduleLessonDao,
+    private val scheduleEmployeeDao: ScheduleEmployeeDao,
     private val scheduleLessonGroupDao: ScheduleLessonGroupDao,
-    private val scheduleLessonEmployeeDao: ScheduleLessonEmployeeDao,
     private val scheduleToEntityMapper: ScheduleToEntityMapper,
+    private val scheduleLessonEmployeeDao: ScheduleLessonEmployeeDao,
+    private val scheduleGroupToEntityMapper: ScheduleGroupToEntityMapper,
     private val scheduleEntityToDomainMapper: ScheduleEntityToDomainMapper,
+    private val scheduleEmployeeToEntityMapper: ScheduleEmployeeToEntityMapper,
     private val scheduleLessonGroupToEntityMapper: ScheduleLessonGroupToEntityMapper,
     private val scheduleWithDaysEntityToDomainMapper: ScheduleWithDaysEntityToDomainMapper,
     private val scheduleLessonTemplateToEntityMapper: ScheduleLessonTemplateToEntityMapper,
@@ -72,6 +80,16 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
 
             val scheduleId = scheduleEntity.scheduleId
 
+            val scheduleEmployeeEntity = schedule.employee?.let { scheduleEmployeeToEntityMapper.map(it, scheduleId) }
+            val scheduleGroupEntity = schedule.group?.let { scheduleGroupToEntityMapper.map(it, scheduleId) }
+
+            scheduleEmployeeEntity?.let {
+                withContext(Dispatchers.IO) { scheduleEmployeeDao.save(it) }
+            }
+            scheduleGroupEntity?.let {
+                withContext(Dispatchers.IO) { scheduleGroupDao.save(it) }
+            }
+
             schedule.schedules?.forEach { day ->
                 val dayId = UUID.randomUUID().toString()
 
@@ -89,7 +107,7 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
                 val lessonEntities = day.lessons?.map { lesson ->
                     val lessonId = UUID.randomUUID().toString()
 
-                    val lessonMapperContext = ScheduleLessonContext(
+                    val lessonMapperContext = ScheduleLessonToEntityMapperContext(
                         scheduleId = scheduleId,
                         lessonId = lessonId,
                         dayId = dayId,

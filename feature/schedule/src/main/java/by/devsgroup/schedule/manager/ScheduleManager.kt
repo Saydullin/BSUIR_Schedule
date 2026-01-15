@@ -1,11 +1,13 @@
 package by.devsgroup.schedule.manager
 
+import by.devsgroup.domain.model.schedule.common.ScheduleType
 import by.devsgroup.domain.model.schedule.full.FullSchedule
 import by.devsgroup.domain.model.schedule.full.FullScheduleDay
 import by.devsgroup.domain.model.schedule.full.FullScheduleLesson
 import by.devsgroup.domain.model.schedule.template.ScheduleTemplate
 import by.devsgroup.schedule.ext.parseDate
 import by.devsgroup.schedule.mapper.ScheduleLessonTemplateToFullMapper
+import by.devsgroup.schedule.mapper.context.ScheduleLessonToFullMapperContext
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.ZoneId
@@ -18,15 +20,27 @@ import java.time.temporal.ChronoUnit
  */
 class ScheduleManager(
     private val currentWeek: Int,
-    private val scheduleTemplate: ScheduleTemplate
+    private val scheduleType: ScheduleType,
+    private val scheduleTemplate: ScheduleTemplate,
 ) {
 
     fun getFullSchedule(): FullSchedule {
         val scheduleLessonTemplateToFullMapper = ScheduleLessonTemplateToFullMapper()
 
+        val currentScheduleGroup = scheduleTemplate.studentGroupDto
+        val currentScheduleEmployee = scheduleTemplate.employeeDto
+
+        val scheduleLessonToFullMapperContext = ScheduleLessonToFullMapperContext(
+            group = currentScheduleGroup,
+            employee = currentScheduleEmployee,
+            scheduleType = scheduleType
+        )
+
         val scheduleStartDate = scheduleTemplate.startDate?.let { parseDate(it) }
         val scheduleEndDate = scheduleTemplate.endDate?.let { parseDate(it) }
-        val schedulesLessons = scheduleTemplate.schedules?.map { scheduleLessonTemplateToFullMapper.map(it) }
+        val schedulesLessons = scheduleTemplate.schedules?.map {
+            scheduleLessonTemplateToFullMapper.map(it, scheduleLessonToFullMapperContext)
+        }
         val schedules = schedulesLessons?.let { lessons ->
             if (scheduleStartDate != null && scheduleEndDate != null) {
                 buildFullScheduleDays(
@@ -40,7 +54,9 @@ class ScheduleManager(
 
         val nextScheduleStartDate = scheduleTemplate.startDate?.let { parseDate(it) }
         val nextScheduleEndDate = scheduleTemplate.endDate?.let { parseDate(it) }
-        val nextSchedulesLessons = scheduleTemplate.nextSchedules?.map { scheduleLessonTemplateToFullMapper.map(it) }
+        val nextSchedulesLessons = scheduleTemplate.nextSchedules?.map {
+            scheduleLessonTemplateToFullMapper.map(it, scheduleLessonToFullMapperContext)
+        }
         val nextSchedules = nextSchedulesLessons?.let { lessons ->
             if (nextScheduleStartDate != null && nextScheduleEndDate != null) {
                 buildFullScheduleDays(
@@ -54,7 +70,9 @@ class ScheduleManager(
 
         val examStartDate = scheduleTemplate.startDate?.let { parseDate(it) }
         val examEndDate = scheduleTemplate.endDate?.let { parseDate(it) }
-        val examsLessons = scheduleTemplate.exams?.map { scheduleLessonTemplateToFullMapper.map(it) }
+        val examsLessons = scheduleTemplate.exams?.map {
+            scheduleLessonTemplateToFullMapper.map(it, scheduleLessonToFullMapperContext)
+        }
         val exams = examsLessons?.let { lessons ->
             if (examStartDate != null && examEndDate != null) {
                 buildFullScheduleDays(
@@ -167,49 +185,6 @@ class ScheduleManager(
                         )
                     )
                 }
-            }
-
-            currentDate = currentDate.plusDays(1)
-        }
-
-        return result
-    }
-
-    private fun getDaysFromLessons(
-        startDate: LocalDate,
-        endDate: LocalDate,
-        lessons: List<FullScheduleLesson>
-    ): List<FullScheduleDay> {
-        val today = LocalDate.now()
-        val result = mutableListOf<FullScheduleDay>()
-
-        var currentDate = startDate
-
-        while (!currentDate.isAfter(endDate)) {
-
-            val weekOffset = ChronoUnit.WEEKS.between(today, currentDate).toInt()
-
-            val weekNumber = ((currentWeek - 1 + weekOffset) % 4 + 4) % 4 + 1
-
-            val dayOfWeek = currentDate.dayOfWeek
-
-            if (dayOfWeek != DayOfWeek.SUNDAY) {
-
-                val dayLessons = lessons.filter { lesson ->
-                    lesson.dayOfWeek == dayOfWeek &&
-                            lesson.weekNumber.contains(weekNumber)
-                }
-
-                result.add(
-                    FullScheduleDay(
-                        lessons = dayLessons.ifEmpty { emptyList() },
-                        date = currentDate
-                            .atStartOfDay(ZoneId.systemDefault())
-                            .toInstant()
-                            .toEpochMilli(),
-                        week = weekNumber
-                    )
-                )
             }
 
             currentDate = currentDate.plusDays(1)

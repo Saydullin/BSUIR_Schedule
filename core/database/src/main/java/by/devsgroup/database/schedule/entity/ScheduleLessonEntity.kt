@@ -44,6 +44,7 @@ data class ScheduleLessonEntity(
     val endLessonDate: String?,
     val announcement: String?,
     val split: Boolean?,
+    val scheduleType: String,
 )
 
 

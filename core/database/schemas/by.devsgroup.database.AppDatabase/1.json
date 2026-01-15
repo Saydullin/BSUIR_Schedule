@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c54817214d52451fbeef0da061f2e8f1",
+    "identityHash": "45094004785ecc6ca63c3396cec64256",
     "entities": [
       {
         "tableName": "week",
@@ -166,7 +166,7 @@
       },
       {
         "tableName": "schedule",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scheduleId` INTEGER NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_id` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_chief` INTEGER, `employee_urlId` TEXT, `group_tableId` INTEGER, `group_id` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scheduleId` INTEGER NOT NULL, `startDate` TEXT, `endDate` TEXT, `startExamsDate` TEXT, `endExamsDate` TEXT, `currentTerm` TEXT, `nextTerm` TEXT, `currentPeriod` TEXT, `partTimeOrRemote` INTEGER, `employee_tableId` INTEGER, `employee_id` INTEGER, `employee_scheduleId` INTEGER, `employee_firstName` TEXT, `employee_lastName` TEXT, `employee_middleName` TEXT, `employee_degree` TEXT, `employee_degreeAbbrev` TEXT, `employee_email` TEXT, `employee_rank` TEXT, `employee_photoLink` TEXT, `employee_calendarId` TEXT, `employee_chief` INTEGER, `employee_urlId` TEXT, `group_tableId` INTEGER, `group_id` INTEGER, `group_scheduleId` INTEGER, `group_name` TEXT, `group_facultyId` INTEGER, `group_facultyAbbrev` TEXT, `group_facultyName` TEXT, `group_specialityDepartmentEducationFormId` INTEGER, `group_specialityName` TEXT, `group_specialityAbbrev` TEXT, `group_course` INTEGER, `group_calendarId` TEXT, `group_educationDegree` INTEGER)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -228,6 +228,11 @@
           {
             "fieldPath": "employee.id",
             "columnName": "employee_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "employee.scheduleId",
+            "columnName": "employee_scheduleId",
             "affinity": "INTEGER"
           },
           {
@@ -293,6 +298,11 @@
           {
             "fieldPath": "group.id",
             "columnName": "group_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "group.scheduleId",
+            "columnName": "group_scheduleId",
             "affinity": "INTEGER"
           },
           {
@@ -681,7 +691,7 @@
       },
       {
         "tableName": "schedule_group",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `name` TEXT, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `scheduleId` INTEGER NOT NULL, `name` TEXT, `facultyId` INTEGER, `facultyAbbrev` TEXT, `facultyName` TEXT, `specialityDepartmentEducationFormId` INTEGER, `specialityName` TEXT, `specialityAbbrev` TEXT, `course` INTEGER, `calendarId` TEXT, `educationDegree` INTEGER)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -693,6 +703,12 @@
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "scheduleId",
+            "columnName": "scheduleId",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "name",
@@ -754,7 +770,7 @@
       },
       {
         "tableName": "schedule_lesson_entity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scheduleId` INTEGER NOT NULL, `dayOfWeek` TEXT, `lessonId` TEXT NOT NULL, `dayId` TEXT NOT NULL, `audiences` TEXT, `endLessonTime` TEXT, `startLessonTime` TEXT, `lessonTypeAbbrev` TEXT, `weekNumber` TEXT, `subject` TEXT, `subjectFullName` TEXT, `dateLesson` TEXT, `startLessonDate` TEXT, `endLessonDate` TEXT, `announcement` TEXT, `split` INTEGER, FOREIGN KEY(`dayId`) REFERENCES `schedule_day`(`dayId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scheduleId` INTEGER NOT NULL, `dayOfWeek` TEXT, `lessonId` TEXT NOT NULL, `dayId` TEXT NOT NULL, `audiences` TEXT, `endLessonTime` TEXT, `startLessonTime` TEXT, `lessonTypeAbbrev` TEXT, `weekNumber` TEXT, `subject` TEXT, `subjectFullName` TEXT, `dateLesson` TEXT, `startLessonDate` TEXT, `endLessonDate` TEXT, `announcement` TEXT, `split` INTEGER, `scheduleType` TEXT NOT NULL, FOREIGN KEY(`dayId`) REFERENCES `schedule_day`(`dayId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -844,6 +860,12 @@
             "fieldPath": "split",
             "columnName": "split",
             "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "scheduleType",
+            "columnName": "scheduleType",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -907,7 +929,7 @@
       },
       {
         "tableName": "schedule_employee",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `chief` INTEGER, `urlId` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER, `scheduleId` INTEGER NOT NULL, `firstName` TEXT, `lastName` TEXT, `middleName` TEXT, `degree` TEXT, `degreeAbbrev` TEXT, `email` TEXT, `rank` TEXT, `photoLink` TEXT, `calendarId` TEXT, `chief` INTEGER, `urlId` TEXT)",
         "fields": [
           {
             "fieldPath": "tableId",
@@ -919,6 +941,12 @@
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "scheduleId",
+            "columnName": "scheduleId",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "firstName",
@@ -1107,7 +1135,18 @@
           "columnNames": [
             "tableId"
           ]
-        }
+        },
+        "indices": [
+          {
+            "name": "index_schedule_lesson_group_lessonId",
+            "unique": false,
+            "columnNames": [
+              "lessonId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_schedule_lesson_group_lessonId` ON `${TABLE_NAME}` (`lessonId`)"
+          }
+        ]
       },
       {
         "tableName": "schedule_lesson_employee",
@@ -1191,7 +1230,18 @@
           "columnNames": [
             "tableId"
           ]
-        }
+        },
+        "indices": [
+          {
+            "name": "index_schedule_lesson_employee_lessonId",
+            "unique": false,
+            "columnNames": [
+              "lessonId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_schedule_lesson_employee_lessonId` ON `${TABLE_NAME}` (`lessonId`)"
+          }
+        ]
       },
       {
         "tableName": "specialty_education_form",
@@ -1226,7 +1276,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c54817214d52451fbeef0da061f2e8f1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '45094004785ecc6ca63c3396cec64256')"
     ]
   }
 }

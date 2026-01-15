@@ -15,7 +15,6 @@ class ScheduleServerRepositoryImpl @Inject constructor(
 ): ScheduleServerRepository {
 
     override suspend fun getGroupSchedule(groupName: String): Resource<ScheduleTemplate> {
-        println("getGroupSchedule $groupName")
         return Resource.tryWithSuspend {
             val scheduleData = withContext(Dispatchers.IO) {
                 scheduleService.getGroupSchedule(groupName)
@@ -26,7 +25,6 @@ class ScheduleServerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getEmployeeSchedule(urlId: String): Resource<ScheduleTemplate> {
-        println("getEmployeeSchedule $urlId")
         return Resource.tryWithSuspend {
             val scheduleData = withContext(Dispatchers.IO) {
                 scheduleService.getEmployeeSchedule(urlId)

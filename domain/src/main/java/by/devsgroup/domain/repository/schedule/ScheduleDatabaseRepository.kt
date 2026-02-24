@@ -18,6 +18,10 @@ interface ScheduleDatabaseRepository {
 
     suspend fun saveSchedule(schedule: FullSchedule): Resource<Unit>
 
+    suspend fun deleteScheduleByEmployeeId(employeeId: Long): Resource<Unit>
+
+    suspend fun deleteScheduleByGroupId(groupId: Long): Resource<Unit>
+
     suspend fun clear(): Resource<Unit>
 
 }

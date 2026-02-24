@@ -31,7 +31,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScheduleEmployeePreview(
-    schedule: ScheduleEmployee
+    schedule: ScheduleEmployee,
+    onDeleteSchedule: (employeeId: Long) -> Unit,
+    onUpdateSchedule: (employeeUrlId: String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -50,7 +52,19 @@ fun ScheduleEmployeePreview(
             },
             sheetState = sheetState,
         ) {
-            EmployeeSchedulePreviewModalInfo(schedule)
+            EmployeeSchedulePreviewModalInfo(
+                schedule = schedule,
+                onDeleteSchedule = {
+                    onDeleteSchedule(it)
+
+                    showBottomSheet = false
+                },
+                onUpdateSchedule = {
+                    onUpdateSchedule(it)
+
+                    showBottomSheet = false
+                },
+            )
         }
     }
 

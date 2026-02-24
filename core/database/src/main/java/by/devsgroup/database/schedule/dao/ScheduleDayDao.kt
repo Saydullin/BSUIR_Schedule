@@ -14,12 +14,13 @@ interface ScheduleDayDao {
     @Transaction
     @Query("""
         SELECT * FROM `schedule_day`
-        WHERE scheduleId = :scheduleId
+        WHERE scheduleId = :scheduleId AND dateMillis >= :filterMillis 
         ORDER BY dateMillis
         LIMIT :limit OFFSET :offset
         """)
     fun getPagingDays(
         scheduleId: Long,
+        filterMillis: Long,
         limit: Int,
         offset: Int,
     ): List<DaysWithLessons>

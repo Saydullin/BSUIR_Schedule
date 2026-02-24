@@ -23,6 +23,7 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ScheduleDayItem(
+    modifier: Modifier = Modifier,
     scheduleDay: FullScheduleDay
 ) {
     val formattedDate = try {
@@ -42,7 +43,7 @@ fun ScheduleDayItem(
     val lessons = scheduleDay.lessons
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {

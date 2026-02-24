@@ -79,6 +79,6 @@ class PreviewScheduleViewModel @Inject constructor(
 
             _previewSchedules.value = uiSchedule
         }
-
     }
+
 }

@@ -1,5 +1,7 @@
 package by.devsgroup.schedule.ui.component
 
+import android.content.ClipData
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,24 +14,36 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import by.devsgroup.domain.model.schedule.common.ScheduleEmployee
-import by.devsgroup.domain.model.schedule.common.ScheduleGroup
+import by.devsgroup.ui_kit.R
 import coil.compose.AsyncImage
+import kotlinx.coroutines.launch
 
 @Composable
 fun EmployeeSchedulePreviewModalInfo(
-    schedule: ScheduleEmployee
+    schedule: ScheduleEmployee,
+    onDeleteSchedule: (scheduleId: Long) -> Unit,
+    onUpdateSchedule: (employeeUrlId: String) -> Unit,
 ) {
+    val clipboardManager = LocalClipboard.current
     val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -44,7 +58,7 @@ fun EmployeeSchedulePreviewModalInfo(
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(246.dp)
                     .clip(RoundedCornerShape(32.dp)),
                 model = schedule.photoLink,
                 contentScale = ContentScale.Crop,
@@ -68,10 +82,78 @@ fun EmployeeSchedulePreviewModalInfo(
         }
         schedule.email?.let { email ->
             Text(
+                modifier = Modifier
+                    .clickable {
+                        scope.launch {
+                            clipboardManager.setClipEntry(
+                                ClipEntry(
+                                    ClipData.newPlainText("Почта ${schedule.fullName()}", email)
+                                )
+                            )
+                        }
+                    },
                 text = email,
                 style = MaterialTheme.typography.titleSmall,
             )
         }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Button(
+                onClick = {
+                    schedule.id?.let { scheduleId ->
+                        onDeleteSchedule(scheduleId)
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
+                ),
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_trash),
+                        contentDescription = "Delete"
+                    )
+
+                    Text(
+                        text = "Удалить",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                }
+            }
+
+            Button(
+                onClick = {
+                    schedule.urlId?.let { employeeUrlId ->
+                        onUpdateSchedule(employeeUrlId)
+                    }
+                },
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_update),
+                        contentDescription = "Update"
+                    )
+
+                    Text(
+                        text = "Обновить",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                }
+            }
+        }
+
     }
 
 }

@@ -3,10 +3,12 @@ package by.devsgroup.schedule.ui.item
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import by.devsgroup.domain.model.schedule.preview.PreviewSchedule
+import by.devsgroup.schedule.ui.viewModel.ScheduleViewModel
 
 @Composable
 fun SchedulePreview(
-    schedule: PreviewSchedule
+    schedule: PreviewSchedule,
+    scheduleViewModel: ScheduleViewModel,
 ) {
 
     Column {
@@ -15,7 +17,15 @@ fun SchedulePreview(
         }
 
         schedule.employee?.let { employeeSchedule ->
-            ScheduleEmployeePreview(employeeSchedule)
+            ScheduleEmployeePreview(
+                schedule = employeeSchedule,
+                onDeleteSchedule = { scheduleId ->
+                    scheduleViewModel.deleteScheduleByEmployeeId(scheduleId)
+                },
+                onUpdateSchedule = { employeeUrlId ->
+                    scheduleViewModel.loadEmployeeSchedule(employeeUrlId)
+                }
+            )
         }
     }
 

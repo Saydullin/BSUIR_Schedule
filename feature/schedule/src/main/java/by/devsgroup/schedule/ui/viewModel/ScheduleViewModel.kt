@@ -6,7 +6,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import by.devsgroup.database.schedule.dao.ScheduleDao
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.domain.model.error.ErrorType
 import by.devsgroup.domain.model.schedule.full.FullSchedule
@@ -17,6 +16,7 @@ import by.devsgroup.domain.status.loading.LoadingStatus
 import by.devsgroup.resource.Resource
 import by.devsgroup.schedule.mapper.entityToDomain.DaysWithLessonsEntityToDomainMapper
 import by.devsgroup.schedule.paging.SchedulePagingSource
+import by.devsgroup.schedule.ui.model.ScheduleDateFilter
 import by.devsgroup.schedule.usecase.GetAndSaveEmployeeScheduleUseCase
 import by.devsgroup.schedule.usecase.GetAndSaveGroupScheduleUseCase
 import by.devsgroup.schedule.usecase.GetSchedulePreviewByIdUseCase
@@ -28,8 +28,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,23 +62,26 @@ class ScheduleViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val scheduleDaysFlow: Flow<PagingData<FullScheduleDay>> =
         _currentScheduleId
-            .filterNotNull()
             .flatMapLatest { scheduleId ->
-                Pager(
-                    config = PagingConfig(
-                        pageSize = 5,
-                        initialLoadSize = 10,
-                        enablePlaceholders = true
-                    ),
-                    pagingSourceFactory = {
-                        SchedulePagingSource(
-                            scheduleId = scheduleId,
-                            filterMillis = System.currentTimeMillis(),
-                            dao = scheduleDayDao,
-                            daysWithLessonsEntityToDomainMapper = daysWithLessonsEntityToDomainMapper,
-                        )
-                    }
-                ).flow
+                if (scheduleId == null) {
+                    flowOf(PagingData.empty())
+                } else {
+                    Pager(
+                        config = PagingConfig(
+                            pageSize = 5,
+                            initialLoadSize = 10,
+                            enablePlaceholders = true
+                        ),
+                        pagingSourceFactory = {
+                            SchedulePagingSource(
+                                scheduleId = scheduleId,
+                                dateFilter = ScheduleDateFilter.FromNow,
+                                dao = scheduleDayDao,
+                                daysWithLessonsEntityToDomainMapper = daysWithLessonsEntityToDomainMapper,
+                            )
+                        }
+                    ).flow
+                }
             }.cachedIn(viewModelScope)
 
     fun loadGroupSchedule(groupName: String) {
@@ -138,6 +141,27 @@ class ScheduleViewModel @Inject constructor(
             _currentScheduleId.value = scheduleId
 
             getSchedulePreviewById(scheduleId)
+        }
+    }
+
+    fun deleteScheduleByGroupId(scheduleId: Long) {
+        viewModelScope.launch {
+            scheduleDatabaseRepository.deleteScheduleByGroupId(scheduleId)
+                .onSuspendError { _error.emit(it) } ?: return@launch
+        }
+    }
+
+    fun deleteScheduleByEmployeeId(scheduleId: Long) {
+        viewModelScope.launch {
+            scheduleDatabaseRepository.deleteScheduleByEmployeeId(scheduleId)
+                .onSuspendError { _error.emit(it) } ?: return@launch
+
+            if (_currentScheduleId.value == scheduleId) {
+                _currentSchedule.value = null
+                _currentScheduleId.value = null
+                _currentSchedulePreview.value = null
+                _scheduleLoaded.emit(Unit)
+            }
         }
     }
 

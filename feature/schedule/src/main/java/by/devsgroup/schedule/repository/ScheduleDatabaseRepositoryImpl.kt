@@ -159,6 +159,18 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteScheduleByEmployeeId(employeeId: Long): Resource<Unit> {
+        return Resource.tryWithSuspend {
+            withContext(Dispatchers.IO) { scheduleDao.deleteScheduleByEmployeeId(employeeId) }
+        }
+    }
+
+    override suspend fun deleteScheduleByGroupId(groupId: Long): Resource<Unit> {
+        return Resource.tryWithSuspend {
+            withContext(Dispatchers.IO) { scheduleDao.deleteScheduleByGroupId(groupId) }
+        }
+    }
+
     override suspend fun clear(): Resource<Unit> {
         return Resource.tryWithSuspend {
             withContext(Dispatchers.IO) { scheduleDao.clear() }

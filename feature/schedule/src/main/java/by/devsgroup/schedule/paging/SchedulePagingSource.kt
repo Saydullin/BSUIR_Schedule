@@ -5,12 +5,15 @@ import androidx.paging.PagingState
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.domain.model.schedule.full.FullScheduleDay
 import by.devsgroup.schedule.mapper.entityToDomain.DaysWithLessonsEntityToDomainMapper
+import by.devsgroup.schedule.ui.model.ScheduleDateFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.ZoneId
 
 class SchedulePagingSource(
     private val scheduleId: Long,
-    private val filterMillis: Long,
+    private val dateFilter: ScheduleDateFilter = ScheduleDateFilter.FromNow,
     private val dao: ScheduleDayDao,
     private val daysWithLessonsEntityToDomainMapper: DaysWithLessonsEntityToDomainMapper,
 ) : PagingSource<Int, FullScheduleDay>() {
@@ -27,8 +30,25 @@ class SchedulePagingSource(
             val offset = page * pageSize
 
             val data = withContext(Dispatchers.IO) {
+                val filterMillis = when (dateFilter) {
+                    is ScheduleDateFilter.FromNow -> {
+                        LocalDate.now()
+                            .atStartOfDay(ZoneId.systemDefault())
+                            .toInstant()
+                            .toEpochMilli()
+                    }
+
+                    is ScheduleDateFilter.From -> {
+                        dateFilter.dateMillis
+                    }
+
+                    is ScheduleDateFilter.Until -> {
+                        dateFilter.dateMillis
+                    }
+                }
+
                 dao.getPagingDays(
-//                    filterMillis = filterMillis,
+                    filterMillis = filterMillis,
                     scheduleId = scheduleId,
                     limit = pageSize,
                     offset = offset,

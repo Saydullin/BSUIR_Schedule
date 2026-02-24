@@ -31,6 +31,12 @@ interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(schedule: ScheduleEntity): Long
 
+    @Query("DELETE FROM `schedule` WHERE `group_id` = :groupId")
+    fun deleteScheduleByGroupId(groupId: Long)
+
+    @Query("DELETE FROM `schedule` WHERE `employee_id` = :employeeId")
+    fun deleteScheduleByEmployeeId(employeeId: Long)
+
     @Query("DELETE FROM `schedule`")
     fun clear(): Int
 

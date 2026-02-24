@@ -1,10 +1,8 @@
 package by.devsgroup.schedule.ui.component
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +36,10 @@ fun ScheduleList(
                 }
 
                 is LoadingStatus.Success -> {
-                    SchedulePreview(schedule.data)
+                    SchedulePreview(
+                        schedule = schedule.data,
+                        scheduleViewModel = scheduleViewModel,
+                    )
                 }
 
                 is LoadingStatus.Error -> {
@@ -49,24 +50,23 @@ fun ScheduleList(
             }
         }
 
-        AnimatedContent(
-            modifier = Modifier.fillMaxSize(),
-            targetState = scheduleDaysPaging,
-        ) { scheduleDaysPaging ->
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(
-                    vertical = 16.dp
-                )
-            ) {
-                items(scheduleDaysPaging.itemCount) { index ->
-                    val scheduleDay = scheduleDaysPaging[index]
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(
+                vertical = 16.dp
+            )
+        ) {
+            items(scheduleDaysPaging.itemCount) { index ->
+                val scheduleDay = scheduleDaysPaging[index]
 
-                    if (scheduleDay != null) {
-                        ScheduleDayItem(
-                            scheduleDay = scheduleDay
-                        )
-                    }
+                if (scheduleDay != null) {
+                    ScheduleDayItem(
+                        modifier = Modifier
+                            .animateItem(),
+                        scheduleDay = scheduleDay
+                    )
                 }
             }
         }

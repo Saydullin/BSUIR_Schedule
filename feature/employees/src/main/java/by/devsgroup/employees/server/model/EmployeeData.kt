@@ -28,7 +28,7 @@ data class EmployeeData(
     val academicDepartment: List<String>?,
 
     @SerializedName("id")
-    val id: Int?,
+    val id: Long?,
 
     @SerializedName("urlId")
     val urlId: String?,

@@ -31,7 +31,7 @@ data class EmployeeEntity(
     val rank: String?,
     val photoLink: String?,
     val calendarId: String?,
-    val id: Int?,
+    val id: Long?,
     val urlId: String?,
     val fio: String?,
 )

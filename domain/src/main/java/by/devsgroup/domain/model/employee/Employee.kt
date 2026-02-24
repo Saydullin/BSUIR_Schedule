@@ -9,7 +9,7 @@ data class Employee(
     val photoLink: String?,
     val calendarId: String?,
     val academicDepartment: List<String>?,
-    val id: Int?,
+    val id: Long?,
     val urlId: String?,
     val fio: String?,
 )

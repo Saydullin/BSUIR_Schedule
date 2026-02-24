@@ -1,10 +1,8 @@
 package by.devsgroup.employees.ui.item
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -52,20 +50,20 @@ fun EmployeeItem(
                 )
             }
         } else null,
-        supportingContent = {
-            Row(
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = departmentsText,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        },
+//        supportingContent = {
+//            Row(
+//                modifier = Modifier
+//                    .padding(top = 16.dp)
+//                    .fillMaxWidth(),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                verticalAlignment = Alignment.CenterVertically,
+//            ) {
+//                Text(
+//                    text = departmentsText,
+//                    style = MaterialTheme.typography.bodyLarge
+//                )
+//            }
+//        },
         verticalAlignment = Alignment.CenterVertically,
         leadingContent = {
             AsyncImage(

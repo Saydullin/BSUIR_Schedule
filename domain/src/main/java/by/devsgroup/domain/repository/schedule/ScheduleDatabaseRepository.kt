@@ -10,6 +10,10 @@ interface ScheduleDatabaseRepository {
 
     suspend fun getScheduleById(id: Long): Resource<PreviewSchedule?>
 
+    suspend fun getScheduleIdByEmployeeId(employeeId: Long): Resource<Long>
+
+    suspend fun getScheduleIdByGroupId(groupId: Long): Resource<Long>
+
     suspend fun getFullScheduleById(id: Long): Resource<FullSchedule?>
 
     suspend fun saveSchedule(schedule: FullSchedule): Resource<Unit>

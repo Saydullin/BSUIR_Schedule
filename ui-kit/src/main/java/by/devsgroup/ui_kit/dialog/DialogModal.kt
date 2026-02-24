@@ -1,11 +1,14 @@
 package by.devsgroup.ui_kit.dialog
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun DialogModal(
@@ -22,13 +25,19 @@ fun DialogModal(
         onDismissRequest = onSkip,
         title = {
             Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 text = title,
+                textAlign = if (icon != null) TextAlign.Center else TextAlign.Start,
                 style = MaterialTheme.typography.titleLarge
             )
         },
         text = {
             Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 text = description,
+                textAlign = if (icon != null) TextAlign.Center else TextAlign.Start,
                 style = MaterialTheme.typography.bodyLarge
             )
         },

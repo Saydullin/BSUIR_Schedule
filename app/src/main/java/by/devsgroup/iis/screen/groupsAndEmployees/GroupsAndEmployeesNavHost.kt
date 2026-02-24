@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,6 +24,7 @@ fun GroupsAndEmployeesNavHost(
     employeeViewModel: EmployeeViewModel,
     groupViewModel: GroupViewModel,
     navController: NavHostController,
+    onRedirectToSchedule: () -> Unit,
 ) {
 
     NavHost(
@@ -73,6 +73,7 @@ fun GroupsAndEmployeesNavHost(
                 employeeViewModel = employeeViewModel,
                 scheduleViewModel = scheduleViewModel,
                 previewScheduleViewModel = previewScheduleViewModel,
+                onRedirectToSchedule = onRedirectToSchedule,
             )
         }
     }

@@ -12,7 +12,7 @@ data class EmployeeUI(
     val photoLink: String?,
     val calendarId: String?,
     val departments: List<Department>,
-    val id: Int?,
+    val id: Long?,
     val urlId: String?,
     val fio: String?,
 ) {

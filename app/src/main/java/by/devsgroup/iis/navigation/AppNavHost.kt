@@ -72,6 +72,7 @@ fun AppNavHost(
                     route = ScreenNav.Schedule.route
                 ) {
                     GroupsAndEmployeesScreen(
+                        navController = navController,
                         scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
                         groupViewModel = groupViewModel,
@@ -82,6 +83,7 @@ fun AppNavHost(
                     route = ScreenNav.Exams.route
                 ) {
                     GroupsAndEmployeesScreen(
+                        navController = navController,
                         scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
                         groupViewModel = groupViewModel,
@@ -92,6 +94,7 @@ fun AppNavHost(
                     route = ScreenNav.AllGroupsAndEmployees.route
                 ) {
                     GroupsAndEmployeesScreen(
+                        navController = navController,
                         scheduleViewModel = scheduleViewModel,
                         employeeViewModel = employeeViewModel,
                         groupViewModel = groupViewModel,

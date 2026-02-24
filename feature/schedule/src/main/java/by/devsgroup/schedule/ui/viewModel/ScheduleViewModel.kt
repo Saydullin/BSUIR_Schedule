@@ -6,11 +6,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import by.devsgroup.database.schedule.dao.ScheduleDao
 import by.devsgroup.database.schedule.dao.ScheduleDayDao
 import by.devsgroup.domain.model.error.ErrorType
 import by.devsgroup.domain.model.schedule.full.FullSchedule
 import by.devsgroup.domain.model.schedule.full.FullScheduleDay
 import by.devsgroup.domain.model.schedule.preview.PreviewSchedule
+import by.devsgroup.domain.repository.schedule.ScheduleDatabaseRepository
 import by.devsgroup.domain.status.loading.LoadingStatus
 import by.devsgroup.resource.Resource
 import by.devsgroup.schedule.mapper.entityToDomain.DaysWithLessonsEntityToDomainMapper
@@ -35,6 +37,7 @@ import javax.inject.Inject
 class ScheduleViewModel @Inject constructor(
     private val scheduleDayDao: ScheduleDayDao,
     private val getOrLoadWeekUseCase: GetOrLoadWeekUseCase,
+    private val scheduleDatabaseRepository: ScheduleDatabaseRepository,
     private val getSchedulePreviewByIdUseCase: GetSchedulePreviewByIdUseCase,
     private val getAndSaveGroupScheduleUseCase: GetAndSaveGroupScheduleUseCase,
     private val getAndSaveEmployeeScheduleUseCase: GetAndSaveEmployeeScheduleUseCase,
@@ -109,6 +112,28 @@ class ScheduleViewModel @Inject constructor(
     fun setCurrentScheduleId(scheduleId: Long) {
         viewModelScope.launch {
             println("setCurrentScheduleId $scheduleId")
+
+            _currentScheduleId.value = scheduleId
+
+            getSchedulePreviewById(scheduleId)
+        }
+    }
+
+    fun setCurrentScheduleByEmployeeUrlId(employeeId: Long) {
+        viewModelScope.launch {
+            val scheduleId = scheduleDatabaseRepository.getScheduleIdByEmployeeId(employeeId)
+                .onSuspendError { _error.emit(it) } ?: return@launch
+
+            _currentScheduleId.value = scheduleId
+
+            getSchedulePreviewById(scheduleId)
+        }
+    }
+
+    fun setCurrentScheduleByGroupUrlId(groupId: Long) {
+        viewModelScope.launch {
+            val scheduleId = scheduleDatabaseRepository.getScheduleIdByGroupId(groupId)
+                .onSuspendError { _error.emit(it) } ?: return@launch
 
             _currentScheduleId.value = scheduleId
 

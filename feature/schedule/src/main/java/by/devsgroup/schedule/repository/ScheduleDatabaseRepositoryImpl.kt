@@ -61,6 +61,22 @@ class ScheduleDatabaseRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getScheduleIdByEmployeeId(employeeId: Long): Resource<Long> {
+        return Resource.tryWithSuspend {
+            withContext(Dispatchers.IO) {
+                scheduleDao.getScheduleIdByEmployeeId(employeeId)
+            } ?: throw Exception("not found")
+        }
+    }
+
+    override suspend fun getScheduleIdByGroupId(groupId: Long): Resource<Long> {
+        return Resource.tryWithSuspend {
+            withContext(Dispatchers.IO) {
+                scheduleDao.getScheduleIdByGroupId(groupId)
+            } ?: throw Exception("not found")
+        }
+    }
+
     override suspend fun getFullScheduleById(id: Long): Resource<FullSchedule?> {
         return Resource.tryWithSuspend {
             val schedule = withContext(Dispatchers.IO) { scheduleDao.getFullSchedule(id) }

@@ -14,6 +14,12 @@ interface ScheduleDao {
     @Query("SELECT * FROM `schedule`")
     fun getAllSchedules(): List<ScheduleEntity>
 
+    @Query("SELECT `scheduleId` FROM `schedule` WHERE `employee_id` = :employeeId")
+    fun getScheduleIdByEmployeeId(employeeId: Long): Long?
+
+    @Query("SELECT `scheduleId` FROM `schedule` WHERE `group_id` = :groupId")
+    fun getScheduleIdByGroupId(groupId: Long): Long?
+
     @Transaction
     @Query("SELECT * FROM `schedule` WHERE `scheduleId` = :scheduleId")
     fun getSchedule(scheduleId: Long): ScheduleEntity?

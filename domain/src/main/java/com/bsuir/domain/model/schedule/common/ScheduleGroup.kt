@@ -1,0 +1,17 @@
+package com.bsuir.domain.model.schedule.common
+
+data class ScheduleGroup(
+    val id: Long?,
+    val name: String?,
+    val facultyId: Int?,
+    val facultyAbbrev: String?,
+    val facultyName: String?,
+    val specialityDepartmentEducationFormId: Int?,
+    val specialityName: String?,
+    val specialityAbbrev: String?,
+    val course: Int?,
+    val calendarId: String?,
+    val educationDegree: Int?,
+)
+
+

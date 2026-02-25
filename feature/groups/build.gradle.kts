@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "by.devsgroup.groups"
+    namespace = "com.bsuir.groups"
     compileSdk {
         version = release(36)
     }

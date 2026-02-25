@@ -1,10 +1,10 @@
 package com.saydullin.departments.repository
 
-import by.devsgroup.database.departments.dao.EmployeeDepartmentDao
-import by.devsgroup.database.departments.entity.EmployeeDepartmentEntity
-import by.devsgroup.domain.model.department.Department
-import by.devsgroup.domain.repository.department.EmployeeDepartmentsDatabaseRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.database.departments.dao.EmployeeDepartmentDao
+import com.bsuir.database.departments.entity.EmployeeDepartmentEntity
+import com.bsuir.domain.model.department.Department
+import com.bsuir.domain.repository.department.EmployeeDepartmentsDatabaseRepository
+import com.bsuir.resource.Resource
 import com.saydullin.departments.mapper.EmployeeDepartmentEntityToDomainMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

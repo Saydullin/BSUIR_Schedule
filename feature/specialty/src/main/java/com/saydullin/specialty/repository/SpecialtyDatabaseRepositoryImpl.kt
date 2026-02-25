@@ -1,9 +1,9 @@
 package com.saydullin.specialty.repository
 
-import by.devsgroup.database.specialty.dao.SpecialtyDao
-import by.devsgroup.domain.model.specialty.Specialty
-import by.devsgroup.domain.repository.specialty.SpecialtyDatabaseRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.database.specialty.dao.SpecialtyDao
+import com.bsuir.domain.model.specialty.Specialty
+import com.bsuir.domain.repository.specialty.SpecialtyDatabaseRepository
+import com.bsuir.resource.Resource
 import com.saydullin.specialty.mapper.SpecialtyEntityToDomainMapper
 import com.saydullin.specialty.mapper.SpecialtyToEntityMapper
 import kotlinx.coroutines.Dispatchers

@@ -1,8 +1,8 @@
 package com.saydullin.departments.repository
 
-import by.devsgroup.domain.model.department.Department
-import by.devsgroup.domain.repository.department.DepartmentsServerRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.domain.model.department.Department
+import com.bsuir.domain.repository.department.DepartmentsServerRepository
+import com.bsuir.resource.Resource
 import com.saydullin.departments.server.service.DepartmentService
 import com.saydullin.departments.mapper.DepartmentDataToDomainMapper
 import kotlinx.coroutines.Dispatchers

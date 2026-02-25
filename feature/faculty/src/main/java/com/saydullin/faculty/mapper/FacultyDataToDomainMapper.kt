@@ -1,7 +1,7 @@
 package com.saydullin.faculty.mapper
 
-import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.faculty.Faculty
+import com.bsuir.domain.mapper.Mapper
+import com.bsuir.domain.model.faculty.Faculty
 import com.saydullin.faculty.server.model.FacultyData
 import javax.inject.Inject
 

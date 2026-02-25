@@ -1,4 +1,4 @@
-package by.devsgroup.iis
+package com.devsgroup.iis
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

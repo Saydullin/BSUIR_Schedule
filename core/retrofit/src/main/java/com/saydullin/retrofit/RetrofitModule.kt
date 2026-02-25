@@ -1,6 +1,6 @@
 package com.saydullin.retrofit
 
-import by.devsgroup.domain.config.Config
+import com.bsuir.domain.config.Config
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,9 +1,9 @@
 package com.saydullin.specialty.mapper
 
-import by.devsgroup.database.specialty.entity.SpecialtyEntity
-import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.specialty.Specialty
-import by.devsgroup.domain.model.specialty.SpecialtyEducationForm
+import com.bsuir.database.specialty.entity.SpecialtyEntity
+import com.bsuir.domain.mapper.Mapper
+import com.bsuir.domain.model.specialty.Specialty
+import com.bsuir.domain.model.specialty.SpecialtyEducationForm
 import javax.inject.Inject
 
 class SpecialtyEntityToDomainMapper @Inject constructor(

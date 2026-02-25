@@ -1,8 +1,8 @@
 package com.saydullin.specialty.repository
 
-import by.devsgroup.domain.model.specialty.Specialty
-import by.devsgroup.domain.repository.specialty.SpecialtyServerRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.domain.model.specialty.Specialty
+import com.bsuir.domain.repository.specialty.SpecialtyServerRepository
+import com.bsuir.resource.Resource
 import com.saydullin.specialty.mapper.SpecialtyDataToDomainMapper
 import com.saydullin.specialty.server.service.SpecialtyService
 import kotlinx.coroutines.Dispatchers

@@ -8,18 +8,22 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
+val majorVersion = 2
+val middleVersion = 9
+val minorVersion = 1
+
 android {
-    namespace = "by.devsgroup.iis"
+    namespace = "com.bsuir.bsuirschedule"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "by.devsgroup.iis"
+        applicationId = "com.bsuir.bsuirschedule"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = majorVersion * 100000 + middleVersion * 1000 + minorVersion
+        versionName = "$majorVersion.$middleVersion.$minorVersion"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

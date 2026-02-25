@@ -1,4 +1,4 @@
-package by.devsgroup.employees
+package com.devsgroup.employees
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

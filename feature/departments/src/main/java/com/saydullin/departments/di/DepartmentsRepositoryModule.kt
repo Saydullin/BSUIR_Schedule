@@ -1,8 +1,8 @@
 package com.saydullin.departments.di
 
-import by.devsgroup.domain.repository.department.DepartmentsDatabaseRepository
-import by.devsgroup.domain.repository.department.DepartmentsServerRepository
-import by.devsgroup.domain.repository.department.EmployeeDepartmentsDatabaseRepository
+import com.bsuir.domain.repository.department.DepartmentsDatabaseRepository
+import com.bsuir.domain.repository.department.DepartmentsServerRepository
+import com.bsuir.domain.repository.department.EmployeeDepartmentsDatabaseRepository
 import com.saydullin.departments.repository.DepartmentsDatabaseRepositoryImpl
 import com.saydullin.departments.repository.DepartmentsServerRepositoryImpl
 import com.saydullin.departments.repository.EmployeeDepartmentsDatabaseRepositoryImpl

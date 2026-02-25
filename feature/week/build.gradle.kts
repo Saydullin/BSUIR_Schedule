@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "by.devsgroup.week"
+    namespace = "com.bsuir.week"
     compileSdk {
         version = release(36)
     }

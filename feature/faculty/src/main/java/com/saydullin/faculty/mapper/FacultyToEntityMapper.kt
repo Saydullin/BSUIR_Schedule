@@ -1,8 +1,8 @@
 package com.saydullin.faculty.mapper
 
-import by.devsgroup.database.faculty.entity.FacultyEntity
-import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.faculty.Faculty
+import com.bsuir.database.faculty.entity.FacultyEntity
+import com.bsuir.domain.mapper.Mapper
+import com.bsuir.domain.model.faculty.Faculty
 import javax.inject.Inject
 
 class FacultyToEntityMapper @Inject constructor(

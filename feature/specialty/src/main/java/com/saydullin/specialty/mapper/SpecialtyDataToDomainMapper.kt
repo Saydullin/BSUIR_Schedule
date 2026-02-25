@@ -1,7 +1,7 @@
 package com.saydullin.specialty.mapper
 
-import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.specialty.Specialty
+import com.bsuir.domain.mapper.Mapper
+import com.bsuir.domain.model.specialty.Specialty
 import com.saydullin.specialty.server.model.SpecialtyData
 import javax.inject.Inject
 

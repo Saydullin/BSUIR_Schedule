@@ -1,9 +1,9 @@
 package com.saydullin.faculty.repository
 
-import by.devsgroup.database.faculty.dao.FacultyDao
-import by.devsgroup.domain.model.faculty.Faculty
-import by.devsgroup.domain.repository.faculty.FacultyDatabaseRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.database.faculty.dao.FacultyDao
+import com.bsuir.domain.model.faculty.Faculty
+import com.bsuir.domain.repository.faculty.FacultyDatabaseRepository
+import com.bsuir.resource.Resource
 import com.saydullin.faculty.mapper.FacultyEntityToDomainMapper
 import com.saydullin.faculty.mapper.FacultyToEntityMapper
 import kotlinx.coroutines.Dispatchers

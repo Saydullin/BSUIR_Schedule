@@ -1,7 +1,7 @@
 package com.saydullin.specialty.di
 
-import by.devsgroup.domain.repository.specialty.SpecialtyDatabaseRepository
-import by.devsgroup.domain.repository.specialty.SpecialtyServerRepository
+import com.bsuir.domain.repository.specialty.SpecialtyDatabaseRepository
+import com.bsuir.domain.repository.specialty.SpecialtyServerRepository
 import com.saydullin.specialty.repository.SpecialtyDatabaseRepositoryImpl
 import com.saydullin.specialty.repository.SpecialtyServerRepositoryImpl
 import dagger.Binds

@@ -1,8 +1,8 @@
 package com.saydullin.departments.mapper
 
-import by.devsgroup.database.departments.entity.DepartmentEntity
-import by.devsgroup.domain.mapper.Mapper
-import by.devsgroup.domain.model.department.Department
+import com.bsuir.database.departments.entity.DepartmentEntity
+import com.bsuir.domain.mapper.Mapper
+import com.bsuir.domain.model.department.Department
 import javax.inject.Inject
 
 class DepartmentEntityToDomainMapper @Inject constructor(

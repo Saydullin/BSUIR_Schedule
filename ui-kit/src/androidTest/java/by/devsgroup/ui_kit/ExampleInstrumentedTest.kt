@@ -1,4 +1,4 @@
-package by.devsgroup.ui_kit
+package com.devsgroup.ui_kit
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

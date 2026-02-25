@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "by.devsgroup.ui_kit"
+    namespace = "com.bsuir.ui_kit"
     compileSdk {
         version = release(36)
     }

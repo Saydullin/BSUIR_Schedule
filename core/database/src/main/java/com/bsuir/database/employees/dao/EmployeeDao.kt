@@ -1,0 +1,54 @@
+package com.bsuir.database.employees.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import com.bsuir.database.employees.entity.EmployeeEntity
+import com.bsuir.database.employees.relation.EmployeeWithDepartments
+
+@Dao
+interface EmployeeDao {
+
+    @Query("SELECT * FROM `employee` ORDER BY firstName ASC")
+    fun getAllEmployees(): List<EmployeeEntity>
+
+    @Transaction
+    @Query("SELECT * FROM `employee` ORDER BY firstName ASC")
+    fun getAllFullEmployees(): List<EmployeeWithDepartments>
+
+    @Transaction
+    @Query("SELECT * FROM `employee` WHERE fullName LIKE :searchLike ORDER BY firstName ASC LIMIT :limit OFFSET :offset")
+    fun getPagingEmployees(
+        searchLike: String,
+        limit: Int,
+        offset: Int
+    ): List<EmployeeWithDepartments>
+
+    @Query("SELECT * FROM `employee` WHERE id = :id")
+    fun getById(id: Long): EmployeeEntity?
+
+    @Query("SELECT * FROM `employee` WHERE firstName = :name")
+    fun getByName(name: String): EmployeeEntity?
+
+    @Query("SELECT * FROM `employee` WHERE firstName LIKE :name")
+    fun getListByName(name: String): List<EmployeeEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveList(employees: List<EmployeeEntity>): List<Long>
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(employee: EmployeeEntity): Long
+
+    @Query("DELETE FROM `employee`")
+    fun clear(): Int
+
+    @Transaction
+    fun clearAndSaveList(employees: List<EmployeeEntity>) {
+        clear()
+        saveList(employees)
+    }
+
+}

@@ -1,8 +1,8 @@
 package com.saydullin.faculty.repository
 
-import by.devsgroup.domain.model.faculty.Faculty
-import by.devsgroup.domain.repository.faculty.FacultyServerRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.domain.model.faculty.Faculty
+import com.bsuir.domain.repository.faculty.FacultyServerRepository
+import com.bsuir.resource.Resource
 import com.saydullin.faculty.mapper.FacultyDataToDomainMapper
 import com.saydullin.faculty.server.service.FacultyService
 import kotlinx.coroutines.Dispatchers

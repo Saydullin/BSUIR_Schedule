@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "by.devsgroup.schedule"
+    namespace = "com.bsuir.schedule"
     compileSdk {
         version = release(36)
     }

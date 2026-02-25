@@ -1,9 +1,9 @@
 package com.saydullin.departments.repository
 
-import by.devsgroup.database.departments.dao.DepartmentDao
-import by.devsgroup.domain.model.department.Department
-import by.devsgroup.domain.repository.department.DepartmentsDatabaseRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.database.departments.dao.DepartmentDao
+import com.bsuir.domain.model.department.Department
+import com.bsuir.domain.repository.department.DepartmentsDatabaseRepository
+import com.bsuir.resource.Resource
 import com.saydullin.departments.mapper.DepartmentEntityToDomainMapper
 import com.saydullin.departments.mapper.DepartmentToEntityMapper
 import kotlinx.coroutines.Dispatchers

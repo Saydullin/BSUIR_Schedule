@@ -1,8 +1,8 @@
 package com.saydullin.departments.usecase
 
-import by.devsgroup.domain.repository.department.DepartmentsDatabaseRepository
-import by.devsgroup.domain.repository.department.DepartmentsServerRepository
-import by.devsgroup.resource.Resource
+import com.bsuir.domain.repository.department.DepartmentsDatabaseRepository
+import com.bsuir.domain.repository.department.DepartmentsServerRepository
+import com.bsuir.resource.Resource
 import javax.inject.Inject
 
 class GetAndSaveAllDepartmentsUseCase @Inject constructor(
